@@ -6,3 +6,4 @@
 ### ExplorArt: App principal dos galeristas
 ### RestAPI: API que efetua as operaçoes CRUD na BD
 
+# *COMMIT DO ROSSA*
