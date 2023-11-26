@@ -93,6 +93,43 @@ public class PaisRepository {
         }
     }
 
+    public Pais updatePais(int id, Pais pais) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "UPDATE pais SET Nome_Pais = ?, Nacionalidade = ? WHERE Codigo_Pais = ?")) {
+
+            preparedStatement.setString(1, pais.getNome_Pais());
+            preparedStatement.setString(2, pais.getNacionalidade());
+            preparedStatement.setInt(3, id);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows > 0) {
+                // If the update was successful, return the updated pais
+                return getPaisById(id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+
+        return null; // Return null if the update fails or an exception occurs
+    }
+
+
+    public void deletePais(int id) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "DELETE FROM pais WHERE Codigo_Pais = ?")) {
+            preparedStatement.setInt(1, id);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Deleting pais failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+    }
+
 
 
 

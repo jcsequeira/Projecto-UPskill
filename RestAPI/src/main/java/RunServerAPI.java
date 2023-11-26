@@ -16,12 +16,17 @@ public class RunServerAPI {
         //Artista CRUD Operations Endpoins
         Spark.get("/api/artista/all",artistaInit()::getAllArtists);
 
+
+
+
         //Pais CRUD Operations Endpoins
         Spark.get("/api/pais/all",paisInit()::getAllPais);
         Spark.get("/api/pais/:id",paisInit()::getPaisById);
         Spark.post("/api/pais", paisInit()::addPais);
-        //Spark.put("/api/pais/:id", paisInit()::updatePais);
-        //Spark.delete("/api/pais/:id", paisInit()::removePais);
+        Spark.put("/api/pais/:id", paisInit()::updatePais);
+        Spark.delete("/api/pais/:id", paisInit()::deletePais);
+
+
 
 
 

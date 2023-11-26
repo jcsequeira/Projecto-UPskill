@@ -16,6 +16,12 @@ public class PaisService {
         this.paisRepository = paisRepository;
     }
 
+    public List<Pais> getAllPais (){
+        return paisRepository.getAllPais();
+    }
+
+    public Pais getPaisById(int paisId){ return paisRepository.getPaisById(paisId); }
+
     public Pais addPais(Pais pais){
         // You can add additional validation logic before saving to the database if needed
         // For example, check if the fields are not empty
@@ -23,11 +29,16 @@ public class PaisService {
         return paisRepository.addPais(pais);
     }
 
-    public List<Pais> getAllPais (){
-        return paisRepository.getAllPais();
+    public Pais updatePais(int id, Pais pais) {
+        // You might want to add validation logic or additional checks before updating
+        return paisRepository.updatePais(id, pais);
     }
 
-    public Pais getPaisById(int paisId){ return paisRepository.getPaisById(paisId); }
+    public void deletePais(int id) {
+        paisRepository.deletePais(id);
+    }
+
+
 
 
 }

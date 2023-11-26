@@ -76,7 +76,64 @@ public class PaisController {
             e.printStackTrace();
             // Handle the exception appropriately and set the response status to 500 Internal Server Error
             response.status(500);
-            return "Erro ao Adicionar o País.";
+            return "Error Adding Resource.";
+        }
+    }
+
+    public String updatePais(Request request, Response response) {
+        try {
+            // Extract the pais ID from the request parameters
+            int paisId = Integer.parseInt(request.params(":id"));
+
+            // Parse the JSON data from the request body into a Pais object
+            Pais updatedPais = gson.fromJson(request.body(), Pais.class);
+
+            // Call the service to update the pais
+            Pais result = paisService.updatePais(paisId, updatedPais);
+
+            if (result != null) {
+                // Convert the updated pais object to JSON and return it
+                response.status(201);
+                response.header("Location", "/api/pais");
+                response.type("text/plain");
+                return "Resource Updated successfully.: \n" + gson.toJson(result);
+            } else {
+                // Set the response status to 404 Not Found if the pais is not found
+                response.status(404);
+                return "Pais not found";
+            }
+        } catch (NumberFormatException e) {
+            // Handle the case where the ID parameter is not a valid number
+            response.status(400);
+            return "Invalid pais ID format";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle other exceptions appropriately
+            response.status(500);
+            return "Error updating pais";
+        }
+    }
+
+    public String deletePais(Request request, Response response) {
+        try {
+            // Extract the pais ID from the request parameters
+            int paisId = Integer.parseInt(request.params(":id"));
+            // Call the service to delete the pais
+            paisService.deletePais(paisId);
+            // Set the response status to 204 No Content, indicating a successful deletion
+            response.status(204);
+            response.header("Location", "/api/pais");
+            response.type("text/plain");
+            return "";
+        } catch (NumberFormatException e) {
+            // Handle the case where the ID parameter is not a valid number
+            response.status(400);
+            return "Invalid pais ID format";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle other exceptions appropriately
+            response.status(500);
+            return "Error deleting pais";
         }
     }
 
