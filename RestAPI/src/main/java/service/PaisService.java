@@ -1,9 +1,11 @@
 package service;
 
 
+
 import model.Pais;
 import repository.PaisRepository;
 
+import java.util.List;
 
 
 public class PaisService {
@@ -20,6 +22,12 @@ public class PaisService {
         // Save to the database
         return paisRepository.addPais(pais);
     }
+
+    public List<Pais> getAllPais (){
+        return paisRepository.getAllPais();
+    }
+
+    public Pais getPaisById(int paisId){ return paisRepository.getPaisById(paisId); }
 
 
 }

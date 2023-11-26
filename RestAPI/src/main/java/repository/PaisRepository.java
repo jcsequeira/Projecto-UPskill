@@ -1,8 +1,11 @@
 package repository;
 
+
 import model.Pais;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaisRepository {
 
@@ -10,6 +13,49 @@ public class PaisRepository {
 
     public PaisRepository(Connection con) {
         this.con = con;
+    }
+
+
+    public List<Pais> getAllPais (){
+        List<Pais> paisList = new ArrayList<>();
+
+        try (Statement statement = con.createStatement();
+             ResultSet resultSet = statement.executeQuery("select * from Pais")){
+            while (resultSet.next()){
+                Pais pais = new Pais();
+                pais.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
+                pais.setNome_Pais(resultSet.getString("Nome_pais"));
+                pais.setNacionalidade(resultSet.getString("Nacionalidade"));
+                paisList.add(pais);
+            }
+        }
+        catch (SQLException sqlException){sqlException.printStackTrace();}
+
+        return paisList;
+    }
+
+    public Pais getPaisById(int paisId) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "SELECT * FROM Pais WHERE Codigo_Pais = ?")) {
+
+            preparedStatement.setInt(1, paisId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Map the result set to a Pais object and return it
+                    Pais pais = new Pais();
+                    pais.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
+                    pais.setNome_Pais(resultSet.getString("Nome_Pais"));
+                    pais.setNacionalidade(resultSet.getString("Nacionalidade"));
+                    return pais;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+
+        return null; // Return null if the pais is not found or an exception occurs
     }
 
 
@@ -27,7 +73,7 @@ public class PaisRepository {
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating pais failed, no rows affected.");
+                throw new SQLException("Creating object pais failed, no rows affected.");
             }
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -35,7 +81,7 @@ public class PaisRepository {
                     // Set the generated ID to the pais object
                     pais.setCodigo_Pais(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating pais failed, no ID obtained.");
+                    throw new SQLException("Creating object pais failed, no ID obtained.");
                 }
             }
 
