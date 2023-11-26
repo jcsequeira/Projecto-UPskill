@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import controller.adapters.LocalDateAdapter;
 import model.Artista;
 import service.ArtistaService;
+import spark.Request;
+import spark.Response;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,12 +20,14 @@ public class ArtistaController {
         this.gson = gson;
     }
 
-    public String getAllArtists (){
+    public String getAllArtists (Request request, Response response){
         List<Artista> artistaList = artistaService.getAllArtists();
         gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
-
+        response.status(200);
+        response.header("Location", "/api/artista/all");
+        response.type("text/plain");
         return gson.toJson(artistaList);
     }
 }

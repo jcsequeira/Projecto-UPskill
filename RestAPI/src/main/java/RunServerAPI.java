@@ -10,14 +10,11 @@ import static spark.Spark.*;
 public class RunServerAPI {
 
     public static void main(String[] args) {
-        //endpoint de teste
+        //Test EndPoint
         get("/hello", (req, res) -> "Hello World");
 
-        //endpoints Artista
-        ArtistaController artistaInit = artistaInit();
-        get("/api/artista/all", (req, res) -> artistaInit.getAllArtists());
-        //TBD getbyID
-
+        //Artista CRUD Operations Endpoins
+        Spark.get("/api/artista/all",artistaInit()::getAllArtists);
 
 
 
@@ -25,7 +22,7 @@ public class RunServerAPI {
 
     }
 
-    //carrega recursos para os endpoints do artista
+
     public static ArtistaController artistaInit() {
         ArtistRepository artistRepository = new ArtistRepository(DBConnection.getConnection());
         ArtistaService artistaService = new ArtistaService(artistRepository);
