@@ -17,9 +17,12 @@ public class Obra_Arte {
     private int id_Estilo;
     private int IsArtsy;
 
+    private int id_Material;
+
+
     public Obra_Arte(int id_Obra_Arte, String titulo, String link_Imagem, LocalDate ano_Criacao,
                      float preco, float largura, float profundidade, float diametro, int isActive,
-                     int id_artista, int id_Tecnica, int id_Estilo, int isArtsy) {
+                     int id_artista, int id_Tecnica, int id_Estilo, int isArtsy, int id_Material) {
         this.id_Obra_Arte = id_Obra_Arte;
         Titulo = titulo;
         Link_Imagem = link_Imagem;
@@ -33,6 +36,7 @@ public class Obra_Arte {
         this.id_Tecnica = id_Tecnica;
         this.id_Estilo = id_Estilo;
         this.IsArtsy = isArtsy;
+        this.id_Material = id_Material;
     }
 
     public Obra_Arte() {
@@ -140,5 +144,13 @@ public class Obra_Arte {
 
     public void setIsArtsy(int isArtsy) {
         IsArtsy = isArtsy;
+    }
+
+    public int getId_Material() {
+        return id_Material;
+    }
+
+    public void setId_Material(int id_Material) {
+        this.id_Material = id_Material;
     }
 }
