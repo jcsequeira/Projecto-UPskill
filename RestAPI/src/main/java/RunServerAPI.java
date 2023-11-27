@@ -13,7 +13,7 @@ public class RunServerAPI {
         //Test EndPoint
         get("/hello", (req, res) -> "Hello World");
 
-        //Artista CRUD Operations Endpoins
+        //Artista.java CRUD Operations Endpoins
         Spark.get("/api/artista/all",artistaInit()::getAllArtists);
 
 
@@ -27,10 +27,12 @@ public class RunServerAPI {
         Spark.delete("/api/pais/:id", paisInit()::deletePais);
 
 
-
-
-
-
+        //Obra_Arte CRUD Operations Endpoins
+        Spark.get("/api/obraarte/all",obraArteInit()::getAllObraArte);
+        //Spark.get("/api/obraarte/:id",obraArteInit()::getObraArteById);
+        //Spark.post("/api/obraarte", obraArteInit()::addObraArte);
+        //Spark.put("/api/obraarte/:id", obraArteInit()::updateObraArte);
+        //Spark.delete("/api/obraarte/:id", obraArteInit()::deleteObraArte);
 
 
     }
@@ -47,6 +49,12 @@ public class RunServerAPI {
         PaisService paisService = new PaisService(paisRepository);
         Gson gson = new Gson();
         return new PaisController(paisService, gson);}
+
+    public static ObraArteController obraArteInit() {
+        ObraArteRepository obraArteRepository = new ObraArteRepository(DBConnection.getConnection());
+        ObraArteService obraArteService = new ObraArteService(obraArteRepository);
+        Gson gson = new Gson();
+        return new ObraArteController(obraArteService, gson);}
 
 
 }
