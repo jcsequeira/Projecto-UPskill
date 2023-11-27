@@ -9,14 +9,16 @@ public class Artista {
     private String Biografia;
     private LocalDate Data_Morte;
     private int Codigo_Pais;
+    private int IsArtsy;
 
-    public Artista(long id_artista, String nome_artista, LocalDate data_Nascimento, String biografia, LocalDate data_Morte, int codigo_Pais) {
+    public Artista(long id_artista, String nome_artista, LocalDate data_Nascimento, String biografia, LocalDate data_Morte, int codigo_Pais, int IsArtsy) {
         this.id_artista = id_artista;
         this.nome_artista = nome_artista;
         Data_Nascimento = data_Nascimento;
         Biografia = biografia;
         Data_Morte = data_Morte;
         Codigo_Pais = codigo_Pais;
+        this.IsArtsy = IsArtsy;
     }
 
     public Artista() {
@@ -68,5 +70,13 @@ public class Artista {
 
     public void setCodigo_Pais(int codigo_Pais) {
         Codigo_Pais = codigo_Pais;
+    }
+
+    public int getIsArtsy() {
+        return IsArtsy;
+    }
+
+    public void setIsArtsy(int isArtsy) {
+        IsArtsy = isArtsy;
     }
 }
