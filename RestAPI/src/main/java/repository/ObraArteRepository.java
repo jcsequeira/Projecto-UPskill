@@ -20,7 +20,9 @@ public class ObraArteRepository {
         List<Obra_Arte> obraArteList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
-             ResultSet resultSet = statement.executeQuery("select * from obra_arte")){
+             ResultSet resultSet = statement.executeQuery("select obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, " +
+                     "Preco, Largura, Profundidade, Diametro, IsActive,id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
+                     "from obra_arte join obra_materiais on obra_arte.id_obra_arte = obra_materiais.id_obra_arte;")){
             while (resultSet.next()){
                 Obra_Arte obraArte = new Obra_Arte();
                 obraArte.setId_Obra_Arte(resultSet.getInt("id_obra_arte"));
@@ -40,11 +42,9 @@ public class ObraArteRepository {
                 obraArte.setId_Tecnica(resultSet.getInt("id_Tecnica"));
                 obraArte.setId_Estilo(resultSet.getInt("id_Estilo"));
                 obraArte.setIsArtsy(resultSet.getInt("IsArtsy"));
-
+                obraArte.setId_Material(resultSet.getInt("id_Material"));
                 obraArteList.add(obraArte);
             }
-
-            //ResultSet resultSetObraMaterial = statement.executeQuery("select * from obra_arte"))
         }
         catch (SQLException sqlException){sqlException.printStackTrace();};
 
