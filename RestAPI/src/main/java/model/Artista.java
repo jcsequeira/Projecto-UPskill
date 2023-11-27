@@ -80,3 +80,4 @@ public class Artista {
         IsArtsy = isArtsy;
     }
 }
+//
