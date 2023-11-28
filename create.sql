@@ -78,7 +78,7 @@ CREATE TABLE Artista
 ( 
   id_artista int not null auto_increment,
   nome_artista VARCHAR(500),
-  Data_Nascimento DATE NOT NULL,
+  Data_Nascimento DATE,
   Biografia VARCHAR(2000) NOT NULL,
   Data_Morte DATE,
   Codigo_Pais INT NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE Obra_Arte
   id_Obra_Arte INT NOT NULL auto_increment,
   Titulo VARCHAR(50) NOT NULL,
   Link_Imagem VARCHAR(200) NOT NULL,
-  Ano_Criacao DATE NOT NULL,
+  Ano_Criacao DATE,
   Preco FLOAT,
   Largura FLOAT,
   Profundidade FLOAT,
@@ -145,12 +145,12 @@ CREATE TABLE Emprestimo_Obra_Galeria
 (
   id_Emprestimo INT NOT NULL auto_increment,
   Data_Entrada DATE NOT NULL,
-  Data_Saida DATE NOT NULL,  
+  Data_Saida DATE,  
   id_Galeria INT NOT NULL,
   id_Obra_Arte INT NOT NULL,
   PRIMARY KEY (id_Emprestimo),
   FOREIGN KEY (id_Galeria) REFERENCES Galeria(id_Galeria),
-  FOREIGN KEY (id_Obra_Arte) REFERENCES Obra_Arte(id_Obra_Arte)
+  FOREIGN KEY (id_Obra_Arte) REFERENCES Obra_Arte(id_Obra_Arte) 
 );
 
 CREATE TABLE Obra_Exposicao
@@ -169,6 +169,7 @@ CREATE TABLE Obra_Materiais
   PRIMARY KEY (id_Material, id_Obra_Arte),
   FOREIGN KEY (id_Material) REFERENCES Materiais(id_Material),
   FOREIGN KEY (id_Obra_Arte) REFERENCES Obra_Arte(id_Obra_Arte)
+  ON DELETE cascade on Update cascade
 );
 
 -- Create User with All Privileges
