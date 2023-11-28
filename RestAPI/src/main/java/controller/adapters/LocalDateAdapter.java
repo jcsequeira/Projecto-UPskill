@@ -16,7 +16,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
     public void write(JsonWriter jsonWriter, LocalDate date) throws IOException {
         // Write LocalDate as a formatted string
         if (date == null) {
-            jsonWriter.nullValue();
+            jsonWriter.value("n/a");
         } else {
             jsonWriter.value(formatter.format(date));
         }

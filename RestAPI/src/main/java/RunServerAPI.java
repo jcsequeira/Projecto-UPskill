@@ -14,11 +14,12 @@ public class RunServerAPI {
         get("/hello", (req, res) -> "Hello World");
 
         //Artista.java CRUD Operations Endpoints
-        Spark.get("/api/artista/all",artistaInit()::getAllArtists);
-        //Spark.get("/api/artista/:id",paisInit()::getArtistById);
-        //Spark.post("/api/artista", paisInit()::addArtist);
-        //Spark.put("/api/artista/:id", paisInit()::updateArtist);
-        //Spark.delete("/api/artista/:id", paisInit()::deleteArtist);
+        Spark.get("/api/artista/all",artistaInit()::getAllArtistas);
+        Spark.get("/api/artista/:id",artistaInit()::getArtistaById);
+        Spark.post("/api/artista", artistaInit()::addArtista);
+        //Spark.put("/api/artista/:id", artistaInit()::updateArtista);
+        //Spark.delete("/api/artista/:id", artistaInit()::deleteArtista);
+
 
         //Galeria.java CRUD Operations Endpoints
         Spark.get("/api/galeria/all",galeriaInit()::getAllGaleria);
@@ -49,7 +50,7 @@ public class RunServerAPI {
 
     //Methods to Initialize All Services
     public static ArtistaController artistaInit() {
-        ArtistRepository artistRepository = new ArtistRepository(DBConnection.getConnection());
+        ArtistaRepository artistRepository = new ArtistaRepository(DBConnection.getConnection());
         ArtistaService artistaService = new ArtistaService(artistRepository);
         Gson gson = new Gson();
         return new ArtistaController(artistaService, gson);}
