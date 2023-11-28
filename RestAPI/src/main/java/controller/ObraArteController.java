@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.adapters.LocalDateAdapter;
 import model.Obra_Arte;
+import model.Pais;
 import service.ObraArteService;
 import spark.Request;
 import spark.Response;
@@ -83,6 +84,43 @@ public class ObraArteController {
             // Handle the exception appropriately and set the response status to 500 Internal Server Error
             response.status(500);
             return "Error Adding Resource.";
+        }
+    }
+
+    public String updateObraArte(Request request, Response response) {
+        try {
+            // Extract the obra arte ID from the request parameters
+            int obraArteId = Integer.parseInt(request.params(":id"));
+
+            // Parse the JSON data from the request body into a Pais object
+            gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                    .create();
+            Obra_Arte updatedObraArte = gson.fromJson(request.body(), Obra_Arte.class);
+
+            // Call the service to update the pais
+            Obra_Arte result = obraArteService.updateObraArte(obraArteId, updatedObraArte);
+
+            if (result != null) {
+                // Convert the updated pais object to JSON and return it
+                response.status(201);
+                response.header("Location", "/api/obraarte");
+                response.type("text/plain");
+                return "Resource Updated successfully.: \n" + gson.toJson(result);
+            } else {
+                // Set the response status to 404 Not Found if the pais is not found
+                response.status(404);
+                return "Obra Arte not found";
+            }
+        } catch (NumberFormatException e) {
+            // Handle the case where the ID parameter is not a valid number
+            response.status(400);
+            return "Invalid Obra Arte ID format";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle other exceptions appropriately
+            response.status(500);
+            return "Error updating Obra Arte";
         }
     }
 }

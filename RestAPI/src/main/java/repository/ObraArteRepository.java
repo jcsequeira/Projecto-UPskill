@@ -142,7 +142,7 @@ public class ObraArteRepository {
                         int affectedRowsObraMateriais = preparedStatementObraMateriais.executeUpdate();
 
                         if (affectedRowsObraMateriais == 0) {
-                            throw new SQLException("Creating object pais failed, no rows affected.");
+                            throw new SQLException("Creating object Obra Arte failed, no rows affected.");
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -153,6 +153,71 @@ public class ObraArteRepository {
                 } else {
                     throw new SQLException("Creating object obraArte failed, no ID obtained.");
                 }
+            }
+
+            return obraArte;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return null; // Return null or throw a custom exception based on your error handling strategy
+        }
+    }
+
+    public Obra_Arte updateObraArte(int obraArteID, Obra_Arte obraArte) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "UPDATE Obra_Arte " +
+                        "SET Titulo = ?, " +
+                        "Link_Imagem = ?, " +
+                        "Ano_Criacao = ?, " +
+                        "Preco = ?, " +
+                        "Largura = ?, " +
+                        "Profundidade = ?, " +
+                        "Diametro = ?, " +
+                        "IsActive = ?, " +
+                        "id_artista = ?, " +
+                        "id_Tecnica = ?, " +
+                        "id_Estilo = ? " +
+                        "WHERE id_Obra_Arte = ?;")) {
+
+            // Set the values for the prepared statement
+            preparedStatement.setString(1, obraArte.getTitulo());
+            preparedStatement.setString(2, obraArte.getLink_Imagem());
+            preparedStatement.setString(3, obraArte.getAno_Criacao().format(formatter));
+            preparedStatement.setFloat(4, obraArte.getPreco());
+            preparedStatement.setFloat(5, obraArte.getLargura());
+            preparedStatement.setFloat(6, obraArte.getProfundidade());
+            preparedStatement.setFloat(7, obraArte.getDiametro());
+            preparedStatement.setInt(8, obraArte.getIsActive());
+            preparedStatement.setInt(9, obraArte.getId_artista());
+            preparedStatement.setInt(10, obraArte.getId_Tecnica());
+            preparedStatement.setInt(11, obraArte.getId_Estilo());
+            preparedStatement.setInt(12, obraArteID);
+
+            // Execute the insert statement
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating object obraArte failed, no rows affected.");
+            }
+
+            try (PreparedStatement preparedStatementObraMateriais = con.prepareStatement(
+                    "UPDATE Obra_Materiais SET id_Material = ? " +
+                            "WHERE id_Obra_Arte = ?;")) {
+
+                // Set the values for the prepared statement
+                preparedStatementObraMateriais.setInt(1, obraArte.getId_Material());
+                preparedStatementObraMateriais.setInt(2, obraArteID);
+
+                // Execute the update statement
+                int affectedRowsObraMateriais = preparedStatementObraMateriais.executeUpdate();
+
+                if (affectedRowsObraMateriais == 0) {
+                    throw new SQLException("Updating object Obra Arte failed, no rows affected.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle the exception appropriately
+                return null; // Return null or throw a custom exception based on your error handling strategy
             }
 
             return obraArte;

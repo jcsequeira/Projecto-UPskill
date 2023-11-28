@@ -20,4 +20,7 @@ public class ObraArteService {
 
     public Obra_Arte addObraArte(Obra_Arte newObraArte) { return obraArteRepository.addObraArte(newObraArte);
     }
+
+    public Obra_Arte updateObraArte(int obraArteId, Obra_Arte updatedObraArte) { return obraArteRepository.updateObraArte(obraArteId, updatedObraArte);
+    }
 }
