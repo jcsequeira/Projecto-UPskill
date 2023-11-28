@@ -30,7 +30,7 @@ public class RunServerAPI {
         //Obra_Arte CRUD Operations Endpoins
         Spark.get("/api/obraarte/all",obraArteInit()::getAllObraArte);
         Spark.get("/api/obraarte/:id",obraArteInit()::getObraArteById);
-        //Spark.post("/api/obraarte", obraArteInit()::addObraArte);
+        Spark.post("/api/obraarte", obraArteInit()::addObraArte);
         //Spark.put("/api/obraarte/:id", obraArteInit()::updateObraArte);
         //Spark.delete("/api/obraarte/:id", obraArteInit()::deleteObraArte);
 

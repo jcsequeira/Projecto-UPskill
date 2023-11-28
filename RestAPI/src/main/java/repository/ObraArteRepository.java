@@ -1,9 +1,11 @@
 package repository;
 
 import model.Obra_Arte;
+import model.Pais;
 
 
 import java.sql.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +16,15 @@ public class ObraArteRepository {
         this.con = con;
     }
 
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     public List<Obra_Arte> getAllObraArte (){
         List<Obra_Arte> obraArteList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
              ResultSet resultSet = statement.executeQuery("select obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, " +
                      "Preco, Largura, Profundidade, Diametro, IsActive,id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
-                     "from obra_arte join obra_materiais on obra_arte.id_obra_arte = obra_materiais.id_obra_arte;")){
+                     "from obra_arte left join obra_materiais on obra_arte.id_obra_arte = obra_materiais.id_obra_arte;")){
             while (resultSet.next()){
                 Obra_Arte obraArte = new Obra_Arte();
                 obraArte.setId_Obra_Arte(resultSet.getInt("id_obra_arte"));
@@ -92,5 +96,51 @@ public class ObraArteRepository {
         }
 
         return null; // Return null if the pais is not found or an exception occurs
+    }
+
+    public Obra_Arte addObraArte(Obra_Arte obraArte) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, " +
+                        "IsActive, id_artista, id_Tecnica, id_Estilo) VALUES " +
+                        "    (?, ?, ?, ?, ?, ?, " +
+                        "?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS)) {
+
+            // Set the values for the prepared statement
+            preparedStatement.setString(1, obraArte.getTitulo());
+            preparedStatement.setString(2, obraArte.getLink_Imagem());
+            preparedStatement.setString(3, obraArte.getAno_Criacao().format(formatter));
+            preparedStatement.setFloat(4, obraArte.getPreco());
+            preparedStatement.setFloat(5, obraArte.getLargura());
+            preparedStatement.setFloat(6, obraArte.getProfundidade());
+            preparedStatement.setFloat(7, obraArte.getDiametro());
+            preparedStatement.setInt(8, obraArte.getIsActive());
+            preparedStatement.setInt(9, obraArte.getId_artista());
+            preparedStatement.setInt(10, obraArte.getId_Tecnica());
+            preparedStatement.setInt(11, obraArte.getId_Estilo());
+
+
+            // Execute the insert statement
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating object obraArte failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    // Set the generated ID to the obraArte object
+                    obraArte.setId_Obra_Arte(generatedKeys.getInt(1));
+                    //meter aqui insert into obra_Material
+                } else {
+                    throw new SQLException("Creating object obraArte failed, no ID obtained.");
+                }
+            }
+
+            return obraArte;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return null; // Return null or throw a custom exception based on your error handling strategy
+        }
     }
 }

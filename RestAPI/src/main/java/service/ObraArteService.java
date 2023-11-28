@@ -17,4 +17,7 @@ public class ObraArteService {
     }
 
     public Obra_Arte getObraArteById(int obraArteId) { return obraArteRepository.getObraArteById(obraArteId);}
+
+    public Obra_Arte addObraArte(Obra_Arte newObraArte) { return obraArteRepository.addObraArte(newObraArte);
+    }
 }

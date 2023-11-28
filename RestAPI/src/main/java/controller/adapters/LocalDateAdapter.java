@@ -9,22 +9,27 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class LocalDateAdapter extends TypeAdapter<LocalDate> {
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     @Override
     public void write(JsonWriter jsonWriter, LocalDate date) throws IOException {
-        //Gerar data
-        if (date == null){
-            jsonWriter.value("n/a");
+        // Write LocalDate as a formatted string
+        if (date == null) {
+            jsonWriter.nullValue();
         } else {
-            String dateString = String.format("%04d-%02d-%02d",
-                    date.getYear(), date.getMonthValue(), date.getDayOfMonth());
-            jsonWriter.value(dateString);
+            jsonWriter.value(formatter.format(date));
         }
     }
 
     @Override
     public LocalDate read(JsonReader jsonReader) throws IOException {
-    //Por fazer
-        return LocalDate.of(3000,01,01);
+        // Read LocalDate from the JSON string
+        String dateString = jsonReader.nextString();
+        if ("n/a".equals(dateString)) {
+            return null;
+        } else {
+            return LocalDate.parse(dateString, formatter);
+        }
     }
 }
-

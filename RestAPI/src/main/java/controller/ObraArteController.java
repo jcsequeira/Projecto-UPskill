@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.adapters.LocalDateAdapter;
 import model.Obra_Arte;
-import model.Pais;
 import service.ObraArteService;
 import spark.Request;
 import spark.Response;
@@ -63,6 +62,27 @@ public class ObraArteController {
             // Handle other exceptions appropriately
             response.status(500);
             return "Error retrieving ObraArte";
+        }
+    }
+    public  String addObraArte(Request request, Response response) {
+        try {
+            // DesSerialização do Json para um objecto
+            gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                    .create();
+            Obra_Arte newObra_Arte = gson.fromJson(request.body(), Obra_Arte.class);
+            //envia o objecto para o service
+            Obra_Arte addedObra_Arte = obraArteService.addObraArte(newObra_Arte);
+            // Resposta e Status 201:sucesso no post
+            response.status(201);
+            response.header("Location", "/api/obraarte");
+            response.type("text/plain");
+            return "Resource created successfully.: \n" + gson.toJson(addedObra_Arte);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception appropriately and set the response status to 500 Internal Server Error
+            response.status(500);
+            return "Error Adding Resource.";
         }
     }
 }
