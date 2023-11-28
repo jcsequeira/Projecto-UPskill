@@ -20,6 +20,13 @@ public class RunServerAPI {
         //Spark.put("/api/artista/:id", paisInit()::updateArtist);
         //Spark.delete("/api/artista/:id", paisInit()::deleteArtist);
 
+        //Galeria.java CRUD Operations Endpoints
+        Spark.get("/api/galeria/all",galeriaInit()::getAllGaleria);
+        Spark.get("/api/galeria/:id",galeriaInit()::getGaleriaById);
+        Spark.post("/api/galeria", galeriaInit()::addGaleria);
+        Spark.put("/api/galeria/:id", galeriaInit()::updateGaleria);
+        Spark.delete("/api/galeria/:id", galeriaInit()::deleteGaleria);
+
 
 
         //Pais CRUD Operations Endpoints
@@ -59,5 +66,10 @@ public class RunServerAPI {
         Gson gson = new Gson();
         return new ObraArteController(obraArteService, gson);}
 
+    public static GaleriaController galeriaInit() {
+        GaleriaRepository galeriaRepository = new GaleriaRepository(DBConnection.getConnection());
+        GaleriaService galeriaService = new GaleriaService(galeriaRepository);
+        Gson gson = new Gson();
+        return new GaleriaController(galeriaService, gson);}
 
 }
