@@ -13,13 +13,16 @@ public class RunServerAPI {
         //Test EndPoint
         get("/hello", (req, res) -> "Hello World");
 
-        //Artista.java CRUD Operations Endpoins
+        //Artista.java CRUD Operations Endpoints
         Spark.get("/api/artista/all",artistaInit()::getAllArtists);
+        //Spark.get("/api/artista/:id",paisInit()::getArtistById);
+        //Spark.post("/api/artista", paisInit()::addArtist);
+        //Spark.put("/api/artista/:id", paisInit()::updateArtist);
+        //Spark.delete("/api/artista/:id", paisInit()::deleteArtist);
 
 
 
-
-        //Pais CRUD Operations Endpoins
+        //Pais CRUD Operations Endpoints
         Spark.get("/api/pais/all",paisInit()::getAllPais);
         Spark.get("/api/pais/:id",paisInit()::getPaisById);
         Spark.post("/api/pais", paisInit()::addPais);
@@ -27,12 +30,12 @@ public class RunServerAPI {
         Spark.delete("/api/pais/:id", paisInit()::deletePais);
 
 
-        //Obra_Arte CRUD Operations Endpoins
+        //Obra_Arte CRUD Operations Endpoints
         Spark.get("/api/obraarte/all",obraArteInit()::getAllObraArte);
         Spark.get("/api/obraarte/:id",obraArteInit()::getObraArteById);
         Spark.post("/api/obraarte", obraArteInit()::addObraArte);
         Spark.put("/api/obraarte/:id", obraArteInit()::updateObraArte);
-        //Spark.delete("/api/obraarte/:id", obraArteInit()::deleteObraArte);
+        Spark.delete("/api/obraarte/:id", obraArteInit()::deleteObraArte);
 
 
     }

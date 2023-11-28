@@ -23,4 +23,6 @@ public class ObraArteService {
 
     public Obra_Arte updateObraArte(int obraArteId, Obra_Arte updatedObraArte) { return obraArteRepository.updateObraArte(obraArteId, updatedObraArte);
     }
+
+    public String deleteObraArte (int obraArteId) {return obraArteRepository.deleteObraArte(obraArteId);}
 }

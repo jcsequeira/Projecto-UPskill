@@ -227,4 +227,22 @@ public class ObraArteRepository {
             return null; // Return null or throw a custom exception based on your error handling strategy
         }
     }
+
+    public String deleteObraArte(int obraArteId) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "DELETE FROM obra_arte WHERE id_obra_arte = ?")) {
+            preparedStatement.setInt(1, obraArteId);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                //throw new SQLException("Deleting Obra Arte failed, no rows affected.");
+                return "Deleting Obra Arte failed, no rows affected.";
+            } else {return "Deleting Obra Arte successful.";}
+        } catch (SQLIntegrityConstraintViolationException e ) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return "Deleting Obra Arte failed, no rows affected.";
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

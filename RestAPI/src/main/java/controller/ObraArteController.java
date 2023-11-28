@@ -123,4 +123,27 @@ public class ObraArteController {
             return "Error updating Obra Arte";
         }
     }
+
+    public String deleteObraArte(Request request, Response response) {
+        try {
+            // Extract the obra arte ID from the request parameters
+            int obraArteId = Integer.parseInt(request.params(":id"));
+            // Call the service to delete the obra arte
+            String result = obraArteService.deleteObraArte(obraArteId);
+            // Set the response status to 204 No Content, indicating a successful deletion
+            response.status(200);
+            response.header("Location", "/api/obraarte");
+            response.type("text/plain");
+            return result;
+        } catch (NumberFormatException e) {
+            // Handle the case where the ID parameter is not a valid number
+            response.status(400);
+            return "Invalid Obra Arte ID format";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle other exceptions appropriately
+            response.status(500);
+            return "Error deleting Obra Arte";
+        }
+    }
 }
