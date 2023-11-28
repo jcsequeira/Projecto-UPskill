@@ -108,7 +108,11 @@ public class ObraArteRepository {
             // Set the values for the prepared statement
             preparedStatement.setString(1, obraArte.getTitulo());
             preparedStatement.setString(2, obraArte.getLink_Imagem());
-            preparedStatement.setString(3, obraArte.getAno_Criacao().format(formatter));
+            if (obraArte.getAno_Criacao() != null) {
+                preparedStatement.setString(3, obraArte.getAno_Criacao().format(formatter));
+            } else {
+                preparedStatement.setNull(3, java.sql.Types.DATE); // Set the parameter to NULL in the database
+            }
             preparedStatement.setFloat(4, obraArte.getPreco());
             preparedStatement.setFloat(5, obraArte.getLargura());
             preparedStatement.setFloat(6, obraArte.getProfundidade());
@@ -182,7 +186,11 @@ public class ObraArteRepository {
             // Set the values for the prepared statement
             preparedStatement.setString(1, obraArte.getTitulo());
             preparedStatement.setString(2, obraArte.getLink_Imagem());
-            preparedStatement.setString(3, obraArte.getAno_Criacao().format(formatter));
+            if (obraArte.getAno_Criacao() != null) {
+                preparedStatement.setString(3, obraArte.getAno_Criacao().format(formatter));
+            } else {
+                preparedStatement.setNull(3, java.sql.Types.DATE); // Set the parameter to NULL in the database
+            }
             preparedStatement.setFloat(4, obraArte.getPreco());
             preparedStatement.setFloat(5, obraArte.getLargura());
             preparedStatement.setFloat(6, obraArte.getProfundidade());

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.adapters.LocalDateAdapter;
 import model.Artista;
-import model.Obra_Arte;
+
 import service.ArtistaService;
 import spark.Request;
 import spark.Response;
@@ -73,6 +73,7 @@ public class ArtistaController {
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                     .create();
             Artista newArtista = gson.fromJson(request.body(), Artista.class);
+
             //envia o objecto para o service
             Artista addedArtista = artistaService.addArtista(newArtista);
             // Resposta e Status 201:sucesso no post

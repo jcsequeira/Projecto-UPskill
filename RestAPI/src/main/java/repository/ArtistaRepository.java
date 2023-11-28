@@ -1,8 +1,7 @@
 package repository;
 
 import model.Artista;
-import model.Obra_Arte;
-import model.Pais;
+
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
@@ -40,7 +39,7 @@ public class ArtistaRepository {
                 artistaList.add(artista);
             }
         }
-        catch (SQLException sqlException){sqlException.printStackTrace();};
+        catch (SQLException sqlException){sqlException.printStackTrace();}
 
         return artistaList;
     }
@@ -86,7 +85,11 @@ public class ArtistaRepository {
             preparedStatement.setString(1, artista.getNome_artista());
             preparedStatement.setString(2, artista.getData_Nascimento().format(formatter));
             preparedStatement.setString(3, artista.getBiografia());
-            preparedStatement.setString(4, artista.getData_Morte().format(formatter));
+            if (artista.getData_Morte() != null) {
+                preparedStatement.setString(4, artista.getData_Morte().format(formatter));
+            } else {
+                preparedStatement.setNull(4, java.sql.Types.DATE); // Set the parameter to NULL in the database
+            }
             preparedStatement.setInt(5, artista.getCodigo_Pais());
             preparedStatement.setInt(6, artista.getIsArtsy());
 
