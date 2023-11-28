@@ -1,7 +1,7 @@
 package repository;
 
 import model.Obra_Arte;
-import model.Pais;
+
 
 
 import java.sql.*;
@@ -130,7 +130,26 @@ public class ObraArteRepository {
                 if (generatedKeys.next()) {
                     // Set the generated ID to the obraArte object
                     obraArte.setId_Obra_Arte(generatedKeys.getInt(1));
-                    //meter aqui insert into obra_Material
+                    try (PreparedStatement preparedStatementObraMateriais = con.prepareStatement(
+                            "INSERT INTO Obra_Materiais (id_Material, id_Obra_Arte) values " +
+                                    "(?, ?)")) {
+
+                        // Set the values for the prepared statement
+                        preparedStatementObraMateriais.setInt(1, obraArte.getId_Material());
+                        preparedStatementObraMateriais.setInt(2,obraArte.getId_Obra_Arte());
+
+                        // Execute the insert statement
+                        int affectedRowsObraMateriais = preparedStatementObraMateriais.executeUpdate();
+
+                        if (affectedRowsObraMateriais == 0) {
+                            throw new SQLException("Creating object pais failed, no rows affected.");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        // Handle the exception appropriately
+                        return null; // Return null or throw a custom exception based on your error handling strategy
+                    }
+
                 } else {
                     throw new SQLException("Creating object obraArte failed, no ID obtained.");
                 }
