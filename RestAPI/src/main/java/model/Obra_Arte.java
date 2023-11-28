@@ -153,4 +153,24 @@ public class Obra_Arte {
     public void setId_Material(int id_Material) {
         this.id_Material = id_Material;
     }
+
+    @Override
+    public String toString() {
+        return "Obra_Arte{" +
+                "id_Obra_Arte=" + id_Obra_Arte +
+                ", Titulo='" + Titulo + '\'' +
+                ", Link_Imagem='" + Link_Imagem + '\'' +
+                ", Ano_Criacao=" + Ano_Criacao +
+                ", Preco=" + Preco +
+                ", Largura=" + Largura +
+                ", Profundidade=" + Profundidade +
+                ", Diametro=" + Diametro +
+                ", IsActive=" + IsActive +
+                ", id_artista=" + id_artista +
+                ", id_Tecnica=" + id_Tecnica +
+                ", id_Estilo=" + id_Estilo +
+                ", IsArtsy=" + IsArtsy +
+                ", id_Material=" + id_Material +
+                '}';
+    }
 }

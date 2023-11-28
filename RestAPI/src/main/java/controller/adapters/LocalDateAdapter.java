@@ -15,7 +15,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
         if (date == null){
             jsonWriter.value("n/a");
         } else {
-            String dateString = String.format("%04d/%02d/%02d",
+            String dateString = String.format("%04d-%02d-%02d",
                     date.getYear(), date.getMonthValue(), date.getDayOfMonth());
             jsonWriter.value(dateString);
         }

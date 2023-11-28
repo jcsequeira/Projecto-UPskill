@@ -15,4 +15,6 @@ public class ObraArteService {
     public List<Obra_Arte> getAllObraArte (){
         return obraArteRepository.getAllObraArte();
     }
+
+    public Obra_Arte getObraArteById(int obraArteId) { return obraArteRepository.getObraArteById(obraArteId);}
 }

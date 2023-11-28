@@ -2,10 +2,8 @@ package repository;
 
 import model.Obra_Arte;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +44,53 @@ public class ObraArteRepository {
                 obraArteList.add(obraArte);
             }
         }
-        catch (SQLException sqlException){sqlException.printStackTrace();};
+        catch (SQLException sqlException){sqlException.printStackTrace();}
 
         return obraArteList;
     }
 
-    public Obra_Arte getObraArteById(){
-        // Por fazer
-        return null;
+    public Obra_Arte getObraArteById(int obraArteId){
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "SELECT obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, " +
+                        "Diametro, IsActive,id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
+                        "FROM obra_arte " +
+                        "JOIN obra_materiais ON obra_arte.id_obra_arte = obra_materiais.id_obra_arte " +
+                        "WHERE obra_arte.id_Obra_Arte = ?;")) {
+
+            preparedStatement.setInt(1, obraArteId);
+
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Map the result set to a Obra_Arte object and return it
+                    Obra_Arte obraArte = new Obra_Arte();
+                    obraArte.setId_Obra_Arte(resultSet.getInt("id_obra_arte"));
+                    obraArte.setTitulo(resultSet.getString("titulo"));
+                    obraArte.setLink_Imagem(resultSet.getString("Link_Imagem"));
+                    if (resultSet.getDate("Ano_Criacao") != null){
+                        obraArte.setAno_Criacao(resultSet.getDate("Ano_Criacao").toLocalDate());}
+                    else {
+                        obraArte.setAno_Criacao(null);
+                    }
+                    obraArte.setPreco(resultSet.getFloat("Preco"));
+                    obraArte.setLargura(resultSet.getFloat("Largura"));
+                    obraArte.setProfundidade(resultSet.getFloat("Profundidade"));
+                    obraArte.setDiametro(resultSet.getFloat("Diametro"));
+                    obraArte.setIsActive(resultSet.getInt("IsActive"));
+                    obraArte.setId_artista(resultSet.getInt("id_artista"));
+                    obraArte.setId_Tecnica(resultSet.getInt("id_Tecnica"));
+                    obraArte.setId_Estilo(resultSet.getInt("id_Estilo"));
+                    obraArte.setIsArtsy(resultSet.getInt("IsArtsy"));
+                    obraArte.setId_Material(resultSet.getInt("id_Material"));
+                    return obraArte;
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+
+        return null; // Return null if the pais is not found or an exception occurs
     }
 }
