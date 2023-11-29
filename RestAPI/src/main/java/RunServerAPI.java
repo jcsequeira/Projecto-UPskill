@@ -52,11 +52,11 @@ public class RunServerAPI {
         //TBD
 
         //Movimento.java CRUD Operations Endpoints
-        //TBD
-        //TBD
-        //TBD
-        //TBD
-        //TBD
+        Spark.get("/api/movimento/all",movimentoInit()::getAllMovimentos);
+        Spark.get("/api/movimento/:id",movimentoInit()::getMovimentoById);
+        Spark.post("/api/movimento", movimentoInit()::addMovimento);
+        Spark.put("/api/movimento/:id", movimentoInit()::updateMovimento);
+        Spark.delete("/api/movimento/:id", movimentoInit()::deleteMovimento);
 
         //Materiais.java CRUD Operations Endpoints
         //TBD
@@ -158,16 +158,15 @@ public class RunServerAPI {
         CidadeController cidadeController = new CidadeController();
         // Add any necessary initialization or configuration logic
         return cidadeController;
-    }
+    }*/
 
     public static MovimentoController movimentoInit() {
-        // TBD: Implement logic to initialize MovimentoController
-        MovimentoController movimentoController = new MovimentoController();
-        // Add any necessary initialization or configuration logic
-        return movimentoController;
+        MovimentoRepository movimentoRepository = new MovimentoRepository(DBConnection.getConnection());
+        MovimentoService movimentoService = new MovimentoService(movimentoRepository);
+        return new MovimentoController(movimentoService, new Gson());
     }
 
-    public static MateriaisController materiaisInit() {
+    /*public static MateriaisController materiaisInit() {
         // TBD: Implement logic to initialize MateriaisController
         MateriaisController materiaisController = new MateriaisController();
         // Add any necessary initialization or configuration logic

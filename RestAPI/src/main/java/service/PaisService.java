@@ -37,8 +37,4 @@ public class PaisService {
     public void deletePais(int id) {
         paisRepository.deletePais(id);
     }
-
-
-
-
 }
