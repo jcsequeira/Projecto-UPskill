@@ -1,4 +1,4 @@
-package repository;
+import repository.DBConnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

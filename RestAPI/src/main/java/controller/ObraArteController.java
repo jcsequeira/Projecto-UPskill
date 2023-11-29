@@ -33,7 +33,7 @@ public class ObraArteController {
     }
 
     public  String getObraArteById(Request request, Response response) {
-        try {
+       // try {
             // Extract the obraArte ID from the request parameters
             int obraArteId = Integer.parseInt(request.params(":id"));
 
@@ -54,7 +54,7 @@ public class ObraArteController {
                 response.status(404);
                 return "ObraArte not found";
             }
-        } catch (NumberFormatException e) {
+     /*   } catch (NumberFormatException e) {
             // Handle the case where the ID parameter is not a valid number
             response.status(400);
             return "Invalid ObraArte ID format";
@@ -63,7 +63,7 @@ public class ObraArteController {
             // Handle other exceptions appropriately
             response.status(500);
             return "Error retrieving ObraArte";
-        }
+        }*/
     }
     public  String addObraArte(Request request, Response response) {
         try {
