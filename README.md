@@ -7,6 +7,7 @@
 ### RestAPI: API que efetua as operaçoes CRUD na BD
 
 #### Considerações/Ideias/Tarefas
+- Algumas colunas estão opcionais devido ao artsy, mas serao obrigatorias na app javaFX
 - As PKs da BD estao com autoincrement, então não é necessário o codigo dos POSTs/Inserts inserirem este atributo.
 - Implementar atributo isArtsy nas Classes Modelo (ObraArte, Artista, Evento, Galeria), inicializando no construtor como um int = 0.
 - Implementar os POSTs/INSERTs, de modo a inserir o atributo isArtsy na tabela em conjunto com os restantes.
