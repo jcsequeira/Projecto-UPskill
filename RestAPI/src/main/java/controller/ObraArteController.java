@@ -92,7 +92,7 @@ public class ObraArteController {
             // Extract the obra arte ID from the request parameters
             int obraArteId = Integer.parseInt(request.params(":id"));
 
-            // Parse the JSON data from the request body into a Pais object
+            // Parse the JSON data from the request body into Obra Arte object
             gson = new GsonBuilder()
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                     .create();
@@ -102,7 +102,7 @@ public class ObraArteController {
             Obra_Arte result = obraArteService.updateObraArte(obraArteId, updatedObraArte);
 
             if (result != null) {
-                // Convert the updated pais object to JSON and return it
+                // Convert the updated obra arte object to JSON and return it
                 response.status(201);
                 response.header("Location", "/api/obraarte");
                 response.type("text/plain");

@@ -1,6 +1,7 @@
 package repository;
 
 import model.Artista;
+import model.Obra_Arte;
 
 
 import java.sql.*;
@@ -114,6 +115,67 @@ public class ArtistaRepository {
             e.printStackTrace();
             // Handle the exception appropriately
             return null; // Return null or throw a custom exception based on your error handling strategy
+        }
+    }
+
+    public Artista updateArtista (int artistaId, Artista artista) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "UPDATE artista " +
+                        "SET nome_artista = ?, " +
+                        "Data_Nascimento = ?, " +
+                        "Biografia = ?, " +
+                        "Data_Morte = ?, " +
+                        "Codigo_Pais = ?, " +
+                        "IsArtsy = ? " +
+                        "WHERE id_artista = ?;")) {
+
+            // Set the values for the prepared statement
+            preparedStatement.setString(1, artista.getNome_artista());
+            if (artista.getData_Nascimento() != null) {
+                preparedStatement.setString(2, artista.getData_Nascimento().format(formatter));
+            } else {
+                preparedStatement.setNull(2, java.sql.Types.DATE); // Set the parameter to NULL in the database
+            }
+            preparedStatement.setString(3, artista.getBiografia());
+            if (artista.getData_Morte() != null) {
+                preparedStatement.setString(4, artista.getData_Morte().format(formatter));
+            } else {
+                preparedStatement.setNull(4, java.sql.Types.DATE); // Set the parameter to NULL in the database
+            }
+            preparedStatement.setInt(5, artista.getCodigo_Pais());
+            preparedStatement.setInt(6, artista.getIsArtsy());
+            preparedStatement.setInt(7, artistaId);
+
+            // Execute the insert statement
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating object Artista failed, no rows affected.");
+            }
+
+            return artista;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return null; // Return null or throw a custom exception based on your error handling strategy
+        }
+    }
+
+    public String deleteArtista(int artistaId) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "DELETE FROM artista WHERE id_artista = ?")) {
+            preparedStatement.setInt(1, artistaId);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                //throw new SQLException("Deleting Artista failed, no rows affected.");
+                return "Deleting Artista failed, no rows affected.";
+            } else {return "Deleting Artista successful.";}
+        } catch (SQLIntegrityConstraintViolationException e ) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return "Deleting Artista failed, no rows affected.";
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

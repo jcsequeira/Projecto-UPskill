@@ -17,8 +17,8 @@ public class RunServerAPI {
         Spark.get("/api/artista/all",artistaInit()::getAllArtistas);
         Spark.get("/api/artista/:id",artistaInit()::getArtistaById);
         Spark.post("/api/artista", artistaInit()::addArtista);
-        //Spark.put("/api/artista/:id", artistaInit()::updateArtista);
-        //Spark.delete("/api/artista/:id", artistaInit()::deleteArtista);
+        Spark.put("/api/artista/:id", artistaInit()::updateArtista);
+        Spark.delete("/api/artista/:id", artistaInit()::deleteArtista);
 
 
         //Galeria.java CRUD Operations Endpoints

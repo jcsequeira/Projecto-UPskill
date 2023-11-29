@@ -21,7 +21,7 @@ public class ArtistaService {
 
     public Artista addArtista(Artista artista){ return artistaRepository.addArtista(artista);}
 
-    //public Artista updateArtista(int id, Artista artista) { return artistaRepository.updateArtista(id, artista);}
+    public Artista updateArtista(int id, Artista artista) { return artistaRepository.updateArtista(id, artista);}
 
-    //public void deleteArtista(int id) {artistaRepository.deleteArtista(id);}
+    public String deleteArtista(int id) {return artistaRepository.deleteArtista(id);}
 }
