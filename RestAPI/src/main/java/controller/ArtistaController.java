@@ -24,9 +24,6 @@ public class ArtistaController {
 
     public String getAllArtistas (Request request, Response response){
         List<Artista> artistaList = artistaService.getAllArtists();
-        gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                .create();
         response.status(200);
         response.header("Location", "/api/artista/all");
         response.type("text/plain");
@@ -40,9 +37,6 @@ public class ArtistaController {
 
             // Retrieve the obraArte from the service
             Artista artista = artistaService.getArtistaById(artistaId);
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
 
             if (artista != null) {
                 // Convert the Artista object to JSON and return it
@@ -70,9 +64,6 @@ public class ArtistaController {
     public  String addArtista(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
             Artista newArtista = gson.fromJson(request.body(), Artista.class);
 
             //envia o objecto para o service
@@ -96,9 +87,6 @@ public class ArtistaController {
             int artistaId = Integer.parseInt(request.params(":id"));
 
             // Parse the JSON data from the request body into Artista object
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
             Artista updatedArtista = gson.fromJson(request.body(), Artista.class);
 
             // Call the service to update the pais

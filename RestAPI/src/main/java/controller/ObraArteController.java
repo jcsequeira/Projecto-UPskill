@@ -23,9 +23,6 @@ public class ObraArteController {
 
     public String getAllObraArte (Request request, Response response){
         List<Obra_Arte> obraArteList = obraArteService.getAllObraArte();
-        gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                .create();
         response.status(200);
         response.header("Location", "/api/obraarte/all");
         response.type("text/plain");
@@ -39,9 +36,6 @@ public class ObraArteController {
 
             // Retrieve the obraArte from the service
             Obra_Arte obraArte = obraArteService.getObraArteById(obraArteId);
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
 
             if (obraArte != null) {
                 // Convert the obraArte object to JSON and return it
@@ -54,23 +48,11 @@ public class ObraArteController {
                 response.status(404);
                 return "ObraArte not found";
             }
-     /*   } catch (NumberFormatException e) {
-            // Handle the case where the ID parameter is not a valid number
-            response.status(400);
-            return "Invalid ObraArte ID format";
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Handle other exceptions appropriately
-            response.status(500);
-            return "Error retrieving ObraArte";
-        }*/
+
     }
     public  String addObraArte(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
             Obra_Arte newObra_Arte = gson.fromJson(request.body(), Obra_Arte.class);
             //envia o objecto para o service
             Obra_Arte addedObra_Arte = obraArteService.addObraArte(newObra_Arte);
@@ -93,9 +75,6 @@ public class ObraArteController {
             int obraArteId = Integer.parseInt(request.params(":id"));
 
             // Parse the JSON data from the request body into Obra Arte object
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
             Obra_Arte updatedObraArte = gson.fromJson(request.body(), Obra_Arte.class);
 
             // Call the service to update the pais

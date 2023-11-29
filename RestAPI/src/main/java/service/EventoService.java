@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.ServiceException;
 import model.Evento;
 import repository.EventoRepository;
 
@@ -19,12 +20,19 @@ public class EventoService {
     public Evento getEventoById(int eventoId) { return eventoRepository.getEventoById(eventoId);}
 
     public Evento addEvento(Evento newEvento) {
-        //validar eventos com datas obrigatorias!
+        // Validate events with mandatory dates
+        if (newEvento.getData_inicio() == null || newEvento.getData_Fim() == null) {
+            throw new ServiceException("Start and end dates are mandatory for an event.");
+        }
         return eventoRepository.addEvento(newEvento);
     }
 
+
     public Evento updateEvento(int eventoId, Evento updatedEvento) {
-        //validar eventos com datas obrigatorias!
+        // Validate events with mandatory dates
+        if (updatedEvento.getData_inicio() == null || updatedEvento.getData_Fim() == null) {
+            throw new ServiceException("Start and end dates are mandatory for an event.");
+        }
         return eventoRepository.updateEvento(eventoId, updatedEvento);
     }
 

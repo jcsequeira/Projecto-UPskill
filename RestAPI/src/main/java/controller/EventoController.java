@@ -27,9 +27,6 @@ public class EventoController {
 
     public String getAllEvento (Request request, Response response){
         List<Evento> eventoList = eventoService.getAllEvento();
-        gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                .create();
 
         response.status(200);
         response.header("Location", "/api/evento/all");
@@ -44,10 +41,6 @@ public class EventoController {
 
             // Retrieve the evento from the service
             Evento evento = eventoService.getEventoById(eventoId);
-            //instance gson ready do localdate
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
 
             if (evento != null) {
                 // Convert the evento object to JSON and return it
@@ -76,9 +69,6 @@ public class EventoController {
     public  String addEvento(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
             Evento newEvento = gson.fromJson(request.body(), Evento.class);
             //envia o objecto para o service
             Evento addedEvento = eventoService.addEvento(newEvento);
@@ -99,9 +89,6 @@ public class EventoController {
         try {
             // Extract the evento ID from the request parameters
             int eventoId = Integer.parseInt(request.params(":id"));
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                    .create();
 
             // Parse the JSON data from the request body into a Evento object
             Evento updatedEvento = gson.fromJson(request.body(), Evento.class);

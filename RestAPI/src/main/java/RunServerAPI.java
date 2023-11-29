@@ -1,24 +1,31 @@
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import controller.*;
+import controller.adapters.LocalDateAdapter;
 import repository.*;
 import service.*;
 import spark.Spark;
 
+import java.time.LocalDate;
+
 import static spark.Spark.*;
 
 public class RunServerAPI {
+
+    private static Gson gsonLocalDate = new GsonBuilder().registerTypeAdapter(LocalDate .class, new LocalDateAdapter()).create();
+
 
     public static void main(String[] args) {
         //Test EndPoint
         get("/hello", (req, res) -> "Hello World");
 
         //Artista.java CRUD Operations Endpoints
-        Spark.get("/api/artista/all",artistaInit()::getAllArtistas);
-        Spark.get("/api/artista/:id",artistaInit()::getArtistaById);
-        Spark.post("/api/artista", artistaInit()::addArtista);
-        Spark.put("/api/artista/:id", artistaInit()::updateArtista);
-        Spark.delete("/api/artista/:id", artistaInit()::deleteArtista);
+        Spark.get("/api/artista/all",artistaInit(gsonLocalDate)::getAllArtistas);
+        Spark.get("/api/artista/:id",artistaInit(gsonLocalDate)::getArtistaById);
+        Spark.post("/api/artista", artistaInit(gsonLocalDate)::addArtista);
+        Spark.put("/api/artista/:id", artistaInit(gsonLocalDate)::updateArtista);
+        Spark.delete("/api/artista/:id", artistaInit(gsonLocalDate)::deleteArtista);
 
 
         //Galeria.java CRUD Operations Endpoints
@@ -31,11 +38,11 @@ public class RunServerAPI {
 
 
         //Evento.java CRUD Operations Endpoints
-        Spark.get("/api/evento/all",eventoInit()::getAllEvento);
-        Spark.get("/api/evento/:id",eventoInit()::getEventoById);
-        Spark.post("/api/evento", eventoInit()::addEvento);
-        Spark.put("/api/evento/:id", eventoInit()::updateEvento);
-        Spark.delete("/api/evento/:id", eventoInit()::deleteEvento);
+        Spark.get("/api/evento/all",eventoInit(gsonLocalDate)::getAllEvento);
+        Spark.get("/api/evento/:id",eventoInit(gsonLocalDate)::getEventoById);
+        Spark.post("/api/evento", eventoInit(gsonLocalDate)::addEvento);
+        Spark.put("/api/evento/:id", eventoInit(gsonLocalDate)::updateEvento);
+        Spark.delete("/api/evento/:id", eventoInit(gsonLocalDate)::deleteEvento);
 
         //Cidade.java CRUD Operations Endpoints
         //TBD
@@ -72,7 +79,7 @@ public class RunServerAPI {
         //TBD
         //TBD
 
-        //Galerista.java CRUD Operations Endpoints
+        //Galerista.java CRUD Operations Endpoints AVISO LEVA DATAS!
         //TBD
         //TBD
         //TBD
@@ -91,11 +98,11 @@ public class RunServerAPI {
 
 
         //Obra_Arte CRUD Operations Endpoints
-        Spark.get("/api/obraarte/all",obraArteInit()::getAllObraArte);
-        Spark.get("/api/obraarte/:id",obraArteInit()::getObraArteById);
-        Spark.post("/api/obraarte", obraArteInit()::addObraArte);
-        Spark.put("/api/obraarte/:id", obraArteInit()::updateObraArte);
-        Spark.delete("/api/obraarte/:id", obraArteInit()::deleteObraArte);
+        Spark.get("/api/obraarte/all",obraArteInit(gsonLocalDate)::getAllObraArte);
+        Spark.get("/api/obraarte/:id",obraArteInit(gsonLocalDate)::getObraArteById);
+        Spark.post("/api/obraarte", obraArteInit(gsonLocalDate)::addObraArte);
+        Spark.put("/api/obraarte/:id", obraArteInit(gsonLocalDate)::updateObraArte);
+        Spark.delete("/api/obraarte/:id", obraArteInit(gsonLocalDate)::deleteObraArte);
 
 
         //TRATAMENTO DE EXCEPÇOES para melhorar!
@@ -116,10 +123,11 @@ public class RunServerAPI {
     }
 
     //Methods to Initialize All Services
-    public static ArtistaController artistaInit() {
+
+
+    public static ArtistaController artistaInit(Gson gson) {
         ArtistaRepository artistRepository = new ArtistaRepository(DBConnection.getConnection());
         ArtistaService artistaService = new ArtistaService(artistRepository);
-        Gson gson = new Gson();
         return new ArtistaController(artistaService, gson);}
 
     public static PaisController paisInit() {
@@ -128,10 +136,9 @@ public class RunServerAPI {
         Gson gson = new Gson();
         return new PaisController(paisService, gson);}
 
-    public static ObraArteController obraArteInit() {
+    public static ObraArteController obraArteInit(Gson gson) {
         ObraArteRepository obraArteRepository = new ObraArteRepository(DBConnection.getConnection());
         ObraArteService obraArteService = new ObraArteService(obraArteRepository);
-        Gson gson = new Gson();
         return new ObraArteController(obraArteService, gson);}
 
     public static GaleriaController galeriaInit() {
@@ -140,10 +147,9 @@ public class RunServerAPI {
         Gson gson = new Gson();
         return new GaleriaController(galeriaService, gson);}
 
-    public static EventoController eventoInit() {
+    public static EventoController eventoInit(Gson gson) {
         EventoRepository eventoRepository = new EventoRepository(DBConnection.getConnection());
         EventoService eventoService = new EventoService(eventoRepository);
-        Gson gson = new Gson();
         return new EventoController(eventoService, gson);}
 
 /*
@@ -182,7 +188,7 @@ public class RunServerAPI {
         return administradorController;
     }
 
-    public static GaleristaController galeristaInit() {
+    public static GaleristaController galeristaInit(Gson gson) {
         // TBD: Implement logic to initialize GaleristaController
         GaleristaController galeristaController = new GaleristaController();
         // Add any necessary initialization or configuration logic

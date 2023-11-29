@@ -27,7 +27,10 @@ public class ArtistaRepository {
                 Artista artista = new Artista();
                 artista.setId_artista(resultSet.getLong("id_artista"));
                 artista.setNome_artista(resultSet.getString("nome_artista"));
-                artista.setData_Nascimento(resultSet.getDate("Data_Nascimento").toLocalDate());
+                if (resultSet.getDate("Data_Nascimento") != null){
+                    artista.setData_Nascimento(resultSet.getDate("Data_Nascimento").toLocalDate());}
+                else {
+                    artista.setData_Nascimento(null);}
                 artista.setBiografia(resultSet.getString("Biografia"));
                 if (resultSet.getDate("Data_Morte") != null){
                 artista.setData_Morte(resultSet.getDate("Data_Morte").toLocalDate());}
@@ -57,7 +60,10 @@ public class ArtistaRepository {
                     Artista artista = new Artista();
                     artista.setId_artista(resultSet.getInt("id_artista"));
                     artista.setNome_artista(resultSet.getString("nome_artista"));
-                    artista.setData_Nascimento(resultSet.getDate("Data_Nascimento").toLocalDate());
+                    if (resultSet.getDate("Data_Nascimento") != null){
+                        artista.setData_Nascimento(resultSet.getDate("Data_Nascimento").toLocalDate());}
+                    else {
+                        artista.setData_Nascimento(null);}
                     artista.setBiografia(resultSet.getString("Biografia"));
                     if (resultSet.getDate("Data_Morte") != null){
                         artista.setData_Morte(resultSet.getDate("Data_Morte").toLocalDate());}
@@ -84,7 +90,11 @@ public class ArtistaRepository {
 
             // Set the values for the prepared statement
             preparedStatement.setString(1, artista.getNome_artista());
-            preparedStatement.setString(2, artista.getData_Nascimento().format(formatter));
+            if (artista.getData_Nascimento() != null) {
+                preparedStatement.setString(2, artista.getData_Nascimento().format(formatter));
+            } else {
+                preparedStatement.setNull(2, java.sql.Types.DATE); // Set the parameter to NULL in the database
+            }
             preparedStatement.setString(3, artista.getBiografia());
             if (artista.getData_Morte() != null) {
                 preparedStatement.setString(4, artista.getData_Morte().format(formatter));
