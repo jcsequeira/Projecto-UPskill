@@ -79,7 +79,7 @@ CREATE TABLE Artista
   id_artista int not null auto_increment,
   nome_artista VARCHAR(500),
   Data_Nascimento DATE,
-  Biografia VARCHAR(2000) NOT NULL,
+  Biografia VARCHAR(2000),
   Data_Morte DATE,
   Codigo_Pais INT NOT NULL,
   IsArtsy tinyint default 0,
@@ -111,14 +111,14 @@ CREATE TABLE Obra_Arte
 );
 
 CREATE TABLE Galeria
-(
+( -- Algumas colunas estão opcionais devido ao artsy, mas serao obrigatorias na app javaFX
   id_Galeria INT NOT NULL auto_increment,
   Nome_Galeria VARCHAR(50) NOT NULL,
-  Morada VARCHAR(100) NOT NULL,
-  Website VARCHAR(50) NOT NULL,
+  Morada VARCHAR(100),
+  Website VARCHAR(50),
   Email VARCHAR(50) NOT NULL,
-  Telefone VARCHAR(20) NOT NULL,
-  id_Cidade INT NOT NULL,
+  Telefone VARCHAR(20),
+  id_Cidade INT,
   id_colaborador INT,
   IsArtsy tinyint default 0,
   CHECK (IsArtsy IN (0, 1)),
@@ -133,7 +133,7 @@ CREATE TABLE Evento -- exposicao
   Nome VARCHAR(50) NOT NULL,
   Data_inicio DATE NOT NULL,
   Data_Fim DATE NOT NULL,
-  Descricao VARCHAR(500) NOT NULL,
+  Descricao VARCHAR(1000) NOT NULL,
   id_Galeria INT NOT NULL,
   IsArtsy tinyint default 0,
   CHECK (IsArtsy IN (0, 1)),
