@@ -44,12 +44,12 @@ public class RunServerAPI {
         Spark.put("/api/evento/:id", eventoInit(gsonLocalDate)::updateEvento);
         Spark.delete("/api/evento/:id", eventoInit(gsonLocalDate)::deleteEvento);
 
-        //Cidade.java CRUD Operations Endpoints
-        //TBD
-        //TBD
-        //TBD
-        //TBD
-        //TBD
+        /// Cidade.java CRUD Operations Endpoints
+        Spark.get("/api/cidade/all", cidadeInit()::getAllCidade);
+        Spark.get("/api/cidade/:id", cidadeInit()::getCidadeById);
+        Spark.post("/api/cidade", cidadeInit()::addCidade);
+        Spark.put("/api/cidade/:id", cidadeInit()::updateCidade);
+        Spark.delete("/api/cidade/:id", cidadeInit()::deleteCidade);
 
         //Movimento.java CRUD Operations Endpoints
         Spark.get("/api/movimento/all",movimentoInit()::getAllMovimentos);
@@ -152,13 +152,12 @@ public class RunServerAPI {
         EventoService eventoService = new EventoService(eventoRepository);
         return new EventoController(eventoService, gson);}
 
-/*
+
     public static CidadeController cidadeInit() {
-        // TBD: Implement logic to initialize CidadeController
-        CidadeController cidadeController = new CidadeController();
-        // Add any necessary initialization or configuration logic
-        return cidadeController;
-    }*/
+    CidadeRepository cidadeRepository = new CidadeRepository(DBConnection.getConnection());
+    CidadeService cidadeService = new CidadeService(cidadeRepository);
+    return new CidadeController(cidadeService, new Gson());
+}
 
     public static MovimentoController movimentoInit() {
         MovimentoRepository movimentoRepository = new MovimentoRepository(DBConnection.getConnection());
