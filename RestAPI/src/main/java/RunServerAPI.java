@@ -68,14 +68,14 @@ public class RunServerAPI {
         Spark.post("/api/colaborador", colaboradorInit()::addColaborador);
         Spark.put("/api/colaborador/:id", colaboradorInit()::updateColaborador);
         Spark.delete("/api/colaborador/:id", colaboradorInit()::deleteColaborador);
-/*
+
         // Administrador.java CRUD Operations Endpoints
         Spark.get("/api/administrador/all", administradorInit()::getAllAdministrador);
         Spark.get("/api/administrador/:id", administradorInit()::getAdministradorById);
         Spark.post("/api/administrador", administradorInit()::addAdministrador);
         Spark.put("/api/administrador/:id", administradorInit()::updateAdministrador);
         Spark.delete("/api/administrador/:id", administradorInit()::deleteAdministrador);
-*/
+
         // Galerista.java CRUD Operations Endpoints
         Spark.get("/api/galerista/all", galeristaInit(gsonLocalDate)::getAllGaleristas);
         Spark.get("/api/galerista/:id", galeristaInit(gsonLocalDate)::getGaleristaById);
@@ -176,12 +176,12 @@ public class RunServerAPI {
         ColaboradorService colaboradorService = new ColaboradorService(colaboradorRepository);
         return new ColaboradorController(colaboradorService, new Gson());
     }
-/*
+
     public static AdministradorController administradorInit() {
         AdministradorRepository administradorRepository = new AdministradorRepository(DBConnection.getConnection());
         AdministradorService administradorService = new AdministradorService(administradorRepository);
         return new AdministradorController(administradorService, new Gson());
-    }*/
+    }
 
     public static GaleristaController galeristaInit(Gson gson) {
         GaleristaRepository galeristaRepository = new GaleristaRepository(DBConnection.getConnection());

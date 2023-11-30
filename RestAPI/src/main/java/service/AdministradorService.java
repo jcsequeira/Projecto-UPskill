@@ -3,11 +3,16 @@ package service;
 import exceptions.ServiceException;
 import model.Administrador;
 import repository.AdministradorRepository;
+import repository.ColaboradorRepository;
+import repository.DBConnection;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class AdministradorService {
     private AdministradorRepository administradorRepository;
+    private final Connection con = DBConnection.getConnection();
+    private final ColaboradorRepository colaboradorRepository = new ColaboradorRepository(con);
 
     public AdministradorService(AdministradorRepository administradorRepository) {
         this.administradorRepository = administradorRepository;
@@ -47,11 +52,16 @@ public class AdministradorService {
 
     private void validateAdministradorFields(Administrador administrador) {
         // Validate if mandatory fields are not null and Codigo_Pais is greater than 0
-        if (administrador.getId_colaborador() <= 0 ||
-                administrador.getPassword() == null)
-        { throw new ServiceException("All administrador fields are mandatory!");
+        if (administrador.getId_colaborador() <= 0 || administrador.getPassword() == null) {
+            throw new ServiceException("All administrador fields are mandatory!");
+        } else {
+            // Check if the provided id_colaborador exists in the Colaborador table
+            if (!colaboradorRepository.existsColaborador(administrador.getId_colaborador())) {
+                throw new ServiceException("Invalid id_colaborador. It does not exist in the Colaborador table.");
+            }
         }
     }
+
 
 
     public String deleteAdministrador(int id) {return administradorRepository.deleteAdministrador(id);}

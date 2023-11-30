@@ -16,6 +16,27 @@ public class ColaboradorRepository {
         this.con = con;
     }
 
+    public boolean existsColaborador(int idColaborador) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "SELECT COUNT(*) FROM Colaborador WHERE id_colaborador = ?")) {
+
+            preparedStatement.setInt(1, idColaborador);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return false;
+        }
+        return false;
+    }
+
+
 
     public List<Colaborador> getAllColaboradores() {
         List<Colaborador> colaboradorList = new ArrayList<>();

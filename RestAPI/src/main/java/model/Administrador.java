@@ -10,6 +10,9 @@ public class Administrador {
         this.id_colaborador = id_colaborador;
     }
 
+    public Administrador() {
+    }
+
     public String getPassword() {
         return password;
     }
