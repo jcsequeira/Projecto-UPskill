@@ -82,13 +82,14 @@ public class RunServerAPI {
         Spark.post("/api/galerista", galeristaInit(gsonLocalDate)::addGalerista);
         Spark.put("/api/galerista/:id", galeristaInit(gsonLocalDate)::updateGalerista);
         Spark.delete("/api/galerista/:id", galeristaInit(gsonLocalDate)::deleteGalerista);
+*/
 
         // Tecnica.java CRUD Operations Endpoints
-        Spark.get("/api/tecnica/all", tecnicaInit()::getAllTecnica);
+        Spark.get("/api/tecnica/all", tecnicaInit()::getAllTecnicas);
         Spark.get("/api/tecnica/:id", tecnicaInit()::getTecnicaById);
         Spark.post("/api/tecnica", tecnicaInit()::addTecnica);
         Spark.put("/api/tecnica/:id", tecnicaInit()::updateTecnica);
-        Spark.delete("/api/tecnica/:id", tecnicaInit()::deleteTecnica);       */
+        Spark.delete("/api/tecnica/:id", tecnicaInit()::deleteTecnica);
 
         //Pais CRUD Operations Endpoints
         Spark.get("/api/pais/all",paisInit()::getAllPais);
@@ -186,13 +187,13 @@ public class RunServerAPI {
         GaleristaRepository galeristaRepository = new GaleristaRepository(DBConnection.getConnection());
         GaleristaService galeristaService = new GaleristaService(galeristaRepository);
         return new GaleristaController(galeristaService, gson);
-    }
+    }*/
 
-    public static TecnicaController tecnicaInit(Gson gson) {
+    public static TecnicaController tecnicaInit() {
         TecnicaRepository tecnicaRepository = new TecnicaRepository(DBConnection.getConnection());
         TecnicaService tecnicaService = new TecnicaService(tecnicaRepository);
-        return new TecnicaController(tecnicaService, gson);
-    }*/
+        return new TecnicaController(tecnicaService, new Gson());
+    }
 
 
 
