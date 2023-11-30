@@ -1,15 +1,11 @@
 package controller;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import controller.adapters.LocalDateAdapter;
 import model.Obra_Arte;
-import model.Pais;
 import service.ObraArteService;
 import spark.Request;
 import spark.Response;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class ObraArteController {
