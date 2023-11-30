@@ -1,9 +1,7 @@
 package service;
 
 import model.Movimento;
-import model.Pais;
 import repository.MovimentoRepository;
-import repository.PaisRepository;
 
 import java.util.List;
 

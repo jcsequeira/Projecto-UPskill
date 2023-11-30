@@ -1,7 +1,6 @@
 package repository;
 
 import model.Movimento;
-import model.Movimento;
 
 import java.sql.*;
 import java.util.ArrayList;

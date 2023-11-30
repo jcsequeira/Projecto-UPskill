@@ -55,7 +55,6 @@ public class MovimentoController {
             response.status(500);
             return "Error retrieving movimento";
         }
-
     }
 
     public  String addMovimento(Request request, Response response) {
