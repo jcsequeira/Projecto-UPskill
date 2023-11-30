@@ -38,17 +38,10 @@ public class AdministradorService {
     }
 
     public Administrador updateAdministrador(int id, Administrador administrador) {
-        try {
-            validateAdministradorFields(administrador);
-            // If validation passes, update the administrador
-            return administradorRepository.updateAdministrador(id, administrador);
-        } catch (ServiceException e) {
-            // Handle the ServiceException appropriately
-            // You might want to log the exception or notify the user
-            e.printStackTrace(); // Example: Logging the exception
-            throw e; // Re-throw the exception if needed
+        if (administrador.getPassword() == null) {
+            throw new ServiceException("All administrador fields are mandatory!");
         }
-    }
+        return administradorRepository.updateAdministrador(id, administrador);}
 
     public String deleteAdministrador(int id) {return administradorRepository.deleteAdministrador(id);}
 
