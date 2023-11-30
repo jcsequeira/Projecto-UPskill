@@ -27,15 +27,12 @@ public class RunServerAPI {
         Spark.put("/api/artista/:id", artistaInit(gsonLocalDate)::updateArtista);
         Spark.delete("/api/artista/:id", artistaInit(gsonLocalDate)::deleteArtista);
 
-
         //Galeria.java CRUD Operations Endpoints
         Spark.get("/api/galeria/all",galeriaInit()::getAllGaleria);
         Spark.get("/api/galeria/:id",galeriaInit()::getGaleriaById);
         Spark.post("/api/galeria", galeriaInit()::addGaleria);
         Spark.put("/api/galeria/:id", galeriaInit()::updateGaleria);
         Spark.delete("/api/galeria/:id", galeriaInit()::deleteGaleria);
-
-
 
         //Evento.java CRUD Operations Endpoints
         Spark.get("/api/evento/all",eventoInit(gsonLocalDate)::getAllEvento);
@@ -58,36 +55,40 @@ public class RunServerAPI {
         Spark.put("/api/movimento/:id", movimentoInit()::updateMovimento);
         Spark.delete("/api/movimento/:id", movimentoInit()::deleteMovimento);
 
-        //Materiais.java CRUD Operations Endpoints
-        //TBD
-        //TBD
-        //TBD
-        //TBD
-        //TBD
+        // Materiais.java CRUD Operations Endpoints
+        /*Spark.get("/api/materiais/all", materiaisInit()::getAllMateriais);
+        Spark.get("/api/materiais/:id", materiaisInit()::getMaterialById);
+        Spark.post("/api/materiais", materiaisInit()::addMaterial);
+        Spark.put("/api/materiais/:id", materiaisInit()::updateMaterial);
+        Spark.delete("/api/materiais/:id", materiaisInit()::deleteMaterial);
 
-        //Colaborador.java CRUD Operations Endpoints
-        //TBD
-        //TBD
-        //TBD
-        //TBD
-        //TBD
+        // Colaborador.java CRUD Operations Endpoints
+        Spark.get("/api/colaborador/all", colaboradorInit()::getAllColaborador);
+        Spark.get("/api/colaborador/:id", colaboradorInit()::getColaboradorById);
+        Spark.post("/api/colaborador", colaboradorInit()::addColaborador);
+        Spark.put("/api/colaborador/:id", colaboradorInit()::updateColaborador);
+        Spark.delete("/api/colaborador/:id", colaboradorInit()::deleteColaborador);
 
-        //Administrador.java CRUD Operations Endpoints
-        //TBD
-        //TBD
-        //TBD
-        //TBD
-        //TBD
+        // Administrador.java CRUD Operations Endpoints
+        Spark.get("/api/administrador/all", administradorInit()::getAllAdministrador);
+        Spark.get("/api/administrador/:id", administradorInit()::getAdministradorById);
+        Spark.post("/api/administrador", administradorInit()::addAdministrador);
+        Spark.put("/api/administrador/:id", administradorInit()::updateAdministrador);
+        Spark.delete("/api/administrador/:id", administradorInit()::deleteAdministrador);
 
-        //Galerista.java CRUD Operations Endpoints AVISO LEVA DATAS!
-        //TBD
-        //TBD
-        //TBD
-        //TBD
-        //TBD
+        // Galerista.java CRUD Operations Endpoints
+        Spark.get("/api/galerista/all", galeristaInit(gsonLocalDate)::getAllGalerista);
+        Spark.get("/api/galerista/:id", galeristaInit(gsonLocalDate)::getGaleristaById);
+        Spark.post("/api/galerista", galeristaInit(gsonLocalDate)::addGalerista);
+        Spark.put("/api/galerista/:id", galeristaInit(gsonLocalDate)::updateGalerista);
+        Spark.delete("/api/galerista/:id", galeristaInit(gsonLocalDate)::deleteGalerista);
 
-
-
+        // Tecnica.java CRUD Operations Endpoints
+        Spark.get("/api/tecnica/all", tecnicaInit()::getAllTecnica);
+        Spark.get("/api/tecnica/:id", tecnicaInit()::getTecnicaById);
+        Spark.post("/api/tecnica", tecnicaInit()::addTecnica);
+        Spark.put("/api/tecnica/:id", tecnicaInit()::updateTecnica);
+        Spark.delete("/api/tecnica/:id", tecnicaInit()::deleteTecnica);       */
 
         //Pais CRUD Operations Endpoints
         Spark.get("/api/pais/all",paisInit()::getAllPais);
@@ -95,7 +96,6 @@ public class RunServerAPI {
         Spark.post("/api/pais", paisInit()::addPais);
         Spark.put("/api/pais/:id", paisInit()::updatePais);
         Spark.delete("/api/pais/:id", paisInit()::deletePais);
-
 
         //Obra_Arte CRUD Operations Endpoints
         Spark.get("/api/obraarte/all",obraArteInit(gsonLocalDate)::getAllObraArte);
@@ -124,7 +124,6 @@ public class RunServerAPI {
 
     //Methods to Initialize All Services
 
-
     public static ArtistaController artistaInit(Gson gson) {
         ArtistaRepository artistRepository = new ArtistaRepository(DBConnection.getConnection());
         ArtistaService artistaService = new ArtistaService(artistRepository);
@@ -152,45 +151,46 @@ public class RunServerAPI {
         EventoService eventoService = new EventoService(eventoRepository);
         return new EventoController(eventoService, gson);}
 
-
     public static CidadeController cidadeInit() {
     CidadeRepository cidadeRepository = new CidadeRepository(DBConnection.getConnection());
     CidadeService cidadeService = new CidadeService(cidadeRepository);
     return new CidadeController(cidadeService, new Gson());
-}
+    }
 
     public static MovimentoController movimentoInit() {
         MovimentoRepository movimentoRepository = new MovimentoRepository(DBConnection.getConnection());
         MovimentoService movimentoService = new MovimentoService(movimentoRepository);
         return new MovimentoController(movimentoService, new Gson());
     }
-
-    /*public static MateriaisController materiaisInit() {
-        // TBD: Implement logic to initialize MateriaisController
-        MateriaisController materiaisController = new MateriaisController();
-        // Add any necessary initialization or configuration logic
-        return materiaisController;
+    /*
+    public static MateriaisController materiaisInit() {
+        MateriaisRepository materiaisRepository = new MateriaisRepository(DBConnection.getConnection());
+        MateriaisService materiaisService = new MateriaisService(materiaisRepository);
+        return new MateriaisController(materiaisService, new Gson());
     }
 
     public static ColaboradorController colaboradorInit() {
-        // TBD: Implement logic to initialize ColaboradorController
-        ColaboradorController colaboradorController = new ColaboradorController();
-        // Add any necessary initialization or configuration logic
-        return colaboradorController;
+        ColaboradorRepository colaboradorRepository = new ColaboradorRepository(DBConnection.getConnection());
+        ColaboradorService colaboradorService = new ColaboradorService(colaboradorRepository);
+        return new ColaboradorController(colaboradorService, new Gson());
     }
 
     public static AdministradorController administradorInit() {
-        // TBD: Implement logic to initialize AdministradorController
-        AdministradorController administradorController = new AdministradorController();
-        // Add any necessary initialization or configuration logic
-        return administradorController;
+        AdministradorRepository administradorRepository = new AdministradorRepository(DBConnection.getConnection());
+        AdministradorService administradorService = new AdministradorService(administradorRepository);
+        return new AdministradorController(administradorService, new Gson());
     }
 
     public static GaleristaController galeristaInit(Gson gson) {
-        // TBD: Implement logic to initialize GaleristaController
-        GaleristaController galeristaController = new GaleristaController();
-        // Add any necessary initialization or configuration logic
-        return galeristaController;
+        GaleristaRepository galeristaRepository = new GaleristaRepository(DBConnection.getConnection());
+        GaleristaService galeristaService = new GaleristaService(galeristaRepository);
+        return new GaleristaController(galeristaService, gson);
+    }
+
+    public static TecnicaController tecnicaInit(Gson gson) {
+        TecnicaRepository tecnicaRepository = new TecnicaRepository(DBConnection.getConnection());
+        TecnicaService tecnicaService = new TecnicaService(tecnicaRepository);
+        return new TecnicaController(tecnicaService, gson);
     }*/
 
 
