@@ -62,13 +62,13 @@ public class RunServerAPI {
         Spark.put("/api/materiais/:id", materiaisInit()::updateMaterial);
         Spark.delete("/api/materiais/:id", materiaisInit()::deleteMaterial);
 
-        /*// Colaborador.java CRUD Operations Endpoints
-        Spark.get("/api/colaborador/all", colaboradorInit()::getAllColaborador);
+        // Colaborador.java CRUD Operations Endpoints
+        Spark.get("/api/colaborador/all", colaboradorInit()::getAllColaboradores);
         Spark.get("/api/colaborador/:id", colaboradorInit()::getColaboradorById);
         Spark.post("/api/colaborador", colaboradorInit()::addColaborador);
         Spark.put("/api/colaborador/:id", colaboradorInit()::updateColaborador);
         Spark.delete("/api/colaborador/:id", colaboradorInit()::deleteColaborador);
-
+        /*
         // Administrador.java CRUD Operations Endpoints
         Spark.get("/api/administrador/all", administradorInit()::getAllAdministrador);
         Spark.get("/api/administrador/:id", administradorInit()::getAdministradorById);
@@ -170,13 +170,13 @@ public class RunServerAPI {
         return new MateriaisController(materiaisService, new Gson());
     }
 
-    /*
+
     public static ColaboradorController colaboradorInit() {
         ColaboradorRepository colaboradorRepository = new ColaboradorRepository(DBConnection.getConnection());
         ColaboradorService colaboradorService = new ColaboradorService(colaboradorRepository);
         return new ColaboradorController(colaboradorService, new Gson());
     }
-
+   /*
     public static AdministradorController administradorInit() {
         AdministradorRepository administradorRepository = new AdministradorRepository(DBConnection.getConnection());
         AdministradorService administradorService = new AdministradorService(administradorRepository);
