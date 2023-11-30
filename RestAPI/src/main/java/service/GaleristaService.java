@@ -1,12 +1,19 @@
 package service;
 
+import exceptions.ServiceException;
 import model.Galerista;
+import repository.ColaboradorRepository;
+import repository.DBConnection;
 import repository.GaleristaRepository;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class GaleristaService {
     private GaleristaRepository galeristaRepository;
+
+    private final Connection con = DBConnection.getConnection();
+    private final ColaboradorRepository colaboradorRepository = new ColaboradorRepository(con);
 
     public GaleristaService(GaleristaRepository galeristaRepository) {
         this.galeristaRepository = galeristaRepository;
@@ -21,14 +28,35 @@ public class GaleristaService {
     }
 
     public Galerista addGalerista(Galerista newGalerista) {
-        return galeristaRepository.addGalerista(newGalerista);
+        try {validateGaleristaFields(newGalerista);
+        return galeristaRepository.addGalerista(newGalerista);}
+        catch (ServiceException e){
+            e.printStackTrace();
+            throw e;
+        }
     }
 
+
     public Galerista updateGalerista(int galeristaId, Galerista updatedGalerista) {
-        return galeristaRepository.updateGalerista(galeristaId, updatedGalerista);
+        try {validateGaleristaFields(updatedGalerista);
+            return galeristaRepository.updateGalerista(galeristaId, updatedGalerista);}
+        catch (ServiceException e){
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     public String deleteGalerista(int galeristaId) {
         return galeristaRepository.deleteGalerista(galeristaId);
+    }
+
+    private void validateGaleristaFields(Galerista galerista) {
+        if (galerista.getPassword() == null || galerista.getId_colaborador() <= 0){
+            throw  new ServiceException("All Galerista fields are mandatory!");
+        } else {
+            if (!colaboradorRepository.existsColaborador(galerista.getId_colaborador())) {
+                throw new ServiceException("Invalid id_colaborador. It does not exist in the Colaborador table.");
+            }
+        }
     }
 }

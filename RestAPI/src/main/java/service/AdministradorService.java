@@ -50,6 +50,8 @@ public class AdministradorService {
         }
     }
 
+    public String deleteAdministrador(int id) {return administradorRepository.deleteAdministrador(id);}
+
     private void validateAdministradorFields(Administrador administrador) {
         // Validate if mandatory fields are not null and Codigo_Pais is greater than 0
         if (administrador.getId_colaborador() <= 0 || administrador.getPassword() == null) {
@@ -61,8 +63,4 @@ public class AdministradorService {
             }
         }
     }
-
-
-
-    public String deleteAdministrador(int id) {return administradorRepository.deleteAdministrador(id);}
 }
