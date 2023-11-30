@@ -38,12 +38,10 @@ public class GaleristaService {
 
 
     public Galerista updateGalerista(int galeristaId, Galerista updatedGalerista) {
-        try {validateGaleristaFields(updatedGalerista);
-            return galeristaRepository.updateGalerista(galeristaId, updatedGalerista);}
-        catch (ServiceException e){
-            e.printStackTrace();
-            throw e;
+        if (updatedGalerista.getPassword() == null){
+            throw new ServiceException("Galerista's Password must be provided");
         }
+        return galeristaRepository.updateGalerista(galeristaId, updatedGalerista);
     }
 
     public String deleteGalerista(int galeristaId) {
