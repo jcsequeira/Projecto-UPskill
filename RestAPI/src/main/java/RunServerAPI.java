@@ -9,6 +9,7 @@ import spark.Spark;
 
 import java.time.LocalDate;
 
+
 import static spark.Spark.*;
 
 public class RunServerAPI {
@@ -105,6 +106,10 @@ public class RunServerAPI {
         Spark.put("/api/obrasarte/:id", obraArteInit(gsonLocalDate)::updateObraArte);
         Spark.delete("/api/obrasarte/:id", obraArteInit(gsonLocalDate)::deleteObraArte);
 
+        //Populate endpoints
+        Spark.post("/populate/artista", artistaInit(gsonLocalDate)::addAllArtistas);
+
+
 
         //TRATAMENTO DE EXCEPÇOES para melhorar!
 
@@ -193,6 +198,10 @@ public class RunServerAPI {
         TecnicaRepository tecnicaRepository = new TecnicaRepository(DBConnection.getConnection());
         TecnicaService tecnicaService = new TecnicaService(tecnicaRepository);
         return new TecnicaController(tecnicaService, new Gson());
+    }
+
+    public static void stopServer() {
+        Spark.stop();
     }
 
 
