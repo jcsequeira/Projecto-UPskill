@@ -21,7 +21,7 @@ public class TecnicaController {
         List<Tecnica> tecnicasList = tecnicaService.getAllTecnicas();
         gson = new Gson();
         response.status(200);
-        response.header("Location", "/api/tecnica/all");
+        response.header("Location", "/api/tecnicas");
         response.type("text/plain");
         return gson.toJson(tecnicasList);
     }
@@ -37,7 +37,7 @@ public class TecnicaController {
             if (tecnica != null) {
                 // Convert the tecnica object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/tecnica");
+                response.header("Location", "/api/tecnicas");
                 response.type("text/plain");
                 return gson.toJson(tecnica);
             } else {
@@ -67,7 +67,7 @@ public class TecnicaController {
 
             // Response and Status 201: success in the post
             response.status(201);
-            response.header("Location", "/api/tecnica");
+            response.header("Location", "/api/tecnicas");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedTecnica);
         } catch (Exception e) {
@@ -92,7 +92,7 @@ public class TecnicaController {
             if (result != null) {
                 // Convert the updated tecnica object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/tecnica");
+                response.header("Location", "/api/tecnicas");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -122,7 +122,7 @@ public class TecnicaController {
 
             // Set the response status to 200 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/tecnica");
+            response.header("Location", "/api/tecnicas");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

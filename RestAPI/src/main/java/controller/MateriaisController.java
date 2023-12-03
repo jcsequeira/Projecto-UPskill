@@ -23,7 +23,7 @@ public class MateriaisController {
         List<Materiais> materiaisList = materiaisService.getAllMateriais();
         gson = new Gson();
         response.status(200);
-        response.header("Location", "/api/materiais/all");
+        response.header("Location", "/api/materiais");
         response.type("text/plain");
         return gson.toJson(materiaisList);
     }

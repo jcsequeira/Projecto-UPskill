@@ -21,7 +21,7 @@ public class MovimentoController {
         List<Movimento> movimentosList = movimentoService.getAllMovimentos();
         gson = new Gson();
         response.status(200);
-        response.header("Location", "/api/movimento/all");
+        response.header("Location", "/api/movimentos");
         response.type("text/plain");
         return gson.toJson(movimentosList);
     }
@@ -37,7 +37,7 @@ public class MovimentoController {
             if (movimento != null) {
                 // Convert the movimento object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/movimento");
+                response.header("Location", "/api/movimentos");
                 response.type("text/plain");
                 return gson.toJson(movimento);
             } else {
@@ -65,7 +65,7 @@ public class MovimentoController {
             Movimento addedMovimento = movimentoService.addMovimento(newMovimento);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/movimento");
+            response.header("Location", "/api/movimentos");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedMovimento);
         } catch (Exception e) {
@@ -90,7 +90,7 @@ public class MovimentoController {
             if (result != null) {
                 // Convert the updated movimento object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/movimento");
+                response.header("Location", "/api/movimentos");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -118,7 +118,7 @@ public class MovimentoController {
             String result = movimentoService.deleteMovimento(movimentoId);
             // Set the response status to 200 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/movimento");
+            response.header("Location", "/api/movimentos");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

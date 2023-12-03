@@ -26,7 +26,7 @@ public class GaleriaController {
         List<Galeria> galeriaList = galeriaService.getAllGaleria();
         gson = new Gson();
         response.status(200);
-        response.header("Location", "/api/galeria/all");
+        response.header("Location", "/api/galerias");
         response.type("text/plain");
         return gson.toJson(galeriaList);
     }
@@ -42,7 +42,7 @@ public class GaleriaController {
             if (galeria != null) {
                 // Convert the galeria object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/galeria");
+                response.header("Location", "/api/galerias");
                 response.type("text/plain");
                 return gson.toJson(galeria);
             } else {
@@ -71,7 +71,7 @@ public class GaleriaController {
             Galeria addedGaleria = galeriaService.addGaleria(newGaleria);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/galeria");
+            response.header("Location", "/api/galerias");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedGaleria);
         } catch (Exception e) {
@@ -96,7 +96,7 @@ public class GaleriaController {
             if (result != null) {
                 // Convert the updated galeria object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/galeria");
+                response.header("Location", "/api/galerias");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -124,7 +124,7 @@ public class GaleriaController {
             String result = galeriaService.deleteGaleria(galeriaId);
             // Set the response status to 204 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/galeria");
+            response.header("Location", "/api/galerias");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

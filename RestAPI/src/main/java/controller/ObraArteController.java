@@ -20,7 +20,7 @@ public class ObraArteController {
     public String getAllObraArte (Request request, Response response){
         List<Obra_Arte> obraArteList = obraArteService.getAllObraArte();
         response.status(200);
-        response.header("Location", "/api/obraarte/all");
+        response.header("Location", "/api/obrasarte");
         response.type("text/plain");
         return gson.toJson(obraArteList);
     }
@@ -36,7 +36,7 @@ public class ObraArteController {
             if (obraArte != null) {
                 // Convert the obraArte object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/obraarte");
+                response.header("Location", "/api/obrasarte");
                 response.type("text/plain");
                 return gson.toJson(obraArte);
             } else {
@@ -54,7 +54,7 @@ public class ObraArteController {
             Obra_Arte addedObra_Arte = obraArteService.addObraArte(newObra_Arte);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/obraarte");
+            response.header("Location", "/api/obrasarte");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedObra_Arte);
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class ObraArteController {
             if (result != null) {
                 // Convert the updated obra arte object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/obraarte");
+                response.header("Location", "/api/obrasarte");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -107,7 +107,7 @@ public class ObraArteController {
             String result = obraArteService.deleteObraArte(obraArteId);
             // Set the response status to 204 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/obraarte");
+            response.header("Location", "/api/obrasarte");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

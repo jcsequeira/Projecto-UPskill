@@ -24,7 +24,7 @@ public class CidadeController {
         List<Cidade> cidadeList = cidadeService.getAllCidade();
         gson = new Gson();
         response.status(200);
-        response.header("Location", "/api/cidade/all");
+        response.header("Location", "/api/cidades");
         response.type("text/plain");
         return gson.toJson(cidadeList);
     }
@@ -40,7 +40,7 @@ public class CidadeController {
             if (cidade != null) {
                 // Convert the cidade object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/cidade");
+                response.header("Location", "/api/cidades");
                 response.type("text/plain");
                 return gson.toJson(cidade);
             } else {
@@ -69,7 +69,7 @@ public class CidadeController {
             Cidade addedCidade = cidadeService.addCidade(newCidade);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/cidade");
+            response.header("Location", "/api/cidades");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedCidade);
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class CidadeController {
             if (result != null) {
                 // Convert the updated cidade object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/cidade");
+                response.header("Location", "/api/cidades");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -122,7 +122,7 @@ public class CidadeController {
             String result = cidadeService.deleteCidade(cidadeId);
             // Set the response status to 204 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/cidade");
+            response.header("Location", "/api/cidades");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

@@ -23,7 +23,7 @@ public class ArtistaController {
     public String getAllArtistas (Request request, Response response){
         List<Artista> artistaList = artistaService.getAllArtists();
         response.status(200);
-        response.header("Location", "/api/artista/all");
+        response.header("Location", "/api/artistas");
         response.type("text/plain");
         return gson.toJson(artistaList);
     }
@@ -39,7 +39,7 @@ public class ArtistaController {
             if (artista != null) {
                 // Convert the Artista object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/artista");
+                response.header("Location", "/api/artistas");
                 response.type("text/plain");
                 return gson.toJson(artista);
             } else {
@@ -68,7 +68,7 @@ public class ArtistaController {
             Artista addedArtista = artistaService.addArtista(newArtista);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/artista");
+            response.header("Location", "/api/artistas");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedArtista);
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class ArtistaController {
             if (result != null) {
                 // Convert the updated artista object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/artista");
+                response.header("Location", "/api/artistas");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -121,7 +121,7 @@ public class ArtistaController {
             String result = artistaService.deleteArtista(artistaId);
             // Set the response status to 204 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/artista");
+            response.header("Location", "/api/artistas");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

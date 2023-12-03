@@ -23,7 +23,7 @@ public class ColaboradorController {
     public String getAllColaboradores (Request request, Response response){
         List<Colaborador> colaboradorList = colaboradorService.getAllColaboradores();
         response.status(200);
-        response.header("Location", "/api/colaborador/all");
+        response.header("Location", "/api/colaboradores");
         response.type("text/plain");
         return gson.toJson(colaboradorList);
     }
@@ -39,7 +39,7 @@ public class ColaboradorController {
             if (colaborador != null) {
                 // Convert the Colaborador object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/colaborador");
+                response.header("Location", "/api/colaboradores");
                 response.type("text/plain");
                 return gson.toJson(colaborador);
             } else {
@@ -68,7 +68,7 @@ public class ColaboradorController {
             Colaborador addedColaborador = colaboradorService.addColaborador(newColaborador);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/colaborador");
+            response.header("Location", "/api/colaboradores");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedColaborador);
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class ColaboradorController {
             if (result != null) {
                 // Convert the updated colaborador object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/colaborador");
+                response.header("Location", "/api/colaboradores");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -121,7 +121,7 @@ public class ColaboradorController {
             String result = colaboradorService.deleteColaborador(colaboradorId);
             // Set the response status to 204 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/colaborador");
+            response.header("Location", "/api/colaboradores");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

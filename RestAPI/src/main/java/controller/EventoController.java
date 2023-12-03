@@ -29,7 +29,7 @@ public class EventoController {
         List<Evento> eventoList = eventoService.getAllEvento();
 
         response.status(200);
-        response.header("Location", "/api/evento/all");
+        response.header("Location", "/api/eventos");
         response.type("text/plain");
         return gson.toJson(eventoList);
     }
@@ -45,7 +45,7 @@ public class EventoController {
             if (evento != null) {
                 // Convert the evento object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/evento");
+                response.header("Location", "/api/eventos");
                 response.type("text/plain");
                 return gson.toJson(evento);
             } else {
@@ -74,7 +74,7 @@ public class EventoController {
             Evento addedEvento = eventoService.addEvento(newEvento);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/evento");
+            response.header("Location", "/api/eventos");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedEvento);
         } catch (Exception e) {
@@ -99,7 +99,7 @@ public class EventoController {
             if (result != null) {
                 // Convert the updated evento object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/evento");
+                response.header("Location", "/api/eventos");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -127,7 +127,7 @@ public class EventoController {
             String result = eventoService.deleteEvento(eventoId);
             // Set the response status to 204 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/evento");
+            response.header("Location", "/api/eventos");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

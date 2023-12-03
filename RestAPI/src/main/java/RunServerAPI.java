@@ -20,90 +20,90 @@ public class RunServerAPI {
         //Test EndPoint
         get("/hello", (req, res) -> "Hello World");
 
-        //Artista.java CRUD Operations Endpoints
-        Spark.get("/api/artista/all",artistaInit(gsonLocalDate)::getAllArtistas);
-        Spark.get("/api/artista/:id",artistaInit(gsonLocalDate)::getArtistaById);
-        Spark.post("/api/artista", artistaInit(gsonLocalDate)::addArtista);
-        Spark.put("/api/artista/:id", artistaInit(gsonLocalDate)::updateArtista);
-        Spark.delete("/api/artista/:id", artistaInit(gsonLocalDate)::deleteArtista);
+        //Artistas.java CRUD Operations Endpoints
+        Spark.get("/api/artistas",artistaInit(gsonLocalDate)::getAllArtistas);
+        Spark.get("/api/artistas/:id",artistaInit(gsonLocalDate)::getArtistaById);
+        Spark.post("/api/artistas", artistaInit(gsonLocalDate)::addArtista);
+        Spark.put("/api/artistas/:id", artistaInit(gsonLocalDate)::updateArtista);
+        Spark.delete("/api/artistas/:id", artistaInit(gsonLocalDate)::deleteArtista);
 
         //Galeria.java CRUD Operations Endpoints
-        Spark.get("/api/galeria/all",galeriaInit()::getAllGaleria);
-        Spark.get("/api/galeria/:id",galeriaInit()::getGaleriaById);
-        Spark.post("/api/galeria", galeriaInit()::addGaleria);
-        Spark.put("/api/galeria/:id", galeriaInit()::updateGaleria);
-        Spark.delete("/api/galeria/:id", galeriaInit()::deleteGaleria);
+        Spark.get("/api/galerias",galeriaInit()::getAllGaleria);
+        Spark.get("/api/galerias/:id",galeriaInit()::getGaleriaById);
+        Spark.post("/api/galerias", galeriaInit()::addGaleria);
+        Spark.put("/api/galerias/:id", galeriaInit()::updateGaleria);
+        Spark.delete("/api/galerias/:id", galeriaInit()::deleteGaleria);
 
         //Evento.java CRUD Operations Endpoints
-        Spark.get("/api/evento/all",eventoInit(gsonLocalDate)::getAllEvento);
-        Spark.get("/api/evento/:id",eventoInit(gsonLocalDate)::getEventoById);
-        Spark.post("/api/evento", eventoInit(gsonLocalDate)::addEvento);
-        Spark.put("/api/evento/:id", eventoInit(gsonLocalDate)::updateEvento);
-        Spark.delete("/api/evento/:id", eventoInit(gsonLocalDate)::deleteEvento);
+        Spark.get("/api/eventos",eventoInit(gsonLocalDate)::getAllEvento);
+        Spark.get("/api/eventos/:id",eventoInit(gsonLocalDate)::getEventoById);
+        Spark.post("/api/eventos", eventoInit(gsonLocalDate)::addEvento);
+        Spark.put("/api/eventos/:id", eventoInit(gsonLocalDate)::updateEvento);
+        Spark.delete("/api/eventos/:id", eventoInit(gsonLocalDate)::deleteEvento);
 
         /// Cidade.java CRUD Operations Endpoints
-        Spark.get("/api/cidade/all", cidadeInit()::getAllCidade);
-        Spark.get("/api/cidade/:id", cidadeInit()::getCidadeById);
-        Spark.post("/api/cidade", cidadeInit()::addCidade);
-        Spark.put("/api/cidade/:id", cidadeInit()::updateCidade);
-        Spark.delete("/api/cidade/:id", cidadeInit()::deleteCidade);
+        Spark.get("/api/cidades", cidadeInit()::getAllCidade);
+        Spark.get("/api/cidades/:id", cidadeInit()::getCidadeById);
+        Spark.post("/api/cidades", cidadeInit()::addCidade);
+        Spark.put("/api/cidades/:id", cidadeInit()::updateCidade);
+        Spark.delete("/api/cidades/:id", cidadeInit()::deleteCidade);
 
         //Movimento.java CRUD Operations Endpoints
-        Spark.get("/api/movimento/all",movimentoInit()::getAllMovimentos);
-        Spark.get("/api/movimento/:id",movimentoInit()::getMovimentoById);
-        Spark.post("/api/movimento", movimentoInit()::addMovimento);
-        Spark.put("/api/movimento/:id", movimentoInit()::updateMovimento);
-        Spark.delete("/api/movimento/:id", movimentoInit()::deleteMovimento);
+        Spark.get("/api/movimentos",movimentoInit()::getAllMovimentos);
+        Spark.get("/api/movimentos/:id",movimentoInit()::getMovimentoById);
+        Spark.post("/api/movimentos", movimentoInit()::addMovimento);
+        Spark.put("/api/movimentos/:id", movimentoInit()::updateMovimento);
+        Spark.delete("/api/movimentos/:id", movimentoInit()::deleteMovimento);
 
         // Materiais.java CRUD Operations Endpoints
-        Spark.get("/api/materiais/all", materiaisInit()::getAllMateriais);
+        Spark.get("/api/materiais", materiaisInit()::getAllMateriais);
         Spark.get("/api/materiais/:id", materiaisInit()::getMaterialById);
         Spark.post("/api/materiais", materiaisInit()::addMaterial);
         Spark.put("/api/materiais/:id", materiaisInit()::updateMaterial);
         Spark.delete("/api/materiais/:id", materiaisInit()::deleteMaterial);
 
         // Colaborador.java CRUD Operations Endpoints
-        Spark.get("/api/colaborador/all", colaboradorInit()::getAllColaboradores);
-        Spark.get("/api/colaborador/:id", colaboradorInit()::getColaboradorById);
-        Spark.post("/api/colaborador", colaboradorInit()::addColaborador);
-        Spark.put("/api/colaborador/:id", colaboradorInit()::updateColaborador);
-        Spark.delete("/api/colaborador/:id", colaboradorInit()::deleteColaborador);
+        Spark.get("/api/colaboradores", colaboradorInit()::getAllColaboradores);
+        Spark.get("/api/colaboradores/:id", colaboradorInit()::getColaboradorById);
+        Spark.post("/api/colaboradores", colaboradorInit()::addColaborador);
+        Spark.put("/api/colaboradores/:id", colaboradorInit()::updateColaborador);
+        Spark.delete("/api/colaboradores/:id", colaboradorInit()::deleteColaborador);
 
         // Administrador.java CRUD Operations Endpoints
-        Spark.get("/api/administrador/all", administradorInit()::getAllAdministrador);
-        Spark.get("/api/administrador/:id", administradorInit()::getAdministradorById);
-        Spark.post("/api/administrador", administradorInit()::addAdministrador);
-        Spark.put("/api/administrador/:id", administradorInit()::updateAdministrador);
-        Spark.delete("/api/administrador/:id", administradorInit()::deleteAdministrador);
+        Spark.get("/api/administradores", administradorInit()::getAllAdministrador);
+        Spark.get("/api/administradores/:id", administradorInit()::getAdministradorById);
+        Spark.post("/api/administradores", administradorInit()::addAdministrador);
+        Spark.put("/api/administradores/:id", administradorInit()::updateAdministrador);
+        Spark.delete("/api/administradores/:id", administradorInit()::deleteAdministrador);
 
         // Galerista.java CRUD Operations Endpoints
-        Spark.get("/api/galerista/all", galeristaInit(gsonLocalDate)::getAllGaleristas);
-        Spark.get("/api/galerista/:id", galeristaInit(gsonLocalDate)::getGaleristaById);
-        Spark.post("/api/galerista", galeristaInit(gsonLocalDate)::addGalerista);
-        Spark.put("/api/galerista/:id", galeristaInit(gsonLocalDate)::updateGalerista);
-        Spark.delete("/api/galerista/:id", galeristaInit(gsonLocalDate)::deleteGalerista);
+        Spark.get("/api/galeristas", galeristaInit(gsonLocalDate)::getAllGaleristas);
+        Spark.get("/api/galeristas/:id", galeristaInit(gsonLocalDate)::getGaleristaById);
+        Spark.post("/api/galeristas", galeristaInit(gsonLocalDate)::addGalerista);
+        Spark.put("/api/galeristas/:id", galeristaInit(gsonLocalDate)::updateGalerista);
+        Spark.delete("/api/galeristas/:id", galeristaInit(gsonLocalDate)::deleteGalerista);
 
 
         // Tecnica.java CRUD Operations Endpoints
-        Spark.get("/api/tecnica/all", tecnicaInit()::getAllTecnicas);
-        Spark.get("/api/tecnica/:id", tecnicaInit()::getTecnicaById);
-        Spark.post("/api/tecnica", tecnicaInit()::addTecnica);
-        Spark.put("/api/tecnica/:id", tecnicaInit()::updateTecnica);
-        Spark.delete("/api/tecnica/:id", tecnicaInit()::deleteTecnica);
+        Spark.get("/api/tecnicas", tecnicaInit()::getAllTecnicas);
+        Spark.get("/api/tecnicas/:id", tecnicaInit()::getTecnicaById);
+        Spark.post("/api/tecnicas", tecnicaInit()::addTecnica);
+        Spark.put("/api/tecnicas/:id", tecnicaInit()::updateTecnica);
+        Spark.delete("/api/tecnicas/:id", tecnicaInit()::deleteTecnica);
 
         //Pais CRUD Operations Endpoints
-        Spark.get("/api/pais/all",paisInit()::getAllPais);
-        Spark.get("/api/pais/:id",paisInit()::getPaisById);
-        Spark.post("/api/pais", paisInit()::addPais);
-        Spark.put("/api/pais/:id", paisInit()::updatePais);
-        Spark.delete("/api/pais/:id", paisInit()::deletePais);
+        Spark.get("/api/paises",paisInit()::getAllPais);
+        Spark.get("/api/paises/:id",paisInit()::getPaisById);
+        Spark.post("/api/paises", paisInit()::addPais);
+        Spark.put("/api/paises/:id", paisInit()::updatePais);
+        Spark.delete("/api/paises/:id", paisInit()::deletePais);
 
         //Obra_Arte CRUD Operations Endpoints
-        Spark.get("/api/obraarte/all",obraArteInit(gsonLocalDate)::getAllObraArte);
-        Spark.get("/api/obraarte/:id",obraArteInit(gsonLocalDate)::getObraArteById);
-        Spark.post("/api/obraarte", obraArteInit(gsonLocalDate)::addObraArte);
-        Spark.put("/api/obraarte/:id", obraArteInit(gsonLocalDate)::updateObraArte);
-        Spark.delete("/api/obraarte/:id", obraArteInit(gsonLocalDate)::deleteObraArte);
+        Spark.get("/api/obrasarte",obraArteInit(gsonLocalDate)::getAllObraArte);
+        Spark.get("/api/obrasarte/:id",obraArteInit(gsonLocalDate)::getObraArteById);
+        Spark.post("/api/obrasarte", obraArteInit(gsonLocalDate)::addObraArte);
+        Spark.put("/api/obrasarte/:id", obraArteInit(gsonLocalDate)::updateObraArte);
+        Spark.delete("/api/obrasarte/:id", obraArteInit(gsonLocalDate)::deleteObraArte);
 
 
         //TRATAMENTO DE EXCEPÇOES para melhorar!

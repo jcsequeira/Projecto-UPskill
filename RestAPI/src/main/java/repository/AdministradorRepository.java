@@ -16,7 +16,7 @@ public class AdministradorRepository {
 
 
     public List<Administrador> getAllAdministrador() {
-        List<Administrador> administradorsList = new ArrayList<>();
+        List<Administrador> administradoresList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM Administrador")) {
@@ -25,14 +25,14 @@ public class AdministradorRepository {
                 Administrador administrador = new Administrador();
                 administrador.setPassword(resultSet.getString("password"));
                 administrador.setId_colaborador(resultSet.getInt("id_colaborador"));
-                administradorsList.add(administrador);
+                administradoresList.add(administrador);
             }
 
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
 
-        return administradorsList;
+        return administradoresList;
     }
 
     public Administrador getAdministradorById(int administradorId) {

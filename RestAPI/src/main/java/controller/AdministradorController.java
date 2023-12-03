@@ -23,7 +23,7 @@ public class AdministradorController {
     public String getAllAdministrador (Request request, Response response){
         List<Administrador> administradorList = administradorService.getAllAdministrador();
         response.status(200);
-        response.header("Location", "/api/administrador/all");
+        response.header("Location", "/api/administradores");
         response.type("text/plain");
         return gson.toJson(administradorList);
     }
@@ -39,7 +39,7 @@ public class AdministradorController {
             if (administrador != null) {
                 // Convert the Administrador object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/administrador");
+                response.header("Location", "/api/administradores");
                 response.type("text/plain");
                 return gson.toJson(administrador);
             } else {
@@ -68,7 +68,7 @@ public class AdministradorController {
             Administrador addedAdministrador = administradorService.addAdministrador(newAdministrador);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/administrador");
+            response.header("Location", "/api/administradores");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedAdministrador);
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class AdministradorController {
             if (result != null) {
                 // Convert the updated administrador object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/administrador");
+                response.header("Location", "/api/administradores");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -121,7 +121,7 @@ public class AdministradorController {
             String result = administradorService.deleteAdministrador(administradorId);
             // Set the response status to 204 No Content, indicating a successful deletion
             response.status(200);
-            response.header("Location", "/api/administrador");
+            response.header("Location", "/api/administradores");
             response.type("text/plain");
             return result;
         } catch (NumberFormatException e) {

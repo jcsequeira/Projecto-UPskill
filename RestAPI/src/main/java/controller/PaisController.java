@@ -24,7 +24,7 @@ public class PaisController {
         List<Pais> paisList = paisService.getAllPais();
         gson = new Gson();
         response.status(200);
-        response.header("Location", "/api/pais/all");
+        response.header("Location", "/api/paises");
         response.type("text/plain");
         return gson.toJson(paisList);
     }
@@ -40,7 +40,7 @@ public class PaisController {
             if (pais != null) {
                 // Convert the pais object to JSON and return it
                 response.status(200);
-                response.header("Location", "/api/pais");
+                response.header("Location", "/api/paises");
                 response.type("text/plain");
                 return gson.toJson(pais);
             } else {
@@ -69,7 +69,7 @@ public class PaisController {
             Pais addedPais = paisService.addPais(newPais);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/pais");
+            response.header("Location", "/api/paises");
             response.type("text/plain");
             return "Resource created successfully.: \n" + gson.toJson(addedPais);
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class PaisController {
             if (result != null) {
                 // Convert the updated pais object to JSON and return it
                 response.status(201);
-                response.header("Location", "/api/pais");
+                response.header("Location", "/api/paises");
                 response.type("text/plain");
                 return "Resource Updated successfully.: \n" + gson.toJson(result);
             } else {
@@ -122,7 +122,7 @@ public class PaisController {
             paisService.deletePais(paisId);
             // Set the response status to 204 No Content, indicating a successful deletion
             response.status(204);
-            response.header("Location", "/api/pais");
+            response.header("Location", "/api/paises");
             response.type("text/plain");
             return "";
         } catch (NumberFormatException e) {
