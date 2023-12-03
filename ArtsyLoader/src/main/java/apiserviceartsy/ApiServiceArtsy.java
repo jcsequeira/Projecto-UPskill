@@ -2,6 +2,7 @@ package apiserviceartsy;
 
 
 
+import adapters.LocalDateAdapter;
 import artsymodel.ArtsyArtist;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -12,23 +13,24 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 import java.util.stream.Collectors;
 
 public class ApiServiceArtsy {
-   // private final OkHttpClient client = new OkHttpClient();
-   private final OkHttpClient client = new OkHttpClient.Builder()
+    private static final OkHttpClient client = new OkHttpClient();
+   /*private static final OkHttpClient client = new OkHttpClient.Builder()
            .connectTimeout(5, TimeUnit.SECONDS) // Adjust the timeout values as needed
            .readTimeout(5, TimeUnit.SECONDS)
            .writeTimeout(5, TimeUnit.SECONDS)
-           .build();
+           .build();*/
 
     private static final String ARTSY_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTU0ZTMzODBlMTc4ZjAwMGI4MWY2MzgiLCJzYWx0X2hhc2giOiJjNTU5MmQ2MDdhNTkzOWU3NjlkMWExOTA5ODU3NjYwMSIsInJvbGVzIjoidXNlciIsInBhcnRuZXJfaWRzIjpbXSwib3RwIjpmYWxzZSwiZXhwIjoxNzMxNjg0NDU3LCJpYXQiOjE3MDAwNjIwNTcsImF1ZCI6IjUzZmYxYmNjNzc2ZjcyNDBkOTAwMDAwMCIsImlzcyI6IkdyYXZpdHkiLCJqdGkiOiI2NTU0ZTM2OWQyZTI2MzAwMGM2YTA3NmIifQ.ME1rmoOHoAicfOZSggikwsSnf4Zzpezz2QnTr54lbFg";
-    private Gson gson;
+    private static Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 
     public ApiServiceArtsy(Gson gson) {
-        this.gson = gson;
+        ApiServiceArtsy.gson = gson;
     }
 
 
@@ -46,7 +48,7 @@ public class ApiServiceArtsy {
         }
     }
 
-    public List<ArtsyArtist> getAllArtsyArtists(String apiUrl) throws IOException {
+    public static List<ArtsyArtist> getAllArtsyArtists(String apiUrl) throws IOException {
         // Build the request
         Request request = new Request.Builder()
                 .url(apiUrl)
