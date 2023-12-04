@@ -1,6 +1,5 @@
 package repository;
 
-
 import model.Evento;
 
 import java.sql.*;
@@ -15,140 +14,135 @@ public class EventoRepository {
         this.con = con;
     }
 
+    private static final String SELECT_ALL_EVENTO_QUERY = "SELECT * FROM Evento";
+    private static final String SELECT_EVENTO_BY_ID_QUERY = "SELECT * FROM Evento WHERE id_Expo = ?";
+    private static final String INSERT_EVENTO_QUERY = "INSERT INTO Evento (Nome, Data_inicio, Data_Fim, Descricao, id_Galeria, IsArtsy) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_EVENTO_QUERY = "UPDATE Evento SET Nome = ?, Data_inicio = ?, Data_Fim = ?, Descricao = ?, id_Galeria = ?, IsArtsy = ? WHERE id_Expo = ?";
+    private static final String DELETE_EVENTO_QUERY = "DELETE FROM Evento WHERE id_Expo = ?";
 
-    public List<Evento> getAllEvento (){
+    public List<Evento> getAllEvento() {
         List<Evento> eventoList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
-             ResultSet resultSet = statement.executeQuery("select * from Evento")){
-            while (resultSet.next()){
-                Evento evento = new Evento();
-                evento.setId_Expo(resultSet.getInt("id_Expo"));
-                evento.setNome(resultSet.getString("Nome"));
-                evento.setData_inicio(resultSet.getDate("Data_inicio").toLocalDate());
-                evento.setData_Fim(resultSet.getDate("Data_Fim").toLocalDate());
-                evento.setDescricao(resultSet.getString("Descricao"));
-                evento.setId_Galeria(resultSet.getInt("id_Galeria"));
-                evento.setIsArtsy(resultSet.getInt("IsArtsy"));
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_EVENTO_QUERY)) {
+
+            while (resultSet.next()) {
+                Evento evento = mapResultSetToEvento(resultSet);
                 eventoList.add(evento);
             }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
         }
-        catch (SQLException sqlException){sqlException.printStackTrace();}
 
         return eventoList;
     }
 
     public Evento getEventoById(int eventoId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "SELECT * FROM Evento WHERE id_Expo = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_EVENTO_BY_ID_QUERY)) {
 
             preparedStatement.setInt(1, eventoId);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    // Map the result set to a Evento object and return it
-                    Evento evento = new Evento();
-                    evento.setId_Expo(resultSet.getInt("id_Expo"));
-                    evento.setNome(resultSet.getString("Nome"));
-                    evento.setData_inicio(resultSet.getDate("Data_inicio").toLocalDate());
-                    evento.setData_Fim(resultSet.getDate("Data_Fim").toLocalDate());
-                    evento.setDescricao(resultSet.getString("Descricao"));
-                    evento.setId_Galeria(resultSet.getInt("id_Galeria"));
-                    evento.setIsArtsy(resultSet.getInt("IsArtsy"));
-                    return evento;
+                    return mapResultSetToEvento(resultSet);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
 
-        return null; // Return null if the evento is not found or an exception occurs
+        return null;
     }
 
-
-    //Versao Assumindo autoIncrement na tabela evento, na PK CodigoEvento
-    //Nota: o metodo vai inserir a mesma na tabela o evento, desde que o Codigo_Evento ainda nao exista, mas vai retornar null na resposta
     public Evento addEvento(Evento evento) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
-                "INSERT INTO Evento (Nome, Data_inicio, Data_Fim, Descricao, id_Galeria, IsArtsy) " +
-                        "VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+                INSERT_EVENTO_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Set the values for the prepared statement
-            preparedStatement.setString(1, evento.getNome());
-            preparedStatement.setDate(2, Date.valueOf(evento.getData_inicio()));
-            preparedStatement.setDate(3, Date.valueOf(evento.getData_Fim()));
-            preparedStatement.setString(4, evento.getDescricao());
-            preparedStatement.setInt(5, evento.getId_Galeria());
-            preparedStatement.setInt(6, evento.getIsArtsy());
+            setEventoPreparedStatementValues(preparedStatement, evento);
 
-            // Execute the insert statement
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
                 throw new SQLException("Creating object evento failed, no rows affected.");
             }
 
-            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    // Set the generated ID to the evento object
-                    evento.setId_Expo(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Creating object evento failed, no ID obtained.");
-                }
-            }
+            setGeneratedId(preparedStatement, evento);
 
             return evento;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return null; // Return null or throw a custom exception based on your error handling strategy
+            handleSQLException(e);
+            return null;
         }
     }
 
     public Evento updateEvento(int id, Evento evento) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "UPDATE Evento SET Nome = ?, Data_inicio = ?, Data_Fim = ?, Descricao = ?, id_Galeria = ?, IsArtsy = ? WHERE id_Expo = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_EVENTO_QUERY)) {
 
-            preparedStatement.setString(1, evento.getNome());
-            preparedStatement.setDate(2, Date.valueOf(evento.getData_inicio()));
-            preparedStatement.setDate(3, Date.valueOf(evento.getData_Fim()));
-            preparedStatement.setString(4, evento.getDescricao());
-            preparedStatement.setInt(5, evento.getId_Galeria());
-            preparedStatement.setInt(6, evento.getIsArtsy());
-            preparedStatement.setInt(7, id); // assuming 'id' is the id_Expo to update
-
+            setEventoPreparedStatementValues(preparedStatement, evento);
+            preparedStatement.setInt(7, id);
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
-                // If the update was successful, return the updated evento
                 return getEventoById(id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
 
-        return null; // Return null if the update fails or an exception occurs
+        return null;
     }
 
-
     public String deleteEvento(int eventoId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "DELETE FROM evento WHERE id_Expo = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_EVENTO_QUERY)) {
             preparedStatement.setInt(1, eventoId);
             int affectedRows = preparedStatement.executeUpdate();
+
             if (affectedRows == 0) {
-                //throw new SQLException("Deleting Evento  failed, no rows affected.");
                 return "Deleting Evento failed, no rows affected.";
-            } else {return "Deleting Evento  successful.";}
-        } catch (SQLIntegrityConstraintViolationException e ) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return "Deleting Evento  failed, no rows affected.";
+            } else {
+                return "Deleting Evento successful.";
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            handleSQLException(e);
+            return "Deleting Evento failed, no rows affected.";
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void handleSQLException(SQLException e) {
+        e.printStackTrace(); // Log or handle the exception appropriately
+    }
+
+    private Evento mapResultSetToEvento(ResultSet resultSet) throws SQLException {
+        Evento evento = new Evento();
+        evento.setId_Expo(resultSet.getInt("id_Expo"));
+        evento.setNome(resultSet.getString("Nome"));
+        evento.setData_inicio(resultSet.getDate("Data_inicio").toLocalDate());
+        evento.setData_Fim(resultSet.getDate("Data_Fim").toLocalDate());
+        evento.setDescricao(resultSet.getString("Descricao"));
+        evento.setId_Galeria(resultSet.getInt("id_Galeria"));
+        evento.setIsArtsy(resultSet.getInt("IsArtsy"));
+        return evento;
+    }
+
+    private void setEventoPreparedStatementValues(PreparedStatement preparedStatement, Evento evento) throws SQLException {
+        preparedStatement.setString(1, evento.getNome());
+        preparedStatement.setDate(2, Date.valueOf(evento.getData_inicio()));
+        preparedStatement.setDate(3, Date.valueOf(evento.getData_Fim()));
+        preparedStatement.setString(4, evento.getDescricao());
+        preparedStatement.setInt(5, evento.getId_Galeria());
+        preparedStatement.setInt(6, evento.getIsArtsy());
+    }
+
+    private void setGeneratedId(PreparedStatement preparedStatement, Evento evento) throws SQLException {
+        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                evento.setId_Expo(generatedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating object evento failed, no ID obtained.");
+            }
         }
     }
 }

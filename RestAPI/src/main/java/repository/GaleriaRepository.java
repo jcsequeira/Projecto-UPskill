@@ -1,6 +1,5 @@
 package repository;
 
-
 import model.Galeria;
 
 import java.sql.*;
@@ -15,148 +14,139 @@ public class GaleriaRepository {
         this.con = con;
     }
 
+    private static final String SELECT_ALL_GALERIA_QUERY = "SELECT * FROM Galeria";
+    private static final String SELECT_GALERIA_BY_ID_QUERY = "SELECT * FROM Galeria WHERE id_Galeria = ?";
+    private static final String INSERT_GALERIA_QUERY = "INSERT INTO Galeria (Nome_Galeria, Morada, Website, Email, Telefone, id_Cidade, id_colaborador, IsArtsy) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_GALERIA_QUERY = "UPDATE Galeria SET Nome_Galeria = ?, Morada = ?, Website = ?, Email = ?, Telefone = ?, id_Cidade = ?, id_colaborador = ?, IsArtsy = ? WHERE id_Galeria = ?";
+    private static final String DELETE_GALERIA_QUERY = "DELETE FROM Galeria WHERE id_Galeria = ?";
 
-    public List<Galeria> getAllGaleria (){
+    public List<Galeria> getAllGaleria() {
         List<Galeria> galeriaList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
-             ResultSet resultSet = statement.executeQuery("select * from Galeria")){
-            while (resultSet.next()){
-                Galeria galeria = new Galeria();
-                galeria.setId_Galeria(resultSet.getInt("id_Galeria"));
-                galeria.setNome_Galeria(resultSet.getString("Nome_Galeria"));
-                galeria.setMorada(resultSet.getString("Morada"));
-                galeria.setWebsite(resultSet.getString("Website"));
-                galeria.setEmail(resultSet.getString("Email"));
-                galeria.setTelefone(resultSet.getString("Telefone"));
-                galeria.setId_Cidade(resultSet.getInt("id_Cidade"));
-                galeria.setId_colaborador(resultSet.getInt("id_colaborador"));
-                galeria.setIsArtsy(resultSet.getInt("IsArtsy"));
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_GALERIA_QUERY)) {
+
+            while (resultSet.next()) {
+                Galeria galeria = mapResultSetToGaleria(resultSet);
                 galeriaList.add(galeria);
             }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
         }
-        catch (SQLException sqlException){sqlException.printStackTrace();}
 
         return galeriaList;
     }
 
     public Galeria getGaleriaById(int galeriaId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "SELECT * FROM Galeria WHERE id_Galeria = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_GALERIA_BY_ID_QUERY)) {
 
             preparedStatement.setInt(1, galeriaId);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    // Map the result set to a Galeria object and return it
-                    Galeria galeria = new Galeria();
-                    galeria.setId_Galeria(resultSet.getInt("id_Galeria"));
-                    galeria.setNome_Galeria(resultSet.getString("Nome_Galeria"));
-                    galeria.setMorada(resultSet.getString("Morada"));
-                    galeria.setWebsite(resultSet.getString("Website"));
-                    galeria.setEmail(resultSet.getString("Email"));
-                    galeria.setTelefone(resultSet.getString("Telefone"));
-                    galeria.setId_Cidade(resultSet.getInt("id_Cidade"));
-                    galeria.setId_colaborador(resultSet.getInt("id_colaborador"));
-                    galeria.setIsArtsy(resultSet.getInt("IsArtsy"));
-                    return galeria;
+                    return mapResultSetToGaleria(resultSet);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
 
-        return null; // Return null if the galeria is not found or an exception occurs
+        return null;
     }
 
-
-    //Versao Assumindo autoIncrement na tabela galeria, na PK CodigoGaleria
-    //Nota: o metodo vai inserir a mesma na tabela o galeria, desde que o Codigo_Galeria ainda nao exista, mas vai retornar null na resposta
     public Galeria addGaleria(Galeria galeria) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
-                "INSERT INTO Galeria (Nome_Galeria, Morada, Website, Email, Telefone, id_Cidade, id_colaborador, IsArtsy) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+                INSERT_GALERIA_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Set the values for the prepared statement
-            preparedStatement.setString(1, galeria.getNome_Galeria());
-            preparedStatement.setString(2, galeria.getMorada());
-            preparedStatement.setString(3, galeria.getWebsite());
-            preparedStatement.setString(4, galeria.getEmail());
-            preparedStatement.setString(5, galeria.getTelefone());
-            preparedStatement.setInt(6, galeria.getId_Cidade());
-            preparedStatement.setInt(7, galeria.getId_colaborador());
-            preparedStatement.setInt(8, galeria.getIsArtsy());
+            setGaleriaPreparedStatementValues(preparedStatement, galeria);
 
-            // Execute the insert statement
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
                 throw new SQLException("Creating object galeria failed, no rows affected.");
             }
 
-            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    // Set the generated ID to the galeria object
-                    galeria.setId_Galeria(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Creating object galeria failed, no ID obtained.");
-                }
-            }
+            setGeneratedId(preparedStatement, galeria);
 
             return galeria;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return null; // Return null or throw a custom exception based on your error handling strategy
+            handleSQLException(e);
+            return null;
         }
     }
 
     public Galeria updateGaleria(int id, Galeria galeria) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "UPDATE Galeria SET Nome_Galeria = ?, Morada = ?, Website = ?, Email = ?, Telefone = ?, " +
-                        "id_Cidade = ?, id_colaborador = ?, IsArtsy = ? WHERE id_Galeria = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_GALERIA_QUERY)) {
 
-            preparedStatement.setString(1, galeria.getNome_Galeria());
-            preparedStatement.setString(2, galeria.getMorada());
-            preparedStatement.setString(3, galeria.getWebsite());
-            preparedStatement.setString(4, galeria.getEmail());
-            preparedStatement.setString(5, galeria.getTelefone());
-            preparedStatement.setInt(6, galeria.getId_Cidade());
-            preparedStatement.setInt(7, galeria.getId_colaborador());
-            preparedStatement.setInt(8, galeria.getIsArtsy());
-            preparedStatement.setInt(9, id); // assuming 'id' is the id_Galeria to update
+            setGaleriaPreparedStatementValues(preparedStatement, galeria);
+            preparedStatement.setInt(9, id);
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
-                // If the update was successful, return the updated galeria
                 return getGaleriaById(id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
 
-        return null; // Return null if the update fails or an exception occurs
+        return null;
     }
 
-
     public String deleteGaleria(int galeriaId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "DELETE FROM galeria WHERE id_Galeria = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_GALERIA_QUERY)) {
             preparedStatement.setInt(1, galeriaId);
             int affectedRows = preparedStatement.executeUpdate();
+
             if (affectedRows == 0) {
-                //throw new SQLException("Deleting Galeria  failed, no rows affected.");
                 return "Deleting Galeria failed, no rows affected.";
-            } else {return "Deleting Galeria  successful.";}
-        } catch (SQLIntegrityConstraintViolationException e ) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return "Deleting Galeria  failed, no rows affected.";
+            } else {
+                return "Deleting Galeria successful.";
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            handleSQLException(e);
+            return "Deleting Galeria failed, no rows affected.";
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void handleSQLException(SQLException e) {
+        e.printStackTrace(); // Log or handle the exception appropriately
+    }
+
+    private Galeria mapResultSetToGaleria(ResultSet resultSet) throws SQLException {
+        Galeria galeria = new Galeria();
+        galeria.setId_Galeria(resultSet.getInt("id_Galeria"));
+        galeria.setNome_Galeria(resultSet.getString("Nome_Galeria"));
+        galeria.setMorada(resultSet.getString("Morada"));
+        galeria.setWebsite(resultSet.getString("Website"));
+        galeria.setEmail(resultSet.getString("Email"));
+        galeria.setTelefone(resultSet.getString("Telefone"));
+        galeria.setId_Cidade(resultSet.getInt("id_Cidade"));
+        galeria.setId_colaborador(resultSet.getInt("id_colaborador"));
+        galeria.setIsArtsy(resultSet.getInt("IsArtsy"));
+        return galeria;
+    }
+
+    private void setGaleriaPreparedStatementValues(PreparedStatement preparedStatement, Galeria galeria) throws SQLException {
+        preparedStatement.setString(1, galeria.getNome_Galeria());
+        preparedStatement.setString(2, galeria.getMorada());
+        preparedStatement.setString(3, galeria.getWebsite());
+        preparedStatement.setString(4, galeria.getEmail());
+        preparedStatement.setString(5, galeria.getTelefone());
+        preparedStatement.setInt(6, galeria.getId_Cidade());
+        preparedStatement.setInt(7, galeria.getId_colaborador());
+        preparedStatement.setInt(8, galeria.getIsArtsy());
+    }
+
+    private void setGeneratedId(PreparedStatement preparedStatement, Galeria galeria) throws SQLException {
+        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                galeria.setId_Galeria(generatedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating object galeria failed, no ID obtained.");
+            }
         }
     }
 }

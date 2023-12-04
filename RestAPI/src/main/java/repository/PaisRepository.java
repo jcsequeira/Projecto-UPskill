@@ -1,6 +1,5 @@
 package repository;
 
-
 import model.Pais;
 
 import java.sql.*;
@@ -15,61 +14,50 @@ public class PaisRepository {
         this.con = con;
     }
 
+    private static final String SELECT_ALL_PAIS_QUERY = "SELECT * FROM Pais";
+    private static final String SELECT_PAIS_BY_ID_QUERY = "SELECT * FROM Pais WHERE Codigo_Pais = ?";
+    private static final String INSERT_PAIS_QUERY = "INSERT INTO Pais (Nome_Pais, Nacionalidade) VALUES (?, ?)";
+    private static final String UPDATE_PAIS_QUERY = "UPDATE Pais SET Nome_Pais = ?, Nacionalidade = ? WHERE Codigo_Pais = ?";
+    private static final String DELETE_PAIS_QUERY = "DELETE FROM Pais WHERE Codigo_Pais = ?";
 
-    public List<Pais> getAllPais (){
+    public List<Pais> getAllPais() {
         List<Pais> paisList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
-             ResultSet resultSet = statement.executeQuery("select * from Pais")){
-            while (resultSet.next()){
-                Pais pais = new Pais();
-                pais.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
-                pais.setNome_Pais(resultSet.getString("Nome_pais"));
-                pais.setNacionalidade(resultSet.getString("Nacionalidade"));
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_PAIS_QUERY)) {
+            while (resultSet.next()) {
+                Pais pais = mapResultSetToPais(resultSet);
                 paisList.add(pais);
             }
+        } catch (SQLException e) {
+            handleSQLException(e);
         }
-        catch (SQLException sqlException){sqlException.printStackTrace();}
 
         return paisList;
     }
 
     public Pais getPaisById(int paisId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "SELECT * FROM Pais WHERE Codigo_Pais = ?")) {
-
+        try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_PAIS_BY_ID_QUERY)) {
             preparedStatement.setInt(1, paisId);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    // Map the result set to a Pais object and return it
-                    Pais pais = new Pais();
-                    pais.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
-                    pais.setNome_Pais(resultSet.getString("Nome_Pais"));
-                    pais.setNacionalidade(resultSet.getString("Nacionalidade"));
-                    return pais;
+                    return mapResultSetToPais(resultSet);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
 
-        return null; // Return null if the pais is not found or an exception occurs
+        return null;
     }
 
-
-    //Versao Assumindo autoIncrement na tabela pais, na PK CodigoPais
-    //Nota: o metodo vai inserir a mesma na tabela o pais, desde que o Codigo_Pais ainda nao exista, mas vai retornar null na resposta
     public Pais addPais(Pais pais) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
-                "INSERT INTO Pais (Nome_Pais, Nacionalidade) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+                INSERT_PAIS_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Set the values for the prepared statement
-            preparedStatement.setString(1, pais.getNome_Pais());
-            preparedStatement.setString(2, pais.getNacionalidade());
+            setPaisPreparedStatementValues(preparedStatement, pais);
 
-            // Execute the insert statement
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
@@ -78,7 +66,6 @@ public class PaisRepository {
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    // Set the generated ID to the pais object
                     pais.setCodigo_Pais(generatedKeys.getInt(1));
                 } else {
                     throw new SQLException("Creating object pais failed, no ID obtained.");
@@ -87,46 +74,56 @@ public class PaisRepository {
 
             return pais;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return null; // Return null or throw a custom exception based on your error handling strategy
+            handleSQLException(e);
+            return null;
         }
     }
 
     public Pais updatePais(int id, Pais pais) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "UPDATE pais SET Nome_Pais = ?, Nacionalidade = ? WHERE Codigo_Pais = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_PAIS_QUERY)) {
 
-            preparedStatement.setString(1, pais.getNome_Pais());
-            preparedStatement.setString(2, pais.getNacionalidade());
+            setPaisPreparedStatementValues(preparedStatement, pais);
             preparedStatement.setInt(3, id);
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
-                // If the update was successful, return the updated pais
                 return getPaisById(id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
 
-        return null; // Return null if the update fails or an exception occurs
+        return null;
     }
 
-
     public void deletePais(int id) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "DELETE FROM pais WHERE Codigo_Pais = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_PAIS_QUERY)) {
             preparedStatement.setInt(1, id);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Deleting pais failed, no rows affected.");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
+    }
+
+    private void setPaisPreparedStatementValues(PreparedStatement preparedStatement, Pais pais)
+            throws SQLException {
+        preparedStatement.setString(1, pais.getNome_Pais());
+        preparedStatement.setString(2, pais.getNacionalidade());
+    }
+
+    private Pais mapResultSetToPais(ResultSet resultSet) throws SQLException {
+        Pais pais = new Pais();
+        pais.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
+        pais.setNome_Pais(resultSet.getString("Nome_Pais"));
+        pais.setNacionalidade(resultSet.getString("Nacionalidade"));
+        return pais;
+    }
+
+    private void handleSQLException(SQLException e) {
+        e.printStackTrace();
     }
 }

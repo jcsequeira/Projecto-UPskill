@@ -2,128 +2,95 @@ package repository;
 
 import model.Obra_Arte;
 
-
-
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObraArteRepository {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final String SELECT_ALL_OBRAARTE_QUERY =
+            "SELECT obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, " +
+                    "IsActive, id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
+                    "FROM obra_arte " +
+                    "LEFT JOIN obra_materiais ON obra_arte.id_obra_arte = obra_materiais.id_obra_arte";
+    private static final String SELECT_OBRAARTE_BY_ID_QUERY =
+            "SELECT obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, " +
+                    "IsActive, id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
+                    "FROM obra_arte " +
+                    "JOIN obra_materiais ON obra_arte.id_obra_arte = obra_materiais.id_obra_arte " +
+                    "WHERE obra_arte.id_Obra_Arte = ?";
+    private static final String INSERT_OBRAARTE_QUERY =
+            "INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, " +
+                    "IsActive, id_artista, id_Tecnica, id_Estilo) VALUES " +
+                    "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_OBRAARTE_QUERY =
+            "UPDATE Obra_Arte " +
+                    "SET Titulo = ?, " +
+                    "Link_Imagem = ?, " +
+                    "Ano_Criacao = ?, " +
+                    "Preco = ?, " +
+                    "Largura = ?, " +
+                    "Profundidade = ?, " +
+                    "Diametro = ?, " +
+                    "IsActive = ?, " +
+                    "id_artista = ?, " +
+                    "id_Tecnica = ?, " +
+                    "id_Estilo = ? " +
+                    "WHERE id_Obra_Arte = ?";
+    private static final String INSERT_OBRAMATERIAIS_QUERY =
+            "INSERT INTO Obra_Materiais (id_Material, id_Obra_Arte) VALUES (?, ?)";
+    private static final String UPDATE_OBRAMATERIAIS_QUERY =
+            "UPDATE Obra_Materiais SET id_Material = ? WHERE id_Obra_Arte = ?";
+    private static final String DELETE_OBRAARTE_QUERY =
+            "DELETE FROM obra_arte WHERE id_obra_arte = ?";
+
     private Connection con;
 
     public ObraArteRepository(Connection con) {
         this.con = con;
     }
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    public List<Obra_Arte> getAllObraArte (){
+    public List<Obra_Arte> getAllObraArte() {
         List<Obra_Arte> obraArteList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
-             ResultSet resultSet = statement.executeQuery("select obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, " +
-                     "Preco, Largura, Profundidade, Diametro, IsActive,id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
-                     "from obra_arte left join obra_materiais on obra_arte.id_obra_arte = obra_materiais.id_obra_arte;")){
-            while (resultSet.next()){
-                Obra_Arte obraArte = new Obra_Arte();
-                obraArte.setId_Obra_Arte(resultSet.getInt("id_obra_arte"));
-                obraArte.setTitulo(resultSet.getString("titulo"));
-                obraArte.setLink_Imagem(resultSet.getString("Link_Imagem"));
-                if (resultSet.getDate("Ano_Criacao") != null){
-                    obraArte.setAno_Criacao(resultSet.getDate("Ano_Criacao").toLocalDate());}
-                else {
-                    obraArte.setAno_Criacao(null);
-                }
-                obraArte.setPreco(resultSet.getFloat("Preco"));
-                obraArte.setLargura(resultSet.getFloat("Largura"));
-                obraArte.setProfundidade(resultSet.getFloat("Profundidade"));
-                obraArte.setDiametro(resultSet.getFloat("Diametro"));
-                obraArte.setIsActive(resultSet.getInt("IsActive"));
-                obraArte.setId_artista(resultSet.getInt("id_artista"));
-                obraArte.setId_Tecnica(resultSet.getInt("id_Tecnica"));
-                obraArte.setId_Estilo(resultSet.getInt("id_Estilo"));
-                obraArte.setIsArtsy(resultSet.getInt("IsArtsy"));
-                obraArte.setId_Material(resultSet.getInt("id_Material"));
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_OBRAARTE_QUERY)) {
+
+            while (resultSet.next()) {
+                Obra_Arte obraArte = mapResultSetToObraArte(resultSet);
                 obraArteList.add(obraArte);
             }
+        } catch (SQLException e) {
+            handleSQLException(e);
         }
-        catch (SQLException sqlException){sqlException.printStackTrace();}
 
         return obraArteList;
     }
 
-    public Obra_Arte getObraArteById(int obraArteId){
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "SELECT obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, " +
-                        "Diametro, IsActive,id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
-                        "FROM obra_arte " +
-                        "JOIN obra_materiais ON obra_arte.id_obra_arte = obra_materiais.id_obra_arte " +
-                        "WHERE obra_arte.id_Obra_Arte = ?;")) {
-
+    public Obra_Arte getObraArteById(int obraArteId) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_OBRAARTE_BY_ID_QUERY)) {
             preparedStatement.setInt(1, obraArteId);
-
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    // Map the result set to a Obra_Arte object and return it
-                    Obra_Arte obraArte = new Obra_Arte();
-                    obraArte.setId_Obra_Arte(resultSet.getInt("id_obra_arte"));
-                    obraArte.setTitulo(resultSet.getString("titulo"));
-                    obraArte.setLink_Imagem(resultSet.getString("Link_Imagem"));
-                    if (resultSet.getDate("Ano_Criacao") != null){
-                        obraArte.setAno_Criacao(resultSet.getDate("Ano_Criacao").toLocalDate());}
-                    else {
-                        obraArte.setAno_Criacao(null);
-                    }
-                    obraArte.setPreco(resultSet.getFloat("Preco"));
-                    obraArte.setLargura(resultSet.getFloat("Largura"));
-                    obraArte.setProfundidade(resultSet.getFloat("Profundidade"));
-                    obraArte.setDiametro(resultSet.getFloat("Diametro"));
-                    obraArte.setIsActive(resultSet.getInt("IsActive"));
-                    obraArte.setId_artista(resultSet.getInt("id_artista"));
-                    obraArte.setId_Tecnica(resultSet.getInt("id_Tecnica"));
-                    obraArte.setId_Estilo(resultSet.getInt("id_Estilo"));
-                    obraArte.setIsArtsy(resultSet.getInt("IsArtsy"));
-                    obraArte.setId_Material(resultSet.getInt("id_Material"));
-                    return obraArte;
-
+                    return mapResultSetToObraArte(resultSet);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
-
-        return null; // Return null if the pais is not found or an exception occurs
+        return null;
     }
 
     public Obra_Arte addObraArte(Obra_Arte obraArte) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
-                "INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, " +
-                        "IsActive, id_artista, id_Tecnica, id_Estilo) VALUES " +
-                        "    (?, ?, ?, ?, ?, ?, " +
-                        "?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS)) {
+                INSERT_OBRAARTE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Set the values for the prepared statement
-            preparedStatement.setString(1, obraArte.getTitulo());
-            preparedStatement.setString(2, obraArte.getLink_Imagem());
-            if (obraArte.getAno_Criacao() != null) {
-                preparedStatement.setString(3, obraArte.getAno_Criacao().format(formatter));
-            } else {
-                preparedStatement.setNull(3, java.sql.Types.DATE); // Set the parameter to NULL in the database
-            }
-            preparedStatement.setFloat(4, obraArte.getPreco());
-            preparedStatement.setFloat(5, obraArte.getLargura());
-            preparedStatement.setFloat(6, obraArte.getProfundidade());
-            preparedStatement.setFloat(7, obraArte.getDiametro());
-            preparedStatement.setInt(8, obraArte.getIsActive());
-            preparedStatement.setInt(9, obraArte.getId_artista());
-            preparedStatement.setInt(10, obraArte.getId_Tecnica());
-            preparedStatement.setInt(11, obraArte.getId_Estilo());
+            setObraArteParameters(preparedStatement, obraArte);
 
-
-            // Execute the insert statement
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
@@ -132,7 +99,6 @@ public class ObraArteRepository {
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    // Set the generated ID to the obraArte object
                     obraArte.setId_Obra_Arte(generatedKeys.getInt(1));
                     try (PreparedStatement preparedStatementObraMateriais = con.prepareStatement(
                             "INSERT INTO Obra_Materiais (id_Material, id_Obra_Arte) values " +
@@ -161,47 +127,17 @@ public class ObraArteRepository {
 
             return obraArte;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return null; // Return null or throw a custom exception based on your error handling strategy
+            handleSQLException(e);
+            return null;
         }
     }
 
     public Obra_Arte updateObraArte(int obraArteID, Obra_Arte obraArte) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "UPDATE Obra_Arte " +
-                        "SET Titulo = ?, " +
-                        "Link_Imagem = ?, " +
-                        "Ano_Criacao = ?, " +
-                        "Preco = ?, " +
-                        "Largura = ?, " +
-                        "Profundidade = ?, " +
-                        "Diametro = ?, " +
-                        "IsActive = ?, " +
-                        "id_artista = ?, " +
-                        "id_Tecnica = ?, " +
-                        "id_Estilo = ? " +
-                        "WHERE id_Obra_Arte = ?;")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_OBRAARTE_QUERY)) {
 
-            // Set the values for the prepared statement
-            preparedStatement.setString(1, obraArte.getTitulo());
-            preparedStatement.setString(2, obraArte.getLink_Imagem());
-            if (obraArte.getAno_Criacao() != null) {
-                preparedStatement.setString(3, obraArte.getAno_Criacao().format(formatter));
-            } else {
-                preparedStatement.setNull(3, java.sql.Types.DATE); // Set the parameter to NULL in the database
-            }
-            preparedStatement.setFloat(4, obraArte.getPreco());
-            preparedStatement.setFloat(5, obraArte.getLargura());
-            preparedStatement.setFloat(6, obraArte.getProfundidade());
-            preparedStatement.setFloat(7, obraArte.getDiametro());
-            preparedStatement.setInt(8, obraArte.getIsActive());
-            preparedStatement.setInt(9, obraArte.getId_artista());
-            preparedStatement.setInt(10, obraArte.getId_Tecnica());
-            preparedStatement.setInt(11, obraArte.getId_Estilo());
+            setObraArteParameters(preparedStatement, obraArte);
             preparedStatement.setInt(12, obraArteID);
 
-            // Execute the insert statement
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
@@ -237,20 +173,88 @@ public class ObraArteRepository {
     }
 
     public String deleteObraArte(int obraArteId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "DELETE FROM obra_arte WHERE id_obra_arte = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_OBRAARTE_QUERY)) {
             preparedStatement.setInt(1, obraArteId);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                //throw new SQLException("Deleting Obra Arte failed, no rows affected.");
                 return "Deleting Obra Arte failed, no rows affected.";
-            } else {return "Deleting Obra Arte successful.";}
-        } catch (SQLIntegrityConstraintViolationException e ) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            } else {
+                return "Deleting Obra Arte successful.";
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            handleSQLException(e);
             return "Deleting Obra Arte failed, no rows affected.";
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+    private Obra_Arte mapResultSetToObraArte(ResultSet resultSet) throws SQLException {
+        Obra_Arte obraArte = new Obra_Arte();
+        obraArte.setId_Obra_Arte(resultSet.getInt("id_Obra_Arte"));
+        obraArte.setTitulo(resultSet.getString("Titulo"));
+        obraArte.setLink_Imagem(resultSet.getString("Link_Imagem"));
+        obraArte.setAno_Criacao(mapToLocalDate(resultSet.getString("Ano_Criacao")));
+        obraArte.setPreco(resultSet.getFloat("Preco"));
+        obraArte.setLargura(resultSet.getFloat("Largura"));
+        obraArte.setProfundidade(resultSet.getFloat("Profundidade"));
+        obraArte.setDiametro(resultSet.getFloat("Diametro"));
+        obraArte.setIsActive(resultSet.getInt("IsActive"));
+        obraArte.setId_artista(resultSet.getInt("id_artista"));
+        obraArte.setId_Tecnica(resultSet.getInt("id_Tecnica"));
+        obraArte.setId_Estilo(resultSet.getInt("id_Estilo"));
+        obraArte.setIsArtsy(resultSet.getInt("IsArtsy"));
+        obraArte.setId_Material(resultSet.getInt("id_Material"));
+        return obraArte;
+    }
+
+    private LocalDate mapToLocalDate(String dateString) {
+        return dateString != null ? LocalDate.parse(dateString, formatter) : null;
+    }
+
+    private void setObraArteParameters(PreparedStatement preparedStatement, Obra_Arte obraArte)
+            throws SQLException {
+        preparedStatement.setString(1, obraArte.getTitulo());
+        preparedStatement.setString(2, obraArte.getLink_Imagem());
+        preparedStatement.setObject(3, obraArte.getAno_Criacao(), java.sql.Types.DATE);
+        preparedStatement.setFloat(4, obraArte.getPreco());
+        preparedStatement.setFloat(5, obraArte.getLargura());
+        preparedStatement.setFloat(6, obraArte.getProfundidade());
+        preparedStatement.setFloat(7, obraArte.getDiametro());
+        preparedStatement.setInt(8, obraArte.getIsActive());
+        preparedStatement.setInt(9, obraArte.getId_artista());
+        preparedStatement.setInt(10, obraArte.getId_Tecnica());
+        preparedStatement.setInt(11, obraArte.getId_Estilo());
+    }
+
+    /*private void updateObraMateriais(Obra_Arte obraArte) {
+        try {
+            if (obraArte.getId_Obra_Arte() != 0) {
+                if (obraArte.getId_Material() != 0) {
+                    String updateQuery = obraArte.getId_Material() != 0 ?
+                            UPDATE_OBRAMATERIAIS_QUERY :
+                            INSERT_OBRAMATERIAIS_QUERY;
+
+                    try (PreparedStatement preparedStatementObraMateriais = con.prepareStatement(updateQuery)) {
+
+                        preparedStatementObraMateriais.setInt(1, obraArte.getId_Material());
+                        preparedStatementObraMateriais.setInt(2, obraArte.getId_Obra_Arte());
+
+                        int affectedRowsObraMateriais = preparedStatementObraMateriais.executeUpdate();
+
+                        if (affectedRowsObraMateriais == 0) {
+                            throw new SQLException("Updating object Obra Arte failed, no rows affected.");
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    private void handleSQLException(SQLException e) {
+        e.printStackTrace();
+    }
 }
+

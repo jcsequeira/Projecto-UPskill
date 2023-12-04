@@ -6,6 +6,7 @@ import service.ObraArteService;
 import spark.Request;
 import spark.Response;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ObraArteController {
@@ -25,7 +26,7 @@ public class ObraArteController {
         return gson.toJson(obraArteList);
     }
 
-    public  String getObraArteById(Request request, Response response) {
+    public  String getObraArteById(Request request, Response response) throws SQLException {
        // try {
             // Extract the obraArte ID from the request parameters
             int obraArteId = Integer.parseInt(request.params(":id"));

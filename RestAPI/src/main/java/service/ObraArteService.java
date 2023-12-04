@@ -3,6 +3,7 @@ package service;
 import model.Obra_Arte;
 import repository.ObraArteRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ObraArteService {
@@ -16,7 +17,7 @@ public class ObraArteService {
         return obraArteRepository.getAllObraArte();
     }
 
-    public Obra_Arte getObraArteById(int obraArteId) { return obraArteRepository.getObraArteById(obraArteId);}
+    public Obra_Arte getObraArteById(int obraArteId) throws SQLException { return obraArteRepository.getObraArteById(obraArteId);}
 
     public Obra_Arte addObraArte(Obra_Arte newObraArte) { return obraArteRepository.addObraArte(newObraArte);
     }

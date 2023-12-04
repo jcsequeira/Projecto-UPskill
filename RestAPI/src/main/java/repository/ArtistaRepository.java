@@ -1,10 +1,10 @@
 package repository;
 
 import model.Artista;
-import model.Obra_Arte;
 
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,145 +18,76 @@ public class ArtistaRepository {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public List<Artista> getAllArtists (){
+    private static final String SELECT_ALL_ARTIST_QUERY = "SELECT * FROM artista";
+    private static final String SELECT_ARTIST_BY_ID_QUERY = "SELECT * FROM artista WHERE id_artista = ?";
+    private static final String INSERT_ARTIST_QUERY =
+            "INSERT INTO artista (nome_artista, Data_Nascimento, Biografia, Data_Morte, Codigo_Pais, IsArtsy) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_ARTIST_QUERY =
+            "UPDATE artista SET nome_artista = ?, Data_Nascimento = ?, Biografia = ?, " +
+                    "Data_Morte = ?, Codigo_Pais = ?, IsArtsy = ? WHERE id_artista = ?";
+    private static final String DELETE_ARTIST_QUERY = "DELETE FROM artista WHERE id_artista = ?";
+
+    public List<Artista> getAllArtistas() {
         List<Artista> artistaList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
-             ResultSet resultSet = statement.executeQuery("select * from artista")){
-            while (resultSet.next()){
-                Artista artista = new Artista();
-                artista.setId_artista(resultSet.getLong("id_artista"));
-                artista.setNome_artista(resultSet.getString("nome_artista"));
-                if (resultSet.getDate("Data_Nascimento") != null){
-                    artista.setData_Nascimento(resultSet.getDate("Data_Nascimento").toLocalDate());}
-                else {
-                    artista.setData_Nascimento(null);}
-                artista.setBiografia(resultSet.getString("Biografia"));
-                if (resultSet.getDate("Data_Morte") != null){
-                artista.setData_Morte(resultSet.getDate("Data_Morte").toLocalDate());}
-                else {
-                    artista.setData_Morte(null);
-                }
-                artista.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
-                artista.setIsArtsy(resultSet.getInt("IsArtsy"));
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_ARTIST_QUERY)) {
 
+            while (resultSet.next()) {
+                Artista artista = mapResultSetToArtista(resultSet);
                 artistaList.add(artista);
             }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
         }
-        catch (SQLException sqlException){sqlException.printStackTrace();}
 
         return artistaList;
     }
 
     public Artista getArtistaById(int artistaId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "SELECT * FROM artista WHERE id_artista = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_ARTIST_BY_ID_QUERY)) {
 
             preparedStatement.setInt(1, artistaId);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    // Map the result set to a Artista object and return it
-                    Artista artista = new Artista();
-                    artista.setId_artista(resultSet.getInt("id_artista"));
-                    artista.setNome_artista(resultSet.getString("nome_artista"));
-                    if (resultSet.getDate("Data_Nascimento") != null){
-                        artista.setData_Nascimento(resultSet.getDate("Data_Nascimento").toLocalDate());}
-                    else {
-                        artista.setData_Nascimento(null);}
-                    artista.setBiografia(resultSet.getString("Biografia"));
-                    if (resultSet.getDate("Data_Morte") != null){
-                        artista.setData_Morte(resultSet.getDate("Data_Morte").toLocalDate());}
-                    else {
-                        artista.setData_Morte(null);}
-                    artista.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
-                    artista.setIsArtsy(resultSet.getInt("IsArtsy"));
-
-                    return artista;
+                    return mapResultSetToArtista(resultSet);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
-        return null; // Return null if the pais is not found or an exception occurs
+        return null;
     }
-
 
     public Artista addArtista(Artista artista) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
-                "INSERT INTO artista (nome_artista, Data_Nascimento, Biografia, Data_Morte, Codigo_Pais, IsArtsy) " +
-                        "VALUES (?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS)) {
+                INSERT_ARTIST_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Set the values for the prepared statement
-            preparedStatement.setString(1, artista.getNome_artista());
-            if (artista.getData_Nascimento() != null) {
-                preparedStatement.setString(2, artista.getData_Nascimento().format(formatter));
-            } else {
-                preparedStatement.setNull(2, java.sql.Types.DATE); // Set the parameter to NULL in the database
-            }
-            preparedStatement.setString(3, artista.getBiografia());
-            if (artista.getData_Morte() != null) {
-                preparedStatement.setString(4, artista.getData_Morte().format(formatter));
-            } else {
-                preparedStatement.setNull(4, java.sql.Types.DATE); // Set the parameter to NULL in the database
-            }
-            preparedStatement.setInt(5, artista.getCodigo_Pais());
-            preparedStatement.setInt(6, artista.getIsArtsy());
+            setArtistaParameters(preparedStatement, artista);
 
-            // Execute the insert statement
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
                 throw new SQLException("Creating object Artista failed, no rows affected.");
             }
 
-            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    // Set the generated ID to the obraArte object
-                    artista.setId_artista(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Creating object Artista failed, no ID obtained.");
-                }
-            }
+            setGeneratedId(preparedStatement, artista);
 
             return artista;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return null; // Return null or throw a custom exception based on your error handling strategy
+            handleSQLException(e);
+            return null;
         }
     }
 
-    public Artista updateArtista (int artistaId, Artista artista) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "UPDATE artista " +
-                        "SET nome_artista = ?, " +
-                        "Data_Nascimento = ?, " +
-                        "Biografia = ?, " +
-                        "Data_Morte = ?, " +
-                        "Codigo_Pais = ?, " +
-                        "IsArtsy = ? " +
-                        "WHERE id_artista = ?;")) {
+    public Artista updateArtista(int artistaId, Artista artista) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_ARTIST_QUERY)) {
 
-            // Set the values for the prepared statement
-            preparedStatement.setString(1, artista.getNome_artista());
-            if (artista.getData_Nascimento() != null) {
-                preparedStatement.setString(2, artista.getData_Nascimento().format(formatter));
-            } else {
-                preparedStatement.setNull(2, java.sql.Types.DATE); // Set the parameter to NULL in the database
-            }
-            preparedStatement.setString(3, artista.getBiografia());
-            if (artista.getData_Morte() != null) {
-                preparedStatement.setString(4, artista.getData_Morte().format(formatter));
-            } else {
-                preparedStatement.setNull(4, java.sql.Types.DATE); // Set the parameter to NULL in the database
-            }
-            preparedStatement.setInt(5, artista.getCodigo_Pais());
-            preparedStatement.setInt(6, artista.getIsArtsy());
+            setArtistaParameters(preparedStatement, artista);
             preparedStatement.setInt(7, artistaId);
 
-            // Execute the insert statement
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
@@ -165,27 +96,66 @@ public class ArtistaRepository {
 
             return artista;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return null; // Return null or throw a custom exception based on your error handling strategy
+            handleSQLException(e);
+            return null;
         }
     }
 
     public String deleteArtista(int artistaId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "DELETE FROM artista WHERE id_artista = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_ARTIST_QUERY)) {
             preparedStatement.setInt(1, artistaId);
             int affectedRows = preparedStatement.executeUpdate();
+
             if (affectedRows == 0) {
-                //throw new SQLException("Deleting Artista failed, no rows affected.");
                 return "Deleting Artista failed, no rows affected.";
-            } else {return "Deleting Artista successful.";}
-        } catch (SQLIntegrityConstraintViolationException e ) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            } else {
+                return "Deleting Artista successful.";
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            handleSQLException(e);
             return "Deleting Artista failed, no rows affected.";
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void handleSQLException(SQLException e) {
+        e.printStackTrace(); // Log or handle the exception appropriately
+    }
+
+    private Artista mapResultSetToArtista(ResultSet resultSet) throws SQLException {
+        Artista artista = new Artista();
+        artista.setId_artista(resultSet.getInt("id_artista"));
+        artista.setNome_artista(resultSet.getString("nome_artista"));
+        artista.setData_Nascimento(mapToLocalDate(resultSet.getString("Data_Nascimento")));
+        artista.setBiografia(resultSet.getString("Biografia"));
+        artista.setData_Morte(mapToLocalDate(resultSet.getString("Data_Morte")));
+        artista.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
+        artista.setIsArtsy(resultSet.getInt("IsArtsy"));
+        return artista;
+    }
+
+    private LocalDate mapToLocalDate(String dateString) {
+        return dateString != null ? LocalDate.parse(dateString, formatter) : null;
+    }
+
+    private void setArtistaParameters(PreparedStatement preparedStatement, Artista artista) throws SQLException {
+        preparedStatement.setString(1, artista.getNome_artista());
+        preparedStatement.setObject(2, artista.getData_Nascimento(), java.sql.Types.DATE);
+        preparedStatement.setString(3, artista.getBiografia());
+        preparedStatement.setObject(4, artista.getData_Morte(), java.sql.Types.DATE);
+        preparedStatement.setInt(5, artista.getCodigo_Pais());
+        preparedStatement.setInt(6, artista.getIsArtsy());
+    }
+
+    private void setGeneratedId(PreparedStatement preparedStatement, Artista artista) throws SQLException {
+        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                // Set the generated ID to the obraArte object
+                artista.setId_artista(generatedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating object Artista failed, no ID obtained.");
+            }
         }
     }
 }

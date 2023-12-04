@@ -14,7 +14,7 @@ public class ArtistaService {
     }
 
     public List<Artista> getAllArtists (){
-        return artistaRepository.getAllArtists();
+        return artistaRepository.getAllArtistas();
     }
 
     public Artista getArtistaById(int artistaId){ return artistaRepository.getArtistaById(artistaId); }

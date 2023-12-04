@@ -14,54 +14,52 @@ public class MateriaisRepository {
         this.con = con;
     }
 
-    public List<Materiais> getAllMateriais(){
+    private static final String SELECT_ALL_MATERIAIS_QUERY = "SELECT * FROM materiais";
+    private static final String SELECT_MATERIAL_BY_ID_QUERY = "SELECT * FROM Materiais WHERE id_Material = ?";
+    private static final String INSERT_MATERIAL_QUERY = "INSERT INTO materiais (Tipo_Material) VALUES (?)";
+    private static final String UPDATE_MATERIAL_QUERY = "UPDATE materiais SET Tipo_Material = ? WHERE id_Material = ?";
+    private static final String DELETE_MATERIAL_QUERY = "DELETE FROM materiais WHERE id_Material = ?";
+
+    public List<Materiais> getAllMateriais() {
         List<Materiais> materiaisList = new ArrayList<>();
 
         try (Statement statement = con.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from materiais")){
-            while (resultSet.next()){
-                Materiais materiais = new Materiais();
-                materiais.setId_Material(resultSet.getInt("id_Material"));
-                materiais.setTipo_Material(resultSet.getString("Tipo_Material"));
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_MATERIAIS_QUERY)) {
+
+            while (resultSet.next()) {
+                Materiais materiais = mapResultSetToMateriais(resultSet);
                 materiaisList.add(materiais);
             }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
         }
-        catch (SQLException sqlException){sqlException.printStackTrace();}
 
         return materiaisList;
     }
 
     public Materiais getMaterialById(int materialId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "SELECT * FROM Materiais WHERE id_Material = ?")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_MATERIAL_BY_ID_QUERY)) {
 
             preparedStatement.setInt(1, materialId);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    // Map the result set to a Material object and return it
-                    Materiais material = new Materiais();
-                    material.setId_Material(resultSet.getInt("id_Material"));
-                    material.setTipo_Material(resultSet.getString("Tipo_Material"));
-                    return material;
+                    return mapResultSetToMateriais(resultSet);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
 
-        return null; // Return null if the Material is not found or an exception occurs
+        return null;
     }
 
     public Materiais addMaterial(Materiais material) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
-                "INSERT INTO materiais (Tipo_Material) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
+                INSERT_MATERIAL_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Set the values for the prepared statement
             preparedStatement.setString(1, material.getTipo_Material());
 
-            // Execute the insert statement
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
@@ -70,24 +68,21 @@ public class MateriaisRepository {
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    // Set the generated ID to the Materiais object
                     material.setId_Material(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating object materiais failed, no ID obtained.");
+                    throw new SQLException("Creating object Materiais failed, no ID obtained.");
                 }
             }
 
             return material;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return null; // Return null or throw a custom exception based on your error handling strategy
+            handleSQLException(e);
+            return null;
         }
     }
 
-    public Materiais updateMaterial (int id, Materiais material) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "UPDATE materiais SET Tipo_Material = ? WHERE id_Material = ?")) {
+    public Materiais updateMaterial(int id, Materiais material) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_MATERIAL_QUERY)) {
 
             preparedStatement.setString(1, material.getTipo_Material());
             preparedStatement.setInt(2, id);
@@ -95,32 +90,42 @@ public class MateriaisRepository {
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
-                // If the update was successful, return the updated material
                 return getMaterialById(id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            handleSQLException(e);
         }
 
-        return null; // Return null if the update fails or an exception occurs
+        return null;
     }
 
-    public String deleteMaterial (int materialId) {
-        try (PreparedStatement preparedStatement = con.prepareStatement(
-                "DELETE FROM materiais WHERE id_Material = ?")) {
+    public String deleteMaterial(int materialId) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_MATERIAL_QUERY)) {
+
             preparedStatement.setInt(1, materialId);
             int affectedRows = preparedStatement.executeUpdate();
+
             if (affectedRows == 0) {
-                //throw new SQLException("Deleting Material failed, no rows affected.");
                 return "Deleting Material failed, no rows affected.";
-            } else {return "Deleting Material successful.";}
-        } catch (SQLIntegrityConstraintViolationException e ) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+            } else {
+                return "Deleting Material successful.";
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            handleSQLException(e);
             return "Deleting Material failed, no rows affected.";
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Materiais mapResultSetToMateriais(ResultSet resultSet) throws SQLException {
+        Materiais materiais = new Materiais();
+        materiais.setId_Material(resultSet.getInt("id_Material"));
+        materiais.setTipo_Material(resultSet.getString("Tipo_Material"));
+        return materiais;
+    }
+
+    private void handleSQLException(SQLException e) {
+        e.printStackTrace();
     }
 }
