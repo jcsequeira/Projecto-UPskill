@@ -150,7 +150,7 @@ public class ArtistaController {
             artistaService.addAllArtistas(artistaList);
             // Resposta e Status 201:sucesso no post
             response.status(201);
-            response.header("Location", "/api/artista");
+            response.header("Location", "/populate/artistas");
             response.type("text/plain");
             return "Resources created successfully.";
         } catch (Exception e) {

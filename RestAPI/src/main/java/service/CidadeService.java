@@ -3,6 +3,7 @@ package service;
 
 
 import exceptions.ServiceException;
+import model.Artista;
 import model.Cidade;
 import repository.CidadeRepository;
 
@@ -40,5 +41,11 @@ public class CidadeService {
 
     public String deleteCidade(int id) {
         return cidadeRepository.deleteCidade(id);
+    }
+
+    public void addAllCidades(List<Cidade> cidadeList) {
+        for (Cidade cidade : cidadeList) {
+            cidadeRepository.addCidade(cidade);
+        }
     }
 }

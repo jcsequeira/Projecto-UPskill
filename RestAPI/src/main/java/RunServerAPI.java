@@ -108,6 +108,9 @@ public class RunServerAPI {
 
         //Populate endpoints
         Spark.post("/populate/artista", artistaInit(gsonLocalDate)::addAllArtistas);
+        Spark.post("/populate/cidades", cidadeInit()::addAllCidades);
+
+        //Populate end
 
 
 
