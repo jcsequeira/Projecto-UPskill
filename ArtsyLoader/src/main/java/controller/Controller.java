@@ -14,14 +14,15 @@ import java.io.IOException;
 public class Controller {
 
     private static final String ALL_ARTIST_API_URL = "https://api.artsy.net/api/artists?artworks=true&sort=-trending&size=1500&page=1";
-
     private static final String CSV_CITYS_FILE_PATH = "ArtsyLoader/src/main/resources/citysPT.csv";
+    private static final String REST_ENDPOINT_CIDADES_API_URL="http://localhost:4567/populate/cidades";
+    private static final String REST_ENDPOINT_ARTISTAS_API_URL="http://localhost:4567/populate/artistas";
 
 
 
 
     /*metodos para implementar:
-    -Populate Cidade
+    -Populate Cidade -CCORRIGIR UNICODE
     -Populate Pais->
     -Populate Movimento (da pa tirar pelo gene)
     -LoadArtworksJsonList
@@ -33,11 +34,13 @@ public class Controller {
     -Populate Evento
      */
     public static void populateCidades() throws IOException, CsvException {
-        RestApiService.postAllCidadesToRestApi(DataProcessor.cidadeListGenerator(Utils.createCityMap(Utils.readCityNamesFromCsv(CSV_CITYS_FILE_PATH))));
+        RestApiService.postToRestApi(REST_ENDPOINT_CIDADES_API_URL
+                ,DataProcessor.cidadeListGenerator(Utils.createCityMap(Utils.readCityNamesFromCsv(CSV_CITYS_FILE_PATH))));
     }
 
     public static void populateArtistas() throws IOException {
-        RestApiService.postAllArtistasToRestApi(DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyArtists(ALL_ARTIST_API_URL), ArtistConverter.class));
+        RestApiService.postToRestApi(REST_ENDPOINT_ARTISTAS_API_URL
+                ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyArtists(ALL_ARTIST_API_URL), ArtistConverter.class));
     }
 
 
