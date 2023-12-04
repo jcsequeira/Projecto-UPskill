@@ -2,13 +2,17 @@ package dataprocessorservice;
 
 
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import model.Cidade;
+import model.Pais;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static Utils.Utils.createCidadeList;
 
 
 public class DataProcessor {
@@ -47,18 +51,16 @@ public class DataProcessor {
             }
         }
 
-
-    public static List<Cidade> cidadeListGenerator(Map<Integer, String> cityMap) {
-        List<Cidade> cidadeList = new ArrayList<>();
-        for (Map.Entry<Integer, String> entry : cityMap.entrySet()) {
-            // Assuming id_Cidade starts from 1 and increments by 1
-            int id_Cidade = entry.getKey();
-            String nome_Cidade = entry.getValue();
-
-            Cidade cidade = new Cidade(id_Cidade, nome_Cidade);
-            cidadeList.add(cidade);
+    public static List<Cidade> cidadeListGenerator(String csvFilePath) throws IOException {
+        try (CSVReader csvReader = new CSVReader(new FileReader(csvFilePath))) {
+            String[] cityNames = csvReader.readAll().stream().flatMap(Arrays::stream).toArray(String[]::new);
+            return createCidadeList(cityNames);
+        } catch (CsvException e) {
+            throw new RuntimeException(e);
         }
-        return cidadeList;
     }
+
+
+
 
 }

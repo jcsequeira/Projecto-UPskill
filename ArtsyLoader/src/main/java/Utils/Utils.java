@@ -11,8 +11,12 @@ import java.io.IOException;
 import java.util.*;
 
 import artsymodel.ArtsyArtist;
+import model.Cidade;
+import model.Pais;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Utils {
 
@@ -25,67 +29,41 @@ public class Utils {
 
 
 
-    public static Map<Integer, String> nacionalityMapGeneratorFromCSV(String csvFilePath) {
-        List<String> enShortNameList = new ArrayList<>();
-        List<String> nationalityList = new ArrayList<>();
 
-        Map<Integer, String> nacionalityMap = null;
+    public static List<Pais> paisesListGenerator(String csvFilePath, int enShortNameColumnIndex, int nationalityColumnIndex) {
+        List<Pais> paisesList = new ArrayList<>();
+        Map<Integer, String> countryMap = new HashMap<>();
+        Map<Integer, String> nacionalityMap = new HashMap<>();
+
         try (CSVReader reader = new CSVReader(new FileReader(csvFilePath))) {
             List<String[]> records = reader.readAll();
-            for (String[] record : records) {
-                // Assuming the last two fields are en_short_name and nationality
-                // String enShortName = record[record.length - 2];
-                String nationality = record[record.length - 1];
+            for (int i = 0; i < records.size(); i++) {
+                String[] record = records.get(i);
 
-                // enShortNameList.add(enShortName);
-                nationalityList.add(nationality);
-                nacionalityMap = new HashMap<>();
-                for (int i = 0; i < nationalityList.size(); i++) {
-                    nacionalityMap.put(i + 1, nationalityList.get(i));
-                }
+                String enShortName = record[enShortNameColumnIndex];
+                String nationality = record[nationalityColumnIndex];
+
+                countryMap.put(i + 1, enShortName);
+                nacionalityMap.put(i + 1, nationality);
+
+                Pais pais = new Pais();
+                pais.setNome_Pais(enShortName);
+                pais.setNacionalidade(nationality);
+                paisesList.add(pais);
             }
         } catch (IOException | CsvException e) {
             e.printStackTrace();
         }
-        return nacionalityMap;
-    }
-    public static Map<Integer, String> countryMapGeneratorFromCSV(String csvFilePath) {
-        List<String> enShortNameList = new ArrayList<>();
-        Map<Integer, String> countryMap = null;
-        try (CSVReader reader = new CSVReader(new FileReader(csvFilePath))) {
-            List<String[]> records = reader.readAll();
-            for (String[] record : records) {
-                String enShortName = record[record.length - 2];
-                enShortNameList.add(enShortName);
-                countryMap = new HashMap<>();
-                for (int i = 0; i < enShortNameList.size(); i++) {
-                    countryMap.put(i + 1, enShortNameList.get(i));
-                }
-            }
-        } catch (IOException | CsvException e) {
-            e.printStackTrace();
-        }
-        return countryMap;
-    }
+
+        return paisesList;   }
 
 
 
-
-    public static Map<Integer, String> createCityMapFromCSV(String csvFilePath) throws IOException {
-        try (CSVReader csvReader = new CSVReader(new FileReader(csvFilePath))) {
-            String[] cityNames = csvReader.readAll().stream().flatMap(line -> Arrays.stream(line)).toArray(String[]::new);
-            return createCityMap(cityNames);
-        } catch (CsvException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static Map<Integer, String> createCityMap(String[] cityNames) {
-        Map<Integer, String> cityMap = new HashMap<>();
-        for (int i = 0; i < cityNames.length; i++) {
-            cityMap.put(i + 1, cityNames[i]);
-        }
-        return cityMap;
+    public static List<Cidade> createCidadeList(String[] cityNames) {
+        return IntStream.range(0, cityNames.length)
+                .boxed()
+                .map(i -> new Cidade(i + 1, cityNames[i]))
+                .collect(Collectors.toList());
     }
 
     public static long countArtistsWithNullBirthday(List<ArtsyArtist> artists) {

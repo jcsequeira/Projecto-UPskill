@@ -38,4 +38,13 @@ public class Pais {
     public void setNacionalidade(String nacionalidade) {
         Nacionalidade = nacionalidade;
     }
+
+    @Override
+    public String toString() {
+        return "Pais{" +
+                "Codigo_Pais=" + Codigo_Pais +
+                ", Nome_Pais='" + Nome_Pais + '\'' +
+                ", Nacionalidade='" + Nacionalidade + '\'' +
+                '}';
+    }
 }
