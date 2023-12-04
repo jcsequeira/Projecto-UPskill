@@ -1,6 +1,7 @@
 
 
 import com.opencsv.exceptions.CsvException;
+import controller.Controller;
 
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ public class LoaderMain {
 
         populateCidades();
 
-        // Controller.populateArtistas();
+        Controller.populateArtistas();
 
 
 
