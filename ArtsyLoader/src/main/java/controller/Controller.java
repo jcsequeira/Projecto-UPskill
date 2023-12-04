@@ -15,6 +15,7 @@ public class Controller {
 
     private static final String ALL_ARTIST_API_URL = "https://api.artsy.net/api/artists?artworks=true&sort=-trending&size=1500&page=1";
     private static final String CSV_CITYS_FILE_PATH = "ArtsyLoader/src/main/resources/citysPT.csv";
+    private static final String CSV_COUNTRYS_NACIONALITYS_FILE_PATH = "ArtsyLoader/src/main/resources/countries.csv";
     private static final String REST_ENDPOINT_CIDADES_API_URL="http://localhost:4567/populate/cidades";
     private static final String REST_ENDPOINT_ARTISTAS_API_URL="http://localhost:4567/populate/artistas";
 
@@ -22,7 +23,7 @@ public class Controller {
 
 
     /*metodos para implementar:
-    -Populate Pais->
+    -Populate Pais-> working on that falta gerar lista no dataprocessor
     -Populate Movimento (da pa tirar pelo gene)
     -LoadArtworksJsonList
     -Populate Tecnica (este precisa da Lista de obras de arte carregada do artsy)
