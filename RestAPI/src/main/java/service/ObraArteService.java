@@ -1,5 +1,6 @@
 package service;
 
+import model.Artista;
 import model.Obra_Arte;
 import repository.ObraArteRepository;
 
@@ -26,4 +27,10 @@ public class ObraArteService {
     }
 
     public String deleteObraArte (int obraArteId) {return obraArteRepository.deleteObraArte(obraArteId);}
+
+    public void addAllObrasArte(List<Obra_Arte> obraArteList) {
+        for (Obra_Arte obraArte : obraArteList) {
+            obraArteRepository.addObraArte(obraArte);
+        }
+    }
 }

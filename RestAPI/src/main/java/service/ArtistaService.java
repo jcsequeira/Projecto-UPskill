@@ -25,8 +25,8 @@ public class ArtistaService {
 
     public String deleteArtista(int id) {return artistaRepository.deleteArtista(id);}
 
-    public void addAllArtistas(List<Artista> artistaList) {
-        for (Artista artista : artistaList) {
+    public void addAllArtistas(List<Artista> artistasList) {
+        for (Artista artista : artistasList) {
             artistaRepository.addArtista(artista);
         }
     }

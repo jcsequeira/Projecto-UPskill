@@ -1,12 +1,16 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import model.Artista;
 import model.Pais;
 import service.PaisService;
 import spark.Request;
 import spark.Response;
 
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -137,5 +141,23 @@ public class PaisController {
         }
     }
 
-
+    public  String addAllPaises(Request request, Response response) {
+        try {
+            // DesSerialização do Json para um objecto
+            Type listType = new TypeToken<ArrayList<Pais>>(){}.getType();
+            List<Pais> paisesList = gson.fromJson(request.body(), listType);
+            //envia o objecto para o service
+            paisService.addAllPaises(paisesList);
+            // Resposta e Status 201:sucesso no post
+            response.status(201);
+            response.header("Location", "/populate/paiss");
+            response.type("text/plain");
+            return "Resources created successfully.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception appropriately and set the response status to 500 Internal Server Error
+            response.status(500);
+            return "Error Adding Resources.";
+        }
+    }
 }

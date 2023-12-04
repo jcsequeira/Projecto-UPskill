@@ -109,8 +109,14 @@ public class RunServerAPI {
         //Populate endpoints
         Spark.post("/populate/artista", artistaInit(gsonLocalDate)::addAllArtistas);
         Spark.post("/populate/cidades", cidadeInit()::addAllCidades);
+        Spark.post("/populate/eventos", eventoInit(gsonLocalDate)::addAllEventos);
+        Spark.post("/populate/galerias", galeriaInit()::addAllGalerias);
+        Spark.post("/populate/materiais", materiaisInit()::addAllMateriais);
+        Spark.post("/populate/movimentos", movimentoInit()::addAllMovimentos);
+        Spark.post("/populate/obrasarte", obraArteInit(gsonLocalDate)::addAllObrasArte);
+        Spark.post("/populate/paises", paisInit()::addAllPaises);
+        Spark.post("/populate/tecnicas", tecnicaInit()::addAllTecnicas);
 
-        //Populate end
 
 
 

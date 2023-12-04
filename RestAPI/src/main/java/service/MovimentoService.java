@@ -1,5 +1,6 @@
 package service;
 
+import model.Artista;
 import model.Movimento;
 import repository.MovimentoRepository;
 
@@ -33,5 +34,11 @@ public class MovimentoService {
 
     public String deleteMovimento(int id) {return
         movimentoRepository.deleteMovimento(id);
+    }
+
+    public void addAllMovimentos(List<Movimento> movimentosList) {
+        for (Movimento movimento : movimentosList) {
+            movimentoRepository.addMovimento(movimento);
+        }
     }
 }

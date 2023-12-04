@@ -1,5 +1,6 @@
 package service;
 
+import model.Artista;
 import model.Materiais;
 import repository.MateriaisRepository;
 
@@ -22,4 +23,10 @@ public class MateriaisService {
     public Materiais upddateMaterial (int id, Materiais material){return materiaisRepository.updateMaterial(id, material);}
 
     public String deleteMaterial (int id){return materiaisRepository.deleteMaterial(id);}
+
+    public void addAllMateriais(List<Materiais> MateriaisList) {
+        for (Materiais materiais : MateriaisList) {
+            materiaisRepository.addMaterial(materiais);
+        }
+    }
 }

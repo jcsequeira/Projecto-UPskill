@@ -1,5 +1,6 @@
 package service;
 
+import model.Artista;
 import model.Galeria;
 import repository.GaleriaRepository;
 
@@ -25,4 +26,10 @@ public class GaleriaService {
     }
 
     public String deleteGaleria (int galeriaId) {return galeriaRepository.deleteGaleria(galeriaId);}
+
+    public void addAllGalerias(List<Galeria> galeriasList) {
+        for (Galeria galeria : galeriasList) {
+            galeriaRepository.addGaleria(galeria);
+        }
+    }
 }

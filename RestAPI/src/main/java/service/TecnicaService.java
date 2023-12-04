@@ -1,5 +1,6 @@
 package service;
 
+import model.Artista;
 import model.Tecnica;
 import repository.TecnicaRepository;
 
@@ -35,5 +36,11 @@ public class TecnicaService {
 
     public String deleteTecnica(int id) {
         return tecnicaRepository.deleteTecnica(id);
+    }
+
+    public void addAllTecnicas(List<Tecnica> tecnicasList) {
+        for (Tecnica tecnica : tecnicasList) {
+            tecnicaRepository.addTecnica(tecnica);
+        }
     }
 }

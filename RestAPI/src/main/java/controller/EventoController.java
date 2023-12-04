@@ -3,7 +3,9 @@ package controller;
 import com.google.gson.Gson;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import controller.adapters.LocalDateAdapter;
+import model.Artista;
 import model.Evento;
 import service.EventoService;
 
@@ -11,7 +13,9 @@ import spark.Request;
 import spark.Response;
 
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -139,6 +143,26 @@ public class EventoController {
             // Handle other exceptions appropriately
             response.status(500);
             return "Error deleting evento";
+        }
+    }
+
+    public  String addAllEventos(Request request, Response response) {
+        try {
+            // DesSerialização do Json para um objecto
+            Type listType = new TypeToken<ArrayList<Evento>>(){}.getType();
+            List<Evento> eventosList = gson.fromJson(request.body(), listType);
+            //envia o objecto para o service
+            eventoService.addAllEventos(eventosList);
+            // Resposta e Status 201:sucesso no post
+            response.status(201);
+            response.header("Location", "/populate/eventos");
+            response.type("text/plain");
+            return "Resources created successfully.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception appropriately and set the response status to 500 Internal Server Error
+            response.status(500);
+            return "Error Adding Resources.";
         }
     }
 

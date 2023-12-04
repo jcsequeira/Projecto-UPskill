@@ -1,11 +1,15 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import model.Artista;
 import model.Movimento;
 import service.MovimentoService;
 import spark.Request;
 import spark.Response;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovimentoController {
@@ -130,6 +134,26 @@ public class MovimentoController {
             // Handle other exceptions appropriately
             response.status(500);
             return "Error deleting Movimento";
+        }
+    }
+
+    public  String addAllMovimentos(Request request, Response response) {
+        try {
+            // DesSerialização do Json para um objecto
+            Type listType = new TypeToken<ArrayList<Movimento>>(){}.getType();
+            List<Movimento> movimentosList = gson.fromJson(request.body(), listType);
+            //envia o objecto para o service
+            movimentoService.addAllMovimentos(movimentosList);
+            // Resposta e Status 201:sucesso no post
+            response.status(201);
+            response.header("Location", "/populate/movimentos");
+            response.type("text/plain");
+            return "Resources created successfully.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception appropriately and set the response status to 500 Internal Server Error
+            response.status(500);
+            return "Error Adding Resources.";
         }
     }
 }

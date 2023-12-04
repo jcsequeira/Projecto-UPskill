@@ -145,9 +145,9 @@ public class ArtistaController {
         try {
             // DesSerialização do Json para um objecto
             Type listType = new TypeToken<ArrayList<Artista>>(){}.getType();
-            List<Artista> artistaList = gson.fromJson(request.body(), listType);
+            List<Artista> artistasList = gson.fromJson(request.body(), listType);
             //envia o objecto para o service
-            artistaService.addAllArtistas(artistaList);
+            artistaService.addAllArtistas(artistasList);
             // Resposta e Status 201:sucesso no post
             response.status(201);
             response.header("Location", "/populate/artistas");

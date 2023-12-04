@@ -1,12 +1,16 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import model.Artista;
 import model.Obra_Arte;
 import service.ObraArteService;
 import spark.Request;
 import spark.Response;
 
+import java.lang.reflect.Type;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ObraArteController {
@@ -120,6 +124,26 @@ public class ObraArteController {
             // Handle other exceptions appropriately
             response.status(500);
             return "Error deleting Obra Arte";
+        }
+    }
+
+    public  String addAllObrasArte(Request request, Response response) {
+        try {
+            // DesSerialização do Json para um objecto
+            Type listType = new TypeToken<ArrayList<Obra_Arte>>(){}.getType();
+            List<Obra_Arte> obrasArteList = gson.fromJson(request.body(), listType);
+            //envia o objecto para o service
+            obraArteService.addAllObrasArte(obrasArteList);
+            // Resposta e Status 201:sucesso no post
+            response.status(201);
+            response.header("Location", "/populate/obrasarte");
+            response.type("text/plain");
+            return "Resources created successfully.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception appropriately and set the response status to 500 Internal Server Error
+            response.status(500);
+            return "Error Adding Resources.";
         }
     }
 }

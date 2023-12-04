@@ -37,4 +37,10 @@ public class PaisService {
     public void deletePais(int id) {
         paisRepository.deletePais(id);
     }
+
+    public void addAllPaises(List<Pais> paisesList) {
+        for (Pais pais : paisesList) {
+            paisRepository.addPais(pais);
+        }
+    }
 }

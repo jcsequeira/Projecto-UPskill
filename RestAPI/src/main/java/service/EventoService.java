@@ -1,6 +1,7 @@
 package service;
 
 import exceptions.ServiceException;
+import model.Artista;
 import model.Evento;
 import repository.EventoRepository;
 
@@ -27,7 +28,6 @@ public class EventoService {
         return eventoRepository.addEvento(newEvento);
     }
 
-
     public Evento updateEvento(int eventoId, Evento updatedEvento) {
         // Validate events with mandatory dates
         if (updatedEvento.getData_inicio() == null || updatedEvento.getData_Fim() == null) {
@@ -37,4 +37,10 @@ public class EventoService {
     }
 
     public String deleteEvento (int eventoId) {return eventoRepository.deleteEvento(eventoId);}
+
+    public void addAllEventos(List<Evento> eventosList) {
+        for (Evento evento : eventosList) {
+            eventoRepository.addEvento(evento);
+        }
+    }
 }
