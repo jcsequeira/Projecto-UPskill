@@ -1,17 +1,18 @@
 
 
+import com.opencsv.exceptions.CsvException;
+
 import java.io.IOException;
 
-
-
+import static controller.Controller.populateCidades;
 
 
 public class LoaderMain {
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CsvException {
 
-        //populateCidades();
+        populateCidades();
 
         // Controller.populateArtistas();
 
