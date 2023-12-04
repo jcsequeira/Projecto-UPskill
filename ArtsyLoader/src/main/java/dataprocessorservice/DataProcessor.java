@@ -2,16 +2,21 @@ package dataprocessorservice;
 
 
 
+import model.Cidade;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-
+import java.util.Map;
 
 
 public class DataProcessor {
+
+
     //esta classe vai ter metodos para fazer as listas, a classe artistConverter apenas implementa a logica da conversao de um
     //objecto pra outro
+
 
         public static <K, T, E> List<E> listProcessor(List<K> inputList, Class<T> clazz) {
             List<E> resultList = new ArrayList<>();
@@ -26,7 +31,7 @@ public class DataProcessor {
             return resultList;
         }
 
-        private static <K, T, E> E processItem(K item, Class<T> clazz) {
+        public static <K, T, E> E processItem(K item, Class<T> clazz) {
             try {
                 T instance = clazz.getDeclaredConstructor().newInstance();
                 // Assuming the generic class has a method named "process"
@@ -42,5 +47,18 @@ public class DataProcessor {
             }
         }
 
+
+    public static List<Cidade> cidadeListGenerator(Map<Integer, String> cityMap) {
+        List<Cidade> cidadeList = new ArrayList<>();
+        for (Map.Entry<Integer, String> entry : cityMap.entrySet()) {
+            // Assuming id_Cidade starts from 1 and increments by 1
+            int id_Cidade = entry.getKey();
+            String nome_Cidade = entry.getValue();
+
+            Cidade cidade = new Cidade(id_Cidade, nome_Cidade);
+            cidadeList.add(cidade);
+        }
+        return cidadeList;
+    }
 
 }

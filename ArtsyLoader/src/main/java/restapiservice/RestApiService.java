@@ -5,6 +5,7 @@ import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import model.Artista;
+import model.Cidade;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,6 +25,7 @@ public class RestApiService {
     public RestApiService(Gson gson) {
         RestApiService.gson = gson;
     }
+
 
 
 
@@ -47,6 +49,20 @@ public class RestApiService {
     public static void postAllArtistasToRestApi(List<Artista> artistasList) throws IOException {
         String apiUrl = "http://localhost:4567/populate/artista";
         RequestBody requestBody = RequestBody.create(gson.toJson(artistasList), MediaType.parse("application/json"));
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .post(requestBody)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            // Get the response code (optional)
+            int responseCode = response.code();
+            System.out.println("POST Request Response Code: " + responseCode);
+        }
+    }
+
+    public static void postAllCidadesToRestApi(List<Cidade> cidadesList) throws IOException {
+        String apiUrl = "http://localhost:4567/populate/cidades";
+        RequestBody requestBody = RequestBody.create(gson.toJson(cidadesList), MediaType.parse("application/json"));
         Request request = new Request.Builder()
                 .url(apiUrl)
                 .post(requestBody)
