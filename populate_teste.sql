@@ -59,10 +59,10 @@ INSERT INTO Galerista (Data_Inicio_Atividade, password, id_colaborador) VALUES
     ('2022-01-01', 'passw0rd', 2);
 
 -- Insert sample data into Artista Table
-INSERT INTO Artista (nome_artista, Data_Nascimento, Biografia, Data_Morte,  Codigo_Pais) VALUES
-    ('Pablo Picasso', '1980-05-10', 'Renowned contemporary artist', NULL, 2),
-    ('Vinvent Van Gogh', '1965-02-20', 'Sculptor specializing in bronze sculptures', NULL, 3),
-    ('Frida Khalo', '1978-09-15', 'Digital artist exploring virtual realities', NULL, 5);
+INSERT INTO Artista (nome_artista, Data_Nascimento, Biografia, Data_Morte, Nacionalidade) VALUES
+    ('Pablo Picasso', '1980-05-10', 'Renowned contemporary artist', NULL, 'Portuguese'),
+    ('Vinvent Van Gogh', '1965-02-20', 'Sculptor specializing in bronze sculptures', NULL, 'Spanish'),
+    ('Frida Khalo', '1978-09-15', 'Digital artist exploring virtual realities', NULL, 'French');
 
 -- Insert sample data into Obra_Arte Table
 INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, IsActive, id_artista, id_Tecnica, id_Estilo) VALUES

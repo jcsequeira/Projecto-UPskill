@@ -22,7 +22,6 @@ public class Controller {
 
 
     /*metodos para implementar:
-    -Populate Cidade -CCORRIGIR UNICODE
     -Populate Pais->
     -Populate Movimento (da pa tirar pelo gene)
     -LoadArtworksJsonList

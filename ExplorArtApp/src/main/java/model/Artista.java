@@ -8,16 +8,16 @@ public class Artista {
     private LocalDate Data_Nascimento;
     private String Biografia;
     private LocalDate Data_Morte;
-    private int Codigo_Pais;
+    private String Nacionalidade;
     private int IsArtsy;
 
-    public Artista(long id_artista, String nome_artista, LocalDate data_Nascimento, String biografia, LocalDate data_Morte, int codigo_Pais, int IsArtsy) {
+    public Artista(long id_artista, String nome_artista, LocalDate data_Nascimento, String biografia, LocalDate data_Morte, String nacionalidade, int IsArtsy) {
         this.id_artista = id_artista;
         this.nome_artista = nome_artista;
         Data_Nascimento = data_Nascimento;
         Biografia = biografia;
         Data_Morte = data_Morte;
-        Codigo_Pais = codigo_Pais;
+        Nacionalidade = nacionalidade;
         this.IsArtsy = IsArtsy;
     }
 
@@ -44,8 +44,8 @@ public class Artista {
         return Data_Morte;
     }
 
-    public int getCodigo_Pais() {
-        return Codigo_Pais;
+    public String getNacionalidade() {
+        return Nacionalidade;
     }
 
     public void setId_artista(long id_artista) {
@@ -68,8 +68,8 @@ public class Artista {
         Data_Morte = data_Morte;
     }
 
-    public void setCodigo_Pais(int codigo_Pais) {
-        Codigo_Pais = codigo_Pais;
+    public void setNacionalidade(String nacionalidade) {
+        Nacionalidade = nacionalidade;
     }
 
     public int getIsArtsy() {

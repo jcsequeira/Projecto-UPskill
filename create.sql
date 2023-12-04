@@ -81,11 +81,10 @@ CREATE TABLE Artista
   Data_Nascimento DATE,
   Biografia VARCHAR(2000),
   Data_Morte DATE,
-  Codigo_Pais INT NOT NULL,
+  Nacionalidade VARCHAR(100),
   IsArtsy tinyint default 0,
   CHECK (IsArtsy IN (0, 1)),
-  PRIMARY KEY (id_artista),
-  FOREIGN KEY (Codigo_Pais) REFERENCES Pais (Codigo_Pais)
+  PRIMARY KEY (id_artista)
 );
 
 CREATE TABLE Obra_Arte
@@ -145,12 +144,12 @@ CREATE TABLE Emprestimo_Obra_Galeria
 (
   id_Emprestimo INT NOT NULL auto_increment,
   Data_Entrada DATE NOT NULL,
-  Data_Saida DATE,  
+  Data_Saida DATE,
   id_Galeria INT NOT NULL,
   id_Obra_Arte INT NOT NULL,
   PRIMARY KEY (id_Emprestimo),
   FOREIGN KEY (id_Galeria) REFERENCES Galeria(id_Galeria),
-  FOREIGN KEY (id_Obra_Arte) REFERENCES Obra_Arte(id_Obra_Arte) 
+  FOREIGN KEY (id_Obra_Arte) REFERENCES Obra_Arte(id_Obra_Arte)
 );
 
 CREATE TABLE Obra_Exposicao

@@ -21,11 +21,11 @@ public class ArtistaRepository {
     private static final String SELECT_ALL_ARTIST_QUERY = "SELECT * FROM artista";
     private static final String SELECT_ARTIST_BY_ID_QUERY = "SELECT * FROM artista WHERE id_artista = ?";
     private static final String INSERT_ARTIST_QUERY =
-            "INSERT INTO artista (nome_artista, Data_Nascimento, Biografia, Data_Morte, Codigo_Pais, IsArtsy) " +
+            "INSERT INTO artista (nome_artista, Data_Nascimento, Biografia, Data_Morte, Nacionalidade, IsArtsy) " +
                     "VALUES (?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_ARTIST_QUERY =
             "UPDATE artista SET nome_artista = ?, Data_Nascimento = ?, Biografia = ?, " +
-                    "Data_Morte = ?, Codigo_Pais = ?, IsArtsy = ? WHERE id_artista = ?";
+                    "Data_Morte = ?, Nacionalidade = ?, IsArtsy = ? WHERE id_artista = ?";
     private static final String DELETE_ARTIST_QUERY = "DELETE FROM artista WHERE id_artista = ?";
 
     public List<Artista> getAllArtistas() {
@@ -130,7 +130,7 @@ public class ArtistaRepository {
         artista.setData_Nascimento(mapToLocalDate(resultSet.getString("Data_Nascimento")));
         artista.setBiografia(resultSet.getString("Biografia"));
         artista.setData_Morte(mapToLocalDate(resultSet.getString("Data_Morte")));
-        artista.setCodigo_Pais(resultSet.getInt("Codigo_Pais"));
+        artista.setNacionalidade(resultSet.getString("Nacionalidade"));
         artista.setIsArtsy(resultSet.getInt("IsArtsy"));
         return artista;
     }
@@ -144,7 +144,7 @@ public class ArtistaRepository {
         preparedStatement.setObject(2, artista.getData_Nascimento(), java.sql.Types.DATE);
         preparedStatement.setString(3, artista.getBiografia());
         preparedStatement.setObject(4, artista.getData_Morte(), java.sql.Types.DATE);
-        preparedStatement.setInt(5, artista.getCodigo_Pais());
+        preparedStatement.setString(5, artista.getNacionalidade());
         preparedStatement.setInt(6, artista.getIsArtsy());
     }
 
