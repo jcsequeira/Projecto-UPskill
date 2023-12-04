@@ -35,7 +35,7 @@ public class Controller {
      */
     public static void populateCidades() throws IOException, CsvException {
         RestApiService.postToRestApi(REST_ENDPOINT_CIDADES_API_URL
-                ,DataProcessor.cidadeListGenerator(Utils.createCityMap(Utils.readCityNamesFromCsv(CSV_CITYS_FILE_PATH))));
+                ,DataProcessor.cidadeListGenerator(Utils.createCityMapFromCSV(CSV_CITYS_FILE_PATH)));
     }
 
     public static void populateArtistas() throws IOException {

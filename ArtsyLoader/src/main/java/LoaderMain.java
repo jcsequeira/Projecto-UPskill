@@ -22,8 +22,8 @@ public class LoaderMain {
 
         //Controller.populateArtistas();
 
-        Map<Integer, String> cityMap = Utils.createCityMap(Utils.readCityNamesFromCsv("ArtsyLoader/src/main/resources/citysPT.csv"));
-        System.out.println(cityMap);
+        //Map<Integer, String> cityMap = Utils.createCityMapFromCSV("ArtsyLoader/src/main/resources/citysPT.csv");
+        //ystem.out.println(cityMap);
 
 
 
