@@ -12,7 +12,10 @@ import java.util.*;
 
 import artsymodel.ArtsyArtist;
 import model.Cidade;
+import model.Materiais;
 import model.Pais;
+import model.Tecnica;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,5 +87,25 @@ public class Utils {
         return artists.stream()
                 .filter(artist -> artist.getBirthday() == null)
                 .count();
+    }
+
+    public static List<Tecnica> removeNullsAndDuplicatesTecnicas(List<Tecnica> tecnicas) {
+        Set<String> uniqueTipos = new HashSet<>();
+        return tecnicas.stream()
+                .filter(tecnica -> {
+                    String tipo = tecnica.getTipo_Tecnica();
+                    return tipo != null && uniqueTipos.add(tipo);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public static List<Materiais> removeNullsAndDuplicatesMateriais(List<Materiais> materiais) {
+        Set<String> uniqueTipos = new HashSet<>();
+        return materiais.stream()
+                .filter(material -> {
+                    String tipo = material.getTipo_Material();
+                    return tipo != null && uniqueTipos.add(tipo);
+                })
+                .collect(Collectors.toList());
     }
 }

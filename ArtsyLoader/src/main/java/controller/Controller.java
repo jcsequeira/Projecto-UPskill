@@ -3,13 +3,15 @@ package controller;
 
 import Utils.Utils;
 import apiserviceartsy.ApiServiceArtsy;
+import artsymodel.ArtsyArtist;
+import artsymodel.ArtsyArtwork;
 import com.opencsv.exceptions.CsvException;
-import dataprocessorservice.ArtistConverter;
-import dataprocessorservice.DataProcessor;
-import dataprocessorservice.GeneConverter;
+import dataprocessorservice.*;
 import restapiservice.RestApiService;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Controller {
@@ -22,12 +24,14 @@ public class Controller {
     private static final String REST_ENDPOINT_PAISES_API_URL="http://localhost:4567/populate/paises";
     private static final String REST_ENDPOINT_ARTISTAS_API_URL="http://localhost:4567/populate/artistas";
     private static final String REST_ENDPOINT_MOVIMENTOS_API_URL="http://localhost:4567/populate/movimentos";
+    private static final String REST_ENDPOINT_TECNICAS_API_URL="http://localhost:4567/populate/tecnicas";
+    private static final String REST_ENDPOINT_MATERIAIS_API_URL="http://localhost:4567/populate/materiais";
+
 
 
 
     /*metodos para implementar:
-    -LoadArtworksJsonList
-    -Populate Tecnica (este precisa da Lista de obras de arte carregada do artsy)
+
     -Populate Materiais (este precisa da Lista de obras de arte carregada do artsy)
     -Populate ObraArte (precsa artista, tecnica,materiais, movimento)
     -Populate Galeria
@@ -50,6 +54,19 @@ public class Controller {
                 ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyGenes(ALL_MOVIMENTOS_ARTSY_URL), GeneConverter.class));
     }
 
+    public static List<ArtsyArtwork> LoadArtsyArtworksList() throws IOException {
+       return ApiServiceArtsy.getAllArtsyArtworks(ALL_ARTWORKS_ARTSY_URL);
+    }
+
+    public static void populateTecnicas(List<ArtsyArtwork> allArtsyArtworksList) throws IOException {
+        RestApiService.postToRestApi(REST_ENDPOINT_TECNICAS_API_URL
+                , Utils.removeNullsAndDuplicatesTecnicas((DataProcessor.listProcessor(allArtsyArtworksList, CategoryConverter.class))));
+    }
+
+    public static void populateMateriais(List<ArtsyArtwork> allArtsyArtworksList) throws IOException {
+        RestApiService.postToRestApi(REST_ENDPOINT_MATERIAIS_API_URL
+                , Utils.removeNullsAndDuplicatesMateriais((DataProcessor.listProcessor(allArtsyArtworksList, MediumConverter.class))));
+    }
 
 
 

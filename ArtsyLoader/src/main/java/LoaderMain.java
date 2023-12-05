@@ -25,6 +25,7 @@ public class LoaderMain {
          populateMovimentos();*/
 
         //populateArtistas();
+        /*
         String ALL_ARTWORKS_ARTSY_URL = "https://api.artsy.net/api/artworks?size=1000&page=1";
 
         List<ArtsyArtwork> allArtsyArtworks= ApiServiceArtsy.getAllArtsyArtworks(ALL_ARTWORKS_ARTSY_URL);
@@ -43,8 +44,11 @@ public class LoaderMain {
             System.out.println("Genes Href: " + artwork.getGenesHref());
             System.out.println("Artists Href: " + artwork.getArtistsHref());
             System.out.println();
-        }
+        }*/
 
+        //List<ArtsyArtwork> artsyArtworkList = LoadArtsyArtworksList();
+        //populateTecnicas(artsyArtworkList);
+        //populateMateriais(artsyArtworkList);
 
 
     }
