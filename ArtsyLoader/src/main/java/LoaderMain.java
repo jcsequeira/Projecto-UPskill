@@ -6,8 +6,9 @@ import model.Pais;
 import java.io.IOException;
 import java.util.List;
 
-import static controller.Controller.populateCidades;
-import static controller.Controller.populatePaises;
+import static controller.Controller.*;
+
+
 
 public class LoaderMain {
 
@@ -15,11 +16,12 @@ public class LoaderMain {
 
     public static void main(String[] args) throws IOException, CsvException {
 
+        /*
+         populateCidades();
+         populatePaises();
+         populateMovimentos();*/
 
-         //populateCidades();
-        //populatePaises();
-
-        //Controller.populateArtistas();
+        //populateArtistas();
 
 
     }

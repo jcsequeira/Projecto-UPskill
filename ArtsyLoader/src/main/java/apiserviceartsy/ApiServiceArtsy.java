@@ -4,6 +4,7 @@ package apiserviceartsy;
 
 import adapters.LocalDateAdapter;
 import artsymodel.ArtsyArtist;
+import artsymodel.ArtsyGene;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
@@ -32,6 +33,8 @@ public class ApiServiceArtsy {
     public ApiServiceArtsy(Gson gson) {
         ApiServiceArtsy.gson = gson;
     }
+
+
 
 
     public ArtsyArtist getArtsyArtist(String apiUrl) throws IOException {
@@ -82,6 +85,27 @@ public class ApiServiceArtsy {
             return removeArtistsWithNullBirthday(artistsList);
         }
     }
+
+
+    public static List<ArtsyGene> getAllArtsyGenes(String apiUrl) throws IOException {
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .header("X-Access-Token", ARTSY_ACCESS_TOKEN)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            JsonParser parser = new JsonParser();
+            JsonObject jsonObject = parser.parse(response.body().string()).getAsJsonObject();
+            JsonElement embeddedElement = jsonObject.get("_embedded");
+            JsonObject embeddedObject = embeddedElement.getAsJsonObject();
+            JsonElement genesElement = embeddedObject.get("genes");
+            List<ArtsyGene> genesList = gson.fromJson(genesElement, new TypeToken<List<ArtsyGene>>(){}.getType());
+            return genesList;
+        }
+
+
+    }
+
 
     private static List<ArtsyArtist> removeArtistsWithNullBirthday(List<ArtsyArtist> artists) {
         return artists.stream()

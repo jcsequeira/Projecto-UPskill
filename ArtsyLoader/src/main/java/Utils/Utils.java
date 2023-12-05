@@ -59,12 +59,26 @@ public class Utils {
 
 
 
+
+
+    public static List<Cidade> cidadeListGenerator(String csvFilePath) throws IOException {
+        try (CSVReader csvReader = new CSVReader(new FileReader(csvFilePath))) {
+            String[] cityNames = csvReader.readAll().stream().flatMap(Arrays::stream).toArray(String[]::new);
+            return createCidadeList(cityNames);
+        } catch (CsvException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static List<Cidade> createCidadeList(String[] cityNames) {
         return IntStream.range(0, cityNames.length)
                 .boxed()
                 .map(i -> new Cidade(i + 1, cityNames[i]))
                 .collect(Collectors.toList());
     }
+
+
+
 
     public static long countArtistsWithNullBirthday(List<ArtsyArtist> artists) {
         return artists.stream()

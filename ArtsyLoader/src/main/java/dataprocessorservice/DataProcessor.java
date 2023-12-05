@@ -51,14 +51,7 @@ public class DataProcessor {
             }
         }
 
-    public static List<Cidade> cidadeListGenerator(String csvFilePath) throws IOException {
-        try (CSVReader csvReader = new CSVReader(new FileReader(csvFilePath))) {
-            String[] cityNames = csvReader.readAll().stream().flatMap(Arrays::stream).toArray(String[]::new);
-            return createCidadeList(cityNames);
-        } catch (CsvException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
 
 

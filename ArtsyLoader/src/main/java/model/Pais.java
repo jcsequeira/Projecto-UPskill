@@ -39,12 +39,5 @@ public class Pais {
         Nacionalidade = nacionalidade;
     }
 
-    @Override
-    public String toString() {
-        return "Pais{" +
-                "Codigo_Pais=" + Codigo_Pais +
-                ", Nome_Pais='" + Nome_Pais + '\'' +
-                ", Nacionalidade='" + Nacionalidade + '\'' +
-                '}';
-    }
+
 }
