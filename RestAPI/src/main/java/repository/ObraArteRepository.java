@@ -12,26 +12,27 @@ public class ObraArteRepository {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final String SELECT_ALL_OBRAARTE_QUERY =
-            "SELECT obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, " +
+            "SELECT obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, Preco, altura, Largura, Profundidade, Diametro, " +
                     "IsActive, id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
                     "FROM obra_arte " +
                     "LEFT JOIN obra_materiais ON obra_arte.id_obra_arte = obra_materiais.id_obra_arte";
     private static final String SELECT_OBRAARTE_BY_ID_QUERY =
-            "SELECT obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, " +
+            "SELECT obra_arte.id_Obra_Arte, Titulo, Link_Imagem, Ano_Criacao, Preco, altura, Largura, Profundidade, Diametro, " +
                     "IsActive, id_artista, id_Tecnica, id_Estilo, IsArtsy, id_material " +
                     "FROM obra_arte " +
                     "JOIN obra_materiais ON obra_arte.id_obra_arte = obra_materiais.id_obra_arte " +
                     "WHERE obra_arte.id_Obra_Arte = ?";
     private static final String INSERT_OBRAARTE_QUERY =
-            "INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, " +
+            "INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, altura, Largura, Profundidade, Diametro, " +
                     "IsActive, id_artista, id_Tecnica, id_Estilo) VALUES " +
-                    "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_OBRAARTE_QUERY =
             "UPDATE Obra_Arte " +
                     "SET Titulo = ?, " +
                     "Link_Imagem = ?, " +
                     "Ano_Criacao = ?, " +
                     "Preco = ?, " +
+                    "altura = ?, " +
                     "Largura = ?, " +
                     "Profundidade = ?, " +
                     "Diametro = ?, " +
@@ -136,7 +137,7 @@ public class ObraArteRepository {
         try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_OBRAARTE_QUERY)) {
 
             setObraArteParameters(preparedStatement, obraArte);
-            preparedStatement.setInt(12, obraArteID);
+            preparedStatement.setInt(13, obraArteID);
 
             int affectedRows = preparedStatement.executeUpdate();
 
@@ -196,6 +197,7 @@ public class ObraArteRepository {
         obraArte.setLink_Imagem(resultSet.getString("Link_Imagem"));
         obraArte.setAno_Criacao(mapToLocalDate(resultSet.getString("Ano_Criacao")));
         obraArte.setPreco(resultSet.getFloat("Preco"));
+        obraArte.setAltura(resultSet.getFloat("altura"));
         obraArte.setLargura(resultSet.getFloat("Largura"));
         obraArte.setProfundidade(resultSet.getFloat("Profundidade"));
         obraArte.setDiametro(resultSet.getFloat("Diametro"));
@@ -218,13 +220,14 @@ public class ObraArteRepository {
         preparedStatement.setString(2, obraArte.getLink_Imagem());
         preparedStatement.setObject(3, obraArte.getAno_Criacao(), java.sql.Types.DATE);
         preparedStatement.setFloat(4, obraArte.getPreco());
-        preparedStatement.setFloat(5, obraArte.getLargura());
-        preparedStatement.setFloat(6, obraArte.getProfundidade());
-        preparedStatement.setFloat(7, obraArte.getDiametro());
-        preparedStatement.setInt(8, obraArte.getIsActive());
-        preparedStatement.setInt(9, obraArte.getId_artista());
-        preparedStatement.setInt(10, obraArte.getId_Tecnica());
-        preparedStatement.setInt(11, obraArte.getId_Estilo());
+        preparedStatement.setFloat(5, obraArte.getPreco());
+        preparedStatement.setFloat(6, obraArte.getLargura());
+        preparedStatement.setFloat(7, obraArte.getProfundidade());
+        preparedStatement.setFloat(8, obraArte.getDiametro());
+        preparedStatement.setInt(9, obraArte.getIsActive());
+        preparedStatement.setInt(10, obraArte.getId_artista());
+        preparedStatement.setInt(11, obraArte.getId_Tecnica());
+        preparedStatement.setInt(12, obraArte.getId_Estilo());
     }
 
     /*private void updateObraMateriais(Obra_Arte obraArte) {

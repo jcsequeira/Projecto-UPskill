@@ -65,10 +65,10 @@ INSERT INTO Artista (nome_artista, Data_Nascimento, Biografia, Data_Morte, Nacio
     ('Frida Khalo', '1978-09-15', 'Digital artist exploring virtual realities', NULL, 'French');
 
 -- Insert sample data into Obra_Arte Table
-INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, Largura, Profundidade, Diametro, IsActive, id_artista, id_Tecnica, id_Estilo) VALUES
-    ('Cityscape', 'image_link1.jpg', '2022-01-15', 5000.00, 120.0, 80.0, NULL, 1, 1, 1, 5),
-    ('Sculpture of Freedom', 'image_link2.jpg', '2022-03-20', 15000.00, NULL, NULL, NULL, 1, 2, 3, 4),
-    ('Virtual World', 'image_link3.jpg', '2022-05-12', 8000.00, NULL, NULL, NULL, 1, 3, 5, 5);
+INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, altura, Largura, Profundidade, Diametro, IsActive, id_artista, id_Tecnica, id_Estilo) VALUES
+    ('Cityscape', 'image_link1.jpg', '2022-01-15', 5000.00, 80.1 ,120.0, 80.0, NULL, 1, 1, 1, 5),
+    ('Sculpture of Freedom', 'image_link2.jpg', '2022-03-20', 15000.00, 120.5, NULL, NULL, NULL, 1, 2, 3, 4),
+    ('Virtual World', 'image_link3.jpg', '2022-05-12', 8000.00, 55, NULL, NULL, NULL, 1, 3, 5, 5);
 
 -- Insert sample data into Galeria Table
 INSERT INTO Galeria (Nome_Galeria, Morada, Website, Email, Telefone, id_Cidade, id_colaborador) VALUES

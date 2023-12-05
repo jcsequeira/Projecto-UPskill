@@ -8,6 +8,7 @@ public class Obra_Arte {
     private String Link_Imagem;
     private LocalDate Ano_Criacao;
     private float Preco;
+    private float altura;
     private float Largura;
     private float Profundidade;
     private float Diametro;
@@ -21,13 +22,14 @@ public class Obra_Arte {
 
 
     public Obra_Arte(int id_Obra_Arte, String titulo, String link_Imagem, LocalDate ano_Criacao,
-                     float preco, float largura, float profundidade, float diametro, int isActive,
+                     float preco, float altura, float largura, float profundidade, float diametro, int isActive,
                      int id_artista, int id_Tecnica, int id_Estilo, int isArtsy, int id_Material) {
         this.id_Obra_Arte = id_Obra_Arte;
         Titulo = titulo;
         Link_Imagem = link_Imagem;
         Ano_Criacao = ano_Criacao;
         Preco = preco;
+        this.altura=altura;
         Largura = largura;
         Profundidade = profundidade;
         Diametro = diametro;
@@ -154,23 +156,11 @@ public class Obra_Arte {
         this.id_Material = id_Material;
     }
 
-    @Override
-    public String toString() {
-        return "Obra_Arte{" +
-                "id_Obra_Arte=" + id_Obra_Arte +
-                ", Titulo='" + Titulo + '\'' +
-                ", Link_Imagem='" + Link_Imagem + '\'' +
-                ", Ano_Criacao=" + Ano_Criacao +
-                ", Preco=" + Preco +
-                ", Largura=" + Largura +
-                ", Profundidade=" + Profundidade +
-                ", Diametro=" + Diametro +
-                ", IsActive=" + IsActive +
-                ", id_artista=" + id_artista +
-                ", id_Tecnica=" + id_Tecnica +
-                ", id_Estilo=" + id_Estilo +
-                ", IsArtsy=" + IsArtsy +
-                ", id_Material=" + id_Material +
-                '}';
+    public float getAltura() {
+        return altura;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
     }
 }
