@@ -94,6 +94,7 @@ CREATE TABLE Obra_Arte
   Link_Imagem VARCHAR(200) NOT NULL,
   Ano_Criacao DATE,
   Preco FLOAT,
+  altura FLOAT,
   Largura FLOAT,
   Profundidade FLOAT,
   Diametro FLOAT,
