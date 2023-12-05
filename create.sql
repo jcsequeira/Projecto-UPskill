@@ -28,7 +28,7 @@ CREATE TABLE Pais
 CREATE TABLE Movimento
 (
   id_Estilo INT NOT NULL auto_increment,
-  Nome_Movimento VARCHAR(50) NOT NULL,
+  Nome_Movimento VARCHAR(500) NOT NULL,
   PRIMARY KEY (id_Estilo)
 );
 
