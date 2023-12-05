@@ -9,11 +9,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.*;
+import presenter.ExplorArtContract;
+import presenter.ExplorArtPresenter;
 
+import java.util.List;
 import java.util.Optional;
 
-public class ExplorArtView extends BorderPane {
-    private TextField textExpression;
+public class ExplorArtView extends BorderPane implements ExplorArtContract.View {
+    private ListView<String> listView;
 
     public ExplorArtView(){
         doLayout();
@@ -32,6 +36,9 @@ public class ExplorArtView extends BorderPane {
         top.getChildren().add(menuBar);
         setMargin(top, new Insets(0, 0, 20, 0));
         setTop(top);
+
+        listView = new ListView<>();
+        setCenter(listView);
     }
 
     private MenuBar doMenuLayout() {
@@ -100,6 +107,8 @@ public class ExplorArtView extends BorderPane {
         helpMenu.getItems().addAll(aboutItem, exitItem);
 
         // Events
+        visualizarArtistasItem.setOnAction(event -> {ExplorArtPresenter presenter = new ExplorArtPresenter(this, new ExplorArtModel());
+        presenter.exploreArtists();});
         aboutItem.setOnAction(event -> showAbout());
         exitItem.setOnAction(event -> exitApplication());
 
@@ -110,7 +119,7 @@ public class ExplorArtView extends BorderPane {
         return menuBar;
     }
 
-    private void exitApplication() {
+    public void exitApplication() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sair da ExplorArt");
         alert.setHeaderText("Está prestes a encerrar a aplicação.");
@@ -134,7 +143,7 @@ public class ExplorArtView extends BorderPane {
         });
     }
 
-    private void showAbout(){
+    public void showAbout(){
         Stage aboutStage = new Stage();
         aboutStage.setTitle("Sobre ExplorArt");
         Scene scene = new Scene(new AboutView(), 400, 300);
@@ -147,6 +156,60 @@ public class ExplorArtView extends BorderPane {
         aboutStage.show();
     }
 
+    @Override
+    public void showArtists(List<Artista> artistas) {
+        if (artistas.isEmpty()) {
+            showEmptyListMessage("Artistas");
+        } else {
+            listView.getItems().clear();
+            for (Artista artista : artistas) {
+                listView.getItems().add(artista.getNome_artista());
+            }
+        }
+    }
+
+    @Override
+    public void showArtworks(List<Obra_Arte> obras) {
+        listView.getItems().clear();
+        for (Obra_Arte obra : obras) {
+            listView.getItems().add(obra.getTitulo());
+        }
+        showAlert("Explorar Obras de Arte", "Funcionalidade ainda não implementada.");
+    }
+
+    @Override
+    public void showEvents(List<Evento> eventos) {
+        listView.getItems().clear();
+        for (Evento evento : eventos) {
+            listView.getItems().add(evento.getNome());
+        }
+        showAlert("Explorar Eventos", "Funcionalidade ainda não implementada.");
+    }
+
+    @Override
+    public void showGalleries(List<Galeria> galerias) {
+        // Lógica para exibir galerias na interface gráfica
+    }
+
+    @Override
+    public void showGallerists(List<Galerista> galeristas) {
+        // Lógica para exibir galeristas na interface gráfica
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void showEmptyListMessage(String entityType) {
+        BorderPane emptyPane = new BorderPane();
+        Label messageLabel = new Label("A lista de " + entityType + " está vazia.");
+        emptyPane.setCenter(messageLabel);
+        setCenter(emptyPane);
+    }
 
 
 }

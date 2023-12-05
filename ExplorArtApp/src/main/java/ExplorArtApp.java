@@ -13,7 +13,7 @@ public class ExplorArtApp extends Application {
     public void start(Stage primaryStage) throws Exception{
         ExplorArtView view = new ExplorArtView();
         ExplorArtModel model = new ExplorArtModel();
-        //ExplorArtPresenter presenter = new ExplorArtPresenter(view, model);
+        ExplorArtPresenter presenter = new ExplorArtPresenter(view, model);
 
         Scene scene = new Scene(view);
         primaryStage.setScene(scene);
