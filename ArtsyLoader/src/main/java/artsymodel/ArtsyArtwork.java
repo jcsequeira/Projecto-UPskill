@@ -2,12 +2,14 @@ package artsymodel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
+
 public class ArtsyArtwork {
 
     private String title;
     private String category;
     private String medium;
-    private String date;
+    private LocalDate date;
     private Dimensions dimensions;
 
     private Links _links;
@@ -27,24 +29,24 @@ public class ArtsyArtwork {
         return medium;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public double getHeight() {
-        return dimensions != null && dimensions.cm != null && dimensions.cm.height !=null ? dimensions.cm.height : 0.0;
+    public Float getHeight() {
+        return dimensions != null && dimensions.cm != null && dimensions.cm.height !=null ? dimensions.cm.height : 0.0f;
     }
 
-    public double getWidth() {
-        return dimensions != null && dimensions.cm != null && dimensions.cm.width !=null ? dimensions.cm.width : 0.0;
+    public Float getWidth() {
+        return dimensions != null && dimensions.cm != null && dimensions.cm.width !=null ? dimensions.cm.width : 0.0f;
     }
 
-    public Double getDepth() {
-        return dimensions != null && dimensions.cm != null && dimensions.cm.depth !=null ? dimensions.cm.depth : null;
+    public Float getDepth() {
+        return dimensions != null && dimensions.cm != null && dimensions.cm.depth !=null ? dimensions.cm.depth : 0.0f;
     }
 
-    public Double getDiameter() {
-        return dimensions != null && dimensions.cm != null && dimensions.cm.diameter !=null  ? dimensions.cm.diameter : null;
+    public Float getDiameter() {
+        return dimensions != null && dimensions.cm != null && dimensions.cm.diameter !=null  ? dimensions.cm.diameter : 0.0f;
     }
 
     public String getThumbnailHref() {
@@ -65,10 +67,10 @@ public class ArtsyArtwork {
 
         private static class Cm {
 
-            private Double height;
-            private Double width;
-            private Double depth;
-            private Double diameter;
+            private Float height;
+            private Float width;
+            private Float depth;
+            private Float diameter;
         }
     }
 
