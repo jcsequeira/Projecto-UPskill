@@ -24,8 +24,8 @@ public class ObraArteRepository {
                     "WHERE obra_arte.id_Obra_Arte = ?";
     private static final String INSERT_OBRAARTE_QUERY =
             "INSERT INTO Obra_Arte (Titulo, Link_Imagem, Ano_Criacao, Preco, altura, Largura, Profundidade, Diametro, " +
-                    "IsActive, id_artista, id_Tecnica, id_Estilo) VALUES " +
-                    "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "IsActive, id_artista, id_Tecnica, id_Estilo, IsArtsy) VALUES " +
+                    "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_OBRAARTE_QUERY =
             "UPDATE Obra_Arte " +
                     "SET Titulo = ?, " +
@@ -39,7 +39,8 @@ public class ObraArteRepository {
                     "IsActive = ?, " +
                     "id_artista = ?, " +
                     "id_Tecnica = ?, " +
-                    "id_Estilo = ? " +
+                    "id_Estilo = ?, " +
+                    "IsArtsy = ? " +
                     "WHERE id_Obra_Arte = ?";
     private static final String INSERT_OBRAMATERIAIS_QUERY =
             "INSERT INTO Obra_Materiais (id_Material, id_Obra_Arte) VALUES (?, ?)";
@@ -137,7 +138,7 @@ public class ObraArteRepository {
         try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_OBRAARTE_QUERY)) {
 
             setObraArteParameters(preparedStatement, obraArte);
-            preparedStatement.setInt(13, obraArteID);
+            preparedStatement.setInt(14, obraArteID);
 
             int affectedRows = preparedStatement.executeUpdate();
 
@@ -228,6 +229,7 @@ public class ObraArteRepository {
         preparedStatement.setInt(10, obraArte.getId_artista());
         preparedStatement.setInt(11, obraArte.getId_Tecnica());
         preparedStatement.setInt(12, obraArte.getId_Estilo());
+        preparedStatement.setInt(13, obraArte.getIsArtsy());
     }
 
     /*private void updateObraMateriais(Obra_Arte obraArte) {
