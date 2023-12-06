@@ -42,7 +42,7 @@ CREATE TABLE Tecnica
 CREATE TABLE Materiais
 (
   id_Material INT NOT NULL auto_increment,
-  Tipo_Material VARCHAR(50) NOT NULL,
+  Tipo_Material VARCHAR(2000) NOT NULL,
   PRIMARY KEY (id_Material)
 );
 
@@ -75,11 +75,11 @@ CREATE TABLE Galerista
 );
 
 CREATE TABLE Artista
-( 
+(
   id_artista int not null auto_increment,
   nome_artista VARCHAR(500),
   Data_Nascimento DATE,
-  Biografia VARCHAR(2000),
+  Biografia VARCHAR(10000),
   Data_Morte DATE,
   Nacionalidade VARCHAR(100),
   IsArtsy tinyint default 0,
@@ -90,8 +90,8 @@ CREATE TABLE Artista
 CREATE TABLE Obra_Arte
 (
   id_Obra_Arte INT NOT NULL auto_increment,
-  Titulo VARCHAR(50) NOT NULL,
-  Link_Imagem VARCHAR(200) NOT NULL,
+  Titulo VARCHAR(2000) NOT NULL,
+  Link_Imagem VARCHAR(200),
   Ano_Criacao DATE,
   Preco FLOAT,
   altura FLOAT,

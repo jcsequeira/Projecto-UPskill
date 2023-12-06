@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -82,7 +83,7 @@ public class ApiServiceArtsy {
                 }
             }*/
             List<ArtsyArtist> artistsList = gson.fromJson(artistsElement, new TypeToken<List<ArtsyArtist>>(){}.getType());
-            return removeArtistsWithNullBirthday(artistsList);
+            return removeArtistsWithNullBirthdayAndEmptyNacionality(artistsList);
         }
     }
 
@@ -126,9 +127,9 @@ public class ApiServiceArtsy {
     }
 
 
-    private static List<ArtsyArtist> removeArtistsWithNullBirthday(List<ArtsyArtist> artists) {
+    private static List<ArtsyArtist> removeArtistsWithNullBirthdayAndEmptyNacionality(List<ArtsyArtist> artists) {
         return artists.stream()
-                .filter(artist -> artist.getBirthday() != null)
+                .filter(artist -> artist.getBirthday() != null && !Objects.equals(artist.getNationality(), ""))
                 .collect(Collectors.toList());
     }
 }
