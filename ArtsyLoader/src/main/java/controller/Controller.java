@@ -3,7 +3,9 @@ package controller;
 
 import Utils.Utils;
 import apiserviceartsy.ApiServiceArtsy;
+import artsymodel.ArtsyArtist;
 import artsymodel.ArtsyArtwork;
+import artsymodel.ArtsyGene;
 import com.opencsv.exceptions.CsvException;
 import dataprocessorservice.*;
 import restapiservice.RestApiService;
@@ -47,15 +49,15 @@ public class Controller {
     }
     public static void populateArtistas() throws IOException {
         RestApiService.postToRestApi(REST_ENDPOINT_ARTISTAS_API_URL
-                ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyArtists(ALL_ARTIST_ARTSY_URL), ArtistConverter.class));
+                ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyItems(ALL_ARTIST_ARTSY_URL, ArtsyArtist.class), ArtistConverter.class));
     }
     public static void populateMovimentos() throws IOException {
         RestApiService.postToRestApi(REST_ENDPOINT_MOVIMENTOS_API_URL
-                ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyGenes(ALL_MOVIMENTOS_ARTSY_URL), GeneConverter.class));
+                ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyItems(ALL_MOVIMENTOS_ARTSY_URL, ArtsyGene.class), GeneConverter.class));
     }
 
     public static List<ArtsyArtwork> LoadArtsyArtworksList() throws IOException {
-       return ApiServiceArtsy.getAllArtsyArtworks(ALL_ARTWORKS_ARTSY_URL);
+       return ApiServiceArtsy.getAllArtsyItems(ALL_ARTWORKS_ARTSY_URL, ArtsyArtwork.class);
     }
 
     public static void populateTecnicas(List<ArtsyArtwork> allArtsyArtworksList) throws IOException {

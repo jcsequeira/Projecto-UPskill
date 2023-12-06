@@ -36,7 +36,7 @@ public class ApiServiceArtsy {
     }
 
 
-    public <T> List<T> getAllArtsyItems(String apiUrl, Class<T> itemType) throws IOException {
+    public static <T> List<T> getAllArtsyItems(String apiUrl, Class<T> itemType) throws IOException {
         Request request = buildRequest(apiUrl);
         try (Response response = client.newCall(request).execute()) {
             JsonElement embeddedElement = JsonParser.parseString(response.body().string()).getAsJsonObject().getAsJsonObject("_embedded");
@@ -49,8 +49,8 @@ public class ApiServiceArtsy {
                 itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("genes");
             } else if (itemType == ArtsyArtwork.class) {
                 itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("artworks");
-            }else if (itemType == ArtsyP.class) {
-                itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("artworks");
+            }else if (itemType == ArtsyPartner.class) {
+                itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("partners");
             }
 
             // Deserialize the array

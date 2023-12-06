@@ -30,6 +30,4 @@ public class ArtworkConverter {
 
     return obraArte;
     }
-
-
 }
