@@ -16,6 +16,8 @@ CREATE TABLE Cidade
   Nome_Cidade VARCHAR(100) NOT NULL,
   PRIMARY KEY (id_Cidade)
 );
+INSERT INTO Cidade (Nome_Cidade) VALUES
+    ('SystemCityGalery');
 
 CREATE TABLE Pais
 (
@@ -24,6 +26,8 @@ CREATE TABLE Pais
   Nacionalidade VARCHAR(100) NOT NULL,
   PRIMARY KEY (Codigo_Pais)
 );
+INSERT INTO Pais (Nome_Pais, Nacionalidade) VALUES
+    ('SystemCountry', 'SystemNacionality');
 
 CREATE TABLE Movimento
 (
@@ -56,6 +60,13 @@ CREATE TABLE Colaborador
   PRIMARY KEY (id_colaborador, Codigo_Pais),
   FOREIGN KEY (Codigo_Pais) REFERENCES Pais(Codigo_Pais)
 );
+INSERT INTO Colaborador (Nome_Colaborador, Email, Telefone, Codigo_Pais) VALUES
+    ('System0', 'system@email.com', '123-456-7890', 1);
+INSERT INTO Colaborador (Nome_Colaborador, Email, Telefone, Codigo_Pais) VALUES
+    ('System1Galerista', 'system@email.com', '123-456-7890', 1);
+INSERT INTO Colaborador (Nome_Colaborador, Email, Telefone, Codigo_Pais) VALUES
+    ('SystemAdmin', 'system@email.com', '123-456-7890', 1);
+
 
 CREATE TABLE Administrador
 (
@@ -64,6 +75,8 @@ CREATE TABLE Administrador
   PRIMARY KEY (id_colaborador),
   FOREIGN KEY (id_colaborador) REFERENCES Colaborador(id_colaborador)
 );
+INSERT INTO Administrador (password, id_colaborador) VALUES
+    ('adminpass', 3);
 
 CREATE TABLE Galerista
 (
@@ -73,6 +86,8 @@ CREATE TABLE Galerista
   PRIMARY KEY (id_colaborador),
   FOREIGN KEY (id_colaborador) REFERENCES Colaborador(id_colaborador)
 );
+INSERT INTO Galerista (Data_Inicio_Atividade, password, id_colaborador) VALUES
+    ('2022-01-01', 'passw0rd', 2);
 
 CREATE TABLE Artista
 (
@@ -113,10 +128,10 @@ CREATE TABLE Obra_Arte
 CREATE TABLE Galeria
 ( -- Algumas colunas estão opcionais devido ao artsy, mas serao obrigatorias na app javaFX
   id_Galeria INT NOT NULL auto_increment,
-  Nome_Galeria VARCHAR(50) NOT NULL,
+  Nome_Galeria VARCHAR(50),
   Morada VARCHAR(100),
   Website VARCHAR(50),
-  Email VARCHAR(50) NOT NULL,
+  Email VARCHAR(50),
   Telefone VARCHAR(20),
   id_Cidade INT,
   id_colaborador INT,
