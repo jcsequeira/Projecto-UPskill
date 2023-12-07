@@ -6,15 +6,13 @@ import com.opencsv.exceptions.CsvException;
 
 
 
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 import artsymodel.ArtsyArtist;
-import model.Cidade;
-import model.Materiais;
-import model.Pais;
-import model.Tecnica;
+import model.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -22,13 +20,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Utils {
-
-    // Replace with the actual path
-
-    //class com metodos para ler ficheiro ~CSVs com pais e nacionalidades, gera uma lista de objectos Pais
-    //same com cidades
-    //talvez materiais/tecncias e movimento
-
 
 
 
@@ -108,4 +99,6 @@ public class Utils {
                 })
                 .collect(Collectors.toList());
     }
+
+
 }

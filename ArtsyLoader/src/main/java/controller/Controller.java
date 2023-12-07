@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 public class Controller {
     private static final String CSV_CITYS_FILE_PATH = "ArtsyLoader/src/main/resources/citysPT.csv";
     private static final String CSV_COUNTRYS_NACIONALITYS_FILE_PATH = "ArtsyLoader/src/main/resources/countries.csv";
-    private static final String ALL_ARTIST_ARTSY_URL = "https://api.artsy.net/api/artists?artworks=true&sort=-trending&size=1500&page=1";
+    private static final String ALL_ARTIST_ARTSY_URL = "https://api.artsy.net/api/artists?artworks=true&sort=-trending&size=1000&page=1";
     private static final String ALL_MOVIMENTOS_ARTSY_URL = "https://api.artsy.net/api/genes?size=1000";
     private static final String ALL_ARTWORKS_ARTSY_URL = "https://api.artsy.net/api/artworks?size=500&page=1";
-    private static final String ALL_PARTNERS_ARTSY_URL = "https://api.artsy.net/api/partners";
+    private static final String ALL_PARTNERS_ARTSY_URL = "https://api.artsy.net/api/partners?size=500";
     private static final String ALL_SHOWS_ARTSY_URL =  "https://api.artsy.net/api/shows?status=upcoming";
     private static final String REST_ENDPOINT_CIDADES_API_URL="http://localhost:4567/populate/cidades";
     private static final String REST_ENDPOINT_PAISES_API_URL="http://localhost:4567/populate/paises";
-    private static final String REST_ENDPOINT_ARTISTAS_API_URL="http://localhost:4567/populate/artistas";
+    public static final String REST_ENDPOINT_ARTISTAS_API_URL="http://localhost:4567/populate/artistas";
     private static final String REST_ENDPOINT_MOVIMENTOS_API_URL="http://localhost:4567/populate/movimentos";
     private static final String REST_ENDPOINT_TECNICAS_API_URL="http://localhost:4567/populate/tecnicas";
     private static final String REST_ENDPOINT_MATERIAIS_API_URL="http://localhost:4567/populate/materiais";
@@ -37,9 +37,10 @@ public class Controller {
 
 
     -Populate ObraArte (precsa artista, tecnica,materiais, movimento)
-    -Populate Galeria
     -Populate Evento
      */
+
+
     public static void populateCidades() throws IOException, CsvException {
         RestApiService.postToRestApi(REST_ENDPOINT_CIDADES_API_URL
                 ,Utils.cidadeListGenerator(CSV_CITYS_FILE_PATH));

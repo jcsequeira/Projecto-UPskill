@@ -24,7 +24,7 @@ public class ApiServiceArtsy {
             .writeTimeout(15, TimeUnit.SECONDS)
             .build();
 
-    private static final String ARTSY_ACCESS_TOKEN = "YOUR_ACCESS_TOKEN";
+    private static final String ARTSY_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTU0ZTMzODBlMTc4ZjAwMGI4MWY2MzgiLCJzYWx0X2hhc2giOiJjNTU5MmQ2MDdhNTkzOWU3NjlkMWExOTA5ODU3NjYwMSIsInJvbGVzIjoidXNlciIsInBhcnRuZXJfaWRzIjpbXSwib3RwIjpmYWxzZSwiZXhwIjoxNzMxNjg0NDU3LCJpYXQiOjE3MDAwNjIwNTcsImF1ZCI6IjUzZmYxYmNjNzc2ZjcyNDBkOTAwMDAwMCIsImlzcyI6IkdyYXZpdHkiLCJqdGkiOiI2NTU0ZTM2OWQyZTI2MzAwMGM2YTA3NmIifQ.ME1rmoOHoAicfOZSggikwsSnf4Zzpezz2QnTr54lbFg";
     private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
     private static final String HEADER_ACCESS_TOKEN = "X-Access-Token";
 
