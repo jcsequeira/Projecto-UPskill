@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class ArtsyShow {
     private String name;
     private String description;
-    private LocalDate startAt;
-    private LocalDate endAt;
+    private LocalDate start_at;
+    private LocalDate end_at;
 
 
     private Links _links;
@@ -23,15 +23,13 @@ public class ArtsyShow {
     }
 
 
-    public LocalDate getStartAt() {
-        return startAt;
+    public LocalDate getStart_at() {
+        return start_at;
     }
 
-    public LocalDate getEndAt() {
-        return endAt;
+    public LocalDate getEnd_at() {
+        return end_at;
     }
-
-
 
     public String getThumbnailHref() {
         return _links != null && _links.thumbnail != null ? _links.thumbnail.href : null;
@@ -105,4 +103,6 @@ public class ArtsyShow {
             private String href;
         }
     }
+
+
 }

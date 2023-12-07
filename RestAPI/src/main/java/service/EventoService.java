@@ -40,7 +40,7 @@ public class EventoService {
 
     public void addAllEventos(List<Evento> eventosList) {
         for (Evento evento : eventosList) {
-            eventoRepository.addEvento(evento);
+            addEvento(evento);
         }
     }
 }

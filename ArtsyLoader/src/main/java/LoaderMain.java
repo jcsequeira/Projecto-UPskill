@@ -2,18 +2,25 @@ import Utils.Utils;
 import apiserviceartsy.ApiServiceArtsy;
 import artsymodel.ArtsyArtist;
 import artsymodel.ArtsyArtwork;
+import artsymodel.ArtsyShow;
 import com.google.gson.Gson;
 import com.opencsv.exceptions.CsvException;
 import dataprocessorservice.ArtistConverter;
 import dataprocessorservice.DataProcessor;
+import dataprocessorservice.ShowConverter;
+import model.Evento;
 import model.Pais;
 import restapiservice.RestApiService;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static apiserviceartsy.ApiServiceArtsy.getAllArtsyItems;
 import static controller.Controller.*;
 
 
@@ -76,9 +83,9 @@ public class LoaderMain {
             System.out.println("Artists Href: " + artwork.getArtistsHref());
             System.out.println();
         }*/
-        //precisa de colaborador/galerista!
-        populateGalerias();
-       // populateEventos();
+
+       populateGalerias();
+       populateEventos();
 
 
     }

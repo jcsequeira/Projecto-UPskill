@@ -8,6 +8,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,6 +17,8 @@ import java.util.Locale;
 public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    private final DateTimeFormatter formatterShows = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
     @Override
     public void write(JsonWriter jsonWriter, LocalDate date) throws IOException {
@@ -42,6 +45,12 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
     }
 
     private LocalDate parseDate(String dateString) {
+        try {
+            return parseWithOffsetDateTime(dateString);
+        } catch (DateTimeParseException ignored) {
+            // Continue with existing parsing strategies
+        }
+
         try {
             return parseWithRangeFormatter(dateString);
         } catch (DateTimeParseException ignored) {
@@ -72,7 +81,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
             String numericPart = dateString.replaceAll("[^0-9]", "");
             return LocalDate.parse(numericPart + "-01-01", formatter);
         } catch (DateTimeParseException ignored) {
-            return null;
+            return LocalDate.of(3000,1,1);
         }
     }
 
@@ -85,5 +94,14 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
     private LocalDate parseWithCustomFormatter(String dateString) {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
         return LocalDate.parse(dateString, customFormatter);
+    }
+
+    private LocalDate parseWithOffsetDateTime(String dateString) {
+        try {
+            OffsetDateTime offsetDateTime = OffsetDateTime.parse(dateString,formatterShows);
+            return offsetDateTime.toLocalDate();
+        } catch (DateTimeParseException ignored) {
+            return null;
+        }
     }
 }
