@@ -51,6 +51,8 @@ public class ApiServiceArtsy {
                 itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("artworks");
             }else if (itemType == ArtsyPartner.class) {
                 itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("partners");
+            } else if (itemType == ArtsyShow.class){
+                itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("shows");
             }
 
             // Deserialize the array
