@@ -61,9 +61,5 @@ public class ApiServiceArtsy {
         }
     }
 
-    private static List<ArtsyArtist> removeArtistsWithNullBirthdayAndEmptyNationality(List<ArtsyArtist> artists) {
-        return artists.stream()
-                .filter(artist -> artist.getBirthday() != null && !Objects.equals(artist.getNationality(), ""))
-                .collect(Collectors.toList());
-    }
+
 }

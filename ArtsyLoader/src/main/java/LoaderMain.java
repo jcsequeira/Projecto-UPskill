@@ -8,6 +8,7 @@ import com.opencsv.exceptions.CsvException;
 import dataprocessorservice.ArtistConverter;
 import dataprocessorservice.DataProcessor;
 import dataprocessorservice.ShowConverter;
+import model.Artista;
 import model.Evento;
 import model.Pais;
 import restapiservice.RestApiService;
@@ -33,35 +34,24 @@ public class LoaderMain {
 
 
          /*populateCidades();
-         populatePaises();
+         populatePaises();*/
 
-         populateMovimentos();
-         Thread.sleep(5000);*/
+         //populateMovimentos();
+         //Thread.sleep(5000);*/
         // populateArtistas();
          //Thread.sleep(5000);
 
-        /*
+
 
         List<ArtsyArtwork> artsyArtworkList = LoadArtsyArtworksList();
 
-        Set<String> artistLinks = new HashSet<>();
-        for (ArtsyArtwork artsyArtwork : artsyArtworkList) {
-            artistLinks.add(artsyArtwork.getArtistsHref());
-        }
-        int i=0;
-        for (String artistlink : artistLinks) {
-            RestApiService.postToRestApi(REST_ENDPOINT_ARTISTAS_API_URL
-                    ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyItems(artistlink, ArtsyArtist.class), ArtistConverter.class));
-            System.out.println(i);
-            i=i+1;
-        }
 
 
 
-        /*
+/*
         populateTecnicas(artsyArtworkList);
         populateMateriais(artsyArtworkList);
-        populateObrasArte(artsyArtworkList);*/
+        populateObrasArte(artsyArtworkList);
 
         /*
         String ALL_ARTWORKS_ARTSY_URL = "https://api.artsy.net/api/artworks?size=1000&page=1";
@@ -84,8 +74,8 @@ public class LoaderMain {
             System.out.println();
         }*/
 
-       populateGalerias();
-       populateEventos();
+        //populateGalerias();
+        //populateEventos();
 
 
     }
