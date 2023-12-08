@@ -6,9 +6,14 @@ import apiserviceartsy.ApiServiceArtsy;
 import artsymodel.*;
 import com.opencsv.exceptions.CsvException;
 import dataprocessorservice.*;
+import model.Artista;
 import restapiservice.RestApiService;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,12 +43,6 @@ public class Controller {
 
 
 
-    /*metodos para implementar:
-
-
-    -Populate ObraArte (precsa artista, tecnica,materiais, movimento)
-    -Populate Evento
-     */
 
 
     public static void populateCidades() throws IOException, CsvException {
@@ -103,6 +102,32 @@ public class Controller {
         RestApiService.postToRestApi(REST_ENDPOINT_OBRASARTE_API_URL,
                 DataProcessor.listProcessor(new ArrayList<>(matchMap.values()), ArtworkConverter.class));
     }
+
+    public static void updateArtworksMagicNumbers(Connection con, HashMap<ArtsyArtist,ArtsyArtwork> matchMap) {
+        HashMap<Integer,String> artistIDs = Utils.getAllIdArtistas(con);
+        HashMap<Integer,String> artworkIDs = Utils.getAllIdObrasArte(con);
+        HashMap<Integer,Integer> idMatchUP = new HashMap<>();
+
+        for ( Map.Entry<ArtsyArtist,ArtsyArtwork> entry : matchMap.entrySet()) {
+            idMatchUP.put(getMatchId(entry.getKey().getName(),artistIDs),getMatchId(entry.getValue().getTitle(),artworkIDs));
+        }
+        for ( Map.Entry<Integer,Integer> entry : idMatchUP.entrySet()) {
+           Utils.updateObraArteArtistId(entry.getKey(),entry.getValue(),con);
+        }
+
+    }
+
+
+    public static int getMatchId(String artistName, HashMap<Integer, String> mapIDs) {
+        for (Map.Entry<Integer, String> entry : mapIDs.entrySet()) {
+            if (entry.getValue().equals(artistName)) {
+                return entry.getKey();
+            }
+        }
+        // Return a special value (e.g., -1) to indicate that the artistName was not found
+        return -1;
+    }
+
 
 
 }

@@ -14,7 +14,7 @@ public class ShowConverter {
         if(!(artsyShow.getDescription()==null)) {
             evento.setDescricao(artsyShow.getDescription());
         }else {evento.setDescricao("To Be Announced");}
-        evento.setId_Galeria(1);
+        evento.setId_Galeria(1); //will be updated
         evento.setIsArtsy(IS_ARTSY);
 
         return evento;

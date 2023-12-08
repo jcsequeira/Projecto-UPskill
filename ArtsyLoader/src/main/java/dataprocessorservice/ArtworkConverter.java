@@ -22,11 +22,11 @@ public class ArtworkConverter {
         obraArte.setProfundidade(artsyArtwork.getDepth());
         obraArte.setDiametro(artsyArtwork.getDiameter());
         obraArte.setIsActive(1);
-        obraArte.setId_artista(1);
-        obraArte.setId_Tecnica(1);
-        obraArte.setId_Estilo(1);
+        obraArte.setId_artista(1); //will be updated
+        obraArte.setId_Tecnica(1); //will be updated
+        obraArte.setId_Estilo(1); //will be updated
         obraArte.setIsArtsy(IS_ARTSY);
-        obraArte.setId_Material(1);
+        obraArte.setId_Material(1); //will be updated
 
     return obraArte;
     }

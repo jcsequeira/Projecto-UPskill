@@ -106,6 +106,7 @@ public class RunServerAPI {
         Spark.put("/api/obrasarte/:id", obraArteInit(gsonLocalDate)::updateObraArte);
         Spark.delete("/api/obrasarte/:id", obraArteInit(gsonLocalDate)::deleteObraArte);
 
+
         //Populate endpoints
         Spark.post("/populate/artistas", artistaInit(gsonLocalDate)::addAllArtistas);
         Spark.post("/populate/cidades", cidadeInit()::addAllCidades);
