@@ -33,6 +33,11 @@ public class RestApiService {
         }
     }
 
+    public static <T> void postToRestApi(String apiUrl, T object) throws IOException {
+        String json = gson.toJson(object);
+        postToRestApi(apiUrl, json);
+    }
+
 
 
 }
