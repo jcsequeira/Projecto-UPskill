@@ -9,8 +9,13 @@ import dataprocessorservice.*;
 import restapiservice.RestApiService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static apiserviceartsy.ApiServiceArtsy.getArtsyItem;
 
 
 public class Controller {
@@ -49,10 +54,7 @@ public class Controller {
         RestApiService.postToRestApi(REST_ENDPOINT_PAISES_API_URL
                 ,Utils.paisesListGenerator(CSV_COUNTRYS_NACIONALITYS_FILE_PATH,3,4));
     }
-    public static void populateArtistas() throws IOException {
-        RestApiService.postToRestApi(REST_ENDPOINT_ARTISTAS_API_URL
-                ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyItems(ALL_ARTIST_ARTSY_URL, ArtsyArtist.class), ArtistConverter.class));
-    }
+
     public static void populateMovimentos() throws IOException {
         RestApiService.postToRestApi(REST_ENDPOINT_MOVIMENTOS_API_URL
                 ,DataProcessor.listProcessor(ApiServiceArtsy.getAllArtsyItems(ALL_MOVIMENTOS_ARTSY_URL, ArtsyGene.class), GeneConverter.class));
@@ -69,7 +71,7 @@ public class Controller {
     }
 
     public static List<ArtsyArtwork> LoadArtsyArtworksList() throws IOException {
-       return ApiServiceArtsy.getAllArtsyItems(ALL_ARTWORKS_ARTSY_URL, ArtsyArtwork.class);
+        return ApiServiceArtsy.getAllArtsyItems(ALL_ARTWORKS_ARTSY_URL, ArtsyArtwork.class);
     }
 
     public static void populateTecnicas(List<ArtsyArtwork> allArtsyArtworksList) throws IOException {
@@ -82,7 +84,25 @@ public class Controller {
                 , Utils.removeNullsAndDuplicatesMateriais((DataProcessor.listProcessor(allArtsyArtworksList, MediumConverter.class))));
     }
 
-    public static void populateObrasArte(List<ArtsyArtwork> allartsyArtworkList) throws IOException {
-        RestApiService.postToRestApi(REST_ENDPOINT_OBRASARTE_API_URL, DataProcessor.listProcessor(allartsyArtworkList, ArtworkConverter.class));
+    public static HashMap<ArtsyArtist,ArtsyArtwork> matchMapArtsyArtworkArtist(List<ArtsyArtwork> artsyArtworksList) {
+        HashMap<ArtsyArtist,ArtsyArtwork> artistArtworkArtsyMap = new HashMap<>();
+        for (ArtsyArtwork artsyArtwork : artsyArtworksList) {
+            try {
+                artistArtworkArtsyMap.put(getArtsyItem(artsyArtwork.getArtistsHref(), ArtsyArtist.class),artsyArtwork);
+            } catch (RuntimeException | IOException ignored) { //ignore and keep iterating
+            }
+        }
+    return artistArtworkArtsyMap;}
+
+    public static void populateArtistas(HashMap<ArtsyArtist,ArtsyArtwork> matchMap) throws IOException {
+        RestApiService.postToRestApi(REST_ENDPOINT_ARTISTAS_API_URL,
+                DataProcessor.listProcessor(new ArrayList<>(matchMap.keySet()), ArtistConverter.class));
     }
+
+    public static void populateObrasArte(HashMap<ArtsyArtist,ArtsyArtwork> matchMap) throws IOException {
+        RestApiService.postToRestApi(REST_ENDPOINT_OBRASARTE_API_URL,
+                DataProcessor.listProcessor(new ArrayList<>(matchMap.values()), ArtworkConverter.class));
+    }
+
+
 }

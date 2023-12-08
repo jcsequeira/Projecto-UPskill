@@ -49,9 +49,9 @@ public class ApiServiceArtsy {
                 itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("genes");
             } else if (itemType == ArtsyArtwork.class) {
                 itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("artworks");
-            }else if (itemType == ArtsyPartner.class) {
+            } else if (itemType == ArtsyPartner.class) {
                 itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("partners");
-            } else if (itemType == ArtsyShow.class){
+            } else if (itemType == ArtsyShow.class) {
                 itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("shows");
             }
 
@@ -61,5 +61,33 @@ public class ApiServiceArtsy {
         }
     }
 
+    public static <T> T getArtsyItem(String apiUrl, Class<T> itemType) throws IOException {
+        Request request = buildRequest(apiUrl);
+        try (Response response = client.newCall(request).execute()) {
+            JsonElement embeddedElement = JsonParser.parseString(response.body().string()).getAsJsonObject().getAsJsonObject("_embedded");
 
+            // Extract the array based on the type
+            JsonArray itemsArray = null;
+            if (itemType == ArtsyArtist.class) {
+                itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("artists");
+            } else if (itemType == ArtsyGene.class) {
+                itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("genes");
+            } else if (itemType == ArtsyArtwork.class) {
+                itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("artworks");
+            } else if (itemType == ArtsyPartner.class) {
+                itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("partners");
+            } else if (itemType == ArtsyShow.class) {
+                itemsArray = embeddedElement.getAsJsonObject().getAsJsonArray("shows");
+            }
+
+            // Check if the array is not null and not empty
+            if (itemsArray != null && !itemsArray.isEmpty()) {
+                // Deserialize the array
+                return gson.fromJson(itemsArray.get(0), itemType);
+            } else {
+                // Handle the case when the array is empty
+                throw new RuntimeException("No items found in the response for type: " + itemType.getSimpleName());
+            }
+        }
+    }
 }

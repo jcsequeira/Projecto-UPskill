@@ -33,11 +33,11 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
     public LocalDate read(JsonReader jsonReader) throws IOException {
         if (jsonReader.peek() == JsonToken.NULL) {
             jsonReader.nextNull();
-            return null;
+            return LocalDate.of(9999,1,1);
         } else {
             String dateString = jsonReader.nextString().trim();
             if (dateString.isEmpty()) {
-                return null;
+                return LocalDate.of(9999,1,1);
             } else {
                 return parseDate(dateString);
             }
@@ -81,7 +81,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
             String numericPart = dateString.replaceAll("[^0-9]", "");
             return LocalDate.parse(numericPart + "-01-01", formatter);
         } catch (DateTimeParseException ignored) {
-            return LocalDate.of(3000,1,1);
+            return LocalDate.of(9999,1,1);
         }
     }
 
@@ -97,11 +97,8 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
     }
 
     private LocalDate parseWithOffsetDateTime(String dateString) {
-        try {
-            OffsetDateTime offsetDateTime = OffsetDateTime.parse(dateString,formatterShows);
-            return offsetDateTime.toLocalDate();
-        } catch (DateTimeParseException ignored) {
-            return null;
-        }
+        OffsetDateTime offsetDateTime = OffsetDateTime.parse(dateString, formatterShows);
+        return offsetDateTime.toLocalDate();
+
     }
 }
