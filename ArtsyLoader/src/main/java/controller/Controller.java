@@ -103,19 +103,33 @@ public class Controller {
                 DataProcessor.listProcessor(new ArrayList<>(matchMap.values()), ArtworkConverter.class));
     }
 
-    public static void updateArtworksMagicNumbers(Connection con, HashMap<ArtsyArtist,ArtsyArtwork> matchMap) {
+    public static void updateArtworksArtistaID(Connection con, HashMap<ArtsyArtist,ArtsyArtwork> matchMap) {
         HashMap<Integer,String> artistIDs = Utils.getAllIdArtistas(con);
         HashMap<Integer,String> artworkIDs = Utils.getAllIdObrasArte(con);
         HashMap<Integer,Integer> idMatchUP = new HashMap<>();
 
+
+        //algoritmo para ArtistasID
         for ( Map.Entry<ArtsyArtist,ArtsyArtwork> entry : matchMap.entrySet()) {
             idMatchUP.put(getMatchId(entry.getKey().getName(),artistIDs),getMatchId(entry.getValue().getTitle(),artworkIDs));
         }
         for ( Map.Entry<Integer,Integer> entry : idMatchUP.entrySet()) {
            Utils.updateObraArteArtistId(entry.getKey(),entry.getValue(),con);
         }
+        //algoritmo para Materiais
+        HashMap<Integer,Integer> obraMaterialMapString = new HashMap<>();
+        HashMap<Integer, String> MateriaisIDs = Utils.getAllIdMateriais(con);
+        for ( Map.Entry<ArtsyArtist,ArtsyArtwork> entry : matchMap.entrySet()) {
+            obraMaterialMapString.put(getMatchId(entry.getValue().getTitle(),artworkIDs),getMatchId(entry.getValue().getMedium(),MateriaisIDs));
+        }
+        for ( Map.Entry<Integer,Integer> entry : obraMaterialMapString.entrySet()) {
+            Utils.updateObraArteMaterialId(entry.getKey(),entry.getValue(),con);
+        }
+
 
     }
+
+
 
 
     public static int getMatchId(String artistName, HashMap<Integer, String> mapIDs) {

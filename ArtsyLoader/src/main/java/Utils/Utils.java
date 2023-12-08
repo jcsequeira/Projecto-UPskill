@@ -163,10 +163,48 @@ public class Utils {
         }
     }
 
+    public static void updateObraArteMaterialId(Integer key, Integer value, Connection con) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "INSERT INTO Obra_Materiais (id_Material, id_Obra_Arte) VALUES\n" +
+                        "    (?, ?);")) {
+
+            // Set the values for the prepared statement
+            preparedStatement.setInt(1, value);
+            preparedStatement.setInt(2, key);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating failed, no rows affected.");
+            }
+
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+    }
+
+    public static HashMap<Integer, String> getAllIdMateriais(Connection con) {
+        HashMap<Integer, String> materiaisIDs = new HashMap<>();
+
+        try (Statement statement = con.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT id_Material,Tipo_Material FROM explorart.materiais;")) {
+
+            while (resultSet.next()) {
+                int id_Material = resultSet.getInt("id_Material");
+                String Tipo_Material = resultSet.getString("Tipo_Material");
+
+                materiaisIDs.put(id_Material, Tipo_Material);
+            }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
+        }
+        return materiaisIDs;
+    }
+
 
     private static void handleSQLException(SQLException sqlException) {
     }
 
 
-   
+
 }

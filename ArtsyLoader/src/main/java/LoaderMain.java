@@ -71,7 +71,7 @@ public class LoaderMain {
 
 
         System.out.println("Update 1: ");
-        updateArtworksMagicNumbers(DBConnection.getConnection(), matchMap);
+        updateArtworksArtistaID(DBConnection.getConnection(), matchMap);
 
 
 
