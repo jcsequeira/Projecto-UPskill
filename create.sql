@@ -130,8 +130,8 @@ CREATE TABLE Galeria
   id_Galeria INT NOT NULL auto_increment,
   Nome_Galeria VARCHAR(50),
   Morada VARCHAR(100),
-  Website VARCHAR(50),
-  Email VARCHAR(50),
+  Website VARCHAR(500),
+  Email VARCHAR(500),
   Telefone VARCHAR(20),
   id_Cidade INT,
   id_colaborador INT,
@@ -145,10 +145,10 @@ CREATE TABLE Galeria
 CREATE TABLE Evento -- exposicao
 (
   id_Expo INT NOT NULL auto_increment,
-  Nome VARCHAR(50) NOT NULL,
+  Nome VARCHAR(1000) NOT NULL default 'To Be Announced',
   Data_inicio DATE NOT NULL,
   Data_Fim DATE NOT NULL,
-  Descricao VARCHAR(1000) NOT NULL,
+  Descricao VARCHAR(1000) NOT NULL default 'To Be Announced',
   id_Galeria INT NOT NULL,
   IsArtsy tinyint default 0,
   CHECK (IsArtsy IN (0, 1)),

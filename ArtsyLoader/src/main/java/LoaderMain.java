@@ -1,27 +1,17 @@
 import Utils.*;
-import apiserviceartsy.ApiServiceArtsy;
+
 import artsymodel.ArtsyArtist;
 import artsymodel.ArtsyArtwork;
-import artsymodel.ArtsyShow;
-import com.google.gson.Gson;
+
+import artsymodel.ArtsyGene;
 import com.opencsv.exceptions.CsvException;
-import dataprocessorservice.ArtistConverter;
-import dataprocessorservice.DataProcessor;
-import dataprocessorservice.ShowConverter;
-import model.Artista;
-import model.Evento;
-import model.Pais;
-import restapiservice.RestApiService;
+
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
+import java.rmi.ServerException;
 import java.util.*;
 
-import static apiserviceartsy.ApiServiceArtsy.getAllArtsyItems;
-import static apiserviceartsy.ApiServiceArtsy.getArtsyItem;
+
 import static controller.Controller.*;
 
 
@@ -54,15 +44,23 @@ public class LoaderMain {
         populateMateriais(artsyArtworkList);
 
         //a partir da lista anterior cria um mapa que assegura que cada obra tem um artista obrigatoriamente
-        HashMap<ArtsyArtist,ArtsyArtwork> matchMap = matchMapArtsyArtworkArtist(artsyArtworkList);
+        HashMap<ArtsyArtist,ArtsyArtwork> matchMapArtist = matchMapArtsyArtworkArtist(artsyArtworkList);
+        Thread.sleep(2000);
+        //a partir da lista anterior cria um mapa que assegura que cada obra tem um genero obrigatoriamente
+        HashMap<ArtsyGene,ArtsyArtwork> matchMapGene = matchMapArtsyArtworkGene(artsyArtworkList);
         Thread.sleep(2000);
 
         System.out.println("Artistas: ");
-        populateArtistas(matchMap);
-        Thread.sleep(5000);
+        populateArtistas(matchMapArtist);
+        Thread.sleep(2000);
+
+        System.out.println("Movimentos 2: ");
+        populateMovimentos(matchMapGene);
+        Thread.sleep(2000);
+
 
         System.out.println("ObrasArte: ");
-        populateObrasArte(matchMap);
+        populateObrasArte(matchMapArtist);
 
         System.out.println("Galerias: ");
         populateGalerias();
@@ -70,8 +68,14 @@ public class LoaderMain {
         populateEventos();
 
 
-        System.out.println("Update 1: ");
-        updateArtworksArtistaID(DBConnection.getConnection(), matchMap);
+        System.out.println("Update 1: Match Making IDs ");
+        try {
+            updateArtworksIDs(DBConnection.getConnection(), matchMapArtist, matchMapGene);
+            System.out.println("Atualizado com Sucesso!");
+        } catch (Exception e) {
+            throw new ServerException("Erro: " +e);
+        }
+
 
 
 

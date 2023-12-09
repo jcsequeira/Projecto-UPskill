@@ -99,6 +99,5 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
     private LocalDate parseWithOffsetDateTime(String dateString) {
         OffsetDateTime offsetDateTime = OffsetDateTime.parse(dateString, formatterShows);
         return offsetDateTime.toLocalDate();
-
     }
 }

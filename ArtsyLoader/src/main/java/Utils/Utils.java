@@ -14,7 +14,7 @@ import java.util.*;
 
 import artsymodel.ArtsyArtist;
 import model.*;
-import org.jetbrains.annotations.NotNull;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -165,8 +165,7 @@ public class Utils {
 
     public static void updateObraArteMaterialId(Integer key, Integer value, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
-                "INSERT INTO Obra_Materiais (id_Material, id_Obra_Arte) VALUES\n" +
-                        "    (?, ?);")) {
+                "UPDATE explorart.obra_materiais SET id_Material = ? WHERE id_Obra_Arte = ? AND id_Material = 1;")) {
 
             // Set the values for the prepared statement
             preparedStatement.setInt(1, value);
@@ -206,5 +205,82 @@ public class Utils {
     }
 
 
+    public static HashMap<Integer, String> getAllIdTecnicas(Connection con) {
+        HashMap<Integer, String> tecnicasIDs = new HashMap<>();
 
+        try (Statement statement = con.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT id_Tecnica,Tipo_Tecnica FROM explorart.Tecnica;")) {
+
+            while (resultSet.next()) {
+                int id_Tecnica = resultSet.getInt("id_Tecnica");
+                String Tipo_Tecnica = resultSet.getString("Tipo_Tecnica");
+
+                tecnicasIDs.put(id_Tecnica, Tipo_Tecnica);
+            }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
+        }
+        return tecnicasIDs;        
+    }
+
+    public static void updateObraArteTecnicaId(Integer key, Integer value, Connection con) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "UPDATE Obra_Arte " +
+                        "SET id_Tecnica  = ? " +
+                        "WHERE id_Obra_Arte = ?;")) {
+
+            // Set the values for the prepared statement
+            preparedStatement.setInt(1, value);
+            preparedStatement.setInt(2, key);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating failed, no rows affected.");
+            }
+
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+    }
+
+    public static HashMap<Integer, String> getAllIdMovimentos(Connection con) {
+        HashMap<Integer, String> MovimentosIDs = new HashMap<>();
+
+        try (Statement statement = con.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT id_Estilo,Nome_Movimento FROM explorart.Movimento;")) {
+
+            while (resultSet.next()) {
+                int id_Estilo = resultSet.getInt("id_Estilo");
+                String Nome_Movimento = resultSet.getString("Nome_Movimento");
+
+                MovimentosIDs.put(id_Estilo, Nome_Movimento );
+            }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
+        }
+        return MovimentosIDs;
+
+    }
+
+    public static void updateObraArteMovimentoId(Integer value, Integer key, Connection con) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "UPDATE explorart.obra_arte " +
+                        "SET id_Estilo  = ? " +
+                        "WHERE id_Obra_Arte = ?;")) {
+
+            // Set the values for the prepared statement
+            preparedStatement.setInt(1, value);
+            preparedStatement.setInt(2, key);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating failed, no rows affected.");
+            }
+
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+    }
 }

@@ -93,6 +93,21 @@ public class Controller {
         }
     return artistArtworkArtsyMap;}
 
+    public static HashMap<ArtsyGene,ArtsyArtwork> matchMapArtsyArtworkGene(List<ArtsyArtwork> artsyArtworksList) {
+        HashMap<ArtsyGene,ArtsyArtwork>GeneArtworkArtsyMap = new HashMap<>();
+        for (ArtsyArtwork artsyArtwork : artsyArtworksList) {
+            try {
+                GeneArtworkArtsyMap.put(getArtsyItem(artsyArtwork.getGenesHref(), ArtsyGene.class),artsyArtwork);
+            } catch (RuntimeException | IOException ignored) { //ignore and keep iterating
+            }
+        }
+        return GeneArtworkArtsyMap;}
+
+    public static void populateMovimentos(HashMap<ArtsyGene,ArtsyArtwork> GeneArtworkArtsyMap ) throws IOException {
+        RestApiService.postToRestApi(REST_ENDPOINT_MOVIMENTOS_API_URL
+                ,DataProcessor.listProcessor(new ArrayList<>(GeneArtworkArtsyMap.keySet()), GeneConverter.class));
+    }
+
     public static void populateArtistas(HashMap<ArtsyArtist,ArtsyArtwork> matchMap) throws IOException {
         RestApiService.postToRestApi(REST_ENDPOINT_ARTISTAS_API_URL,
                 DataProcessor.listProcessor(new ArrayList<>(matchMap.keySet()), ArtistConverter.class));
@@ -103,13 +118,14 @@ public class Controller {
                 DataProcessor.listProcessor(new ArrayList<>(matchMap.values()), ArtworkConverter.class));
     }
 
-    public static void updateArtworksArtistaID(Connection con, HashMap<ArtsyArtist,ArtsyArtwork> matchMap) {
-        HashMap<Integer,String> artistIDs = Utils.getAllIdArtistas(con);
-        HashMap<Integer,String> artworkIDs = Utils.getAllIdObrasArte(con);
-        HashMap<Integer,Integer> idMatchUP = new HashMap<>();
+    public static void updateArtworksIDs(Connection con, HashMap<ArtsyArtist,ArtsyArtwork> matchMap,
+                                               HashMap<ArtsyGene,ArtsyArtwork> matchMapGene) {
 
+        HashMap<Integer,String> artworkIDs = Utils.getAllIdObrasArte(con);
 
         //algoritmo para ArtistasID
+        HashMap<Integer,String> artistIDs = Utils.getAllIdArtistas(con);
+        HashMap<Integer,Integer> idMatchUP = new HashMap<>();
         for ( Map.Entry<ArtsyArtist,ArtsyArtwork> entry : matchMap.entrySet()) {
             idMatchUP.put(getMatchId(entry.getKey().getName(),artistIDs),getMatchId(entry.getValue().getTitle(),artworkIDs));
         }
@@ -125,7 +141,24 @@ public class Controller {
         for ( Map.Entry<Integer,Integer> entry : obraMaterialMapString.entrySet()) {
             Utils.updateObraArteMaterialId(entry.getKey(),entry.getValue(),con);
         }
-
+        //algoritmo para Tecnicas
+        HashMap<Integer, String> TecnicasIDs = Utils.getAllIdTecnicas(con);
+        HashMap<Integer,Integer> obraTecnicaMapString = new HashMap<>();
+        for ( Map.Entry<ArtsyArtist,ArtsyArtwork> entry : matchMap.entrySet()) {
+            obraTecnicaMapString.put(getMatchId(entry.getValue().getTitle(),artworkIDs),getMatchId(entry.getValue().getCategory(),TecnicasIDs));
+        }
+        for ( Map.Entry<Integer,Integer> entry : obraTecnicaMapString.entrySet()) {
+            Utils.updateObraArteTecnicaId(entry.getKey(),entry.getValue(),con);
+        }
+        //algoritmo para Estilo
+        HashMap<Integer, String> MovimentosIDs = Utils.getAllIdMovimentos(con);
+        HashMap<Integer,Integer> MovimentoObraMap = new HashMap<>();
+        for ( Map.Entry<ArtsyGene,ArtsyArtwork> entry : matchMapGene.entrySet()) {
+            MovimentoObraMap.put(getMatchId(entry.getKey().getName(),MovimentosIDs),getMatchId(entry.getValue().getTitle(),artworkIDs));
+        }
+        for ( Map.Entry<Integer,Integer> entry : MovimentoObraMap.entrySet()) {
+            Utils.updateObraArteMovimentoId(entry.getValue(),entry.getKey(),con);
+        }
 
     }
 
