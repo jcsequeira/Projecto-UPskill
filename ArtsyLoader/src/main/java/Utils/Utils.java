@@ -283,4 +283,59 @@ public class Utils {
             handleSQLException(e);
         }
     }
+
+    public static HashMap<Integer, String> getAllIdEventos(Connection con) {
+        HashMap<Integer, String> EventosIDs = new HashMap<>();
+
+        try (Statement statement = con.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT id_Expo,Nome FROM explorart.evento;")) {
+
+            while (resultSet.next()) {
+                int id_Expo = resultSet.getInt("id_Expo");
+                String Nome = resultSet.getString("Nome");
+
+                EventosIDs.put(id_Expo, Nome);
+            }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
+        }
+        return EventosIDs;
+    }
+
+    public static HashMap<Integer, String> getAllIdGalerias(Connection con) {
+        HashMap<Integer, String> GaleriasIDs = new HashMap<>();
+
+        try (Statement statement = con.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT id_Galeria,Nome_Galeria FROM explorart.galeria;")) {
+
+            while (resultSet.next()) {
+                int id_Galeria = resultSet.getInt("id_Galeria");
+                String Nome_Galeria = resultSet.getString("Nome_Galeria");
+
+                GaleriasIDs.put(id_Galeria, Nome_Galeria);
+            }
+        } catch (SQLException sqlException) {
+            handleSQLException(sqlException);
+        }
+        return GaleriasIDs;
+    }
+
+    public static void updateEventoGaleriaId(Integer value, Integer key, Connection con) {
+        try (PreparedStatement preparedStatement = con.prepareStatement(
+                "UPDATE explorart.evento SET id_Galeria = ? WHERE id_Expo = ?;")) {
+
+            // Set the values for the prepared statement
+            preparedStatement.setInt(1, value);
+            preparedStatement.setInt(2, key);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating failed, no rows affected.");
+            }
+
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+    }
 }

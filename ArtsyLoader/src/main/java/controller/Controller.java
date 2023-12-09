@@ -6,21 +6,20 @@ import apiserviceartsy.ApiServiceArtsy;
 import artsymodel.*;
 import com.opencsv.exceptions.CsvException;
 import dataprocessorservice.*;
-import model.Artista;
+
 import restapiservice.RestApiService;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 
 import static apiserviceartsy.ApiServiceArtsy.getArtsyItem;
+import static apiserviceartsy.ApiServiceArtsy.getArtsyPartnerByRef;
 
 
 public class Controller {
@@ -119,7 +118,7 @@ public class Controller {
     }
 
     public static void updateArtworksIDs(Connection con, HashMap<ArtsyArtist,ArtsyArtwork> matchMap,
-                                               HashMap<ArtsyGene,ArtsyArtwork> matchMapGene) {
+                                               HashMap<ArtsyGene,ArtsyArtwork> matchMapGene, HashMap<ArtsyPartner,ArtsyShow> matchMapPartner) {
 
         HashMap<Integer,String> artworkIDs = Utils.getAllIdObrasArte(con);
 
@@ -160,8 +159,44 @@ public class Controller {
             Utils.updateObraArteMovimentoId(entry.getValue(),entry.getKey(),con);
         }
 
+        //algoritmo para GaleriaID
+        HashMap<Integer,String> EventosIDs = Utils.getAllIdEventos(con);
+        HashMap<Integer,String> GaleriasIDs = Utils.getAllIdGalerias(con);
+        HashMap<Integer,Integer> idMatchGaleriaEvento = new HashMap<>();
+
+        for ( Map.Entry<ArtsyPartner,ArtsyShow> entry : matchMapPartner.entrySet()) {
+            idMatchGaleriaEvento.put(getMatchId(entry.getKey().getName(),GaleriasIDs),getMatchId(entry.getValue().getName(),EventosIDs));
+        }
+        for ( Map.Entry<Integer,Integer> entry : idMatchGaleriaEvento.entrySet()) {
+            Utils.updateEventoGaleriaId(entry.getKey(),entry.getValue(),con);
+        }
+
+
     }
 
+    public static List<ArtsyShow> LoadArtsyShowsList() throws IOException {
+        return ApiServiceArtsy.getAllArtsyItems(ALL_SHOWS_ARTSY_URL, ArtsyShow.class);
+    }
+
+    public static HashMap<ArtsyPartner,ArtsyShow> matchMapArtsyShowPartner(List<ArtsyShow> artsyShowsList) {
+        HashMap<ArtsyPartner,ArtsyShow> partnerShowArtsyMap = new HashMap<>();
+        for (ArtsyShow artsyShow : artsyShowsList) {
+            try {
+                partnerShowArtsyMap.put(getArtsyPartnerByRef(artsyShow.getPartnerHref()),artsyShow);
+            } catch (RuntimeException | IOException ignored) { //ignore and keep iterating
+            }
+        }
+        return partnerShowArtsyMap;}
+
+    public static void populateGalerias(HashMap<ArtsyPartner, ArtsyShow> matchMapShowPartner) throws IOException {
+        RestApiService.postToRestApi(REST_ENDPOINT_GALERIAS_API_URL,
+                DataProcessor.listProcessor(new ArrayList<>(matchMapShowPartner.keySet()), PartnerConverter.class));
+    }
+
+    public static void populateEventos(HashMap<ArtsyPartner,ArtsyShow> matchMap) throws IOException {
+        RestApiService.postToRestApi(REST_ENDPOINT_EVENTOS_API_URL,
+                DataProcessor.listProcessor(new ArrayList<>(matchMap.values()), ShowConverter.class));
+    }
 
 
 

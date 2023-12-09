@@ -12,9 +12,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+
 
 public class ApiServiceArtsy {
 
@@ -39,6 +38,7 @@ public class ApiServiceArtsy {
     public static <T> List<T> getAllArtsyItems(String apiUrl, Class<T> itemType) throws IOException {
         Request request = buildRequest(apiUrl);
         try (Response response = client.newCall(request).execute()) {
+            assert response.body() != null;
             JsonElement embeddedElement = JsonParser.parseString(response.body().string()).getAsJsonObject().getAsJsonObject("_embedded");
 
             // Extract the array based on the type
@@ -64,6 +64,7 @@ public class ApiServiceArtsy {
     public static <T> T getArtsyItem(String apiUrl, Class<T> itemType) throws IOException {
         Request request = buildRequest(apiUrl);
         try (Response response = client.newCall(request).execute()) {
+            assert response.body() != null;
             JsonElement embeddedElement = JsonParser.parseString(response.body().string()).getAsJsonObject().getAsJsonObject("_embedded");
 
             // Extract the array based on the type
@@ -87,6 +88,19 @@ public class ApiServiceArtsy {
             } else {
                 // Handle the case when the array is empty
                 throw new RuntimeException("No items found in the response for type: " + itemType.getSimpleName());
+            }
+        }
+    }
+    public static ArtsyPartner getArtsyPartnerByRef(String apiUrl) throws IOException {
+        Request request = buildRequest(apiUrl);
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // Parse JSON response using Gson
+                assert response.body() != null;
+                return gson.fromJson(response.body().charStream(), ArtsyPartner.class);
+            } else {
+                throw new RuntimeException("Error retrieving ArtsyPartner. HTTP Code: " + response.code());
             }
         }
     }

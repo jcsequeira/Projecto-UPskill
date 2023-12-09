@@ -60,14 +60,5 @@ public class ArtsyArtist {
         this.nationality = nationality;
     }
 
-    @Override
-    public String toString() {
-        return "ArtsyArtist{" +
-                "name='" + name + '\'' +
-                ", biography='" + biography + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", deathday='" + deathday + '\'' +
-                ", nationality='" + nationality + '\'' +
-                '}';
-    }
+
 }

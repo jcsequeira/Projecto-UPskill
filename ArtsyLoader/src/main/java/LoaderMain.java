@@ -1,9 +1,7 @@
 import Utils.*;
 
-import artsymodel.ArtsyArtist;
-import artsymodel.ArtsyArtwork;
+import artsymodel.*;
 
-import artsymodel.ArtsyGene;
 import com.opencsv.exceptions.CsvException;
 
 
@@ -64,13 +62,25 @@ public class LoaderMain {
 
         System.out.println("Galerias: ");
         populateGalerias();
+
+        List<ArtsyShow> artsyShowsList = LoadArtsyShowsList();
+        Thread.sleep(2000);
+
+        HashMap<ArtsyPartner,ArtsyShow> matchMapShowPartner = matchMapArtsyShowPartner(artsyShowsList);
+        Thread.sleep(2000);
+
+        System.out.println("Galerias 2: ");
+        populateGalerias(matchMapShowPartner);
+
         System.out.println("Eventos: ");
-        populateEventos();
+        populateEventos(matchMapShowPartner);
+
+
 
 
         System.out.println("Update 1: Match Making IDs ");
         try {
-            updateArtworksIDs(DBConnection.getConnection(), matchMapArtist, matchMapGene);
+            updateArtworksIDs(DBConnection.getConnection(), matchMapArtist, matchMapGene,matchMapShowPartner);
             System.out.println("Atualizado com Sucesso!");
         } catch (Exception e) {
             throw new ServerException("Erro: " +e);
@@ -80,12 +90,8 @@ public class LoaderMain {
 
 
 
-
-
-
-
-
     }
+
 
 
 
