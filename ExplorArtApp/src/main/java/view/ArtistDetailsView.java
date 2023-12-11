@@ -3,14 +3,13 @@ package view;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import model.Artista;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ArtistDetailsView extends Parent {
@@ -25,11 +24,11 @@ public class ArtistDetailsView extends Parent {
         detailsLayout.setPadding(new Insets(20));
 
         // Display details using labels
-        Label nameLabel = new Label("Name: " + artista.getNome_artista());
-        Label birthDateLabel = new Label("Birth Date: " + formatDate(artista.getData_Nascimento()));
-        Label deathDateLabel = new Label("Death Date: " + formatDate(artista.getData_Morte()));
-        Label nationalityLabel = new Label("Nationality: " + artista.getNacionalidade());
-        Label bioLabel = new Label("Biography: ");
+        Label nameLabel = new Label("Nome: " + artista.getNome_artista());
+        Label birthDateLabel = new Label("Data de Nascimento: " + formatDate(artista.getData_Nascimento()));
+        Label deathDateLabel = new Label("Data de Morte: " + formatDate(artista.getData_Morte()));
+        Label nationalityLabel = new Label("Nacionalidade: " + artista.getNacionalidade());
+        Label bioLabel = new Label("Biografia: ");
         Label biolabelText = new Label();
         Text bioText = new Text(artista.getBiografia());
         bioText.setTextAlignment(TextAlignment.LEFT);
@@ -44,7 +43,7 @@ public class ArtistDetailsView extends Parent {
 
     }
 
-    private String formatDate(java.time.LocalDate date) {
+    private String formatDate(LocalDate date) {
         // Format the date using a DateTimeFormatter
         if (date != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

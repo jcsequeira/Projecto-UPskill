@@ -220,11 +220,28 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showEvents(List<Evento> eventos) {
-        listView.getItems().clear();
-        for (Evento evento : eventos) {
-            listView.getItems().add(evento.getNome());
+        if (eventos.isEmpty()){
+            showEmptyListMessage("Eventos");
         }
-        showAlert("Explorar Eventos", "Funcionalidade ainda não implementada.");
+        else {
+            listView.getItems().clear();
+            for (Evento evento : eventos) {
+                listView.getItems().add(evento.getNome());
+            }
+            // Add an event handler to handle item click
+            listView.setOnMouseClicked(event -> {
+                String selectedShowName = listView.getSelectionModel().getSelectedItem();
+                if (selectedShowName != null) {
+                    // Find the corresponding Show object
+                    Optional<Evento> selectedShow = eventos.stream()
+                            .filter(evento -> evento.getNome().equals(selectedShowName))
+                            .findFirst();
+
+                    // If the Evento object is found, display its information in a new window
+                    selectedShow.ifPresent(this::showShowsDetails);
+                }
+            });
+        }
     }
 
     @Override
@@ -269,6 +286,25 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artistDetailsStage.initModality(Modality.APPLICATION_MODAL);
 
         artistDetailsStage.show();
+    }
+
+    // Method to display the details of the selected Eventos in a new window
+    private void showShowsDetails(Evento evento) {
+        Stage showDetailsStage = new Stage();
+        showDetailsStage.setTitle("Detalhes do Evento");
+
+        // Create a new view or dialog to display the details of the Show
+        // You need to implement the details view (e.g., ShowDetailsView) accordingly
+        Scene scene = new Scene(new ShowDetailsView(evento), 400, 300);
+
+        showDetailsStage.setScene(scene);
+        showDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        showDetailsStage.initOwner(this.getScene().getWindow());
+        showDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        showDetailsStage.show();
     }
 
 
