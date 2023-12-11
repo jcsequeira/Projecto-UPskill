@@ -108,6 +108,15 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         helpMenu.getItems().addAll(aboutItem, exitItem);
 
         // Events
+        //Events menu Exlporar
+        visualizarOAItem.setOnAction(event -> {ExplorArtPresenter presenter = new ExplorArtPresenter(this, new ExplorArtModel());
+            try {
+                presenter.exploreArtworks();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         visualizarArtistasItem.setOnAction(event -> {ExplorArtPresenter presenter = new ExplorArtPresenter(this, new ExplorArtModel());
             try {
                 presenter.exploreArtists();
@@ -115,6 +124,17 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 throw new RuntimeException(e);
             }
         });
+        visualizarEventosItem.setOnAction(event -> {ExplorArtPresenter presenter = new ExplorArtPresenter(this, new ExplorArtModel());
+            try {
+                presenter.exploreEvents();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        //TO DO slideshow
+
+
+        //Events- Menu Ajuda
         aboutItem.setOnAction(event -> showAbout());
         exitItem.setOnAction(event -> exitApplication());
 
@@ -171,8 +191,23 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             for (Artista artista : artistas) {
                 listView.getItems().add(artista.getNome_artista());
             }
+
+            // Add an event handler to handle item click
+            listView.setOnMouseClicked(event -> {
+                String selectedArtistName = listView.getSelectionModel().getSelectedItem();
+                if (selectedArtistName != null) {
+                    // Find the corresponding Artista object
+                    Optional<Artista> selectedArtist = artistas.stream()
+                            .filter(artista -> artista.getNome_artista().equals(selectedArtistName))
+                            .findFirst();
+
+                    // If the Artista object is found, display its information in a new window
+                    selectedArtist.ifPresent(this::showArtistDetails);
+                }
+            });
         }
     }
+
 
     @Override
     public void showArtworks(List<Obra_Arte> obras) {
@@ -180,7 +215,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         for (Obra_Arte obra : obras) {
             listView.getItems().add(obra.getTitulo());
         }
-        showAlert("Explorar Obras de Arte", "Funcionalidade ainda não implementada.");
+
     }
 
     @Override
@@ -215,6 +250,25 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         Label messageLabel = new Label("A lista de " + entityType + " está vazia.");
         emptyPane.setCenter(messageLabel);
         setCenter(emptyPane);
+    }
+
+    // Method to display the details of the selected Artista in a new window
+    private void showArtistDetails(Artista artista) {
+        Stage artistDetailsStage = new Stage();
+        artistDetailsStage.setTitle("Detalhes do Artista");
+
+        // Create a new view or dialog to display the details of the Artista
+        // You need to implement the details view (e.g., ArtistDetailsView) accordingly
+        Scene scene = new Scene(new ArtistDetailsView(artista), 400, 300);
+
+        artistDetailsStage.setScene(scene);
+        artistDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        artistDetailsStage.initOwner(this.getScene().getWindow());
+        artistDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        artistDetailsStage.show();
     }
 
 
