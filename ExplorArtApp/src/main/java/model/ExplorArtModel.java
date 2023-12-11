@@ -1,16 +1,17 @@
 package model;
 
+import apiservice.ApiService;
 import presenter.ExplorArtContract;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExplorArtModel implements ExplorArtContract.Model {
 
     @Override
-    public List<Artista> getArtists() {
-        // Lógica para obter artistas (pode ser conectado a um banco de dados, por exemplo)
-        return new ArrayList<>();
+    public List<Artista> getArtists() throws IOException {
+        return ApiService.getAllItems("http://localhost:4567/api/artistas", Artista.class);
     }
 
     @Override

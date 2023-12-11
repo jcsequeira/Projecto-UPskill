@@ -13,6 +13,7 @@ import model.*;
 import presenter.ExplorArtContract;
 import presenter.ExplorArtPresenter;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,7 +109,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         // Events
         visualizarArtistasItem.setOnAction(event -> {ExplorArtPresenter presenter = new ExplorArtPresenter(this, new ExplorArtModel());
-        presenter.exploreArtists();});
+            try {
+                presenter.exploreArtists();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         aboutItem.setOnAction(event -> showAbout());
         exitItem.setOnAction(event -> exitApplication());
 

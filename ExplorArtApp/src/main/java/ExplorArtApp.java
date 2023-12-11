@@ -1,9 +1,12 @@
+import apiservice.ApiService;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 import presenter.ExplorArtPresenter;
 import view.ExplorArtView;
+
+import java.util.List;
 
 public class ExplorArtApp extends Application {
     public static void main(String[] args) {
@@ -19,5 +22,7 @@ public class ExplorArtApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("ExplorArt");
         primaryStage.show();
+
+
     }
 }

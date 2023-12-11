@@ -6,6 +6,7 @@ import model.Artista;
 import model.Evento;
 import model.Obra_Arte;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ExplorArtPresenter implements ExplorArtContract.Presenter {
@@ -19,7 +20,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void exploreArtists() {
+    public void exploreArtists() throws IOException {
         List<Artista> artistas = model.getArtists();
         view.showArtists(artistas);
     }

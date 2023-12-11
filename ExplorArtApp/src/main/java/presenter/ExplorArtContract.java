@@ -2,6 +2,7 @@ package presenter;
 
 import model.*;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public interface ExplorArtContract {
     }
 
     interface Presenter {
-        void exploreArtists();
+        void exploreArtists() throws IOException;
 
         void exploreArtworks();
 
@@ -41,7 +42,7 @@ public interface ExplorArtContract {
     }
 
     interface Model {
-        List<Artista> getArtists();
+        List<Artista> getArtists() throws IOException;
 
         List<Obra_Arte> getArtworks();
 
