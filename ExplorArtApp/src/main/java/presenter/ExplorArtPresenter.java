@@ -26,13 +26,13 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void exploreArtworks() {
+    public void exploreArtworks() throws IOException {
         List<Obra_Arte> obras = model.getArtworks();
         view.showArtworks(obras);
     }
 
     @Override
-    public void exploreEvents() {
+    public void exploreEvents() throws IOException {
         List<Evento> eventos = model.getEvents();
         view.showEvents(eventos);
     }

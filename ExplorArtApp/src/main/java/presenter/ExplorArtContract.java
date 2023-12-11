@@ -25,9 +25,9 @@ public interface ExplorArtContract {
     interface Presenter {
         void exploreArtists() throws IOException;
 
-        void exploreArtworks();
+        void exploreArtworks() throws IOException;
 
-        void exploreEvents();
+        void exploreEvents() throws IOException;
 
         void manageArtworks();
 
@@ -44,13 +44,13 @@ public interface ExplorArtContract {
     interface Model {
         List<Artista> getArtists() throws IOException;
 
-        List<Obra_Arte> getArtworks();
+        List<Obra_Arte> getArtworks() throws IOException;
 
-        List<Evento> getEvents();
+        List<Evento> getEvents() throws IOException;
 
-        List<Galeria> getGalleries();
+        List<Galeria> getGalleries() throws IOException;
 
-        List<Galerista> getGallerists();
+        List<Galerista> getGallerists() throws IOException;
     }
 }
 

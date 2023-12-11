@@ -15,26 +15,26 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
-    public List<Obra_Arte> getArtworks() {
+    public List<Obra_Arte> getArtworks() throws IOException {
         // Lógica para obter obras de arte
-        return new ArrayList<>();
+        return ApiService.getAllItems("http://localhost:4567/api/obrasarte", Obra_Arte.class);
     }
 
     @Override
-    public List<Evento> getEvents() {
+    public List<Evento> getEvents() throws IOException {
         // Lógica para obter eventos
-        return new ArrayList<>();
+        return ApiService.getAllItems("http://localhost:4567/api/eventos", Evento.class);
     }
 
     @Override
-    public List<Galeria> getGalleries() {
+    public List<Galeria> getGalleries() throws IOException {
         // Lógica para obter galerias
-        return new ArrayList<>();
+        return ApiService.getAllItems("http://localhost:4567/api/galerias", Galeria.class);
     }
 
     @Override
-    public List<Galerista> getGallerists() {
+    public List<Galerista> getGallerists() throws IOException {
         // Lógica para obter galeristas
-        return new ArrayList<>();
+        return ApiService.getAllItems("http://localhost:4567/api/galeristas", Galerista.class);
     }
 }
