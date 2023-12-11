@@ -20,6 +20,7 @@ public interface ExplorArtContract {
 
         void showGallerists(List<Galerista> galeristas);
 
+        void showShowsDetails(Evento evento, Galeria galeria);
     }
 
     interface Presenter {
@@ -51,6 +52,8 @@ public interface ExplorArtContract {
         List<Galeria> getGalleries() throws IOException;
 
         List<Galerista> getGallerists() throws IOException;
+
+        Galeria getGalleryById(int galleryId) throws IOException;
     }
 }
 

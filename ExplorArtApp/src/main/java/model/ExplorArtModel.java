@@ -37,4 +37,9 @@ public class ExplorArtModel implements ExplorArtContract.Model {
         // Lógica para obter galeristas
         return ApiService.getAllItems("http://localhost:4567/api/galeristas", Galerista.class);
     }
+
+    @Override
+    public Galeria getGalleryById(int galleryId) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/galerias/"+galleryId, Galeria.class);
+    }
 }
