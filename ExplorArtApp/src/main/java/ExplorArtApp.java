@@ -23,6 +23,7 @@ public class ExplorArtApp extends Application {
         primaryStage.setTitle("ExplorArt");
         primaryStage.show();
 
+        System.out.println();
 
     }
 }

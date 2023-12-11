@@ -5,7 +5,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,7 +19,11 @@ import java.util.Optional;
 public class ExplorArtView extends BorderPane implements ExplorArtContract.View {
     private ListView<String> listView;
 
+    private ExplorArtPresenter myPresenter;
+
     public ExplorArtView(){
+        myPresenter = new ExplorArtPresenter(this, new ExplorArtModel());
+
         doLayout();
     }
 
@@ -109,24 +112,25 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         // Events
         //Events menu Exlporar
-        visualizarOAItem.setOnAction(event -> {ExplorArtPresenter presenter = new ExplorArtPresenter(this, new ExplorArtModel());
+        visualizarOAItem.setOnAction(event -> {
+
             try {
-                presenter.exploreArtworks();
+                myPresenter.exploreArtworks();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
 
-        visualizarArtistasItem.setOnAction(event -> {ExplorArtPresenter presenter = new ExplorArtPresenter(this, new ExplorArtModel());
+        visualizarArtistasItem.setOnAction(event -> {
             try {
-                presenter.exploreArtists();
+                myPresenter.exploreArtists();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
-        visualizarEventosItem.setOnAction(event -> {ExplorArtPresenter presenter = new ExplorArtPresenter(this, new ExplorArtModel());
+        visualizarEventosItem.setOnAction(event -> {
             try {
-                presenter.exploreEvents();
+                myPresenter.exploreEvents();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -237,8 +241,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                             .filter(evento -> evento.getNome().equals(selectedShowName))
                             .findFirst();
 
-                    // If the Evento object is found, display its information in a new window
-                    selectedShow.ifPresent(this::showShowsDetails);
+                    myPresenter.doShowDetails(selectedShow.get());
+
+
+
+
                 }
             });
         }
@@ -270,7 +277,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     // Method to display the details of the selected Artista in a new window
-    private void showArtistDetails(Artista artista) {
+    public void showArtistDetails(Artista artista) {
         Stage artistDetailsStage = new Stage();
         artistDetailsStage.setTitle("Detalhes do Artista");
 
@@ -289,13 +296,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     // Method to display the details of the selected Eventos in a new window
-    private void showShowsDetails(Evento evento) {
+    @Override
+    public void showShowsDetails(Evento evento, Galeria galeria)  {
+
+
+
         Stage showDetailsStage = new Stage();
         showDetailsStage.setTitle("Detalhes do Evento");
 
-        // Create a new view or dialog to display the details of the Show
-        // You need to implement the details view (e.g., ShowDetailsView) accordingly
-        Scene scene = new Scene(new ShowDetailsView(evento), 400, 300);
+
+        Scene scene = new Scene(new ShowDetailsViewWithGallery(evento, galeria), 400, 300);
 
         showDetailsStage.setScene(scene);
         showDetailsStage.setResizable(true);

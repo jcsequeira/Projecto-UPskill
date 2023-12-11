@@ -7,12 +7,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.Evento;
+import model.ExplorArtModel;
+import model.Galeria;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class ShowDetailsView extends Parent {
-    public ShowDetailsView(Evento evento) {doLayout(evento);
+public class ShowDetailsViewWithGallery extends Parent {
+
+    private Evento evento;
+    private Galeria galeria;
+
+    public ShowDetailsViewWithGallery(Evento evento, Galeria galeria)  {
+        this.evento = evento;
+        this.galeria = galeria;
+
+        doLayout(evento);
     }
 
     private void doLayout(Evento evento) {
@@ -24,7 +34,7 @@ public class ShowDetailsView extends Parent {
         Label nameLabel = new Label("Evento: " + evento.getNome());
         Label startDateLabel = new Label("Data de ínicio: " + formatDate(evento.getData_inicio()));
         Label endDateLabel = new Label("Data de fim: " + formatDate(evento.getData_Fim()));
-        Label galleryLabel = new Label("@ " + evento.getId_Galeria());
+        Label galleryLabel = new Label("@ " + (galeria != null ? galeria.getNome_Galeria() : "<erro!>"));
         Label descriptionLabel = new Label("Descrição: ");
         Label descriptionLabelText = new Label();
         Text descriptionText = new Text(evento.getDescricao());
@@ -41,6 +51,7 @@ public class ShowDetailsView extends Parent {
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);
     }
+
 
     private String formatDate(LocalDate date) {
         // Format the date using a DateTimeFormatter

@@ -2,9 +2,7 @@ package presenter;
 
 // Presenter (no pacote presenter)
 
-import model.Artista;
-import model.Evento;
-import model.Obra_Arte;
+import model.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,6 +33,20 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     public void exploreEvents() throws IOException {
         List<Evento> eventos = model.getEvents();
         view.showEvents(eventos);
+    }
+
+    public void doShowDetails(Evento evento) {
+        // Create a new view or dialog to display the details of the Show
+        // You need to implement the details view (e.g., ShowDetailsView) accordingly
+        int idGaleria = evento.getId_Galeria();
+        ExplorArtModel model = new ExplorArtModel();
+        Galeria galeria = null;
+        try {
+            galeria = model.getGalleryById(idGaleria);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        view.showShowsDetails(evento, galeria);
     }
 
     @Override
