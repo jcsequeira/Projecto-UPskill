@@ -108,8 +108,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         Menu helpMenu = new Menu("Ajuda");
         MenuItem aboutItem = new MenuItem("Sobre ExplorArt");
         MenuItem exitItem = new MenuItem("Encerrar");
-
         helpMenu.getItems().addAll(aboutItem, exitItem);
+
+        //Menu Admin
+        Menu adminMenu = new Menu("Admin");
+        MenuItem popularBD = new MenuItem("Importar Dados da Artsy API");
+        MenuItem limparBD = new MenuItem("Limpar Dados da Artsy API");
+        adminMenu.getItems().addAll(popularBD,limparBD);
 
         // Events
         //Events menu Exlporar
@@ -145,7 +150,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
 
         menuBar.getMenus().addAll(explorarMenu, gerirOAMenu, gerirArtistasMenu, gerirEventosMenu,
-                gerirGaleristasMenu, gerirGaleriasMenu, helpMenu);
+                gerirGaleristasMenu, gerirGaleriasMenu, adminMenu,helpMenu);
 
         return menuBar;
     }
