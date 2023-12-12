@@ -2,9 +2,11 @@ package view;
 
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -44,6 +46,15 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         listView = new ListView<>();
         setCenter(listView);
+
+        ImageView imageView = new ImageView("file:///C:/Users/luis/OneDrive/Ambiente de Trabalho/ExplorArtLogo.jpg");
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(100);
+        VBox bottom = new VBox();
+        setMargin(bottom, new Insets(10,0,0,0));
+        bottom.setAlignment(Pos.CENTER);
+        bottom.getChildren().add(imageView);
+        setBottom(bottom);
     }
 
     private MenuBar doMenuLayout() {

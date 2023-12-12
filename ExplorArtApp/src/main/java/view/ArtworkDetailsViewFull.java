@@ -63,7 +63,6 @@ public class ArtworkDetailsViewFull extends Parent {
         Label tecnicaLabel = new Label("Técnica: " + (tecnica != null ? tecnica.getTipo_Tecnica() : "<erro!>"));
         Label movimentoLabel = new Label("Movimento: " + (movimento != null ? movimento.getNome_Movimento() : "<erro!>"));
         Label materiaisLabel = new Label("Materiais: " + (material != null ? material.getTipo_Material() : "<erro!>"));
-        // TODO logica do artista/tecnica/movimento/materiais
 
 
 
