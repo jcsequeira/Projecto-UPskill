@@ -22,6 +22,8 @@ public interface ExplorArtContract {
         void showGallerists(List<Galerista> galeristas);
 
         void showShowsDetails(Evento evento, Galeria galeria);
+
+        void showArtworkDetails(Obra_Arte obraArte);
     }
 
     interface Presenter {
@@ -41,6 +43,9 @@ public interface ExplorArtContract {
 
         void manageGallerists();
 
+        void doArtistDetails(Artista artista);
+
+        void doArtworkDetails(Obra_Arte obraArte);
     }
 
     interface Model {

@@ -9,11 +9,17 @@ import view.ExplorArtView;
 import java.util.List;
 
 public class ExplorArtApp extends Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        RunServerAPI.main(args);
+        Thread.sleep(1000);
         launch (args);
+
+
+
     }
 
     public void start(Stage primaryStage) throws Exception{
+
         ExplorArtView view = new ExplorArtView();
         ExplorArtModel model = new ExplorArtModel();
         ExplorArtPresenter presenter = new ExplorArtPresenter(view, model);
@@ -23,7 +29,9 @@ public class ExplorArtApp extends Application {
         primaryStage.setTitle("ExplorArt");
         primaryStage.show();
 
-        System.out.println();
+        primaryStage.setOnCloseRequest(event -> RunServerAPI.stopServer());
+
+
 
     }
 }

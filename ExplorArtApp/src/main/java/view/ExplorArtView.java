@@ -2,6 +2,7 @@ package view;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -161,7 +162,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         result.ifPresent(buttonType -> {
             if (buttonType == ButtonType.OK) {
-                Platform.exit(); // Ends UI thread, allowing other threads to finish gracefully
+                //Platform.exit(); // Ends UI thread, allowing other threads to finish gracefully
+                System.exit(0);
             } else {
                 // User chose CANCEL or closed the dialog
                 // Perform some action or display a message (e.g., show a message dialog)
@@ -206,7 +208,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                             .findFirst();
 
                     // If the Artista object is found, display its information in a new window
-                    selectedArtist.ifPresent(this::showArtistDetails);
+                    //selectedArtist.ifPresent(this::showArtistDetails);
+                    myPresenter.doArtistDetails(selectedArtist.get());
                 }
             });
         }
@@ -215,9 +218,27 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showArtworks(List<Obra_Arte> obras) {
-        listView.getItems().clear();
-        for (Obra_Arte obra : obras) {
-            listView.getItems().add(obra.getTitulo());
+        if (obras.isEmpty()){
+            showEmptyListMessage("Obras de Arte");
+        }
+        else {
+            listView.getItems().clear();
+            for (Obra_Arte obraArte : obras) {
+                listView.getItems().add(obraArte.getTitulo());
+            }
+            // Add an event handler to handle item click
+            listView.setOnMouseClicked(event -> {
+                String selectedArtworkTitle = listView.getSelectionModel().getSelectedItem();
+                if (selectedArtworkTitle != null) {
+                    // Find the corresponding Show object
+                    Optional<Obra_Arte> selectedArtwork = obras.stream()
+                            .filter(obraArte -> obraArte.getTitulo().equals(selectedArtworkTitle))
+                            .findFirst();
+
+                    myPresenter.doArtworkDetails(selectedArtwork.get());
+
+                }
+            });
         }
 
     }
@@ -319,5 +340,14 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         showDetailsStage.show();
     }
 
+    @Override
+    public void showArtworkDetails(Obra_Arte obraArte) {
 
+    }
+
+
+    @Override
+    public Node getStyleableNode() {
+        return super.getStyleableNode();
+    }
 }

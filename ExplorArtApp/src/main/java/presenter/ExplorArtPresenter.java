@@ -74,4 +74,18 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
         // Lógica para gerenciar galeristas
     }
 
+    @Override
+    public void doArtistDetails(Artista artista) {
+
+        view.showArtistDetails(artista);
+
+    }
+
+    @Override
+    public void doArtworkDetails(Obra_Arte obraArte) {
+
+        view.showArtworkDetails(obraArte);
+
+    }
+
 }
