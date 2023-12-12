@@ -37,7 +37,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
         } else {
             String dateString = jsonReader.nextString().trim();
             if (dateString.isEmpty()) {
-                return LocalDate.of(9999,1,1);
+                return null;
             } else {
                 return parseDate(dateString);
             }
@@ -81,7 +81,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
             String numericPart = dateString.replaceAll("[^0-9]", "");
             return LocalDate.parse(numericPart + "-01-01", formatter);
         } catch (DateTimeParseException ignored) {
-            return LocalDate.of(9999,1,1);
+            return null;
         }
     }
 
