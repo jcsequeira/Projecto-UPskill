@@ -2,10 +2,17 @@ package view;
 
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.*;
 
 import java.time.LocalDate;
@@ -34,10 +41,17 @@ public class ArtworkDetailsViewFull extends Parent {
         VBox detailsLayout = new VBox(10);
         detailsLayout.setPadding(new Insets(20));
 
+        //Display image
+        ImageView imageView = new ImageView(new Image(obraArte.getLink_Imagem()));
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(Region.USE_COMPUTED_SIZE);
+        imageView.setFitHeight(Region.USE_COMPUTED_SIZE);
+
+
         // Display details using labels
         Label titleLabel = new Label("Título: " + obraArte.getTitulo());
         Label linkImagemLabel = new Label("Link Imagem: " + obraArte.getLink_Imagem());
-        Label Ano_CriacaoLabel = new Label("Data: " + formatDate(obraArte.getAno_Criacao()));
+        Label Ano_CriacaoLabel = new Label("Ano: " + formatDate(obraArte.getAno_Criacao()));
         Label precoLabel = new Label("Preço: " + obraArte.getPreco() + " $");
         Label alturaLabel = new Label("Altura: " + obraArte.getAltura() + " cm");
         Label larguraLabel = new Label("Largura: " + obraArte.getLargura() + " cm");
@@ -51,18 +65,46 @@ public class ArtworkDetailsViewFull extends Parent {
 
 
         // Add labels to the layout
-        detailsLayout.getChildren().addAll(titleLabel,linkImagemLabel,Ano_CriacaoLabel,precoLabel,alturaLabel,larguraLabel,profundidadeLabel,diametroLabel,
-                artistaLabel);
+        detailsLayout.getChildren().addAll(imageView, titleLabel, artistaLabel,linkImagemLabel,Ano_CriacaoLabel,
+                precoLabel,alturaLabel,larguraLabel,profundidadeLabel,diametroLabel);
+
+
+        imageView.setOnMouseClicked(event -> zoomImage(this.obraArte));
 
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);
+    }
+
+    //Zoom Image method
+    private void zoomImage(Obra_Arte obraArte) {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Zoom in");
+
+        // Adicionar imagem da obra em tamanho grande
+        ImageView imageView = new ImageView(new Image(obraArte.getLink_Imagem()));
+
+        // Multiplicar largura e altura por 3
+        imageView.setFitWidth(Region.USE_COMPUTED_SIZE * 3);
+        imageView.setFitHeight(Region.USE_COMPUTED_SIZE * 3);
+
+        // Configurar layout
+        BorderPane imagemPane = new BorderPane();
+        imagemPane.setCenter(imageView);
+
+        // Configurar a cena
+        Scene scene = new Scene(imagemPane, imageView.getFitWidth(), imageView.getFitHeight());
+        stage.setScene(scene);
+
+        // Exibir a janela
+        stage.show();
     }
 
 
     private String formatDate(LocalDate date) {
         // Format the date using a DateTimeFormatter
         if (date != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");
             return date.format(formatter);
         } else {
             return "N/A";

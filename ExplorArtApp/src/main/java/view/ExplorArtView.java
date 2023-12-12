@@ -328,7 +328,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         showDetailsStage.setTitle("Detalhes do Evento");
 
 
-        Scene scene = new Scene(new ShowDetailsViewWithGallery(evento, galeria), 400, 300);
+        Scene scene = new Scene(new ShowDetailsViewWithGallery(evento, galeria));
 
         showDetailsStage.setScene(scene);
         showDetailsStage.setResizable(true);
@@ -336,6 +336,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         // Set the owner and modality to make it a modal dialog
         showDetailsStage.initOwner(this.getScene().getWindow());
         showDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        showDetailsStage.sizeToScene();
 
         showDetailsStage.show();
     }
@@ -347,7 +349,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artworkDetailsStage.setTitle("Detalhes da Obra de Arte");
 
 
-        Scene scene = new Scene(new ArtworkDetailsViewFull(obraArte, artista, tecnica, movimento, material), 400, 300);
+        Scene scene = new Scene(new ArtworkDetailsViewFull(obraArte, artista, tecnica, movimento, material));
 
         artworkDetailsStage.setScene(scene);
         artworkDetailsStage.setResizable(true);
@@ -355,6 +357,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         // Set the owner and modality to make it a modal dialog
         artworkDetailsStage.initOwner(this.getScene().getWindow());
         artworkDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        artworkDetailsStage.sizeToScene();
 
         artworkDetailsStage.show();
 
