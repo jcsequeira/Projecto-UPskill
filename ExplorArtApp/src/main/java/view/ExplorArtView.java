@@ -47,7 +47,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         listView = new ListView<>();
         setCenter(listView);
 
-        ImageView imageView = new ImageView("file:///C:/Users/luis/OneDrive/Ambiente de Trabalho/ExplorArtLogo.jpg");
+        ImageView imageView = new ImageView("file:/"
+                + System.getProperty("user.dir").replace("\\", "/")
+                + "/ExplorArtApp/src/main/resources/logoHome.jpg");
+
         imageView.setFitWidth(200);
         imageView.setFitHeight(100);
         VBox bottom = new VBox();
