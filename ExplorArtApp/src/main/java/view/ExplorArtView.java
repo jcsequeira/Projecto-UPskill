@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -47,7 +48,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         listView = new ListView<>();
         setCenter(listView);
 
-        ImageView imageView = new ImageView("file:///C:/Users/luis/OneDrive/Ambiente de Trabalho/ExplorArtLogo.jpg");
+        ImageView imageView = new ImageView();
+        Image image = new Image(getClass().getResource("/ExplorArtLogo.jpg").toExternalForm());
+        imageView.setImage(image);
         imageView.setFitWidth(200);
         imageView.setFitHeight(100);
         VBox bottom = new VBox();
