@@ -84,7 +84,11 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     @Override
     public void doArtworkDetails(Obra_Arte obraArte) {
 
-        view.showArtworkDetails(obraArte);
+        Artista artista = null;
+        Tecnica tecnica = null;
+        Movimento movimento = null;
+        Materiais material = null;
+        view.showArtworkDetails(obraArte, artista, tecnica, movimento, material);
 
     }
 

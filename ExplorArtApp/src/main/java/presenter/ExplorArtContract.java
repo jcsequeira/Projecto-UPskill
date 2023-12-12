@@ -23,7 +23,7 @@ public interface ExplorArtContract {
 
         void showShowsDetails(Evento evento, Galeria galeria);
 
-        void showArtworkDetails(Obra_Arte obraArte);
+        void showArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
     }
 
     interface Presenter {

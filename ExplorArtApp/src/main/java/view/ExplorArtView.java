@@ -341,7 +341,22 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     @Override
-    public void showArtworkDetails(Obra_Arte obraArte) {
+    public void showArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
+
+        Stage artworkDetailsStage = new Stage();
+        artworkDetailsStage.setTitle("Detalhes da Obra de Arte");
+
+
+        Scene scene = new Scene(new ArtworkDetailsViewFull(obraArte, artista, tecnica, movimento, material), 400, 300);
+
+        artworkDetailsStage.setScene(scene);
+        artworkDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        artworkDetailsStage.initOwner(this.getScene().getWindow());
+        artworkDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        artworkDetailsStage.show();
 
     }
 
