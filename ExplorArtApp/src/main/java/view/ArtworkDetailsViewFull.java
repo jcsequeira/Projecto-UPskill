@@ -57,16 +57,20 @@ public class ArtworkDetailsViewFull extends Parent {
         Label larguraLabel = new Label("Largura: " + obraArte.getLargura() + " cm");
         Label profundidadeLabel = new Label("Profundidade: " + obraArte.getProfundidade() + " cm");
         Label diametroLabel = new Label("Diâmetro: " + obraArte.getDiametro() + " cm");
+        Label zoomInLabel = new Label("(Carregue na imagem para ampliar)");
 
         Label artistaLabel = new Label("Autor: " + (artista != null ? artista.getNome_artista() : "<erro!>"));
+        Label tecnicaLabel = new Label("Técnica: " + (tecnica != null ? tecnica.getTipo_Tecnica() : "<erro!>"));
+        Label movimentoLabel = new Label("Movimento: " + (movimento != null ? movimento.getNome_Movimento() : "<erro!>"));
+        Label materiaisLabel = new Label("Materiais: " + (material != null ? material.getTipo_Material() : "<erro!>"));
         // TODO logica do artista/tecnica/movimento/materiais
 
 
 
 
         // Add labels to the layout
-        detailsLayout.getChildren().addAll(imageView, titleLabel, artistaLabel,linkImagemLabel,Ano_CriacaoLabel,
-                precoLabel,alturaLabel,larguraLabel,profundidadeLabel,diametroLabel);
+        detailsLayout.getChildren().addAll(imageView, zoomInLabel, titleLabel, artistaLabel,linkImagemLabel,Ano_CriacaoLabel,
+                precoLabel,alturaLabel,larguraLabel,profundidadeLabel,diametroLabel, tecnicaLabel, movimentoLabel, materiaisLabel);
 
 
         imageView.setOnMouseClicked(event -> zoomImage(this.obraArte));
@@ -75,18 +79,23 @@ public class ArtworkDetailsViewFull extends Parent {
         getChildren().add(detailsLayout);
     }
 
-    //Zoom Image method
+    // Zoom Image method
     private void zoomImage(Obra_Arte obraArte) {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Zoom in");
 
         // Adicionar imagem da obra em tamanho grande
-        ImageView imageView = new ImageView(new Image(obraArte.getLink_Imagem()));
+        Image image = new Image(obraArte.getLink_Imagem());
+        ImageView imageView = new ImageView(image);
+
+        // Definir tamanho real da imagem
+        double realWidth = image.getWidth();
+        double realHeight = image.getHeight();
 
         // Multiplicar largura e altura por 3
-        imageView.setFitWidth(Region.USE_COMPUTED_SIZE * 3);
-        imageView.setFitHeight(Region.USE_COMPUTED_SIZE * 3);
+        imageView.setFitWidth(realWidth * 3);
+        imageView.setFitHeight(realHeight * 3);
 
         // Configurar layout
         BorderPane imagemPane = new BorderPane();
@@ -99,6 +108,7 @@ public class ArtworkDetailsViewFull extends Parent {
         // Exibir a janela
         stage.show();
     }
+
 
 
     private String formatDate(LocalDate date) {
