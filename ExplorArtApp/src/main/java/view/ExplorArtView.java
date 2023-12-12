@@ -1,6 +1,6 @@
 package view;
 
-import javafx.application.Platform;
+
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -235,7 +235,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                             .filter(obraArte -> obraArte.getTitulo().equals(selectedArtworkTitle))
                             .findFirst();
 
-                    myPresenter.doArtworkDetails(selectedArtwork.get());
+                    try {
+                        myPresenter.doArtworkDetails(selectedArtwork.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                 }
             });

@@ -42,4 +42,24 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     public Galeria getGalleryById(int galleryId) throws IOException {
         return ApiService.getItem("http://localhost:4567/api/galerias/"+galleryId, Galeria.class);
     }
+
+    @Override
+    public Artista getArtistById(int idArtista) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/artistas/"+idArtista, Artista.class);
+    }
+
+    @Override
+    public Tecnica getTechniqueById(int idTecnica) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/tecnicas/"+idTecnica, Tecnica.class);
+    }
+
+    @Override
+    public Movimento getMovementById(int idMovimento) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/movimentos/"+idMovimento, Movimento.class);
+    }
+
+    @Override
+    public Materiais getMaterialById(int idMaterial) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/materiais/"+idMaterial, Materiais.class);
+    }
 }

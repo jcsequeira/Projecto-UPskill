@@ -82,14 +82,35 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void doArtworkDetails(Obra_Arte obraArte) {
+    public void doArtworkDetails(Obra_Arte obraArte) throws IOException {
+
+        ExplorArtModel model = new ExplorArtModel();
+
+        int idArtista = obraArte.getId_artista();
+        int idTecnica = obraArte.getId_Tecnica();
+        int idMovimento = obraArte.getId_Estilo();
+        int idMaterial = obraArte.getId_Material();
 
         Artista artista = null;
         Tecnica tecnica = null;
         Movimento movimento = null;
         Materiais material = null;
-        view.showArtworkDetails(obraArte, artista, tecnica, movimento, material);
 
+        // Retrieve artist information
+        artista = model.getArtistById(idArtista);
+
+        // Retrieve technique information
+        tecnica = model.getTechniqueById(idTecnica);
+
+        // Retrieve movement information
+        movimento = model.getMovementById(idMovimento);
+
+        // Retrieve material information
+        material = model.getMaterialById(idMaterial);
+
+        // Display the artwork details along with additional information
+        view.showArtworkDetails(obraArte, artista, tecnica, movimento, material);
     }
+
 
 }
