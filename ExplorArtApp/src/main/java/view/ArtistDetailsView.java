@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import model.Artista;
 
 import java.time.LocalDate;
@@ -29,14 +30,18 @@ public class ArtistDetailsView extends Parent {
         Label deathDateLabel = new Label("Data de Morte: " + formatDate(artista.getData_Morte()));
         Label nationalityLabel = new Label("Nacionalidade: " + artista.getNacionalidade());
         Label bioLabel = new Label("Biografia: ");
-        Label biolabelText = new Label();
+
+        // Create a TextFlow for the biography
+        TextFlow bioTextFlow = new TextFlow();
         Text bioText = new Text(artista.getBiografia());
-        bioText.setTextAlignment(TextAlignment.LEFT);
-        // Add bioText to the label
-        biolabelText.setGraphic(bioText);
+        bioText.setTextAlignment(TextAlignment.JUSTIFY);
+        bioTextFlow.getChildren().add(bioText);
+
+        // Set preferred width for proper text wrapping
+        bioTextFlow.setPrefWidth(400); // Adjust the width as needed
 
         // Add labels to the layout
-        detailsLayout.getChildren().addAll(nameLabel, birthDateLabel, deathDateLabel, nationalityLabel, bioLabel,biolabelText);
+        detailsLayout.getChildren().addAll(nameLabel, birthDateLabel, deathDateLabel, nationalityLabel, bioLabel,bioTextFlow);
 
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);

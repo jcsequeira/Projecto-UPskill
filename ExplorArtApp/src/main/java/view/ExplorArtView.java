@@ -283,7 +283,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         // Create a new view or dialog to display the details of the Artista
         // You need to implement the details view (e.g., ArtistDetailsView) accordingly
-        Scene scene = new Scene(new ArtistDetailsView(artista), 400, 300);
+        Scene scene = new Scene(new ArtistDetailsView(artista));
 
         artistDetailsStage.setScene(scene);
         artistDetailsStage.setResizable(true);
@@ -291,6 +291,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         // Set the owner and modality to make it a modal dialog
         artistDetailsStage.initOwner(this.getScene().getWindow());
         artistDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        artistDetailsStage.sizeToScene();
 
         artistDetailsStage.show();
     }
