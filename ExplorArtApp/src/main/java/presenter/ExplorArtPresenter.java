@@ -35,6 +35,99 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
         view.showEvents(eventos);
     }
 
+    @Override
+    public void doAddArtwork() {
+
+        Obra_Arte obraArte = null;
+        view.showAddArtworkForm(obraArte);
+
+    }
+
+    @Override
+    public void ativateArtwork() {
+
+    }
+
+    @Override
+    public void updateArtwork() {
+
+    }
+
+    @Override
+    public void deativateArtwork() {
+
+    }
+
+    @Override
+    public void addArtist() {
+
+    }
+
+    @Override
+    public void updateArtist() {
+
+    }
+
+    @Override
+    public void removeArtist() {
+
+    }
+
+    @Override
+    public void addShow() {
+
+    }
+
+    @Override
+    public void updateShow() {
+
+    }
+
+    @Override
+    public void removeShow() {
+
+    }
+
+    @Override
+    public void addGalerist() {
+
+    }
+
+    @Override
+    public void updateGalerist() {
+
+    }
+
+    @Override
+    public void removeGalerist() {
+
+    }
+
+    @Override
+    public void addGallery() {
+
+    }
+
+    @Override
+    public void updateGallery() {
+
+    }
+
+    @Override
+    public void removeGallery() {
+
+    }
+
+    @Override
+    public void importDataFromArtsy() {
+
+    }
+
+    @Override
+    public void deleteArtsyData() {
+
+    }
+
     public void doShowDetails(Evento evento) {
         // Create a new view or dialog to display the details of the Show
         // You need to implement the details view (e.g., ShowDetailsView) accordingly
@@ -49,30 +142,6 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
         view.showShowsDetails(evento, galeria);
     }
 
-    @Override
-    public void manageArtworks() {
-        // Lógica para gerenciar obras de arte
-    }
-
-    @Override
-    public void manageArtists() {
-        // Lógica para gerenciar artistas
-    }
-
-    @Override
-    public void manageEvents() {
-        // Lógica para gerenciar eventos
-    }
-
-    @Override
-    public void manageGalleries() {
-        // Lógica para gerenciar galerias
-    }
-
-    @Override
-    public void manageGallerists() {
-        // Lógica para gerenciar galeristas
-    }
 
     @Override
     public void doArtistDetails(Artista artista) {

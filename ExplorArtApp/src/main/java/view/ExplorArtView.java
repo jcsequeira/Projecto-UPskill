@@ -56,7 +56,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         VBox bottom = new VBox();
         setMargin(bottom, new Insets(10,0,0,0));
         bottom.setAlignment(Pos.CENTER);
-        bottom.getChildren().add(imageView);
+        ProgressBar progressbar = new ProgressBar();
+        progressbar.setPadding(new Insets(10,10,10,10));
+        progressbar.setProgress(0.5);
+        bottom.getChildren().addAll(imageView, progressbar);
         setBottom(bottom);
     }
 
@@ -156,6 +159,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             }
         });
         //TO DO slideshow
+
+        //Events menu Gerir Obras de Arte
+        adicionarOAItem.setOnAction(event -> {
+            myPresenter.doAddArtwork();
+        });
 
 
         //Events- Menu Ajuda
@@ -322,23 +330,23 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     // Method to display the details of the selected Artista in a new window
     public void showArtistDetails(Artista artista) {
-        Stage artistDetailsStage = new Stage();
-        artistDetailsStage.setTitle("Detalhes do Artista");
+        Stage addArtworkFormStage = new Stage();
+        addArtworkFormStage.setTitle("Detalhes do Artista");
 
         // Create a new view or dialog to display the details of the Artista
         // You need to implement the details view (e.g., ArtistDetailsView) accordingly
         Scene scene = new Scene(new ArtistDetailsView(artista));
 
-        artistDetailsStage.setScene(scene);
-        artistDetailsStage.setResizable(true);
+        addArtworkFormStage.setScene(scene);
+        addArtworkFormStage.setResizable(true);
 
         // Set the owner and modality to make it a modal dialog
-        artistDetailsStage.initOwner(this.getScene().getWindow());
-        artistDetailsStage.initModality(Modality.APPLICATION_MODAL);
+        addArtworkFormStage.initOwner(this.getScene().getWindow());
+        addArtworkFormStage.initModality(Modality.APPLICATION_MODAL);
 
-        artistDetailsStage.sizeToScene();
+        addArtworkFormStage.sizeToScene();
 
-        artistDetailsStage.show();
+        addArtworkFormStage.show();
     }
 
     // Method to display the details of the selected Eventos in a new window
@@ -385,6 +393,26 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         artworkDetailsStage.show();
 
+    }
+
+    public void showAddArtworkForm(Obra_Arte obraArte) {
+        Stage addArtworkFormStage = new Stage();
+        addArtworkFormStage.setTitle("Nova Obra de Arte");
+
+        // Create a new view or dialog to display the details of the Artista
+        // You need to implement the details view (e.g., ArtistDetailsView) accordingly
+        Scene scene = new Scene(new AddArtworkFormView(obraArte));
+
+        addArtworkFormStage.setScene(scene);
+        addArtworkFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addArtworkFormStage.initOwner(this.getScene().getWindow());
+        addArtworkFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addArtworkFormStage.sizeToScene();
+
+        addArtworkFormStage.show();
     }
 
 

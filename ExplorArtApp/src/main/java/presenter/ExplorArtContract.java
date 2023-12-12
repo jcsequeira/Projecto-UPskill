@@ -24,6 +24,8 @@ public interface ExplorArtContract {
         void showShowsDetails(Evento evento, Galeria galeria);
 
         void showArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
+
+        void showAddArtworkForm(Obra_Arte obraArte);
     }
 
     interface Presenter {
@@ -33,15 +35,27 @@ public interface ExplorArtContract {
 
         void exploreEvents() throws IOException;
 
-        void manageArtworks();
 
-        void manageArtists();
+        void doAddArtwork();
 
-        void manageEvents();
+        void ativateArtwork();
+        void updateArtwork();
+        void deativateArtwork();
+        void addArtist();
+        void updateArtist();
+        void removeArtist();
+        void addShow();
+        void updateShow();
+        void removeShow();
+        void addGalerist();
+        void updateGalerist();
+        void removeGalerist();
+        void addGallery();
+        void updateGallery();
+        void removeGallery();
+        void importDataFromArtsy();
+        void deleteArtsyData();
 
-        void manageGalleries();
-
-        void manageGallerists();
 
         void doArtistDetails(Artista artista);
 
