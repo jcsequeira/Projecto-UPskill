@@ -45,7 +45,7 @@ public interface ExplorArtContract {
 
         void doArtistDetails(Artista artista);
 
-        void doArtworkDetails(Obra_Arte obraArte);
+        void doArtworkDetails(Obra_Arte obraArte) throws IOException;
     }
 
     interface Model {
@@ -60,6 +60,14 @@ public interface ExplorArtContract {
         List<Galerista> getGallerists() throws IOException;
 
         Galeria getGalleryById(int galleryId) throws IOException;
+
+        Artista getArtistById(int idArtista) throws IOException;
+
+        Tecnica getTechniqueById(int idTecnica) throws IOException;
+
+        Movimento getMovementById(int idMovimento) throws IOException;
+
+        Materiais getMaterialById(int idMaterial) throws IOException;
     }
 }
 
