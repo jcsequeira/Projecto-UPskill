@@ -79,5 +79,11 @@ public class Artista {
     public void setIsArtsy(int isArtsy) {
         IsArtsy = isArtsy;
     }
+
+    @Override
+    public String toString() {
+        return nome_artista;
+    }
+
 }
 //

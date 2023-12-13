@@ -352,12 +352,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     // Method to display the details of the selected Eventos in a new window
     @Override
     public void showShowsDetails(Evento evento, Galeria galeria)  {
-
-
-
         Stage showDetailsStage = new Stage();
         showDetailsStage.setTitle("Detalhes do Evento");
-
 
         Scene scene = new Scene(new ShowDetailsViewWithGallery(evento, galeria));
 

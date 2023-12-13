@@ -13,6 +13,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+
     @Override
     public void write(JsonWriter jsonWriter, LocalDate date) throws IOException {
         // Write LocalDate as a formatted string
