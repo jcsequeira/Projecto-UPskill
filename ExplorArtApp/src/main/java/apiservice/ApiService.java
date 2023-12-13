@@ -67,4 +67,39 @@ public class ApiService {
         postToRestApi(apiUrl, json);
     }
 
+    private static void putToRestApi(String apiUrl, String json) throws IOException {
+        RequestBody requestBody = RequestBody.create(json, JSON_MEDIA_TYPE);
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .put(requestBody)  // Use put() instead of post() for a PUT request
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            // Get the response code (optional)
+            int responseCode = response.code();
+            System.out.println("PUT Request Response Code: " + responseCode);
+        }
+    }
+
+    public static <T> void putToRestApi(String apiUrl, T object) throws IOException {
+        String json = gson.toJson(object);
+        putToRestApi(apiUrl, json);
+    }
+
+    private static void deleteToRestApi(String apiUrl) throws IOException {
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .delete()
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            // Get the response code (optional)
+            int responseCode = response.code();
+            System.out.println("DELETE Request Response Code: " + responseCode);
+        }
+    }
+
+
+
+
 }
