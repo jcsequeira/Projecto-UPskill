@@ -33,8 +33,9 @@ public class AddArtworkFormView extends Parent {
 
 
     public AddArtworkFormView(Obra_Arte obraArte) {
-
         myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
+
+
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -159,6 +160,37 @@ public class AddArtworkFormView extends Parent {
                 obraArte.setId_Tecnica(1);
                 obraArte.setId_Estilo(1);
                 obraArte.setId_Material(1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
