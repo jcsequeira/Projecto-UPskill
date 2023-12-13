@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import model.Artista;
 import model.ExplorArtModel;
 import model.Obra_Arte;
+import presenter.ExplorArtPresenter;
 
 
 import java.io.IOException;
@@ -20,6 +21,8 @@ import java.util.List;
 
 
 public class AddArtworkFormView extends Parent {
+
+    private ExplorArtPresenter mypresenter;
     private ComboBox<Artista> artistaComboBox;
     private ObservableList<Artista> artistaObservableList;
 
@@ -153,6 +156,8 @@ public class AddArtworkFormView extends Parent {
                 obraArte.setId_Estilo(1);
                 obraArte.setId_Material(1);
 
+
+                //mypresenter.addArtwork(obraArte);
 
 
             } catch (NumberFormatException e) {
