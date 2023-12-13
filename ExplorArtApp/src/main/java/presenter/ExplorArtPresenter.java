@@ -44,8 +44,8 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void addArtwork(Obra_Arte obraArte) {
-        //TODO chama o model.addArtwork(objeto)
+    public void addArtwork(Obra_Arte obraArte) throws IOException {
+        model.addArtwork(obraArte);
     }
 
     @Override

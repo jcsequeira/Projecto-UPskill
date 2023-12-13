@@ -21,8 +21,8 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
-    public void addArtwork(Obra_Arte obraArte) {
-        // TODO chama apiservice.postToRest(URL, objeto)
+    public void addArtwork(Obra_Arte obraArte) throws IOException {
+        ApiService.postToRestApi("http://localhost:4567/api/obrasarte",obraArte);
     }
 
     @Override

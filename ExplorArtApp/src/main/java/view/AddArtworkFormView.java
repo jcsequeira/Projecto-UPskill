@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import model.Artista;
 import model.ExplorArtModel;
 import model.Obra_Arte;
+import presenter.ExplorArtContract;
 import presenter.ExplorArtPresenter;
 
 
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class AddArtworkFormView extends Parent {
 
-    private ExplorArtPresenter mypresenter;
+    private ExplorArtPresenter myPresenter;
     private ComboBox<Artista> artistaComboBox;
     private ObservableList<Artista> artistaObservableList;
 
@@ -32,6 +33,9 @@ public class AddArtworkFormView extends Parent {
 
 
     public AddArtworkFormView(Obra_Arte obraArte) {
+
+        myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
+
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -104,9 +108,9 @@ public class AddArtworkFormView extends Parent {
 // ID do Artista
         Label artistIdLabel = new Label("Artista:");
         List<Artista> artistaList = null;
-        model = new ExplorArtModel();
+        ExplorArtModel modelaux = new ExplorArtModel();
         try {
-            artistaList = model.getArtists();
+            artistaList = modelaux.getArtists();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -157,11 +161,15 @@ public class AddArtworkFormView extends Parent {
                 obraArte.setId_Material(1);
 
 
-                //mypresenter.addArtwork(obraArte);
+
+
+                myPresenter.addArtwork(obraArte);
 
 
             } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
         gridPane.add(submitButton, 0, 13, 2, 1);
