@@ -4,7 +4,6 @@ import apiservice.ApiService;
 import presenter.ExplorArtContract;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExplorArtModel implements ExplorArtContract.Model {
@@ -54,13 +53,28 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public List<Tecnica> getTechnics() throws IOException{
+        return ApiService.getAllItems("http://localhost:4567/api/tecnicas", Tecnica.class);
+    }
+
+    @Override
     public Tecnica getTechniqueById(int idTecnica) throws IOException {
         return ApiService.getItem("http://localhost:4567/api/tecnicas/"+idTecnica, Tecnica.class);
     }
 
     @Override
+    public List<Movimento> getMovement() throws IOException {
+        return ApiService.getAllItems("http://localhost:4567/api/movimentos", Movimento.class);
+    }
+
+    @Override
     public Movimento getMovementById(int idMovimento) throws IOException {
         return ApiService.getItem("http://localhost:4567/api/movimentos/"+idMovimento, Movimento.class);
+    }
+
+    @Override
+    public List<Materiais> getMaterials() throws IOException {
+        return ApiService.getAllItems("http://localhost:4567/api/materiais", Materiais.class);
     }
 
     @Override

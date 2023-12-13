@@ -12,6 +12,7 @@ public class Tecnica {
     public Tecnica() {
     }
 
+
     public int getId_Tecnica() {
         return id_Tecnica;
     }
@@ -26,5 +27,10 @@ public class Tecnica {
 
     public void setTipo_Tecnica(String tipo_Tecnica) {
         Tipo_Tecnica = tipo_Tecnica;
+    }
+
+    @Override
+    public String toString() {
+        return Tipo_Tecnica;
     }
 }

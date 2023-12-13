@@ -10,9 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-import model.Artista;
-import model.ExplorArtModel;
-import model.Obra_Arte;
+import model.*;
 import presenter.ExplorArtContract;
 import presenter.ExplorArtPresenter;
 
@@ -26,6 +24,12 @@ public class AddArtworkFormView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ComboBox<Artista> artistaComboBox;
     private ObservableList<Artista> artistaObservableList;
+    private ComboBox<Tecnica> tecnicaComboBox;
+    private ObservableList<Tecnica> tecnicaObservableList;
+    private ComboBox<Movimento> movimentoComboBox;
+    private ObservableList<Movimento> movimentoObservableList;
+    private ComboBox<Materiais> materiaisComboBox;
+    private ObservableList<Materiais> materiaisObservableList;
 
     private ExplorArtModel model;
 
@@ -100,8 +104,6 @@ public class AddArtworkFormView extends Parent {
         ToggleButton noButton = new ToggleButton("Não");
         noButton.setToggleGroup(activeToggleGroup);
 
-        yesButton.setSelected(true);
-
         HBox activeBox = new HBox(yesButton, noButton);
         gridPane.add(activeLabel, 0, 8);
         gridPane.add(activeBox, 1, 8);
@@ -124,21 +126,54 @@ public class AddArtworkFormView extends Parent {
 
 // ID da Técnica
         Label techniqueIdLabel = new Label("Técnica:");
-        ComboBox<String> techniqueComboBox = new ComboBox<>();
+        List<Tecnica> tecnicaList = null;
+        model = new ExplorArtModel();
+        try {
+            tecnicaList = model.getTechnics();
+        } catch (IOException e){
+            throw new RuntimeException();
+        }
+
+        tecnicaObservableList = FXCollections.observableArrayList();
+        tecnicaObservableList.clear();
+        tecnicaObservableList.addAll(tecnicaList);
+        tecnicaComboBox = new ComboBox<>(tecnicaObservableList);
         gridPane.add(techniqueIdLabel, 0, 10);
-        gridPane.add(techniqueComboBox, 1, 10);
+        gridPane.add(tecnicaComboBox, 1, 10);
 
 // ID do Estilo
         Label styleIdLabel = new Label("Estilo:");
-        ComboBox<String> styleComboBox = new ComboBox<>();
+        List<Movimento> movimentosList = null;
+        model = new ExplorArtModel();
+        try {
+            movimentosList = model.getMovement();
+        } catch (IOException e){
+            throw new RuntimeException();
+        }
+
+        movimentoObservableList = FXCollections.observableArrayList();
+        movimentoObservableList.clear();
+        movimentoObservableList.addAll(movimentosList);
+        movimentoComboBox = new ComboBox<>(movimentoObservableList);
         gridPane.add(styleIdLabel, 0, 11);
-        gridPane.add(styleComboBox, 1, 11);
+        gridPane.add(movimentoComboBox, 1, 11);
 
         // ID do Material
         Label materialsIdLabel = new Label("Materiais:");
-        ComboBox<Artista> materialsComboBox = new ComboBox<>();
+        List<Materiais> materiaisList = null;
+        model = new ExplorArtModel();
+        try {
+            materiaisList = model.getMaterials();
+        } catch (IOException e){
+            throw new RuntimeException();
+        }
+
+        materiaisObservableList = FXCollections.observableArrayList();
+        materiaisObservableList.clear();
+        materiaisObservableList.addAll(materiaisList);
+        materiaisComboBox = new ComboBox<>(materiaisObservableList);
         gridPane.add(materialsIdLabel, 0, 12);
-        gridPane.add(materialsComboBox, 1, 12);
+        gridPane.add(materiaisComboBox, 1, 12);
 
 
 
@@ -157,43 +192,12 @@ public class AddArtworkFormView extends Parent {
                 obraArte.setDiametro(Float.parseFloat(diameterField.getText()));
                 obraArte.setIsActive(yesButton.isSelected()?1:0);
                 obraArte.setId_artista((int) artistaComboBox.getSelectionModel().getSelectedItem().getId_artista());
-                obraArte.setId_Tecnica(1);
-                obraArte.setId_Estilo(1);
-                obraArte.setId_Material(1);
+                obraArte.setId_Tecnica(tecnicaComboBox.getSelectionModel().getSelectedItem().getId_Tecnica());
+                obraArte.setId_Estilo(movimentoComboBox.getSelectionModel().getSelectedItem().getId_Estilo());
+                obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                System.out.println(obraArte.getId_Estilo());
+                System.out.println(obraArte.getId_Material());
 
                 myPresenter.addArtwork(obraArte);
 

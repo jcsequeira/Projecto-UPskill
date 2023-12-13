@@ -81,10 +81,16 @@ public interface ExplorArtContract {
 
         Artista getArtistById(int idArtista) throws IOException;
 
+        List<Tecnica> getTechnics() throws IOException;
+
         Tecnica getTechniqueById(int idTecnica) throws IOException;
+
+        List<Movimento> getMovement() throws IOException;
 
         Movimento getMovementById(int idMovimento) throws IOException;
 
+
+        List<Materiais> getMaterials() throws IOException;
         Materiais getMaterialById(int idMaterial) throws IOException;
     }
 }

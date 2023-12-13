@@ -27,4 +27,9 @@ public class Materiais {
     public void setTipo_Material(String tipo_Material) {
         Tipo_Material = tipo_Material;
     }
+
+    @Override
+    public String toString() {
+        return Tipo_Material;
+    }
 }

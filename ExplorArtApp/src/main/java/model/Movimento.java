@@ -27,4 +27,9 @@ public class Movimento {
     public void setNome_Movimento(String nome_Movimento) {
         Nome_Movimento = nome_Movimento;
     }
+
+    @Override
+    public String toString() {
+        return Nome_Movimento;
+    }
 }
