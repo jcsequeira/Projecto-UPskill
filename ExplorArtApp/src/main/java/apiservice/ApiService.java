@@ -6,9 +6,7 @@ import adapters.LocalDateAdapter;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -20,8 +18,7 @@ import java.util.List;
 public class ApiService {
 
     private static final OkHttpClient client = new OkHttpClient();
-
-
+    private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json");
     private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 
 
@@ -49,6 +46,25 @@ public class ApiService {
         try (Response response = client.newCall(request).execute()) {
             assert response.body() != null;
            return gson.fromJson(response.body().string(),itemType); }
+    }
+
+    private static void postToRestApi(String apiUrl, String json) throws IOException {
+        RequestBody requestBody = RequestBody.create(json, JSON_MEDIA_TYPE);
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .post(requestBody)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            // Get the response code (optional)
+            int responseCode = response.code();
+            System.out.println("POST Request Response Code: " + responseCode);
+        }
+    }
+
+    public static <T> void postToRestApi(String apiUrl, T object) throws IOException {
+        String json = gson.toJson(object);
+        postToRestApi(apiUrl, json);
     }
 
 }
