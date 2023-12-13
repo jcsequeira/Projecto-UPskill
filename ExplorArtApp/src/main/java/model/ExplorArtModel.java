@@ -21,6 +21,11 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public void addArtwork(Obra_Arte obraArte) {
+        // TODO chama apiservice.postToRest(URL, objeto)
+    }
+
+    @Override
     public List<Evento> getEvents() throws IOException {
         // Lógica para obter eventos
         return ApiService.getAllItems("http://localhost:4567/api/eventos", Evento.class);
@@ -62,4 +67,7 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     public Materiais getMaterialById(int idMaterial) throws IOException {
         return ApiService.getItem("http://localhost:4567/api/materiais/"+idMaterial, Materiais.class);
     }
+
+
+
 }
