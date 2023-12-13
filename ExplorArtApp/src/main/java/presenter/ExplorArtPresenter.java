@@ -38,7 +38,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     @Override
     public void doAddArtwork() {
 
-        Obra_Arte obraArte = null;
+        Obra_Arte obraArte = new Obra_Arte();
         view.showAddArtworkForm(obraArte);
 
     }
