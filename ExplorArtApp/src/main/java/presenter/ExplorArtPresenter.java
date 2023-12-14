@@ -142,6 +142,11 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
+    public void addColaborador(Colaborador colaborador) throws IOException {
+        model.addColaborador(colaborador);
+    }
+
+    @Override
     public void importDataFromArtsy() {
 //TODO
     }

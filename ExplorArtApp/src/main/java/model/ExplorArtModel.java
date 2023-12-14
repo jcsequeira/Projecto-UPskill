@@ -108,6 +108,11 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public void addColaborador(Colaborador colaborador) throws IOException {
+        ApiService.postToRestApi("http://localhost:4567/api/colaboradores", colaborador);
+    }
+
+    @Override
     public List<Pais> getPaises() throws IOException{
         return ApiService.getAllItems("http://localhost:4567/api/paises", Pais.class);
     }

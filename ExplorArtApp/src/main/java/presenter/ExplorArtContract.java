@@ -58,6 +58,7 @@ public interface ExplorArtContract {
         void updateGallery();
         void removeGallery();
         //Admin
+        void addColaborador(Colaborador colaborador) throws IOException;
         void importDataFromArtsy();
         void deleteArtsyData();
 
@@ -104,6 +105,7 @@ public interface ExplorArtContract {
         Materiais getMaterialById(int idMaterial) throws IOException;
         //Utils
         List<Colaborador> getColaboradores() throws IOException;
+        void addColaborador(Colaborador colaborador) throws IOException;
         List<Pais> getPaises() throws IOException;
     }
 }
