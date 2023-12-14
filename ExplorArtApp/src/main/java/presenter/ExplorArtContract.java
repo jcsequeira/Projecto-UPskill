@@ -54,7 +54,7 @@ public interface ExplorArtContract {
         void updateGalerist();
         void removeGalerist();
         //Galeria
-        void addGallery();
+        void addGallery(Galeria galeria) throws IOException;
         void updateGallery();
         void removeGallery();
         //Admin
@@ -85,6 +85,7 @@ public interface ExplorArtContract {
         //Galerias
         List<Galeria> getGalleries() throws IOException;
         Galeria getGalleryById(int galleryId) throws IOException;
+        void addGallery(Galeria galeria) throws IOException;
         //Galeristas
         List<Galerista> getGallerists() throws IOException;
         void addGalerist(Galerista galerista) throws IOException;

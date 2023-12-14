@@ -125,9 +125,11 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void addGallery() {
-//TODO
+    public void addGallery(Galeria galeria) throws IOException {
+        model.addGallery(galeria);
     }
+
+
 
     @Override
     public void updateGallery() {
