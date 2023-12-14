@@ -46,7 +46,7 @@ public interface ExplorArtContract {
         void addArtist(Artista artista) throws IOException;
         void updateArtist();
         void removeArtist();
-        void addShow();
+        void addShow(Evento evento) throws IOException;
         void updateShow();
         void removeShow();
         void addGalerist();
@@ -76,6 +76,7 @@ public interface ExplorArtContract {
         void addArtwork(Obra_Arte obraArte) throws IOException;
 
         List<Evento> getEvents() throws IOException;
+        void addShow(Evento evento) throws IOException;
 
         List<Galeria> getGalleries() throws IOException;
 

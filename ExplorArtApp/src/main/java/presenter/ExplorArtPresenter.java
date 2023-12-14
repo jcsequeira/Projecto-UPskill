@@ -79,9 +79,12 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void addShow() {
-
+    public void addShow(Evento evento) throws IOException {
+        model.addShow(evento);
     }
+
+
+
 
     @Override
     public void updateShow() {

@@ -36,6 +36,11 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public void addShow(Evento evento) throws IOException {
+        ApiService.postToRestApi("http://localhost:4567/api/eventos",evento);
+    }
+
+    @Override
     public List<Galeria> getGalleries() throws IOException {
         // Lógica para obter galerias
         return ApiService.getAllItems("http://localhost:4567/api/galerias", Galeria.class);
