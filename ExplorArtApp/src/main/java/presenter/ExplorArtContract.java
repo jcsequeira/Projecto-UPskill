@@ -100,6 +100,7 @@ public interface ExplorArtContract {
         List<Materiais> getMaterials() throws IOException;
         Materiais getMaterialById(int idMaterial) throws IOException;
         //Utils
+        List<Colaborador> getColaboradores() throws IOException;
         List<Pais> getPaises() throws IOException;
     }
 }
