@@ -48,13 +48,13 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     @Override
     public void ativateArtwork() {
-
+        // TODO
     }
 
 
     @Override
     public void deativateArtwork() {
-
+        //TODO
     }
 
     @Override
@@ -70,12 +70,12 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     @Override
     public void updateArtist() {
-
+        //TODO
     }
 
     @Override
     public void removeArtist() {
-
+        //TODO
     }
 
     @Override
@@ -88,52 +88,53 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     @Override
     public void updateShow() {
-
+        //TODO
     }
 
     @Override
     public void removeShow() {
-
+        //TODO
     }
 
     @Override
-    public void addGalerist() {
-
+    public void addGalerist(Galerista galerista) {
+        model.addGalerist(galerista);
     }
+
 
     @Override
     public void updateGalerist() {
-
+//TODO
     }
 
     @Override
     public void removeGalerist() {
-
+//TODO
     }
 
     @Override
     public void addGallery() {
-
+//TODO
     }
 
     @Override
     public void updateGallery() {
-
+//TODO
     }
 
     @Override
     public void removeGallery() {
-
+//TODO
     }
 
     @Override
     public void importDataFromArtsy() {
-
+//TODO
     }
 
     @Override
     public void deleteArtsyData() {
-
+//TODO
     }
 
     public void doShowDetails(Evento evento) {

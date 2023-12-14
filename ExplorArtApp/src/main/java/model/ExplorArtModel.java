@@ -53,6 +53,11 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public void addGalerist(Galerista galerista) {
+
+    }
+
+    @Override
     public Galeria getGalleryById(int galleryId) throws IOException {
         return ApiService.getItem("http://localhost:4567/api/galerias/"+galleryId, Galeria.class);
     }
