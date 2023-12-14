@@ -32,6 +32,7 @@ public class ExplorArtApp extends Application {
 
         primaryStage.setOnCloseRequest(event -> RunServerAPI.stopServer());
 
+        /*
         Evento evento = new Evento(
                 1,                        // id_Expo
                 "Art Exhibition",         // Nome
@@ -43,7 +44,7 @@ public class ExplorArtApp extends Application {
         );
 
         presenter.addShow(evento);
-
+        */
 
     }
 }
