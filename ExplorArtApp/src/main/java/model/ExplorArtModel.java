@@ -15,7 +15,7 @@ public class ExplorArtModel implements ExplorArtContract.Model {
 
     @Override
     public void addArtist(Artista artista) throws IOException {
-        ApiService.postToRestApi("http://localhost:4567/api/artistas", Artista.class);
+        ApiService.postToRestApi("http://localhost:4567/api/artistas", artista);
     }
 
     @Override
