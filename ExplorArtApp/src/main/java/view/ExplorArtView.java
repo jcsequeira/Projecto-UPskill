@@ -16,6 +16,7 @@ import model.*;
 import presenter.ExplorArtContract;
 import presenter.ExplorArtPresenter;
 
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -401,8 +402,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         Stage addArtworkFormStage = new Stage();
         addArtworkFormStage.setTitle("Nova Obra de Arte");
 
-        // Create a new view or dialog to display the details of the Artista
-        // You need to implement the details view (e.g., ArtistDetailsView) accordingly
+        // Create a new view or dialog to display the details of the Art Work
         Scene scene = new Scene(new AddArtworkFormView(obraArte));
 
         addArtworkFormStage.setScene(scene);
@@ -415,6 +415,27 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addArtworkFormStage.sizeToScene();
 
         addArtworkFormStage.show();
+    }
+
+    @Override
+    public void showAddArtistForm(Artista artista) {
+        Stage addArtistFormStage = new Stage();
+        addArtistFormStage.setTitle("Novo Artista");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddArtistaFormView(artista));
+
+        addArtistFormStage.setScene(scene);
+        addArtistFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addArtistFormStage.initOwner(this.getScene().getWindow());
+        addArtistFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addArtistFormStage.sizeToScene();
+
+        addArtistFormStage.show();
     }
 
 

@@ -26,6 +26,8 @@ public interface ExplorArtContract {
         void showArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
 
         void showAddArtworkForm(Obra_Arte obraArte);
+
+        void showAddArtistForm(Artista artista);
     }
 
     interface Presenter {
@@ -34,7 +36,6 @@ public interface ExplorArtContract {
         void exploreArtworks() throws IOException;
 
         void exploreEvents() throws IOException;
-
 
 
 
@@ -95,6 +96,8 @@ public interface ExplorArtContract {
 
         List<Materiais> getMaterials() throws IOException;
         Materiais getMaterialById(int idMaterial) throws IOException;
+
+        List<Pais> getPaises() throws IOException;
     }
 }
 

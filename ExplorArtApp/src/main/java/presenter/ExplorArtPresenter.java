@@ -65,7 +65,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     @Override
     public void doAddArtist() {
         Artista artista = new Artista();
-        view.showAddArtistForm();
+        view.showAddArtistForm(artista);
     }
 
     @Override

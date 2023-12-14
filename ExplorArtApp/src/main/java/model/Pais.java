@@ -38,4 +38,9 @@ public class Pais {
     public void setNacionalidade(String nacionalidade) {
         Nacionalidade = nacionalidade;
     }
+
+    @Override
+    public String toString() {
+        return Nacionalidade;
+    }
 }

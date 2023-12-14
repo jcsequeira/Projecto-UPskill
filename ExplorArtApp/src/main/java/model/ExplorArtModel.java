@@ -87,6 +87,9 @@ public class ExplorArtModel implements ExplorArtContract.Model {
         return ApiService.getItem("http://localhost:4567/api/materiais/"+idMaterial, Materiais.class);
     }
 
-
+    @Override
+    public List<Pais> getPaises() throws IOException{
+        return ApiService.getAllItems("http://localhost:4567/api/paises", Pais.class);
+    }
 
 }

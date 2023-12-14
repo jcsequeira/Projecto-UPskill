@@ -39,8 +39,6 @@ public class AddArtworkFormView extends Parent {
     public AddArtworkFormView(Obra_Arte obraArte) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
 
-
-
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -179,13 +177,13 @@ public class AddArtworkFormView extends Parent {
 
         getChildren().add(gridPane);
 
-        // Configure a lógica para salvar os dados quando o formulário for submetido
+        // Botão "Adicionar" e respetiva lógica
         Button submitButton = new Button("Adicionar Obra de Arte");
         submitButton.setOnAction(event -> {
             try {
                 obraArte.setTitulo(titleField.getText());
                 obraArte.setAno_Criacao(creationYearPicker.getValue());
-                obraArte.setPreco(Float.parseFloat(priceField.getText())); // Convertendo a String do preço para float
+                obraArte.setPreco(Float.parseFloat(priceField.getText())); // Converte a String do preço para float
                 obraArte.setAltura(Float.parseFloat(heightField.getText()));
                 obraArte.setLargura(Float.parseFloat(widthField.getText()));
                 obraArte.setProfundidade(Float.parseFloat(depthField.getText()));
@@ -196,11 +194,7 @@ public class AddArtworkFormView extends Parent {
                 obraArte.setId_Estilo(movimentoComboBox.getSelectionModel().getSelectedItem().getId_Estilo());
                 obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
 
-                System.out.println(obraArte.getId_Estilo());
-                System.out.println(obraArte.getId_Material());
-
                 myPresenter.addArtwork(obraArte);
-
 
             } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
