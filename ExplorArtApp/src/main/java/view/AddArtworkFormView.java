@@ -181,6 +181,16 @@ public class AddArtworkFormView extends Parent {
         Button submitButton = new Button("Adicionar Obra de Arte");
         submitButton.setOnAction(event -> {
             try {
+                // Criar alerta de confirmação
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Nova Obra de Arte");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar a Nova Obra de Arte?");
+                confirmationAlert.setContentText("Ao confirmar, a Obra de Arte será adicionada à Base de Dados.");
+
+                // Obter o resultado da confirmação
+                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+
+                if (result == ButtonType.OK) {
                 obraArte.setTitulo(titleField.getText());
                 obraArte.setAno_Criacao(creationYearPicker.getValue());
                 obraArte.setPreco(Float.parseFloat(priceField.getText())); // Converte a String do preço para float
@@ -195,6 +205,10 @@ public class AddArtworkFormView extends Parent {
                 obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
 
                 myPresenter.addArtwork(obraArte);
+
+                    // Se o utilizador confirmar, fecha a janela
+                    getScene().getWindow().hide();
+                }
 
             } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");

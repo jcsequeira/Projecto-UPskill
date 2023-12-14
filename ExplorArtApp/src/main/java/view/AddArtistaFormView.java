@@ -74,13 +74,26 @@ public class AddArtistaFormView extends Parent {
         Button submitButton = new Button("Adicionar Artista");
        submitButton.setOnAction(event -> {
             try {
-                artista.setNome_artista(nomeField.getText());
-                artista.setData_Nascimento(birthDayPicker.getValue());
-                artista.setBiografia(biographyField.getText());
-                artista.setData_Morte(deathDayPicker.getValue());
-                artista.setNacionalidade(paisesComboBox.getSelectionModel().getSelectedItem().getNacionalidade());
+                // Criar alerta de confirmação
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Novo artista");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar o novo artista?");
+                confirmationAlert.setContentText("Ao confirmar, o artista será adicionado à Base de Dados.");
 
-                myPresenter.addArtist(artista);
+                // Obter o resultado da confirmação
+                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+
+                if (result == ButtonType.OK) {
+                    artista.setNome_artista(nomeField.getText());
+                    artista.setData_Nascimento(birthDayPicker.getValue());
+                    artista.setBiografia(biographyField.getText());
+                    artista.setData_Morte(deathDayPicker.getValue());
+                    artista.setNacionalidade(paisesComboBox.getSelectionModel().getSelectedItem().getNacionalidade());
+
+                    myPresenter.addArtist(artista);
+                    // Se o utilizador confirmar, fecha a janela
+                    getScene().getWindow().hide();
+                }
             } catch (NumberFormatException e){
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
