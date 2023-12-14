@@ -53,8 +53,8 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
-    public void addGalerist(Galerista galerista) {
-
+    public void addGalerist(Galerista galerista) throws IOException {
+        ApiService.postToRestApi("http://localhost:4567/api/galeristas", galerista);
     }
 
     @Override

@@ -103,7 +103,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void addGalerist(Galerista galerista) {
+    public void addGalerist(Galerista galerista) throws IOException {
         model.addGalerist(galerista);
     }
 

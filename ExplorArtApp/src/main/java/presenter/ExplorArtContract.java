@@ -49,7 +49,7 @@ public interface ExplorArtContract {
         void updateShow();
         void removeShow();
         //Galerista
-        void addGalerist(Galerista galerista);
+        void addGalerist(Galerista galerista) throws IOException;
         void updateGalerist();
         void removeGalerist();
         //Galeria
@@ -85,7 +85,7 @@ public interface ExplorArtContract {
         Galeria getGalleryById(int galleryId) throws IOException;
         //Galeristas
         List<Galerista> getGallerists() throws IOException;
-        void addGalerist(Galerista galerista);
+        void addGalerist(Galerista galerista) throws IOException;
 
         //Foreign keys tables Obra ARte
         List<Tecnica> getTechnics() throws IOException;
