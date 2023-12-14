@@ -87,6 +87,12 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
 
     @Override
+    public void doAddShow() {
+        Evento evento = new Evento();
+        view.showAddShowForm(evento);
+    }
+
+    @Override
     public void updateShow() {
 
     }

@@ -28,6 +28,9 @@ public interface ExplorArtContract {
         void showAddArtworkForm(Obra_Arte obraArte);
 
         void showAddArtistForm(Artista artista);
+
+        void showAddShowForm(Evento evento);
+
     }
 
     interface Presenter {
@@ -60,11 +63,12 @@ public interface ExplorArtContract {
 
 
         void doArtistDetails(Artista artista);
-
         void doArtworkDetails(Obra_Arte obraArte) throws IOException;
+
 
         void doAddArtwork();
         void doAddArtist();
+        void doAddShow();
     }
 
     interface Model {
@@ -94,8 +98,8 @@ public interface ExplorArtContract {
 
         Movimento getMovementById(int idMovimento) throws IOException;
 
-
         List<Materiais> getMaterials() throws IOException;
+
         Materiais getMaterialById(int idMaterial) throws IOException;
 
         List<Pais> getPaises() throws IOException;
