@@ -98,4 +98,9 @@ public class Galeria {
     public void setIsArtsy(int isArtsy) {
         IsArtsy = isArtsy;
     }
+
+    @Override
+    public String toString() {
+        return Nome_Galeria;
+    }
 }

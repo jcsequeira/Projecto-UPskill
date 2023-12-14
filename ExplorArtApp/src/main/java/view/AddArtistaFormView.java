@@ -19,7 +19,6 @@ public class AddArtistaFormView extends Parent {
     private ComboBox<Pais> paisesComboBox;
     private ObservableList<Pais> paisesObservableList;
 
-    private ExplorArtModel model;
     public AddArtistaFormView(Artista artista) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
@@ -41,7 +40,7 @@ public class AddArtistaFormView extends Parent {
         gridPane.add(birthDayPicker, 1, 1);
 
         // Biografia do Artista
-        Label biographyLabel = new Label("Biografia");
+        Label biographyLabel = new Label("Biografia:");
         TextField biographyField = new TextField();
         gridPane.add(biographyLabel, 0, 2);
         gridPane.add(biographyField, 1, 2);

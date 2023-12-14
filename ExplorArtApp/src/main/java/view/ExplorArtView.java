@@ -143,7 +143,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 throw new RuntimeException(e);
             }
         });
-
         visualizarArtistasItem.setOnAction(event -> {
             try {
                 myPresenter.exploreArtists();
@@ -170,6 +169,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         //Events menu Gerir Artistas
         adicionarArtistaItem.setOnAction(event -> {
             myPresenter.doAddArtist();
+        });
+
+        //Events menu Gerir Eventos
+        adicionarEventoItem.setOnAction(event -> {
+            myPresenter.doAddShow();
         });
 
 
@@ -320,14 +324,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         // Lógica para exibir galeristas na interface gráfica
     }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
     private void showEmptyListMessage(String entityType) {
         BorderPane emptyPane = new BorderPane();
         Label messageLabel = new Label("A lista de " + entityType + " está vazia.");
@@ -398,6 +394,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     }
 
+    @Override
     public void showAddArtworkForm(Obra_Arte obraArte) {
         Stage addArtworkFormStage = new Stage();
         addArtworkFormStage.setTitle("Nova Obra de Arte");
@@ -436,6 +433,27 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addArtistFormStage.sizeToScene();
 
         addArtistFormStage.show();
+    }
+
+    @Override
+    public void showAddShowForm(Evento evento){
+        Stage addShowFormStage = new Stage();
+        addShowFormStage.setTitle("Novo Evento");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddShowFormView(evento));
+
+        addShowFormStage.setScene(scene);
+        addShowFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addShowFormStage.initOwner(this.getScene().getWindow());
+        addShowFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addShowFormStage.sizeToScene();
+
+        addShowFormStage.show();
     }
 
 
