@@ -93,6 +93,12 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
+    public void doAddGallerist() {
+        Galerista galerista = new Galerista();
+        view.showAddGalleristForm(galerista);
+    }
+
+    @Override
     public void updateShow() {
         //TODO
     }
