@@ -89,7 +89,7 @@ public class AddShowFormView extends Parent {
                     evento.setData_inicio(startDayPicker.getValue());
                     evento.setData_Fim(endDayPicker.getValue());
                     evento.setDescricao(descriptionField.getText());
-                    evento.setNome(galeriaComboBox.getSelectionModel().getSelectedItem().getNome_Galeria());
+                    evento.setId_Galeria(galeriaComboBox.getSelectionModel().getSelectedItem().getId_Galeria());
 
                     myPresenter.addShow(evento);
                     // Se o utilizador confirmar, fecha a janela
