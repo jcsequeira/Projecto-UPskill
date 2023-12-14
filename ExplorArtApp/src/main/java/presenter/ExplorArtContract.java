@@ -36,13 +36,13 @@ public interface ExplorArtContract {
         void exploreEvents() throws IOException;
 
 
-        void doAddArtwork();
+
 
         void addArtwork(Obra_Arte obraArte) throws IOException;
 
         void ativateArtwork();
         void deativateArtwork();
-        void addArtist(Artista artista) throws IOException;
+        void addArtist(Artista artista);
         void updateArtist();
         void removeArtist();
         void addShow();
@@ -61,6 +61,9 @@ public interface ExplorArtContract {
         void doArtistDetails(Artista artista);
 
         void doArtworkDetails(Obra_Arte obraArte) throws IOException;
+
+        void doAddArtwork();
+        void doAddArtist();
     }
 
     interface Model {

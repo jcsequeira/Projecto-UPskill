@@ -74,7 +74,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         MenuItem visualizarEventosItem = new MenuItem("Visualizar Eventos");
         MenuItem visualizarSlideshowItem = new MenuItem("Visualizar Slideshow");
 
-        //SeparatorMenuItem separatorExplorar = new SeparatorMenuItem();
         explorarMenu.getItems().addAll(pesquisarItem, visualizarOAItem, visualizarArtistasItem,
                 visualizarEventosItem, visualizarSlideshowItem);
 
@@ -160,9 +159,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         });
         //TO DO slideshow
 
+
         //Events menu Gerir Obras de Arte
         adicionarOAItem.setOnAction(event -> {
             myPresenter.doAddArtwork();
+        });
+
+
+        //Events menu Gerir Artistas
+        adicionarArtistaItem.setOnAction(event -> {
+            myPresenter.doAddArtist();
         });
 
 

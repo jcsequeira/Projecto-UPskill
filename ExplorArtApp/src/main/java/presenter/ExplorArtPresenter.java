@@ -37,10 +37,8 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     @Override
     public void doAddArtwork() {
-
         Obra_Arte obraArte = new Obra_Arte();
         view.showAddArtworkForm(obraArte);
-
     }
 
     @Override
@@ -60,8 +58,13 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void addArtist(Artista artista) throws IOException {
-        model.addArtist(artista);
+    public void addArtist() {
+    }
+
+    @Override
+    public void doAddArtist() {
+        Artista artista = new Artista();
+        view.showAddArtistForm();
     }
 
     @Override
