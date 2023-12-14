@@ -32,19 +32,8 @@ public class ExplorArtApp extends Application {
 
         primaryStage.setOnCloseRequest(event -> RunServerAPI.stopServer());
 
-        /*
-        Evento evento = new Evento(
-                1,                        // id_Expo
-                "Art Exhibition",         // Nome
-                LocalDate.of(2023, 1, 1), // Data_inicio
-                LocalDate.of(2023, 1, 15),// Data_Fim
-                "A wonderful art event",  // Descricao
-                101,                      // id_Galeria
-                1                         // IsArtsy
-        );
 
-        presenter.addShow(evento);
-        */
+
 
     }
 }
