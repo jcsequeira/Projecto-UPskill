@@ -60,8 +60,8 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void addArtist(Artista artista) {
-
+    public void addArtist(Artista artista) throws IOException {
+        model.addArtist(artista);
     }
 
     @Override
