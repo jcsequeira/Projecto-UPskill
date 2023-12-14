@@ -14,6 +14,11 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public void addArtist(Artista artista) {
+
+    }
+
+    @Override
     public List<Obra_Arte> getArtworks() throws IOException {
         // Lógica para obter obras de arte
         return ApiService.getAllItems("http://localhost:4567/api/obrasarte", Obra_Arte.class);

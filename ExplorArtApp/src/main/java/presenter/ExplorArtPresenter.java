@@ -53,10 +53,6 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     }
 
-    @Override
-    public void updateArtwork() {
-
-    }
 
     @Override
     public void deativateArtwork() {
@@ -64,7 +60,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void addArtist() {
+    public void addArtist(Artista artista) {
 
     }
 
