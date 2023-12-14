@@ -181,6 +181,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             myPresenter.doAddGalerist();
         });
 
+        //Events menu Gerir Galerias
+        adicionarGaleriaItem.setOnAction(event -> {
+            myPresenter.doAddGaleria();
+        });
 
         //Events menu Admin
         addColaboradorItem.setOnAction(event -> {
@@ -408,7 +412,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     @Override
     public void showAddArtworkForm(Obra_Arte obraArte) {
         Stage addArtworkFormStage = new Stage();
-        addArtworkFormStage.setTitle("Nova Obra de Arte");
+        addArtworkFormStage.setTitle("Nova obra de arte");
 
         // Create a new view or dialog to display the details of the Art Work
         Scene scene = new Scene(new AddArtworkFormView(obraArte));
@@ -428,7 +432,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     @Override
     public void showAddArtistForm(Artista artista) {
         Stage addArtistFormStage = new Stage();
-        addArtistFormStage.setTitle("Novo Artista");
+        addArtistFormStage.setTitle("Novo artista");
 
 
         // Create a new view or dialog to display the details of the Artist
@@ -449,7 +453,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     @Override
     public void showAddShowForm(Evento evento){
         Stage addShowFormStage = new Stage();
-        addShowFormStage.setTitle("Novo Evento");
+        addShowFormStage.setTitle("Novo evento");
 
 
         // Create a new view or dialog to display the details of the Artist
@@ -470,7 +474,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     @Override
     public void showAddGalleristForm(Galerista galerista) {
         Stage addGalleristFormStage = new Stage();
-        addGalleristFormStage.setTitle("Novo Galerista");
+        addGalleristFormStage.setTitle("Novo galerista");
 
 
         // Create a new view or dialog to display the details of the Artist
@@ -491,7 +495,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     @Override
     public void showAddColaboradorForm(Colaborador colaborador) {
         Stage addColaboradorFormStage = new Stage();
-        addColaboradorFormStage.setTitle("Novo Colaborador");
+        addColaboradorFormStage.setTitle("Novo colaborador");
 
 
         // Create a new view or dialog to display the details of the Artist
@@ -507,6 +511,27 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addColaboradorFormStage.sizeToScene();
 
         addColaboradorFormStage.show();
+    }
+
+    @Override
+    public void showAddGalleryForm(Galeria galeria) {
+        Stage addGalleryFormStage = new Stage();
+        addGalleryFormStage.setTitle("Nova galeria");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddGalleryFormView(galeria));
+
+        addGalleryFormStage.setScene(scene);
+        addGalleryFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addGalleryFormStage.initOwner(this.getScene().getWindow());
+        addGalleryFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addGalleryFormStage.sizeToScene();
+
+        addGalleryFormStage.show();
     }
 
 

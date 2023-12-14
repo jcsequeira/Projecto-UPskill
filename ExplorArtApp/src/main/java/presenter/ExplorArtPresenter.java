@@ -107,6 +107,12 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
+    public void doAddGaleria() {
+        Galeria galeria = new Galeria();
+        view.showAddGalleryForm(galeria);
+    }
+
+    @Override
     public void updateShow() {
         //TODO
     }

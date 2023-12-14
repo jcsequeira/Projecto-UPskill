@@ -39,7 +39,7 @@ public class AddColaboradorFormView extends Parent {
         gridPane.add(emailLabel, 0, 1);
         gridPane.add(emailField, 1, 1);
 
-        // Telefone do Evento
+        // Telefone do colaborador
         Label telefoneLabel = new Label("Telefone:");
         TextField telefoneField = new TextField();
         gridPane.add(telefoneLabel, 0, 2);

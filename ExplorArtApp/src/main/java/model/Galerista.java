@@ -1,5 +1,8 @@
 package model;
 
+import apiservice.ApiService;
+
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class Galerista {
@@ -38,5 +41,15 @@ public class Galerista {
 
     public void setId_colaborador(int id_colaborador) {
         this.id_colaborador = id_colaborador;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return String.valueOf(ApiService.getItem("http://localhost:4567/api/colaboradores/" + id_colaborador,
+                    Colaborador.class));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

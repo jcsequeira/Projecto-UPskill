@@ -28,4 +28,9 @@ public class Cidade {
     public void setNome_Cidade(String nome_Cidade) {
         Nome_Cidade = nome_Cidade;
     }
+
+    @Override
+    public String toString() {
+        return Nome_Cidade;
+    }
 }
