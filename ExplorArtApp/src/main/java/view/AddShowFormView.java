@@ -54,7 +54,7 @@ public class AddShowFormView extends Parent {
 
         // Galeria
         Label galleryLabel = new Label("Galeria:");
-        List<Galeria> galleryList = null;
+        List<Galeria> galleryList;
         ExplorArtModel modelAux = new ExplorArtModel();
         try {
             galleryList = modelAux.getGalleries();

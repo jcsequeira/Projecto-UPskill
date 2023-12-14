@@ -93,9 +93,15 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void doAddGallerist() {
+    public void doAddGalerist() {
         Galerista galerista = new Galerista();
         view.showAddGalleristForm(galerista);
+    }
+
+    @Override
+    public void doAddColaborador() {
+        Colaborador colaborador = new Colaborador();
+        view.showAddColaboradorForm(colaborador);
     }
 
     @Override

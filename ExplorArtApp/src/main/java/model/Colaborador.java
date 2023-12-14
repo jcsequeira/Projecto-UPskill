@@ -58,6 +58,11 @@ public class Colaborador {
     public void setCodigo_Pais(int codigo_Pais) {
         Codigo_Pais = codigo_Pais;
     }
+
+    @Override
+    public String toString() {
+        return Nome_Colaborador;
+    }
 }
 
 

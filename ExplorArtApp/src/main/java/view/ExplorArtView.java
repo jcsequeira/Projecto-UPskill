@@ -129,10 +129,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         //Menu Admin
         Menu adminMenu = new Menu("Admin");
-        MenuItem popularBD = new MenuItem("Importar Dados da Artsy API");
-        MenuItem limparBD = new MenuItem("Limpar Dados da Artsy API");
-        MenuItem addColaborador = new MenuItem("Adicionar colaborador");
-        adminMenu.getItems().addAll(popularBD,limparBD, addColaborador);
+        MenuItem popularBdItem = new MenuItem("Importar Dados da Artsy API");
+        MenuItem limparBdItem = new MenuItem("Limpar Dados da Artsy API");
+        MenuItem addColaboradorItem = new MenuItem("Adicionar colaborador");
+        adminMenu.getItems().addAll(popularBdItem,limparBdItem, addColaboradorItem);
 
         // Events
         //Events menu Exlporar
@@ -166,7 +166,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             myPresenter.doAddArtwork();
         });
 
-
         //Events menu Gerir Artistas
         adicionarArtistaItem.setOnAction(event -> {
             myPresenter.doAddArtist();
@@ -179,7 +178,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         //Events menu Gerir Galeristas
         adicionarGaleristaItem.setOnAction(event -> {
-            myPresenter.doAddGallerist();
+            myPresenter.doAddGalerist();
+        });
+
+
+        //Events menu Admin
+        addColaboradorItem.setOnAction(event -> {
+            myPresenter.doAddColaborador();
         });
 
 
@@ -481,6 +486,27 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addGalleristFormStage.sizeToScene();
 
         addGalleristFormStage.show();
+    }
+
+    @Override
+    public void showAddColaboradorForm(Colaborador colaborador) {
+        Stage addColaboradorFormStage = new Stage();
+        addColaboradorFormStage.setTitle("Novo Colaborador");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddColaboradorFormView(colaborador));
+
+        addColaboradorFormStage.setScene(scene);
+        addColaboradorFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addColaboradorFormStage.initOwner(this.getScene().getWindow());
+        addColaboradorFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addColaboradorFormStage.sizeToScene();
+
+        addColaboradorFormStage.show();
     }
 
 
