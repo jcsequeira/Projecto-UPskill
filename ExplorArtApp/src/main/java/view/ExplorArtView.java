@@ -131,7 +131,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         Menu adminMenu = new Menu("Admin");
         MenuItem popularBD = new MenuItem("Importar Dados da Artsy API");
         MenuItem limparBD = new MenuItem("Limpar Dados da Artsy API");
-        adminMenu.getItems().addAll(popularBD,limparBD);
+        MenuItem addColaborador = new MenuItem("Adicionar colaborador");
+        adminMenu.getItems().addAll(popularBD,limparBD, addColaborador);
 
         // Events
         //Events menu Exlporar
@@ -174,6 +175,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         //Events menu Gerir Eventos
         adicionarEventoItem.setOnAction(event -> {
             myPresenter.doAddShow();
+        });
+
+        //Events menu Gerir Galeristas
+        adicionarGaleristaItem.setOnAction(event -> {
+            myPresenter.doAddGallerist();
         });
 
 
@@ -454,6 +460,27 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addShowFormStage.sizeToScene();
 
         addShowFormStage.show();
+    }
+
+    @Override
+    public void showAddGalleristForm(Galerista galerista) {
+        Stage addGalleristFormStage = new Stage();
+        addGalleristFormStage.setTitle("Novo Galerista");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddGalleristFormView(galerista));
+
+        addGalleristFormStage.setScene(scene);
+        addGalleristFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addGalleristFormStage.initOwner(this.getScene().getWindow());
+        addGalleristFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addGalleristFormStage.sizeToScene();
+
+        addGalleristFormStage.show();
     }
 
 

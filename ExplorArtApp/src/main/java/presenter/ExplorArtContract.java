@@ -31,6 +31,7 @@ public interface ExplorArtContract {
 
         void showAddShowForm(Evento evento);
 
+        void showAddGalleristForm(Galerista galerista);
     }
 
     interface Presenter {
@@ -68,6 +69,7 @@ public interface ExplorArtContract {
         void doAddArtwork();
         void doAddArtist();
         void doAddShow();
+        void doAddGallerist();
     }
 
     interface Model {
