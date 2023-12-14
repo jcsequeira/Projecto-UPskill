@@ -46,16 +46,18 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
         model.addArtwork(obraArte);
     }
 
-    @Override
-    public void ativateArtwork() {
-        // TODO
-    }
 
 
     @Override
-    public void deativateArtwork() {
-        //TODO
+    public void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
+        model.ativateArtwork(artworkId, obraArte);
     }
+
+    @Override
+    public void deativateArtwork(int artworkId, Obra_Arte obraArte) {
+        model.deativateArtwork(artworkId, obraArte);
+    }
+
 
     @Override
     public void addArtist(Artista artista) throws IOException {

@@ -44,8 +44,8 @@ public interface ExplorArtContract {
         //OrbaArte
         void exploreArtworks() throws IOException;
         void addArtwork(Obra_Arte obraArte) throws IOException;
-        void ativateArtwork();
-        void deativateArtwork();
+        void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
+        void deativateArtwork(int artworkId, Obra_Arte obraArte);
         //Eventos
         void exploreEvents() throws IOException;
         void addShow(Evento evento) throws IOException;
@@ -83,6 +83,8 @@ public interface ExplorArtContract {
         //ObraArte
         List<Obra_Arte> getArtworks() throws IOException;
         void addArtwork(Obra_Arte obraArte) throws IOException;
+        void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
+        void deativateArtwork(int artworkId, Obra_Arte obraArte);
         //Eventos
         List<Evento> getEvents() throws IOException;
         void addShow(Evento evento) throws IOException;
@@ -110,6 +112,7 @@ public interface ExplorArtContract {
         List<Colaborador> getColaboradores() throws IOException;
         void addColaborador(Colaborador colaborador) throws IOException;
         List<Pais> getPaises() throws IOException;
+        List<Cidade> getCidades() throws IOException;
     }
 }
 

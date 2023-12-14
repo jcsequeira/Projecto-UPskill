@@ -30,6 +30,16 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
+        ApiService.putToRestApi("http://localhost:4567/api/obrasarte/" + artworkId,obraArte);
+    }
+
+    @Override
+    public void deativateArtwork(int artworkId, Obra_Arte obraArte) {
+
+    }
+
+    @Override
     public List<Evento> getEvents() throws IOException {
         // Lógica para obter eventos
         return ApiService.getAllItems("http://localhost:4567/api/eventos", Evento.class);
@@ -115,6 +125,11 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     @Override
     public List<Pais> getPaises() throws IOException{
         return ApiService.getAllItems("http://localhost:4567/api/paises", Pais.class);
+    }
+
+    @Override
+    public List<Cidade> getCidades() throws IOException {
+        return ApiService.getAllItems("http://localhost:4567/api/cidades", Cidade.class);
     }
 
 }
