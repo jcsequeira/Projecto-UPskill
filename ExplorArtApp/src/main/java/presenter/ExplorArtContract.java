@@ -42,7 +42,7 @@ public interface ExplorArtContract {
 
         void ativateArtwork();
         void deativateArtwork();
-        void addArtist(Artista artista);
+        void addArtist(Artista artista) throws IOException;
         void updateArtist();
         void removeArtist();
         void addShow();
