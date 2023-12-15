@@ -36,6 +36,10 @@ public interface ExplorArtContract {
         void showAddColaboradorForm(Colaborador colaborador);
 
         void showAddGalleryForm(Galeria galeria);
+
+        void showUpdateArtworks(List<Obra_Arte> obras);
+
+        void showUpdateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
     }
 
     interface Presenter {
@@ -71,14 +75,15 @@ public interface ExplorArtContract {
         //View do's MenusActions
         void doArtistDetails(Artista artista);
         void doArtworkDetails(Obra_Arte obraArte) throws IOException;
-
-
         void doAddArtwork();
+        void doUpdateArtwork() throws IOException;
         void doAddArtist();
         void doAddShow();
         void doAddGalerist();
         void doAddColaborador();
         void doAddGaleria();
+
+        void doUpdateArtworkDetails(Obra_Arte obraArte) throws IOException;
     }
 
     interface Model {

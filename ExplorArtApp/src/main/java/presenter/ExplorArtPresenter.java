@@ -42,6 +42,12 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
+    public void doUpdateArtwork() throws IOException {
+        List<Obra_Arte> obras = model.getArtworks();
+        view.showUpdateArtworks(obras);
+    }
+
+    @Override
     public void addArtwork(Obra_Arte obraArte) throws IOException {
         model.addArtwork(obraArte);
     }
@@ -127,6 +133,36 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     public void doAddGaleria() {
         Galeria galeria = new Galeria();
         view.showAddGalleryForm(galeria);
+    }
+
+    @Override
+    public void doUpdateArtworkDetails(Obra_Arte obraArte) throws IOException {
+        ExplorArtModel model = new ExplorArtModel();
+
+        int idArtista = obraArte.getId_artista();
+        int idTecnica = obraArte.getId_Tecnica();
+        int idMovimento = obraArte.getId_Estilo();
+        int idMaterial = obraArte.getId_Material();
+
+        Artista artista = null;
+        Tecnica tecnica = null;
+        Movimento movimento = null;
+        Materiais material = null;
+
+        // Retrieve artist information
+        artista = model.getArtistById(idArtista);
+
+        // Retrieve technique information
+        tecnica = model.getTechniqueById(idTecnica);
+
+        // Retrieve movement information
+        movimento = model.getMovementById(idMovimento);
+
+        // Retrieve material information
+        material = model.getMaterialById(idMaterial);
+
+        // Display the artwork details along with additional information
+        view.showUpdateArtworkDetails(obraArte, artista, tecnica, movimento, material);
     }
 
     @Override

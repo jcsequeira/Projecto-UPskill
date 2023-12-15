@@ -165,7 +165,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         adicionarOAItem.setOnAction(event -> {
             myPresenter.doAddArtwork();
         });
-
+        alterarOAItem.setOnAction(event -> {
+            try {
+                myPresenter.doUpdateArtwork();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         //Events menu Gerir Artistas
         adicionarArtistaItem.setOnAction(event -> {
             myPresenter.doAddArtist();
@@ -532,6 +538,58 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addGalleryFormStage.sizeToScene();
 
         addGalleryFormStage.show();
+    }
+
+    @Override
+    public void showUpdateArtworks(List<Obra_Arte> obras) {
+        if (obras.isEmpty()){
+            showEmptyListMessage("Obras de Arte");
+        }
+        else {
+            listView.getItems().clear();
+            for (Obra_Arte obraArte : obras) {
+                if (obraArte.getIsActive()==1) listView.getItems().add(obraArte.getTitulo());
+            }
+            // Add an event handler to handle item click
+            listView.setOnMouseClicked(event -> {
+                String selectedArtworkTitle = listView.getSelectionModel().getSelectedItem();
+                if (selectedArtworkTitle != null) {
+                    // Find the corresponding Show object
+                    Optional<Obra_Arte> selectedArtwork = obras.stream()
+                            .filter(obraArte -> obraArte.getTitulo().equals(selectedArtworkTitle))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doUpdateArtworkDetails(selectedArtwork.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            });
+        }
+
+    }
+
+    @Override
+    public void showUpdateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
+        Stage artworkUpdateDetailsStage = new Stage();
+        artworkUpdateDetailsStage.setTitle("Detalhes da Obra de Arte");
+
+
+        Scene sceneArtworkUpdate = new Scene(new UpdateArtworkFormView(obraArte, artista, tecnica, movimento, material));
+
+        artworkUpdateDetailsStage.setScene(sceneArtworkUpdate);
+        artworkUpdateDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        artworkUpdateDetailsStage.initOwner(this.getScene().getWindow());
+        artworkUpdateDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        artworkUpdateDetailsStage.sizeToScene();
+
+        artworkUpdateDetailsStage.show();
+
     }
 
 
