@@ -41,8 +41,13 @@ public class ArtworkDetailsViewFull extends Parent {
         VBox detailsLayout = new VBox(10);
         detailsLayout.setPadding(new Insets(20));
 
+        ImageView imageView;
+        Image image = new Image(getClass().getResource("/no_image.png").toExternalForm());
         //Display image
-        ImageView imageView = new ImageView(new Image(obraArte.getLink_Imagem()));
+        try { imageView = new ImageView(new Image(obraArte.getLink_Imagem()));
+        }catch (IllegalArgumentException | NullPointerException e) {
+             imageView = new ImageView(image);
+        }
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(Region.USE_COMPUTED_SIZE);
         imageView.setFitHeight(Region.USE_COMPUTED_SIZE);
