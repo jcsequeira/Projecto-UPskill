@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import model.*;
+import presenter.ExplorArtPresenter;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class UpdateArtworkFormView extends Parent {
     private Movimento movimento;
     private Materiais material;
 
+    private ExplorArtPresenter myPresenter;
     private ComboBox<Artista> artistaComboBox;
     private ObservableList<Artista> artistaObservableList;
     private ComboBox<Tecnica> tecnicaComboBox;
@@ -44,13 +46,14 @@ public class UpdateArtworkFormView extends Parent {
     }
 
     private void doLayout(Obra_Arte obraArte) {
+        myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
 
         // Título
-        Label titleLabel = new Label("Títuloooooooooooooooooo:");
+        Label titleLabel = new Label("Título:");
         TextField titleField = new TextField(obraArte.getTitulo());
         gridPane.add(titleLabel, 0, 0);
         gridPane.add(titleField, 1, 0);
@@ -67,7 +70,40 @@ public class UpdateArtworkFormView extends Parent {
         gridPane.add(creationYearLabel, 0, 2);
         gridPane.add(creationYearPicker, 1, 2);
 
-        // ... (Other fields)
+        // Outro campo
+        Label precoLabel = new Label("Preço:");
+        TextField precoField = new TextField(String.valueOf(obraArte.getPreco()));
+        gridPane.add(precoLabel, 0, 3);
+        gridPane.add(precoField, 1, 3);
+
+// Outro campo
+        Label alturaLabel = new Label("Altura:");
+        TextField alturaField = new TextField(String.valueOf(obraArte.getAltura()));
+        gridPane.add(alturaLabel, 0, 4);
+        gridPane.add(alturaField, 1, 4);
+
+// Outro campo
+        Label larguraLabel = new Label("Largura:");
+        TextField larguraField = new TextField(String.valueOf(obraArte.getLargura()));
+        gridPane.add(larguraLabel, 0, 5);
+        gridPane.add(larguraField, 1, 5);
+
+// Outro campo
+        Label profundidadeLabel = new Label("Profundidade:");
+        TextField profundidadeField = new TextField(String.valueOf(obraArte.getProfundidade()));
+        gridPane.add(profundidadeLabel, 0, 6);
+        gridPane.add(profundidadeField, 1, 6);
+
+// Outro campo
+        Label diametroLabel = new Label("Diâmetro:");
+        TextField diametroField = new TextField(String.valueOf(obraArte.getDiametro()));
+        gridPane.add(diametroLabel, 0, 7);
+        gridPane.add(diametroField, 1, 7);
+
+// Outro campo
+        Label zoomInLabel = new Label("(Clique na imagem para ampliar)");
+        gridPane.add(zoomInLabel, 0, 8, 2, 1);
+
 
         // ID do Artista
         Label artistIdLabel = new Label("Artista:");
@@ -103,25 +139,41 @@ public class UpdateArtworkFormView extends Parent {
         Button updateButton = new Button("Atualizar Obra de Arte");
         updateButton.setOnAction(event -> {
             try {
+                // Criar alerta de confirmação
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Alterar Obra de Arte");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar as alterações à Arte?");
+                confirmationAlert.setContentText("Ao confirmar, a Obra de Arte será atualizada na Base de Dados.");
+
+                // Obter o resultado da confirmação
+                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+
                 // Update the artwork information here
-                obraArte.setTitulo(titleField.getText());
-                obraArte.setAno_Criacao(creationYearPicker.getValue());
-                obraArte.setLink_Imagem(imageLinkField.getText());
-                // ... (Update other fields)
+                if (result == ButtonType.OK) {
+                    obraArte.setTitulo(titleField.getText());
+                    obraArte.setAno_Criacao(creationYearPicker.getValue());
+                    obraArte.setLink_Imagem(imageLinkField.getText());
+                    obraArte.setPreco(Float.parseFloat(precoField.getText()));
+                    obraArte.setAltura(Float.parseFloat(alturaField.getText()));
+                    obraArte.setLargura(Float.parseFloat(larguraField.getText()));
+                    obraArte.setProfundidade(Float.parseFloat(profundidadeField.getText()));
+                    obraArte.setDiametro(Float.parseFloat(diametroField.getText()));
+                    obraArte.setId_artista((int) artistaComboBox.getSelectionModel().getSelectedItem().getId_artista());
+                    obraArte.setId_Tecnica(tecnicaComboBox.getSelectionModel().getSelectedItem().getId_Tecnica());
+                    obraArte.setId_Estilo(movimentoComboBox.getSelectionModel().getSelectedItem().getId_Estilo());
+                    obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
 
-                obraArte.setId_artista((int) artistaComboBox.getSelectionModel().getSelectedItem().getId_artista());
-                obraArte.setId_Tecnica(tecnicaComboBox.getSelectionModel().getSelectedItem().getId_Tecnica());
-                obraArte.setId_Estilo(movimentoComboBox.getSelectionModel().getSelectedItem().getId_Estilo());
-                obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
+                    // Update the artwork using the presenter or model
+                     myPresenter.modifyArtwork(obraArte.getId_Obra_Arte(),obraArte);
 
-                // Update the artwork using the presenter or model
-                // myPresenter.updateArtwork(obraArte);
-
-                // Close the window
-                getScene().getWindow().hide();
+                    // Close the window
+                    getScene().getWindow().hide();
+                }
 
             } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
         gridPane.add(updateButton, 0, 13, 2, 1);
