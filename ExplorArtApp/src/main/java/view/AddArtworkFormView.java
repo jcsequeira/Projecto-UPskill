@@ -203,6 +203,7 @@ public class AddArtworkFormView extends Parent {
                 obraArte.setId_Tecnica(tecnicaComboBox.getSelectionModel().getSelectedItem().getId_Tecnica());
                 obraArte.setId_Estilo(movimentoComboBox.getSelectionModel().getSelectedItem().getId_Estilo());
                 obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
+                obraArte.setLink_Imagem(imageLinkField.getText());
 
                 myPresenter.addArtwork(obraArte);
 
