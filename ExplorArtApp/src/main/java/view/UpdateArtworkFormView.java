@@ -70,37 +70,37 @@ public class UpdateArtworkFormView extends Parent {
         gridPane.add(creationYearLabel, 0, 2);
         gridPane.add(creationYearPicker, 1, 2);
 
-        // Outro campo
+        // Preço
         Label precoLabel = new Label("Preço:");
         TextField precoField = new TextField(String.valueOf(obraArte.getPreco()));
         gridPane.add(precoLabel, 0, 3);
         gridPane.add(precoField, 1, 3);
 
-// Outro campo
+        // Altura
         Label alturaLabel = new Label("Altura:");
         TextField alturaField = new TextField(String.valueOf(obraArte.getAltura()));
         gridPane.add(alturaLabel, 0, 4);
         gridPane.add(alturaField, 1, 4);
 
-// Outro campo
+        // Largura
         Label larguraLabel = new Label("Largura:");
         TextField larguraField = new TextField(String.valueOf(obraArte.getLargura()));
         gridPane.add(larguraLabel, 0, 5);
         gridPane.add(larguraField, 1, 5);
 
-// Outro campo
+        // Profundidade
         Label profundidadeLabel = new Label("Profundidade:");
         TextField profundidadeField = new TextField(String.valueOf(obraArte.getProfundidade()));
         gridPane.add(profundidadeLabel, 0, 6);
         gridPane.add(profundidadeField, 1, 6);
 
-// Outro campo
+        // diametro
         Label diametroLabel = new Label("Diâmetro:");
         TextField diametroField = new TextField(String.valueOf(obraArte.getDiametro()));
         gridPane.add(diametroLabel, 0, 7);
         gridPane.add(diametroField, 1, 7);
 
-// Outro campo
+        // zoom in
         Label zoomInLabel = new Label("(Clique na imagem para ampliar)");
         gridPane.add(zoomInLabel, 0, 8, 2, 1);
 
@@ -136,13 +136,13 @@ public class UpdateArtworkFormView extends Parent {
         getChildren().add(gridPane);
 
         // Botão "Atualizar" e respetiva lógica
-        Button updateButton = new Button("Atualizar Obra de Arte");
+        Button updateButton = new Button("Modificar Obra de Arte");
         updateButton.setOnAction(event -> {
             try {
                 // Criar alerta de confirmação
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmationAlert.setTitle("Alterar Obra de Arte");
-                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar as alterações à Arte?");
+                confirmationAlert.setTitle("Modificar Obra de Arte");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar as alterações na obra de arte?");
                 confirmationAlert.setContentText("Ao confirmar, a Obra de Arte será atualizada na Base de Dados.");
 
                 // Obter o resultado da confirmação

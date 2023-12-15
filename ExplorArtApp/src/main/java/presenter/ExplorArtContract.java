@@ -40,6 +40,10 @@ public interface ExplorArtContract {
         void showUpdateArtworks(List<Obra_Arte> obras);
 
         void showUpdateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
+
+        void showUpdateArtist(List<Artista> artistas);
+
+        void showUpdateArtistDetails(Artista artista);
     }
 
     interface Presenter {
@@ -84,6 +88,10 @@ public interface ExplorArtContract {
         void doAddGaleria();
 
         void doUpdateArtworkDetails(Obra_Arte obraArte) throws IOException;
+
+        void doUpdateArtist() throws IOException;
+
+        void doUpdateArtistDetails(Artista artista) throws IOException;
     }
 
     interface Model {
@@ -130,6 +138,9 @@ public interface ExplorArtContract {
         //Utils
         List<Colaborador> getColaboradores() throws IOException;
         void addColaborador(Colaborador colaborador) throws IOException;
+
+        Pais getPaisById(int codigoPais) throws IOException;
+
         List<Pais> getPaises() throws IOException;
         List<Cidade> getCidades() throws IOException;
 

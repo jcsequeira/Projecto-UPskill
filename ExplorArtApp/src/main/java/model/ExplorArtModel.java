@@ -164,6 +164,11 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public Pais getPaisById(int codigoPais) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/paises/" + codigoPais, Pais.class);
+    }
+
+    @Override
     public List<Pais> getPaises() throws IOException {
         return ApiService.getAllItems("http://localhost:4567/api/paises", Pais.class);
     }

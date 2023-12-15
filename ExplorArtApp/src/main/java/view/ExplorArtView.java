@@ -83,10 +83,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         Menu gerirOAMenu = new Menu("Gerir Obras de Arte");
         MenuItem adicionarOAItem = new MenuItem("Adicionar Obra de Arte");
         MenuItem ativarOAItem = new MenuItem("Ativar Obra de Arte");
-        MenuItem alterarOAItem = new MenuItem("Alterar Obra de Arte");
+        MenuItem modificarOAItem = new MenuItem("Modificar Obra de Arte");
         MenuItem desativarOAItem = new MenuItem("Desativar Obra de Arte");
 
-        gerirOAMenu.getItems().addAll(adicionarOAItem, ativarOAItem, alterarOAItem, desativarOAItem);
+        gerirOAMenu.getItems().addAll(adicionarOAItem, ativarOAItem, modificarOAItem, desativarOAItem);
 
 
         //Menu Artistas
@@ -134,6 +134,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         MenuItem addColaboradorItem = new MenuItem("Adicionar colaborador");
         adminMenu.getItems().addAll(popularBdItem,limparBdItem, addColaboradorItem);
 
+        //--------------------------------------------------------------------------------------------------------------
         // Events
         //Events menu Exlporar
         visualizarOAItem.setOnAction(event -> {
@@ -160,44 +161,57 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         });
         //TO DO slideshow
 
-
+        //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Obras de Arte
         adicionarOAItem.setOnAction(event -> {
             myPresenter.doAddArtwork();
         });
-        alterarOAItem.setOnAction(event -> {
+        modificarOAItem.setOnAction(event -> {
             try {
                 myPresenter.doUpdateArtwork();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
+
+        //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Artistas
         adicionarArtistaItem.setOnAction(event -> {
             myPresenter.doAddArtist();
         });
+        modificarArtistaItem.setOnAction(event -> {
+            try {
+                myPresenter.doUpdateArtist();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
+        //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Eventos
         adicionarEventoItem.setOnAction(event -> {
             myPresenter.doAddShow();
         });
 
+        //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Galeristas
         adicionarGaleristaItem.setOnAction(event -> {
             myPresenter.doAddGalerist();
         });
 
+        //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Galerias
         adicionarGaleriaItem.setOnAction(event -> {
             myPresenter.doAddGaleria();
         });
 
+        //--------------------------------------------------------------------------------------------------------------
         //Events menu Admin
         addColaboradorItem.setOnAction(event -> {
             myPresenter.doAddColaborador();
         });
 
-
+        //--------------------------------------------------------------------------------------------------------------
         //Events- Menu Ajuda
         aboutItem.setOnAction(event -> showAbout());
         exitItem.setOnAction(event -> exitApplication());
@@ -209,44 +223,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         return menuBar;
     }
 
-    public void exitApplication() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Sair da ExplorArt");
-        alert.setHeaderText("Está prestes a encerrar a aplicação.");
-        alert.setContentText("Deseja continuar?");
 
-        alert.initOwner(this.getScene().getWindow());
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        result.ifPresent(buttonType -> {
-            if (buttonType == ButtonType.OK) {
-                //Platform.exit(); // Ends UI thread, allowing other threads to finish gracefully
-                System.exit(0);
-            } else {
-                // User chose CANCEL or closed the dialog
-                // Perform some action or display a message (e.g., show a message dialog)
-                Alert cancelAlert = new Alert(Alert.AlertType.INFORMATION);
-                cancelAlert.setTitle("Encerramento cancelado");
-                cancelAlert.setHeaderText("Encerramento abortado.");
-                cancelAlert.showAndWait();
-            }
-        });
-    }
-
-    public void showAbout(){
-        Stage aboutStage = new Stage();
-        aboutStage.setTitle("Sobre ExplorArt");
-        Scene scene = new Scene(new AboutView(), 400, 300);
-        aboutStage.setScene(scene);
-        aboutStage.setResizable(false);
-
-        aboutStage.initOwner(this.getScene().getWindow());
-        aboutStage.initModality(Modality.APPLICATION_MODAL);
-
-        aboutStage.show();
-    }
-
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Mostrar Listas - Menu Explorar *******
     @Override
     public void showArtists(List<Artista> artistas) {
         if (artistas.isEmpty()) {
@@ -273,7 +252,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             });
         }
     }
-
 
     @Override
     public void showArtworks(List<Obra_Arte> obras) {
@@ -352,7 +330,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         setCenter(emptyPane);
     }
 
-    // Method to display the details of the selected Artista in a new window
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Mostrar Detalhes - Menu Explorar *******
     public void showArtistDetails(Artista artista) {
         Stage addArtworkFormStage = new Stage();
         addArtworkFormStage.setTitle("Detalhes do Artista");
@@ -372,8 +351,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         addArtworkFormStage.show();
     }
-
-    // Method to display the details of the selected Eventos in a new window
     @Override
     public void showShowsDetails(Evento evento, Galeria galeria)  {
         Stage showDetailsStage = new Stage();
@@ -415,6 +392,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     }
 
+
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Menu Gerir Obra Arte *******
     @Override
     public void showAddArtworkForm(Obra_Arte obraArte) {
         Stage addArtworkFormStage = new Stage();
@@ -436,114 +416,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     @Override
-    public void showAddArtistForm(Artista artista) {
-        Stage addArtistFormStage = new Stage();
-        addArtistFormStage.setTitle("Novo artista");
-
-
-        // Create a new view or dialog to display the details of the Artist
-        Scene scene = new Scene(new AddArtistaFormView(artista));
-
-        addArtistFormStage.setScene(scene);
-        addArtistFormStage.setResizable(true);
-
-        // Set the owner and modality to make it a modal dialog
-        addArtistFormStage.initOwner(this.getScene().getWindow());
-        addArtistFormStage.initModality(Modality.APPLICATION_MODAL);
-
-        addArtistFormStage.sizeToScene();
-
-        addArtistFormStage.show();
-    }
-
-    @Override
-    public void showAddShowForm(Evento evento){
-        Stage addShowFormStage = new Stage();
-        addShowFormStage.setTitle("Novo evento");
-
-
-        // Create a new view or dialog to display the details of the Artist
-        Scene scene = new Scene(new AddShowFormView(evento));
-
-        addShowFormStage.setScene(scene);
-        addShowFormStage.setResizable(true);
-
-        // Set the owner and modality to make it a modal dialog
-        addShowFormStage.initOwner(this.getScene().getWindow());
-        addShowFormStage.initModality(Modality.APPLICATION_MODAL);
-
-        addShowFormStage.sizeToScene();
-
-        addShowFormStage.show();
-    }
-
-    @Override
-    public void showAddGalleristForm(Galerista galerista) {
-        Stage addGalleristFormStage = new Stage();
-        addGalleristFormStage.setTitle("Novo galerista");
-
-
-        // Create a new view or dialog to display the details of the Artist
-        Scene scene = new Scene(new AddGalleristFormView(galerista));
-
-        addGalleristFormStage.setScene(scene);
-        addGalleristFormStage.setResizable(true);
-
-        // Set the owner and modality to make it a modal dialog
-        addGalleristFormStage.initOwner(this.getScene().getWindow());
-        addGalleristFormStage.initModality(Modality.APPLICATION_MODAL);
-
-        addGalleristFormStage.sizeToScene();
-
-        addGalleristFormStage.show();
-    }
-
-    @Override
-    public void showAddColaboradorForm(Colaborador colaborador) {
-        Stage addColaboradorFormStage = new Stage();
-        addColaboradorFormStage.setTitle("Novo colaborador");
-
-
-        // Create a new view or dialog to display the details of the Artist
-        Scene scene = new Scene(new AddColaboradorFormView(colaborador));
-
-        addColaboradorFormStage.setScene(scene);
-        addColaboradorFormStage.setResizable(true);
-
-        // Set the owner and modality to make it a modal dialog
-        addColaboradorFormStage.initOwner(this.getScene().getWindow());
-        addColaboradorFormStage.initModality(Modality.APPLICATION_MODAL);
-
-        addColaboradorFormStage.sizeToScene();
-
-        addColaboradorFormStage.show();
-    }
-
-    @Override
-    public void showAddGalleryForm(Galeria galeria) {
-        Stage addGalleryFormStage = new Stage();
-        addGalleryFormStage.setTitle("Nova galeria");
-
-
-        // Create a new view or dialog to display the details of the Artist
-        Scene scene = new Scene(new AddGalleryFormView(galeria));
-
-        addGalleryFormStage.setScene(scene);
-        addGalleryFormStage.setResizable(true);
-
-        // Set the owner and modality to make it a modal dialog
-        addGalleryFormStage.initOwner(this.getScene().getWindow());
-        addGalleryFormStage.initModality(Modality.APPLICATION_MODAL);
-
-        addGalleryFormStage.sizeToScene();
-
-        addGalleryFormStage.show();
-    }
-
-    @Override
     public void showUpdateArtworks(List<Obra_Arte> obras) {
         if (obras.isEmpty()){
-            showEmptyListMessage("Obras de Arte");
+            showEmptyListMessage("Obra de Arte");
         }
         else {
             listView.getItems().clear();
@@ -568,7 +443,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 }
             });
         }
-
     }
 
     @Override
@@ -589,8 +463,218 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artworkUpdateDetailsStage.sizeToScene();
 
         artworkUpdateDetailsStage.show();
+    }
+
+
+
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Menu Gerir Artistas *******
+    @Override
+    public void showAddArtistForm(Artista artista) {
+        Stage addArtistFormStage = new Stage();
+        addArtistFormStage.setTitle("Novo artista");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddArtistaFormView(artista));
+
+        addArtistFormStage.setScene(scene);
+        addArtistFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addArtistFormStage.initOwner(this.getScene().getWindow());
+        addArtistFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addArtistFormStage.sizeToScene();
+
+        addArtistFormStage.show();
+    }
+
+    @Override
+    public void showUpdateArtist(List<Artista> artistas) {
+        if (artistas.isEmpty()){
+            showEmptyListMessage("Artista");
+        }
+        else {
+            listView.getItems().clear();
+            for (Artista artista : artistas) {
+                listView.getItems().add(artista.getNome_artista());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedArtistName = listView.getSelectionModel().getSelectedItem();
+                if (selectedArtistName != null) {
+                    // Find the corresponding Show object
+                    Optional<Artista> selectedArtista = artistas.stream()
+                            .filter(artista -> artista.getNome_artista().equals(selectedArtistName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doUpdateArtistDetails(selectedArtista.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showUpdateArtistDetails(Artista artista) {
+        Stage artistaUpdateDetailsStage = new Stage();
+        artistaUpdateDetailsStage.setTitle("Detalhes do artista");
+
+
+        Scene sceneArtistaUpdate = new Scene(new UpdateArtistaFormView(artista));
+
+        artistaUpdateDetailsStage.setScene(sceneArtistaUpdate);
+        artistaUpdateDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        artistaUpdateDetailsStage.initOwner(this.getScene().getWindow());
+        artistaUpdateDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        artistaUpdateDetailsStage.sizeToScene();
+
+        artistaUpdateDetailsStage.show();
 
     }
+
+
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Menu Gerir Eventos *******
+    @Override
+    public void showAddShowForm(Evento evento){
+        Stage addShowFormStage = new Stage();
+        addShowFormStage.setTitle("Novo evento");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddShowFormView(evento));
+
+        addShowFormStage.setScene(scene);
+        addShowFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addShowFormStage.initOwner(this.getScene().getWindow());
+        addShowFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addShowFormStage.sizeToScene();
+
+        addShowFormStage.show();
+    }
+
+
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Menu Galerista *******
+    @Override
+    public void showAddGalleristForm(Galerista galerista) {
+        Stage addGalleristFormStage = new Stage();
+        addGalleristFormStage.setTitle("Novo galerista");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddGalleristFormView(galerista));
+
+        addGalleristFormStage.setScene(scene);
+        addGalleristFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addGalleristFormStage.initOwner(this.getScene().getWindow());
+        addGalleristFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addGalleristFormStage.sizeToScene();
+
+        addGalleristFormStage.show();
+    }
+
+
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Menu Gerir Galeria *******
+    @Override
+    public void showAddGalleryForm(Galeria galeria) {
+        Stage addGalleryFormStage = new Stage();
+        addGalleryFormStage.setTitle("Nova galeria");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddGalleryFormView(galeria));
+
+        addGalleryFormStage.setScene(scene);
+        addGalleryFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addGalleryFormStage.initOwner(this.getScene().getWindow());
+        addGalleryFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addGalleryFormStage.sizeToScene();
+
+        addGalleryFormStage.show();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Menu Admin *******
+    @Override
+    public void showAddColaboradorForm(Colaborador colaborador) {
+        Stage addColaboradorFormStage = new Stage();
+        addColaboradorFormStage.setTitle("Novo colaborador");
+
+
+        // Create a new view or dialog to display the details of the Artist
+        Scene scene = new Scene(new AddColaboradorFormView(colaborador));
+
+        addColaboradorFormStage.setScene(scene);
+        addColaboradorFormStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        addColaboradorFormStage.initOwner(this.getScene().getWindow());
+        addColaboradorFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        addColaboradorFormStage.sizeToScene();
+
+        addColaboradorFormStage.show();
+    }
+
+
+    //------------------------------------------------------------------------------------------------------------------
+    //******* Menu Ajuda *******
+    public void exitApplication() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Sair da ExplorArt");
+        alert.setHeaderText("Está prestes a encerrar a aplicação.");
+        alert.setContentText("Deseja continuar?");
+
+        alert.initOwner(this.getScene().getWindow());
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        result.ifPresent(buttonType -> {
+            if (buttonType == ButtonType.OK) {
+                //Platform.exit(); // Ends UI thread, allowing other threads to finish gracefully
+                System.exit(0);
+            } else {
+                // User chose CANCEL or closed the dialog
+                // Perform some action or display a message (e.g., show a message dialog)
+                Alert cancelAlert = new Alert(Alert.AlertType.INFORMATION);
+                cancelAlert.setTitle("Encerramento cancelado");
+                cancelAlert.setHeaderText("Encerramento abortado.");
+                cancelAlert.showAndWait();
+            }
+        });
+    }
+
+    public void showAbout(){
+        Stage aboutStage = new Stage();
+        aboutStage.setTitle("Sobre ExplorArt");
+        Scene scene = new Scene(new AboutView(), 400, 300);
+        aboutStage.setScene(scene);
+        aboutStage.setResizable(false);
+
+        aboutStage.initOwner(this.getScene().getWindow());
+        aboutStage.initModality(Modality.APPLICATION_MODAL);
+
+        aboutStage.show();
+    }
+
 
 
     @Override
