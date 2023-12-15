@@ -32,6 +32,7 @@ public class LoaderMain {
 
         //Carrega uma lista de Obras de arte do artsy
         List<ArtsyArtwork> artsyArtworkList = LoadArtsyArtworksList();
+        artsyArtworkList = Utils.removeDuplicatesArtworksArtsy(artsyArtworkList);
         Thread.sleep(2000);
 
 
@@ -44,8 +45,9 @@ public class LoaderMain {
         //a partir da lista anterior cria um mapa que assegura que cada obra tem um artista obrigatoriamente
         HashMap<ArtsyArtwork, ArtsyArtist> matchMapArtist = matchMapArtsyArtworkArtist(artsyArtworkList);
         Thread.sleep(2000);
+
         //a partir da lista anterior cria um mapa que assegura que cada obra tem um genero obrigatoriamente
-        HashMap<ArtsyArtwork, ArtsyGene> matchMapGene = matchMapArtsyArtworkGene(artsyArtworkList);
+        HashMap<ArtsyArtwork, ArtsyGene> matchMapGene = matchMapArtsyArtworkGene(matchMapArtist);
         Thread.sleep(2000);
 
         System.out.println("Artistas: ");
@@ -75,16 +77,8 @@ public class LoaderMain {
         System.out.println("Eventos: ");
         populateEventos(matchMapShowPartner);
 
-     /*
-        List<ArtsyArtwork> artsyArtworkList = LoadArtsyArtworksList();
-        Thread.sleep(2000);
-        HashMap<ArtsyArtist,ArtsyArtwork> matchMapArtist = matchMapArtsyArtworkArtist(artsyArtworkList);
-        Thread.sleep(2000);
-        HashMap<ArtsyGene,ArtsyArtwork> matchMapGene = matchMapArtsyArtworkGene(artsyArtworkList);
-        List<ArtsyShow> artsyShowsList = LoadArtsyShowsList();
-        Thread.sleep(2000);
-        HashMap<ArtsyPartner,ArtsyShow> matchMapShowPartner = matchMapArtsyShowPartner(artsyShowsList);
-*/
+
+
 
         System.out.println("Update 1: Match Making IDs ");
         try {

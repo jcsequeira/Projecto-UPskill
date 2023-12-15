@@ -1,6 +1,7 @@
 package Utils;
 
 
+import artsymodel.ArtsyArtwork;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
@@ -102,6 +103,16 @@ public class Utils {
                 .collect(Collectors.toList());
     }
 
+    public static List<ArtsyArtwork> removeDuplicatesArtworksArtsy (List<ArtsyArtwork> artsyArtworkList) {
+        Set<String> uniqueArtworksTitle = new HashSet<>();
+        return artsyArtworkList.stream()
+                .filter(artwork -> {
+                    String title = artwork.getTitle();
+                    return title !=null && uniqueArtworksTitle.add(title);
+                })
+                .collect(Collectors.toList());
+    }
+
     public static List<ArtsyArtist> removeArtistsWithNullBirthdayAndEmptyNationality(List<ArtsyArtist> artists) {
         return artists.stream()
                 .filter(artist -> artist.getBirthday() != null && !Objects.equals(artist.getNationality(), ""))
@@ -123,6 +134,7 @@ public class Utils {
         } catch (SQLException sqlException) {
             handleSQLException(sqlException);
         }
+        artistIDs.remove(1,"System_Artist_User");
         return artistIDs;
     }
 

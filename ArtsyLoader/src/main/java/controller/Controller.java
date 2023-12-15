@@ -94,11 +94,11 @@ public class Controller {
         }
     return artistArtworkArtsyMap;}
 
-    public static HashMap<ArtsyArtwork, ArtsyGene> matchMapArtsyArtworkGene(List<ArtsyArtwork> artsyArtworksList) {
+    public static HashMap<ArtsyArtwork, ArtsyGene> matchMapArtsyArtworkGene(HashMap<ArtsyArtwork,ArtsyArtist> artistArtworkArtsyMap ) {
         HashMap<ArtsyArtwork, ArtsyGene> GeneArtworkArtsyMap = new HashMap<>();
-        for (ArtsyArtwork artsyArtwork : artsyArtworksList) {
+        for (Map.Entry<ArtsyArtwork,ArtsyArtist> entry : artistArtworkArtsyMap.entrySet()) {
             try {
-                GeneArtworkArtsyMap.put(artsyArtwork, getArtsyItem(artsyArtwork.getGenesHref(), ArtsyGene.class));
+                GeneArtworkArtsyMap.put(entry.getKey(), getArtsyItem(entry.getKey().getGenesHref(), ArtsyGene.class));
             } catch (RuntimeException | IOException ignored) { //ignore and keep iterating
             }
         }
@@ -130,7 +130,7 @@ public class Controller {
             HashMap<Integer, String> artistIDs = Utils.getAllIdArtistas(con);
             HashMap<Integer, Integer> idMatchUP = new HashMap<>();
             for (Map.Entry<ArtsyArtwork,ArtsyArtist> entry : matchMap.entrySet()) {
-                idMatchUP.put(getMatchId(entry.getKey().getTitle(), artworkIDs),getMatchId(entry.getValue().getName(), artistIDs));
+                idMatchUP.put(getMatchId(entry.getKey().toString(), artworkIDs),getMatchId(entry.getValue().toString(), artistIDs));
             }
             for (Map.Entry<Integer, Integer> entry : idMatchUP.entrySet()) {
                 Utils.updateObraArteArtistId(entry.getKey(), entry.getValue(), con);
@@ -150,6 +150,7 @@ public class Controller {
             for (Map.Entry<ArtsyArtwork,ArtsyArtist> entry : matchMap.entrySet()) {
                 obraMaterialMapIds.put(getMatchId(entry.getKey().getTitle(), artworkIDs), getMatchId(entry.getKey().getMedium(), MateriaisIDs));
             }
+
             for (Map.Entry<Integer, Integer> entry : obraMaterialMapIds.entrySet()) {
                 Utils.updateObraArteMaterialId(entry.getKey(), entry.getValue(), con);
             }
@@ -183,11 +184,9 @@ public class Controller {
             for (Map.Entry<ArtsyArtwork,ArtsyGene> entry : matchMapGene.entrySet()) {
                 MovimentoObraMap.put(getMatchId(entry.getKey().getTitle(), artworkIDs), getMatchId(entry.getValue().getName(), MovimentosIDs));
             }
-            System.out.println(MovimentoObraMap);
             for (Map.Entry<Integer, Integer> entry : MovimentoObraMap.entrySet()) {
                 Utils.updateObraArteMovimentoId(entry.getKey(), entry.getValue(), con);
             }
-
             System.out.println("Update com sucesso!");
         } catch (ServiceException e) {
             System.out.println("Erro ao atualizar Estilo Id na tabela Obras de Arte: " + e.getMessage());

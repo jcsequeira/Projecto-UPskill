@@ -90,6 +90,10 @@ public class ArtsyArtwork {
         }
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
 }
 
 

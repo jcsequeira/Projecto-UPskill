@@ -60,5 +60,8 @@ public class ArtsyArtist {
         this.nationality = nationality;
     }
 
-
+    @Override
+    public String toString() {
+        return name;
+    }
 }
