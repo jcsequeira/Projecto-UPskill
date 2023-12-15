@@ -101,11 +101,13 @@ CREATE TABLE Artista
   CHECK (IsArtsy IN (0, 1)),
   PRIMARY KEY (id_artista)
 );
+INSERT INTO Artista (nome_artista, Data_Nascimento, Biografia, Data_Morte, Nacionalidade) VALUES
+    ('System_Artist_User', '9999-01-01', 'UserSystemArtist', NULL, 'Portuguese');
 
 CREATE TABLE Obra_Arte
 (
   id_Obra_Arte INT NOT NULL auto_increment,
-  Titulo VARCHAR(2000) NOT NULL,
+  Titulo VARCHAR(2000) NOT NULL ,
   Link_Imagem VARCHAR(200),
   Ano_Criacao DATE,
   Preco FLOAT,
@@ -123,7 +125,8 @@ CREATE TABLE Obra_Arte
   FOREIGN KEY (id_artista) REFERENCES Artista(id_artista),
   FOREIGN KEY (id_Tecnica) REFERENCES Tecnica(id_Tecnica),
   FOREIGN KEY (id_Estilo) REFERENCES Movimento(id_Estilo)
-);
+)
+DEFAULT CHARSET = latin1;
 
 CREATE TABLE Galeria
 ( -- Algumas colunas estão opcionais devido ao artsy, mas serao obrigatorias na app javaFX
