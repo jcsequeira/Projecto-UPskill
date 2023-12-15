@@ -127,6 +127,9 @@ public interface ExplorArtContract {
         void addColaborador(Colaborador colaborador) throws IOException;
         List<Pais> getPaises() throws IOException;
         List<Cidade> getCidades() throws IOException;
+
+        void importDataFromArtsy();
+        void deleteArtsyData();
     }
 }
 
