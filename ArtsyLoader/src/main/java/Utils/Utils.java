@@ -13,6 +13,7 @@ import java.sql.*;
 import java.util.*;
 
 import artsymodel.ArtsyArtist;
+import exceptions.ServiceException;
 import model.*;
 
 
@@ -142,7 +143,7 @@ public class Utils {
         }
         return artworkIDs;
     }
-    public static void updateObraArteArtistId(int artistaId, int obraArteId, Connection con) {
+    public static void updateObraArteArtistId(int obraArteId,int artistaId, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "UPDATE Obra_Arte " +
                         "SET id_artista = ? " +
@@ -202,6 +203,7 @@ public class Utils {
 
 
     private static void handleSQLException(SQLException sqlException) {
+        throw new ServiceException("Erro ao atualizar: " + sqlException);
     }
 
 
@@ -263,7 +265,7 @@ public class Utils {
 
     }
 
-    public static void updateObraArteMovimentoId(Integer value, Integer key, Connection con) {
+    public static void updateObraArteMovimentoId(Integer key, Integer value, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "UPDATE explorart.obra_arte " +
                         "SET id_Estilo  = ? " +
@@ -320,7 +322,7 @@ public class Utils {
         return GaleriasIDs;
     }
 
-    public static void updateEventoGaleriaId(Integer value, Integer key, Connection con) {
+    public static void updateEventoGaleriaId(Integer key, Integer value, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "UPDATE explorart.evento SET id_Galeria = ? WHERE id_Expo = ?;")) {
 

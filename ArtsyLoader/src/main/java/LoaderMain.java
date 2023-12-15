@@ -42,10 +42,10 @@ public class LoaderMain {
         populateMateriais(artsyArtworkList);
 
         //a partir da lista anterior cria um mapa que assegura que cada obra tem um artista obrigatoriamente
-        HashMap<ArtsyArtist,ArtsyArtwork> matchMapArtist = matchMapArtsyArtworkArtist(artsyArtworkList);
+        HashMap<ArtsyArtwork, ArtsyArtist> matchMapArtist = matchMapArtsyArtworkArtist(artsyArtworkList);
         Thread.sleep(2000);
         //a partir da lista anterior cria um mapa que assegura que cada obra tem um genero obrigatoriamente
-        HashMap<ArtsyGene,ArtsyArtwork> matchMapGene = matchMapArtsyArtworkGene(artsyArtworkList);
+        HashMap<ArtsyArtwork, ArtsyGene> matchMapGene = matchMapArtsyArtworkGene(artsyArtworkList);
         Thread.sleep(2000);
 
         System.out.println("Artistas: ");
@@ -66,7 +66,7 @@ public class LoaderMain {
         List<ArtsyShow> artsyShowsList = LoadArtsyShowsList();
         Thread.sleep(2000);
 
-        HashMap<ArtsyPartner,ArtsyShow> matchMapShowPartner = matchMapArtsyShowPartner(artsyShowsList);
+        HashMap<ArtsyShow, ArtsyPartner> matchMapShowPartner = matchMapArtsyShowPartner(artsyShowsList);
         Thread.sleep(2000);
 
         System.out.println("Galerias 2: ");
@@ -75,8 +75,16 @@ public class LoaderMain {
         System.out.println("Eventos: ");
         populateEventos(matchMapShowPartner);
 
-
-
+     /*
+        List<ArtsyArtwork> artsyArtworkList = LoadArtsyArtworksList();
+        Thread.sleep(2000);
+        HashMap<ArtsyArtist,ArtsyArtwork> matchMapArtist = matchMapArtsyArtworkArtist(artsyArtworkList);
+        Thread.sleep(2000);
+        HashMap<ArtsyGene,ArtsyArtwork> matchMapGene = matchMapArtsyArtworkGene(artsyArtworkList);
+        List<ArtsyShow> artsyShowsList = LoadArtsyShowsList();
+        Thread.sleep(2000);
+        HashMap<ArtsyPartner,ArtsyShow> matchMapShowPartner = matchMapArtsyShowPartner(artsyShowsList);
+*/
 
         System.out.println("Update 1: Match Making IDs ");
         try {
