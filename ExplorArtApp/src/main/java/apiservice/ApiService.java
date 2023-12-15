@@ -86,7 +86,7 @@ public class ApiService {
         putToRestApi(apiUrl, json);
     }
 
-    private static void deleteToRestApi(String apiUrl) throws IOException {
+   public static void deleteToRestApi(String apiUrl) throws IOException {
         Request request = new Request.Builder()
                 .url(apiUrl)
                 .delete()

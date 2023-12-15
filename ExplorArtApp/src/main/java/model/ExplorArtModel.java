@@ -19,46 +19,67 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public void modifyArtist(int artistId, Artista artista) throws IOException {
+        ApiService.putToRestApi("http://localhost:4567/api/artistas/" + artistId, artista);
+    }
+
+    @Override
+    public void removeArtist(int artistId) throws IOException {
+        ApiService.deleteToRestApi("http://localhost:4567/api/artistas/" + artistId);
+    }
+
+    @Override
     public List<Obra_Arte> getArtworks() throws IOException {
-        // Lógica para obter obras de arte
         return ApiService.getAllItems("http://localhost:4567/api/obrasarte", Obra_Arte.class);
     }
 
     @Override
     public void addArtwork(Obra_Arte obraArte) throws IOException {
-        ApiService.postToRestApi("http://localhost:4567/api/obrasarte",obraArte);
+        ApiService.postToRestApi("http://localhost:4567/api/obrasarte", obraArte);
     }
 
     @Override
     public void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
-        ApiService.putToRestApi("http://localhost:4567/api/obrasarte/" + artworkId,obraArte);
+        ApiService.putToRestApi("http://localhost:4567/api/obrasarte/" + artworkId, obraArte);
     }
 
     @Override
-    public void deativateArtwork(int artworkId, Obra_Arte obraArte) {
+    public void deativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
+        ApiService.putToRestApi("http://localhost:4567/api/obrasarte/" + artworkId, obraArte);
+    }
 
+    @Override
+    public void modifyArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
+        ApiService.putToRestApi("http://localhost:4567/api/obrasarte/" + artworkId, obraArte);
     }
 
     @Override
     public List<Evento> getEvents() throws IOException {
-        // Lógica para obter eventos
         return ApiService.getAllItems("http://localhost:4567/api/eventos", Evento.class);
     }
 
     @Override
     public void addShow(Evento evento) throws IOException {
-        ApiService.postToRestApi("http://localhost:4567/api/eventos",evento);
+        ApiService.postToRestApi("http://localhost:4567/api/eventos", evento);
+    }
+
+    @Override
+    public void modifyShow(int showId, Evento evento) throws IOException {
+        ApiService.putToRestApi("http://localhost:4567/api/eventos/" + showId, evento);
+    }
+
+    @Override
+    public void removeShow(int showId) throws IOException {
+        ApiService.deleteToRestApi("http://localhost:4567/api/eventos/" + showId);
     }
 
     @Override
     public List<Galeria> getGalleries() throws IOException {
-        // Lógica para obter galerias
         return ApiService.getAllItems("http://localhost:4567/api/galerias", Galeria.class);
     }
 
     @Override
     public List<Galerista> getGallerists() throws IOException {
-        // Lógica para obter galeristas
         return ApiService.getAllItems("http://localhost:4567/api/galeristas", Galerista.class);
     }
 
@@ -68,8 +89,18 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
+    public void modifyGallerist(int galleristId, Galerista galerista) throws IOException {
+        ApiService.putToRestApi("http://localhost:4567/api/galeristas/" + galleristId, galerista);
+    }
+
+    @Override
+    public void removeGallerist(int galleristId) throws IOException {
+        ApiService.deleteToRestApi("http://localhost:4567/api/galeristas/" + galleristId);
+    }
+
+    @Override
     public Galeria getGalleryById(int galleryId) throws IOException {
-        return ApiService.getItem("http://localhost:4567/api/galerias/"+galleryId, Galeria.class);
+        return ApiService.getItem("http://localhost:4567/api/galerias/" + galleryId, Galeria.class);
     }
 
     @Override
@@ -78,18 +109,28 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
-    public Artista getArtistById(int idArtista) throws IOException {
-        return ApiService.getItem("http://localhost:4567/api/artistas/"+idArtista, Artista.class);
+    public void modifyGallery(int galleryId, Galeria galeria) throws IOException {
+        ApiService.putToRestApi("http://localhost:4567/api/galerias/" + galleryId, galeria);
     }
 
     @Override
-    public List<Tecnica> getTechnics() throws IOException{
+    public void removeGallery(int galleryId) throws IOException {
+        ApiService.deleteToRestApi("http://localhost:4567/api/galerias/" + galleryId);
+    }
+
+    @Override
+    public Artista getArtistById(int idArtista) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/artistas/" + idArtista, Artista.class);
+    }
+
+    @Override
+    public List<Tecnica> getTechnics() throws IOException {
         return ApiService.getAllItems("http://localhost:4567/api/tecnicas", Tecnica.class);
     }
 
     @Override
     public Tecnica getTechniqueById(int idTecnica) throws IOException {
-        return ApiService.getItem("http://localhost:4567/api/tecnicas/"+idTecnica, Tecnica.class);
+        return ApiService.getItem("http://localhost:4567/api/tecnicas/" + idTecnica, Tecnica.class);
     }
 
     @Override
@@ -99,7 +140,7 @@ public class ExplorArtModel implements ExplorArtContract.Model {
 
     @Override
     public Movimento getMovementById(int idMovimento) throws IOException {
-        return ApiService.getItem("http://localhost:4567/api/movimentos/"+idMovimento, Movimento.class);
+        return ApiService.getItem("http://localhost:4567/api/movimentos/" + idMovimento, Movimento.class);
     }
 
     @Override
@@ -109,7 +150,7 @@ public class ExplorArtModel implements ExplorArtContract.Model {
 
     @Override
     public Materiais getMaterialById(int idMaterial) throws IOException {
-        return ApiService.getItem("http://localhost:4567/api/materiais/"+idMaterial, Materiais.class);
+        return ApiService.getItem("http://localhost:4567/api/materiais/" + idMaterial, Materiais.class);
     }
 
     @Override
@@ -123,7 +164,7 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
-    public List<Pais> getPaises() throws IOException{
+    public List<Pais> getPaises() throws IOException {
         return ApiService.getAllItems("http://localhost:4567/api/paises", Pais.class);
     }
 
@@ -131,5 +172,4 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     public List<Cidade> getCidades() throws IOException {
         return ApiService.getAllItems("http://localhost:4567/api/cidades", Cidade.class);
     }
-
 }

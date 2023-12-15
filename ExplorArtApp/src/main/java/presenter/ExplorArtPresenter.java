@@ -54,8 +54,13 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void deativateArtwork(int artworkId, Obra_Arte obraArte) {
+    public void deativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
         model.deativateArtwork(artworkId, obraArte);
+    }
+
+    @Override
+    public void modifyArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
+        model.modifyArtwork(artworkId, obraArte);
     }
 
 
@@ -65,27 +70,39 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
+    public void modifyArtist(int artistId, Artista artista) throws IOException {
+        model.modifyArtist(artistId, artista);
+    }
+
+    @Override
+    public void removeArtist(int artistId) throws IOException {
+        model.removeArtist(artistId);
+    }
+
+    @Override
     public void doAddArtist() {
         Artista artista = new Artista();
         view.showAddArtistForm(artista);
     }
 
-    @Override
-    public void updateArtist() {
-        //TODO
-    }
 
-    @Override
-    public void removeArtist() {
-        //TODO
-    }
+
+
 
     @Override
     public void addShow(Evento evento) throws IOException {
         model.addShow(evento);
     }
 
+    @Override
+    public void modifyShow(int showId, Evento evento) throws IOException {
+        model.modifyShow(showId, evento);
+    }
 
+    @Override
+    public void removeShow(int showId) throws IOException {
+        model.removeShow(showId);
+    }
 
 
     @Override
@@ -113,47 +130,36 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void updateShow() {
-        //TODO
-    }
-
-    @Override
-    public void removeShow() {
-        //TODO
-    }
-
-    @Override
     public void addGalerist(Galerista galerista) throws IOException {
         model.addGalerist(galerista);
     }
 
-
     @Override
-    public void updateGalerist() {
-//TODO
+    public void modifyGallerist(int galleristId, Galerista galerista) throws IOException {
+        model.modifyGallerist(galleristId, galerista);
     }
 
     @Override
-    public void removeGalerist() {
-//TODO
+    public void removeGallerist(int galleristId) throws IOException {
+        model.removeGallerist(galleristId);
     }
+
 
     @Override
     public void addGallery(Galeria galeria) throws IOException {
         model.addGallery(galeria);
     }
 
-
-
     @Override
-    public void updateGallery() {
-//TODO
+    public void modifyGallery(int galleryId, Galeria galeria) throws IOException {
+        model.modifyGallery(galleryId, galeria);
     }
 
     @Override
-    public void removeGallery() {
-//TODO
+    public void removeGallery(int galleryId) throws IOException {
+        model.removeGallery(galleryId);
     }
+
 
     @Override
     public void addColaborador(Colaborador colaborador) throws IOException {

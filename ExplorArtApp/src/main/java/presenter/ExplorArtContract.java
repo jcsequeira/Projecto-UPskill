@@ -41,26 +41,28 @@ public interface ExplorArtContract {
     interface Presenter {
         void exploreArtists() throws IOException;
         void addArtist(Artista artista) throws IOException;
-        void updateArtist();
-        void removeArtist();
+        void modifyArtist(int artistId, Artista artista) throws IOException;
+        void removeArtist(int artistId) throws IOException;
+
         //OrbaArte
         void exploreArtworks() throws IOException;
         void addArtwork(Obra_Arte obraArte) throws IOException;
         void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
-        void deativateArtwork(int artworkId, Obra_Arte obraArte);
+        void deativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
+        void modifyArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
         //Eventos
         void exploreEvents() throws IOException;
         void addShow(Evento evento) throws IOException;
-        void updateShow();
-        void removeShow();
+        void modifyShow(int showId, Evento evento) throws IOException;
+        void removeShow(int showId) throws IOException;
         //Galerista
         void addGalerist(Galerista galerista) throws IOException;
-        void updateGalerist();
-        void removeGalerist();
+        void modifyGallerist(int galleristId, Galerista galerista) throws IOException;
+        void removeGallerist(int galleristId) throws IOException;
         //Galeria
         void addGallery(Galeria galeria) throws IOException;
-        void updateGallery();
-        void removeGallery();
+        void modifyGallery(int galleryId, Galeria galeria) throws IOException;
+        void removeGallery(int galleryId) throws IOException;
         //Admin
         void addColaborador(Colaborador colaborador) throws IOException;
         void importDataFromArtsy();
@@ -83,21 +85,30 @@ public interface ExplorArtContract {
         List<Artista> getArtists() throws IOException;
         Artista getArtistById(int idArtista) throws IOException;
         void addArtist(Artista artista) throws IOException;
+        void modifyArtist(int artistId, Artista artista) throws IOException;
+        void removeArtist(int artistId) throws IOException;
         //ObraArte
         List<Obra_Arte> getArtworks() throws IOException;
         void addArtwork(Obra_Arte obraArte) throws IOException;
         void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
-        void deativateArtwork(int artworkId, Obra_Arte obraArte);
+        void deativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
+        void modifyArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
         //Eventos
         List<Evento> getEvents() throws IOException;
         void addShow(Evento evento) throws IOException;
+        void modifyShow(int showId, Evento evento) throws IOException;
+        void removeShow(int showId) throws IOException;
         //Galerias
         List<Galeria> getGalleries() throws IOException;
         Galeria getGalleryById(int galleryId) throws IOException;
         void addGallery(Galeria galeria) throws IOException;
+        void modifyGallery(int galleryId, Galeria galeria) throws IOException;
+        void removeGallery(int galleryId) throws IOException;
         //Galeristas
         List<Galerista> getGallerists() throws IOException;
         void addGalerist(Galerista galerista) throws IOException;
+        void modifyGallerist(int galleristId, Galerista galerista) throws IOException;
+        void removeGallerist(int galleristId) throws IOException;
 
         //Foreign keys tables Obra ARte
         List<Tecnica> getTechnics() throws IOException;
