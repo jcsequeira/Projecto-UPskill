@@ -3,6 +3,7 @@ package presenter;
 // Presenter (no pacote presenter)
 
 import model.*;
+import view.ImportArtsyView;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +12,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     private final ExplorArtContract.View view;
     private final ExplorArtContract.Model model;
+
 
     public ExplorArtPresenter(ExplorArtContract.View view, ExplorArtContract.Model model) {
         this.view = view;
@@ -136,6 +138,11 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
+    public void doImportDataFromArtsy() {
+        view.showImportDataFromArtsyView();
+    }
+
+    @Override
     public void doUpdateArtworkDetails(Obra_Arte obraArte) throws IOException {
         ExplorArtModel model = new ExplorArtModel();
 
@@ -217,9 +224,29 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void importDataFromArtsy() {
-//TODO
-    }
+    public void importDataFromArtsy(ImportArtsyView importArtsyView) {
+
+            // Start the background task in the model or background module
+            model.importDataFromArtsy();
+
+            // Periodically update the progress bar in the view
+            new Thread(() -> {
+                while (model.getProgress() < 1.0) {
+                    double progress = model.getProgress();
+                    importArtsyView.updateProgressBar(progress);
+
+                    try {
+                        // Add a delay if needed
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Task is complete, perform any additional actions if needed
+            }).start();
+        }
+
 
     @Override
     public void deleteArtsyData() {

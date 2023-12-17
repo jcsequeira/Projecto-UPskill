@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ExplorArtModel implements ExplorArtContract.Model {
 
+    private double progress;
     @Override
     public List<Artista> getArtists() throws IOException {
         return ApiService.getAllItems("http://localhost:4567/api/artistas", Artista.class);
@@ -179,9 +180,16 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
     @Override
-    public void importDataFromArtsy() {
-
+    public double importDataFromArtsy() {
+        // Your background task logic
+        // Update the 'progress' variable as the task progresses
+        return 0;
     }
+
+    public double getProgress() {
+        return progress;
+    }
+
 
     @Override
     public void deleteArtsyData() {

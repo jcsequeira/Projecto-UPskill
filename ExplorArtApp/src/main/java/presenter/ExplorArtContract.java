@@ -1,6 +1,7 @@
 package presenter;
 
 import model.*;
+import view.ImportArtsyView;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,6 +45,9 @@ public interface ExplorArtContract {
         void showUpdateArtist(List<Artista> artistas);
 
         void showUpdateArtistDetails(Artista artista);
+        void showImportDataFromArtsyView();
+
+
     }
 
     interface Presenter {
@@ -73,25 +77,31 @@ public interface ExplorArtContract {
         void removeGallery(int galleryId) throws IOException;
         //Admin
         void addColaborador(Colaborador colaborador) throws IOException;
-        void importDataFromArtsy();
+        void importDataFromArtsy(ImportArtsyView importArtsyView);
         void deleteArtsyData();
 
         //View do's MenusActions
         void doArtistDetails(Artista artista);
+        void doUpdateArtist() throws IOException;
+        void doUpdateArtistDetails(Artista artista) throws IOException;
+        void doAddArtist();
+        //Artwork
         void doArtworkDetails(Obra_Arte obraArte) throws IOException;
         void doAddArtwork();
         void doUpdateArtwork() throws IOException;
-        void doAddArtist();
-        void doAddShow();
-        void doAddGalerist();
-        void doAddColaborador();
-        void doAddGaleria();
-
         void doUpdateArtworkDetails(Obra_Arte obraArte) throws IOException;
+       //show
+        void doAddShow();
+        //gallerist
+        void doAddGalerist();
+        //colaborador
+        void doAddColaborador();
+        //gallery
+        void doAddGaleria();
+        //Admin
+        void doImportDataFromArtsy();
 
-        void doUpdateArtist() throws IOException;
 
-        void doUpdateArtistDetails(Artista artista) throws IOException;
     }
 
     interface Model {
@@ -144,8 +154,10 @@ public interface ExplorArtContract {
         List<Pais> getPaises() throws IOException;
         List<Cidade> getCidades() throws IOException;
 
-        void importDataFromArtsy();
+        double importDataFromArtsy();
         void deleteArtsyData();
+
+        double getProgress();
     }
 }
 

@@ -13,8 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
-import presenter.ExplorArtContract;
-import presenter.ExplorArtPresenter;
+import presenter.*;
+
 
 
 import java.io.IOException;
@@ -25,6 +25,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     private ListView<String> listView;
 
     private ExplorArtPresenter myPresenter;
+
 
     public ExplorArtView(){
         myPresenter = new ExplorArtPresenter(this, new ExplorArtModel());
@@ -210,6 +211,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addColaboradorItem.setOnAction(event -> {
             myPresenter.doAddColaborador();
         });
+       popularBdItem.setOnAction(event -> {
+           myPresenter.doImportDataFromArtsy();
+       });
 
         //--------------------------------------------------------------------------------------------------------------
         //Events- Menu Ajuda
@@ -540,6 +544,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
 
+
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Eventos *******
     @Override
@@ -632,6 +637,26 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addColaboradorFormStage.sizeToScene();
 
         addColaboradorFormStage.show();
+    }
+    @Override
+    public void showImportDataFromArtsyView() {
+        Stage importDataFromArtsyStage = new Stage();
+        importDataFromArtsyStage.setTitle("Importação de Dados");
+
+        ImportArtsyView importArtsyView = new ImportArtsyView();
+        //
+        Scene sceneImportDataFromArtsy = new Scene(importArtsyView);
+
+        importDataFromArtsyStage.setScene(sceneImportDataFromArtsy);
+        importDataFromArtsyStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        importDataFromArtsyStage.initOwner(this.getScene().getWindow());
+        importDataFromArtsyStage.initModality(Modality.APPLICATION_MODAL);
+
+        importDataFromArtsyStage.sizeToScene();
+
+        importDataFromArtsyStage.show();
     }
 
 
