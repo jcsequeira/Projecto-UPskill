@@ -136,6 +136,11 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
+    public void doImportDataFromArtsy() {
+        view.showImportDataFromArtsyView();
+    }
+
+    @Override
     public void doUpdateArtworkDetails(Obra_Arte obraArte) throws IOException {
         ExplorArtModel model = new ExplorArtModel();
 

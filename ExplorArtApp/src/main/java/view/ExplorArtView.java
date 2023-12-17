@@ -540,6 +540,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
 
+
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Eventos *******
     @Override
@@ -632,6 +633,25 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addColaboradorFormStage.sizeToScene();
 
         addColaboradorFormStage.show();
+    }
+    @Override
+    public void showImportDataFromArtsyView() {
+        Stage importDataFromArtsyStage = new Stage();
+        importDataFromArtsyStage.setTitle("Importação de Dados");
+
+
+        Scene sceneImportDataFromArtsy = new Scene(new ImportArtsyView());
+
+        importDataFromArtsyStage.setScene(sceneImportDataFromArtsy);
+        importDataFromArtsyStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        importDataFromArtsyStage.initOwner(this.getScene().getWindow());
+        importDataFromArtsyStage.initModality(Modality.APPLICATION_MODAL);
+
+        importDataFromArtsyStage.sizeToScene();
+
+        importDataFromArtsyStage.show();
     }
 
 
