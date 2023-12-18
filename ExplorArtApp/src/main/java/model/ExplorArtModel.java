@@ -162,6 +162,10 @@ public class ExplorArtModel implements ExplorArtContract.Model {
         return ApiService.getAllItems("http://localhost:4567/api/colaboradores", Colaborador.class);
     }
 
+    public Colaborador getColaboradorById(int id_colaborador) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/colaboradores/" + id_colaborador, Colaborador.class);
+    }
+
     @Override
     public void addColaborador(Colaborador colaborador) throws IOException {
         ApiService.postToRestApi("http://localhost:4567/api/colaboradores", colaborador);
