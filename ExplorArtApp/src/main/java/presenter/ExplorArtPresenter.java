@@ -160,6 +160,46 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
+    public void doUpdateGallerist() throws IOException {
+        List<Galerista> galeristas = model.getGallerists();
+
+        view.showUpdateGallerist(galeristas);
+    }
+
+    @Override
+    public void doUpdateGalleristDetails(Galerista galerista) throws IOException {
+        ExplorArtModel model = new ExplorArtModel();
+
+        view.showUpdateGalleristDetails(galerista);
+    }
+
+    @Override
+    public void visualizarColaboradores() throws IOException {
+        List<Colaborador> colaboradores = model.getColaboradores();
+        view.visualizarColaboradores(colaboradores);
+    }
+
+    @Override
+    public void doColaboradorDetails(Colaborador colaborador) throws IOException {
+        ExplorArtModel model = new ExplorArtModel();
+
+        view.showColaboradorDetails(colaborador);
+    }
+
+    @Override
+    public void doUpdateGallery() throws IOException {
+        List<Galeria> galerias = model.getGalleries();
+
+        view.showUpdateGallery(galerias);
+    }
+
+    @Override
+    public void doUpdateGalleryDetails(Galeria galeria) throws IOException {
+        view.showUpdateGalleryDetails(galeria);
+
+    }
+
+    @Override
     public void doUpdateArtworkDetails(Obra_Arte obraArte) throws IOException {
         ExplorArtModel model = new ExplorArtModel();
 

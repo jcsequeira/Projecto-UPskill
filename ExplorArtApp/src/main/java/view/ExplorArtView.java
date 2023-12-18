@@ -133,7 +133,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         MenuItem popularBdItem = new MenuItem("Importar Dados da Artsy API");
         MenuItem limparBdItem = new MenuItem("Limpar Dados da Artsy API");
         MenuItem addColaboradorItem = new MenuItem("Adicionar colaborador");
-        adminMenu.getItems().addAll(popularBdItem,limparBdItem, addColaboradorItem);
+        MenuItem visualizarColaboradoresItem = new MenuItem("Visualizar colaboradores");
+        adminMenu.getItems().addAll(popularBdItem,limparBdItem, addColaboradorItem, visualizarColaboradoresItem);
 
         //--------------------------------------------------------------------------------------------------------------
         // Events
@@ -205,11 +206,23 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         adicionarGaleristaItem.setOnAction(event -> {
             myPresenter.doAddGalerist();
         });
+        modificarGaleristaItem.setOnAction(event -> {try {
+            myPresenter.doUpdateGallerist();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        });
 
         //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Galerias
         adicionarGaleriaItem.setOnAction(event -> {
             myPresenter.doAddGaleria();
+        });
+        modificarGaleriaItem.setOnAction(event -> {try {
+            myPresenter.doUpdateGallery();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         });
 
         //--------------------------------------------------------------------------------------------------------------
@@ -217,15 +230,21 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addColaboradorItem.setOnAction(event -> {
             myPresenter.doAddColaborador();
         });
-       popularBdItem.setOnAction(event -> {
+        popularBdItem.setOnAction(event -> {
            myPresenter.doImportDataFromArtsy();
-       });
+        });
+        visualizarColaboradoresItem.setOnAction(event -> {
+           try {
+            myPresenter.visualizarColaboradores();
+        } catch (IOException e) {
+               throw new RuntimeException(e);
+           }
+        });
 
         //--------------------------------------------------------------------------------------------------------------
         //Events- Menu Ajuda
         aboutItem.setOnAction(event -> showAbout());
         exitItem.setOnAction(event -> exitApplication());
-
 
         menuBar.getMenus().addAll(explorarMenu, gerirOAMenu, gerirArtistasMenu, gerirEventosMenu,
                 gerirGaleristasMenu, gerirGaleriasMenu, adminMenu,helpMenu);
@@ -343,23 +362,23 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     //------------------------------------------------------------------------------------------------------------------
     //******* Mostrar Detalhes - Menu Explorar *******
     public void showArtistDetails(Artista artista) {
-        Stage addArtworkFormStage = new Stage();
-        addArtworkFormStage.setTitle("Detalhes do Artista");
+        Stage showArtistFormStage = new Stage();
+        showArtistFormStage.setTitle("Detalhes do Artista");
 
         // Create a new view or dialog to display the details of the Artista
         // You need to implement the details view (e.g., ArtistDetailsView) accordingly
         Scene scene = new Scene(new ArtistDetailsView(artista));
 
-        addArtworkFormStage.setScene(scene);
-        addArtworkFormStage.setResizable(true);
+        showArtistFormStage.setScene(scene);
+        showArtistFormStage.setResizable(true);
 
         // Set the owner and modality to make it a modal dialog
-        addArtworkFormStage.initOwner(this.getScene().getWindow());
-        addArtworkFormStage.initModality(Modality.APPLICATION_MODAL);
+        showArtistFormStage.initOwner(this.getScene().getWindow());
+        showArtistFormStage.initModality(Modality.APPLICATION_MODAL);
 
-        addArtworkFormStage.sizeToScene();
+        showArtistFormStage.sizeToScene();
 
-        addArtworkFormStage.show();
+        showArtistFormStage.show();
     }
     @Override
     public void showShowsDetails(Evento evento, Galeria galeria)  {
@@ -644,6 +663,55 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addGalleristFormStage.show();
     }
 
+    @Override
+    public void showUpdateGallerist(List<Galerista> galeristas) {
+        if (galeristas.isEmpty()){
+            showEmptyListMessage("Galerista");
+        }
+        else {
+            listView.getItems().clear();
+            for (Galerista galerista : galeristas) {
+                listView.getItems().add(galerista.toString());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedShowName = listView.getSelectionModel().getSelectedItem();
+                if (selectedShowName != null) {
+                    // Find the corresponding Show object
+                    Optional<Galerista> selectedGalerista = galeristas.stream()
+                            .filter(galerista -> galerista.toString().equals(selectedShowName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doUpdateGalleristDetails(selectedGalerista.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showUpdateGalleristDetails(Galerista galerista) {
+        Stage galeristaUpdateDetailsStage = new Stage();
+        galeristaUpdateDetailsStage.setTitle("Detalhes do galerista");
+
+
+        Scene sceneGaleristaUpdate = new Scene(new UpdateGaleristaFormView(galerista));
+
+        galeristaUpdateDetailsStage.setScene(sceneGaleristaUpdate);
+        galeristaUpdateDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        galeristaUpdateDetailsStage.initOwner(this.getScene().getWindow());
+        galeristaUpdateDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        galeristaUpdateDetailsStage.sizeToScene();
+
+        galeristaUpdateDetailsStage.show();
+    }
+
+
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Galeria *******
@@ -667,6 +735,55 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         addGalleryFormStage.show();
     }
+
+    @Override
+    public void showUpdateGallery(List<Galeria> galerias) {
+        if (galerias.isEmpty()){
+            showEmptyListMessage("Galerias");
+        }
+        else {
+            listView.getItems().clear();
+            for (Galeria galeria : galerias) {
+                listView.getItems().add(galeria.toString());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedShowName = listView.getSelectionModel().getSelectedItem();
+                if (selectedShowName != null) {
+                    // Find the corresponding Show object
+                    Optional<Galeria> selectedGaleria = galerias.stream()
+                            .filter(galeria -> galeria.toString().equals(selectedShowName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doUpdateGalleryDetails(selectedGaleria.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showUpdateGalleryDetails(Galeria galeria) {
+        Stage galleryUpdateDetailsStage = new Stage();
+        galleryUpdateDetailsStage.setTitle("Detalhes da galeria");
+
+
+        Scene sceneGalleryUpdate = new Scene(new UpdateGaleriaFormView(galeria));
+
+        galleryUpdateDetailsStage.setScene(sceneGalleryUpdate);
+        galleryUpdateDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        galleryUpdateDetailsStage.initOwner(this.getScene().getWindow());
+        galleryUpdateDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        galleryUpdateDetailsStage.sizeToScene();
+
+        galleryUpdateDetailsStage.show();
+    }
+
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Admin *******
@@ -710,6 +827,55 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         importDataFromArtsyStage.show();
     }
+    @Override
+    public void visualizarColaboradores(List<Colaborador> colaboradores) {
+        if (colaboradores.isEmpty()){
+            showEmptyListMessage("Colaboradores");
+        }
+        else {
+            listView.getItems().clear();
+            for (Colaborador colaborador : colaboradores) {
+                listView.getItems().add(colaborador.getNome_Colaborador());
+            }
+            // Add an event handler to handle item click
+            listView.setOnMouseClicked(event -> {
+                String selectedColaboradorName = listView.getSelectionModel().getSelectedItem();
+                if (selectedColaboradorName != null) {
+                    // Find the corresponding Show object
+                    Optional<Colaborador> selectedColaborador = colaboradores.stream()
+                            .filter(colaborador -> colaborador.getNome_Colaborador().equals(selectedColaboradorName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doColaboradorDetails(selectedColaborador.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showColaboradorDetails(Colaborador colaborador) throws IOException {
+        Stage showColaboradorFormStage = new Stage();
+        showColaboradorFormStage.setTitle("Detalhes do colaborador");
+
+        Scene scene = new Scene(new ColaboradorDetailsView(colaborador));
+
+        showColaboradorFormStage.setScene(scene);
+        showColaboradorFormStage.setResizable(true);
+
+        showColaboradorFormStage.initOwner(this.getScene().getWindow());
+        showColaboradorFormStage.initModality(Modality.APPLICATION_MODAL);
+
+        showColaboradorFormStage.sizeToScene();
+
+        showColaboradorFormStage.show();
+    }
+
 
 
     //------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 package presenter;
 
 import model.*;
-import org.eclipse.jetty.util.IO;
 import view.ImportArtsyView;
 
 import java.io.IOException;
@@ -52,6 +51,18 @@ public interface ExplorArtContract {
         void showUpdateShow(List<Evento> eventos);
 
         void showUpdateShowDetails(Evento evento, Galeria galeria);
+
+        void showUpdateGallerist(List<Galerista> gallerists);
+
+        void showUpdateGalleristDetails(Galerista galerista);
+
+        void visualizarColaboradores(List<Colaborador> colaboradores);
+
+        void showColaboradorDetails(Colaborador colaborador) throws IOException;
+
+        void showUpdateGallery(List<Galeria> galerias);
+
+        void showUpdateGalleryDetails(Galeria galeria);
     }
 
     interface Presenter {
@@ -109,6 +120,18 @@ public interface ExplorArtContract {
         void doUpdateShow() throws IOException;
 
         void doUpdateShowDetails(Evento evento) throws IOException;
+
+        void doUpdateGallerist() throws IOException;
+
+        void doUpdateGalleristDetails(Galerista colaborador) throws IOException;
+
+        void visualizarColaboradores() throws IOException;
+
+        void doColaboradorDetails(Colaborador colaborador) throws IOException;
+
+        void doUpdateGallery() throws IOException;
+
+        void doUpdateGalleryDetails(Galeria galeria) throws IOException;
     }
 
     interface Model {

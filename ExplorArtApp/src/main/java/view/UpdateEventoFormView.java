@@ -87,7 +87,7 @@ public class UpdateEventoFormView extends Parent {
                 // Criar alerta de confirmação
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmationAlert.setTitle("Modificar evento");
-                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar as alterações no evento?");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar as alterações efetuadas no evento?");
                 confirmationAlert.setContentText("Ao confirmar, o evento será atualizado na Base de Dados.");
 
                 // Obter o resultado da confirmação
