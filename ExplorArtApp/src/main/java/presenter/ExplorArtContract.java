@@ -238,6 +238,7 @@ public interface ExplorArtContract {
                 List<Colaborador> getColaboradores() throws IOException;
 
                 void addColaborador(Colaborador colaborador) throws IOException;
+                Colaborador getColaboradorById(int id_colaborador) throws IOException;
 
                 Pais getPaisById(int codigoPais) throws IOException;
 
