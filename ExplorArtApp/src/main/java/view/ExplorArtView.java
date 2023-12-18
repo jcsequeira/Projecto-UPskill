@@ -240,6 +240,29 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                throw new RuntimeException(e);
            }
         });
+        limparBdItem.setOnAction(event -> {
+            try {
+                // Criar alerta de confirmação
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Limpar Artsy Data");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja apagar todos os dados provenintes da Artsy API?");
+                confirmationAlert.setContentText("Ao confirmar, serão eliminados os seguintes Items: Obras de Arte, Artistas, Eventos e Galerias da Base de Dados.");
+
+                // Obter o resultado da confirmação
+                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+
+                if (result == ButtonType.OK) {
+                    myPresenter.deleteArtsyData();
+                    // Se o utilizador confirmar, fecha a janela
+                    getScene().getWindow().hide();
+                }
+            } catch (NumberFormatException e){
+                System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
+            } catch (IOException e) {
+                throw new RuntimeException();
+            }
+        });
+
 
         //--------------------------------------------------------------------------------------------------------------
         //Events- Menu Ajuda
@@ -784,6 +807,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         galleryUpdateDetailsStage.show();
     }
 
+ 
+
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Admin *******
@@ -858,6 +883,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             });
         }
     }
+
 
     @Override
     public void showColaboradorDetails(Colaborador colaborador) throws IOException {
