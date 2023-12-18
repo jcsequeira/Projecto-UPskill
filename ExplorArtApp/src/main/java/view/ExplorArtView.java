@@ -245,7 +245,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 // Criar alerta de confirmação
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmationAlert.setTitle("Limpar Artsy Data");
-                confirmationAlert.setHeaderText("Tem a certeza que deseja apagar todos os dados provenintes da Artsy API?");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja apagar todos os dados provenientes da Artsy API?");
                 confirmationAlert.setContentText("Ao confirmar, serão eliminados os seguintes Items: Obras de Arte, Artistas, Eventos e Galerias da Base de Dados.");
 
                 // Obter o resultado da confirmação
@@ -254,7 +254,19 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 if (result == ButtonType.OK) {
                     myPresenter.deleteArtsyData();
                     // Se o utilizador confirmar, fecha a janela
-                    getScene().getWindow().hide();
+
+
+                    Stage bdCleanConfirmation = new Stage();
+                    bdCleanConfirmation.setTitle("Limpeza Efetuada");
+                    Scene scene = new Scene(new CleanConfirmationView(), 400, 300);
+                    bdCleanConfirmation.setScene(scene);
+                    bdCleanConfirmation.setResizable(false);
+
+                    bdCleanConfirmation.initOwner(this.getScene().getWindow());
+                    bdCleanConfirmation.initModality(Modality.APPLICATION_MODAL);
+
+                    bdCleanConfirmation.show();
+                    
                 }
             } catch (NumberFormatException e){
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
@@ -933,16 +945,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     public void showAbout(){
-        Stage aboutStage = new Stage();
-        aboutStage.setTitle("Sobre ExplorArt");
+        Stage bdCleanConfirmation = new Stage();
+        bdCleanConfirmation.setTitle("Sobre ExplorArt");
         Scene scene = new Scene(new AboutView(), 400, 300);
-        aboutStage.setScene(scene);
-        aboutStage.setResizable(false);
+        bdCleanConfirmation.setScene(scene);
+        bdCleanConfirmation.setResizable(false);
 
-        aboutStage.initOwner(this.getScene().getWindow());
-        aboutStage.initModality(Modality.APPLICATION_MODAL);
+        bdCleanConfirmation.initOwner(this.getScene().getWindow());
+        bdCleanConfirmation.initModality(Modality.APPLICATION_MODAL);
 
-        aboutStage.show();
+        bdCleanConfirmation.show();
     }
 
 
