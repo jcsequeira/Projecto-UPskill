@@ -16,7 +16,7 @@ import java.util.List;
 
 public class UpdateArtistaFormView extends Parent {
     private Artista artista;
-    private Pais pais;
+    private Pais nacionalidade;
 
     private ExplorArtPresenter myPresenter;
     private ComboBox<Pais> paisComboBox;
@@ -68,12 +68,17 @@ public class UpdateArtistaFormView extends Parent {
         } catch (IOException e){
             throw  new RuntimeException();
         }
+        Pais paisAux = new Pais();
+        paisAux.setNacionalidade(artista.getNacionalidade());
+        paisList.add(paisAux);
         paisObservableList = FXCollections.observableArrayList();
         paisObservableList.clear();
         paisObservableList.addAll(paisList);
         paisComboBox = new ComboBox<>(paisObservableList);
+        paisComboBox.getSelectionModel().select(paisAux);
         gridPane.add(nacionalityLabel, 0, 4);
         gridPane.add(paisComboBox, 1, 4);
+
 
         getChildren().add(gridPane);
 

@@ -601,12 +601,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     @Override
-    public void showUpdateShowDetails(Evento evento) {
+    public void showUpdateShowDetails(Evento evento, Galeria galeria) {
         Stage eventoUpdateDetailsStage = new Stage();
         eventoUpdateDetailsStage.setTitle("Detalhes do evento");
 
 
-        Scene sceneEventoUpdate = new Scene(new UpdateEventoFormView(evento));
+        Scene sceneEventoUpdate = new Scene(new UpdateEventoFormView(evento, galeria));
 
         eventoUpdateDetailsStage.setScene(sceneEventoUpdate);
         eventoUpdateDetailsStage.setResizable(true);

@@ -51,7 +51,7 @@ public interface ExplorArtContract {
 
         void showUpdateShow(List<Evento> eventos);
 
-        void showUpdateShowDetails(Evento evento);
+        void showUpdateShowDetails(Evento evento, Galeria galeria);
     }
 
     interface Presenter {

@@ -146,7 +146,17 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     @Override
     public void doUpdateShowDetails(Evento evento) throws IOException {
-        view.showUpdateShowDetails(evento);
+        ExplorArtModel model = new ExplorArtModel();
+
+        int idGaleria = evento.getId_Galeria();
+
+        Galeria galeria = null;
+
+        // Retrieve galeria information
+        galeria = model.getGalleryById(idGaleria);
+
+
+        view.showUpdateShowDetails(evento, galeria);
     }
 
     @Override
@@ -188,7 +198,6 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     @Override
     public void doUpdateArtistDetails(Artista artista) throws IOException {
         ExplorArtModel model = new ExplorArtModel();
-
         // Display the artist details along with additional information
         view.showUpdateArtistDetails(artista);
     }

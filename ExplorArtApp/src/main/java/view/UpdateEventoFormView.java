@@ -16,12 +16,14 @@ import java.util.List;
 
 public class UpdateEventoFormView extends Parent {
     private Evento evento;
+    private Galeria galeria;
     private ExplorArtPresenter myPresenter;
     private ComboBox<Galeria> galeriaComboBox;
     private ObservableList<Galeria> galeriaObservableList;
 
-    public UpdateEventoFormView(Evento evento) {
+    public UpdateEventoFormView(Evento evento, Galeria galeria) {
         this.evento = evento;
+        this.galeria = galeria;
 
         doLayout(evento);
     }
@@ -71,6 +73,7 @@ public class UpdateEventoFormView extends Parent {
         galeriaObservableList.clear();
         galeriaObservableList.addAll(galleryList);
         galeriaComboBox = new ComboBox<>(galeriaObservableList);
+        galeriaComboBox.getSelectionModel().select(galeria);
         gridPane.add(galleryLabel, 0, 4);
         gridPane.add(galeriaComboBox, 1, 4);
 
