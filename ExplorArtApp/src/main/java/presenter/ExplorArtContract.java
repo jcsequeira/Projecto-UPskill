@@ -1,6 +1,7 @@
 package presenter;
 
 import model.*;
+import org.eclipse.jetty.util.IO;
 import view.ImportArtsyView;
 
 import java.io.IOException;
@@ -48,6 +49,9 @@ public interface ExplorArtContract {
         void showImportDataFromArtsyView();
 
 
+        void showUpdateShow(List<Evento> eventos);
+
+        void showUpdateShowDetails(Evento evento);
     }
 
     interface Presenter {
@@ -102,6 +106,9 @@ public interface ExplorArtContract {
         void doImportDataFromArtsy();
 
 
+        void doUpdateShow() throws IOException;
+
+        void doUpdateShowDetails(Evento evento) throws IOException;
     }
 
     interface Model {

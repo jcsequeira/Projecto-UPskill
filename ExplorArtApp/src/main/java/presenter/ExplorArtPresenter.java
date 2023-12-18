@@ -93,10 +93,6 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
         view.showAddArtistForm(artista);
     }
 
-
-
-
-
     @Override
     public void addShow(Evento evento) throws IOException {
         model.addShow(evento);
@@ -140,6 +136,17 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     @Override
     public void doImportDataFromArtsy() {
         view.showImportDataFromArtsyView();
+    }
+
+    @Override
+    public void doUpdateShow() throws IOException {
+        List<Evento> eventos = model.getEvents();
+        view.showUpdateShow(eventos);
+    }
+
+    @Override
+    public void doUpdateShowDetails(Evento evento) throws IOException {
+        view.showUpdateShowDetails(evento);
     }
 
     @Override

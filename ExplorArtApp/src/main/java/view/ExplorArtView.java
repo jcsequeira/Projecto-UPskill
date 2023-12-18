@@ -193,6 +193,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         adicionarEventoItem.setOnAction(event -> {
             myPresenter.doAddShow();
         });
+        modificarEventoItem.setOnAction(event -> {try {
+            myPresenter.doUpdateShow();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        });
 
         //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Galeristas
@@ -527,7 +533,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         Stage artistaUpdateDetailsStage = new Stage();
         artistaUpdateDetailsStage.setTitle("Detalhes do artista");
 
-
         Scene sceneArtistaUpdate = new Scene(new UpdateArtistaFormView(artista));
 
         artistaUpdateDetailsStage.setScene(sceneArtistaUpdate);
@@ -540,7 +545,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artistaUpdateDetailsStage.sizeToScene();
 
         artistaUpdateDetailsStage.show();
-
     }
 
 
@@ -566,6 +570,54 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addShowFormStage.sizeToScene();
 
         addShowFormStage.show();
+    }
+
+    @Override
+    public void showUpdateShow(List<Evento> eventos) {
+        if (eventos.isEmpty()){
+            showEmptyListMessage("Evento");
+        }
+        else {
+            listView.getItems().clear();
+            for (Evento evento : eventos) {
+                listView.getItems().add(evento.getNome());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedShowName = listView.getSelectionModel().getSelectedItem();
+                if (selectedShowName != null) {
+                    // Find the corresponding Show object
+                    Optional<Evento> selectedEvento = eventos.stream()
+                            .filter(evento -> evento.getNome().equals(selectedShowName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doUpdateShowDetails(selectedEvento.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showUpdateShowDetails(Evento evento) {
+        Stage eventoUpdateDetailsStage = new Stage();
+        eventoUpdateDetailsStage.setTitle("Detalhes do evento");
+
+
+        Scene sceneEventoUpdate = new Scene(new UpdateEventoFormView(evento));
+
+        eventoUpdateDetailsStage.setScene(sceneEventoUpdate);
+        eventoUpdateDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        eventoUpdateDetailsStage.initOwner(this.getScene().getWindow());
+        eventoUpdateDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        eventoUpdateDetailsStage.sizeToScene();
+
+        eventoUpdateDetailsStage.show();
     }
 
 
