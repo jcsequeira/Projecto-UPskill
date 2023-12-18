@@ -89,7 +89,7 @@ public class UpdateArtistaFormView extends Parent {
                 // Criar alerta de confirmação
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmationAlert.setTitle("Modificar artista");
-                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar  as alterações no artista?");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar  as alterações efetuadas no artista?");
                 confirmationAlert.setContentText("Ao confirmar, o artista será atualizado na Base de Dados.");
 
                 // Obter o resultado da confirmação
