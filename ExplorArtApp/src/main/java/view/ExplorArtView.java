@@ -73,10 +73,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         MenuItem pesquisarItem = new MenuItem("Pesquisar");
         MenuItem visualizarOAItem = new MenuItem("Visualizar Obras de Arte");
         MenuItem visualizarArtistasItem = new MenuItem("Visualizar Artistas");
+        MenuItem visualizarGaleriasItem = new MenuItem("Visualizar Galerias");
         MenuItem visualizarEventosItem = new MenuItem("Visualizar Eventos");
         MenuItem visualizarSlideshowItem = new MenuItem("Visualizar Slideshow");
 
-        explorarMenu.getItems().addAll(pesquisarItem, visualizarOAItem, visualizarArtistasItem,
+        explorarMenu.getItems().addAll(pesquisarItem, visualizarOAItem, visualizarArtistasItem,visualizarGaleriasItem,
                 visualizarEventosItem, visualizarSlideshowItem);
 
 
@@ -111,8 +112,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         MenuItem adicionarGaleristaItem = new MenuItem("Adicionar Galerista");
         MenuItem modificarGaleristaItem = new MenuItem("Modificar Galerista");
         MenuItem removerGaleristaItem = new MenuItem("Remover Galerista");
+        MenuItem visualizarGaleristasItem = new MenuItem("Visualizar Galeristas");
 
-        gerirGaleristasMenu.getItems().addAll(adicionarGaleristaItem, modificarGaleristaItem, removerGaleristaItem);
+        gerirGaleristasMenu.getItems().addAll(adicionarGaleristaItem, modificarGaleristaItem, removerGaleristaItem, visualizarGaleristasItem);
 
         //Menu Galerias
         Menu gerirGaleriasMenu = new Menu("Gerir Galerias");
@@ -134,7 +136,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         MenuItem limparBdItem = new MenuItem("Limpar Dados da Artsy API");
         MenuItem addColaboradorItem = new MenuItem("Adicionar colaborador");
         MenuItem visualizarColaboradoresItem = new MenuItem("Visualizar colaboradores");
-        adminMenu.getItems().addAll(popularBdItem,limparBdItem, addColaboradorItem, visualizarColaboradoresItem);
+        MenuItem modificarColaboradorItem = new MenuItem("Modificar colaborador");
+        adminMenu.getItems().addAll(popularBdItem,limparBdItem, addColaboradorItem, visualizarColaboradoresItem, modificarColaboradorItem);
 
         //--------------------------------------------------------------------------------------------------------------
         // Events
