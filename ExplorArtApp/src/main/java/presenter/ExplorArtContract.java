@@ -1,5 +1,6 @@
 package presenter;
 
+
 import model.*;
 import org.eclipse.jetty.util.IO;
 import view.ImportArtsyView;
@@ -161,10 +162,14 @@ public interface ExplorArtContract {
         List<Pais> getPaises() throws IOException;
         List<Cidade> getCidades() throws IOException;
 
-        double importDataFromArtsy();
+        void importDataFromArtsy() ;
         void deleteArtsyData();
 
         double getProgress();
+
+        void setProgress(double progress);
+
+        void updateProgress(double progress);
     }
 }
 

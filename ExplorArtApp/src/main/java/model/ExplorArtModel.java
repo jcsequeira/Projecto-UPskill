@@ -1,6 +1,9 @@
 package model;
 
+
 import apiservice.ApiService;
+
+
 import presenter.ExplorArtContract;
 
 import java.io.IOException;
@@ -179,11 +182,20 @@ public class ExplorArtModel implements ExplorArtContract.Model {
         return ApiService.getAllItems("http://localhost:4567/api/cidades", Cidade.class);
     }
 
-    @Override
-    public double importDataFromArtsy() {
+
+    public void importDataFromArtsy()  {
         // Your background task logic
         // Update the 'progress' variable as the task progresses
-        return 0;
+        //PopulateRun.doPopulate(this);
+        setProgress(0.5);
+    }
+
+    public void setProgress(double progress) {
+        this.progress = progress;
+    }
+
+    public void updateProgress(double progress) {
+        setProgress(progress);
     }
 
     public double getProgress() {

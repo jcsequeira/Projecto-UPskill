@@ -2,6 +2,7 @@ package presenter;
 
 // Presenter (no pacote presenter)
 
+
 import model.*;
 import view.ImportArtsyView;
 
@@ -239,11 +240,11 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
         model.addColaborador(colaborador);
     }
 
-    @Override
+
     public void importDataFromArtsy(ImportArtsyView importArtsyView) {
 
             // Start the background task in the model or background module
-            model.importDataFromArtsy();
+
 
             // Periodically update the progress bar in the view
             new Thread(() -> {
@@ -262,7 +263,9 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
                 // Task is complete, perform any additional actions if needed
             }).start();
         }
-
+    public void importDataFromArtsyStart() {
+        model.importDataFromArtsy();
+    }
 
     @Override
     public void deleteArtsyData() {
@@ -286,7 +289,6 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     @Override
     public void doArtistDetails(Artista artista) {
-
         view.showArtistDetails(artista);
 
     }
