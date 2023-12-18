@@ -1,5 +1,6 @@
 package presenter;
 
+
 import model.*;
 import view.ImportArtsyView;
 
@@ -93,7 +94,7 @@ public interface ExplorArtContract {
         //Admin
         void addColaborador(Colaborador colaborador) throws IOException;
         void importDataFromArtsy(ImportArtsyView importArtsyView);
-        void deleteArtsyData();
+        void deleteArtsyData() throws IOException;
 
         //View do's MenusActions
         void doArtistDetails(Artista artista);
@@ -184,10 +185,14 @@ public interface ExplorArtContract {
         List<Pais> getPaises() throws IOException;
         List<Cidade> getCidades() throws IOException;
 
-        double importDataFromArtsy();
-        void deleteArtsyData();
+        void importDataFromArtsy() ;
+        void deleteArtsyData() throws IOException;
 
         double getProgress();
+
+        void setProgress(double progress);
+
+        void updateProgress(double progress);
     }
 }
 

@@ -194,3 +194,44 @@ CREATE TABLE Obra_Materiais
 CREATE USER 'rest_api'@'localhost' IDENTIFIED BY 'P@ssw0rd';
 GRANT ALL PRIVILEGES ON explorart.* TO 'rest_api'@'localhost';
 FLUSH PRIVILEGES;
+
+
+DELIMITER //
+
+CREATE PROCEDURE DeleteIsArtsyEntries()
+BEGIN
+    -- Delete entries from Obra_Arte table
+    DELETE FROM Obra_Arte WHERE IsArtsy = 1;
+
+	-- Delete entries from Evento table first
+	DELETE FROM Evento WHERE id_Galeria IN (SELECT id_Galeria FROM Galeria WHERE IsArtsy = 1);
+
+	-- Now you can safely delete entries from Galeria table
+	DELETE FROM Galeria WHERE IsArtsy = 1;
+
+    -- Delete entries from Emprestimo_Obra_Galeria table
+    DELETE FROM Emprestimo_Obra_Galeria WHERE id_Obra_Arte IN (SELECT id_Obra_Arte FROM Obra_Arte WHERE IsArtsy = 1);
+
+    -- Delete entries from Obra_Exposicao table
+    DELETE FROM Obra_Exposicao WHERE id_Obra_Arte IN (SELECT id_Obra_Arte FROM Obra_Arte WHERE IsArtsy = 1);
+
+    -- Delete entries from Obra_Materiais table
+    DELETE FROM Obra_Materiais WHERE id_Obra_Arte IN (SELECT id_Obra_Arte FROM Obra_Arte WHERE IsArtsy = 1);
+
+    -- Delete entries from Artista table
+    DELETE FROM Artista WHERE IsArtsy = 1;
+
+    -- Delete entries from Movimento table
+    DELETE FROM Movimento WHERE id_Estilo IN (SELECT id_Estilo FROM Obra_Arte WHERE IsArtsy = 1);
+
+    -- Delete entries from Tecnica table
+    DELETE FROM Tecnica WHERE id_Tecnica IN (SELECT id_Tecnica FROM Obra_Arte WHERE IsArtsy = 1);
+
+    -- Delete entries from Materiais table
+    DELETE FROM Materiais WHERE id_Material IN (SELECT id_Material FROM Obra_Materiais WHERE id_Obra_Arte IN (SELECT id_Obra_Arte FROM Obra_Arte WHERE IsArtsy = 1));
+
+END //
+
+DELIMITER ;
+
+

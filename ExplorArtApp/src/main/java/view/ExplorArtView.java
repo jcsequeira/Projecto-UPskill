@@ -812,8 +812,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         Stage importDataFromArtsyStage = new Stage();
         importDataFromArtsyStage.setTitle("Importação de Dados");
 
-        ImportArtsyView importArtsyView = new ImportArtsyView();
-        //
+        ImportArtsyView importArtsyView = new ImportArtsyView(myPresenter);
+        myPresenter.importDataFromArtsy(importArtsyView);
+
         Scene sceneImportDataFromArtsy = new Scene(importArtsyView);
 
         importDataFromArtsyStage.setScene(sceneImportDataFromArtsy);
