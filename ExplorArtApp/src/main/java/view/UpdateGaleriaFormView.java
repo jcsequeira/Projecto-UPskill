@@ -11,6 +11,7 @@ import presenter.ExplorArtPresenter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class UpdateGaleriaFormView extends Parent {
     private Galeria galeria;
@@ -20,13 +21,13 @@ public class UpdateGaleriaFormView extends Parent {
     private ObservableList<Galerista> galeristaObservableList;
     private ComboBox<Galerista> galeristaComboBox;
 
-    public UpdateGaleriaFormView(Galeria galeria) {
+    public UpdateGaleriaFormView(Galeria galeria) throws IOException {
         this.galeria = galeria;
 
         doLayout(galeria);
     }
 
-    private void doLayout(Galeria galeria) {
+    private void doLayout(Galeria galeria) throws IOException {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
         GridPane gridPane = new GridPane();
@@ -90,11 +91,18 @@ public class UpdateGaleriaFormView extends Parent {
         } catch (IOException e){
             throw  new RuntimeException();
         }
+
+        Colaborador colabAux = modelAux.getColaboradorById(galeria.getId_colaborador());
+
+        Optional<Galerista> selectedGallerist = galeristaList.stream()
+                .filter(galerista -> galerista.getId_colaborador() == galeria.getId_colaborador())
+                .findFirst();
+
         galeristaObservableList = FXCollections.observableArrayList();
         galeristaObservableList.clear();
         galeristaObservableList.addAll(galeristaList);
         galeristaComboBox = new ComboBox<>(galeristaObservableList);
-        galeristaComboBox.getSelectionModel().select(galeria.getId_colaborador());
+        galeristaComboBox.getSelectionModel().select(selectedGallerist.get());
         gridPane.add(nomeLabel, 0, 6);
         gridPane.add(galeristaComboBox, 1, 6);
 

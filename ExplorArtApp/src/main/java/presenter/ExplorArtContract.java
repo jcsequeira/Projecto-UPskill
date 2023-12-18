@@ -12,6 +12,8 @@ import java.util.List;
 public interface ExplorArtContract {
 
     interface View {
+
+
         void showArtists(List<Artista> artistas);
 
         void showArtistDetails(Artista artista);
@@ -65,7 +67,7 @@ public interface ExplorArtContract {
 
         void showUpdateGallery(List<Galeria> galerias);
 
-        void showUpdateGalleryDetails(Galeria galeria);
+        void showUpdateGalleryDetails(Galeria galeria) throws IOException;
 
     }
         interface Presenter {

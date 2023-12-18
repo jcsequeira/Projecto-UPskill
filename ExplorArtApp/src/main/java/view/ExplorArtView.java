@@ -788,7 +788,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     @Override
-    public void showUpdateGalleryDetails(Galeria galeria) {
+    public void showUpdateGalleryDetails(Galeria galeria) throws IOException {
         Stage galleryUpdateDetailsStage = new Stage();
         galleryUpdateDetailsStage.setTitle("Detalhes da galeria");
 
