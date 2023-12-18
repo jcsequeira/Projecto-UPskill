@@ -83,7 +83,7 @@ public interface ExplorArtContract {
         //Admin
         void addColaborador(Colaborador colaborador) throws IOException;
         void importDataFromArtsy(ImportArtsyView importArtsyView);
-        void deleteArtsyData();
+        void deleteArtsyData() throws IOException;
 
         //View do's MenusActions
         void doArtistDetails(Artista artista);
@@ -163,7 +163,7 @@ public interface ExplorArtContract {
         List<Cidade> getCidades() throws IOException;
 
         void importDataFromArtsy() ;
-        void deleteArtsyData();
+        void deleteArtsyData() throws IOException;
 
         double getProgress();
 

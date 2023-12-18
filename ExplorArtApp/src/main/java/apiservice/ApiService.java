@@ -99,6 +99,11 @@ public class ApiService {
         }
     }
 
+    public static void triggerDeleteAllArtsyInRestApi(String apiUrl) throws IOException {
+        String json = "{\"script_name\": \"delete Artsy\"}";
+        postToRestApi(apiUrl, json);
+    }
+
 
 
 

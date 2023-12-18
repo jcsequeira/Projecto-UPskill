@@ -268,8 +268,8 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void deleteArtsyData() {
-//TODO
+    public void deleteArtsyData() throws IOException {
+        model.deleteArtsyData();
     }
 
     public void doShowDetails(Evento evento) {

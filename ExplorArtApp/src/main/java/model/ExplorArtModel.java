@@ -204,7 +204,7 @@ public class ExplorArtModel implements ExplorArtContract.Model {
 
 
     @Override
-    public void deleteArtsyData() {
-
+    public void deleteArtsyData() throws IOException {
+        ApiService.triggerDeleteAllArtsyInRestApi("http://localhost:4567/api/cleanartsydata");
     }
 }

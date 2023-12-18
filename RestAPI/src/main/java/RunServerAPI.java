@@ -7,6 +7,10 @@ import repository.*;
 import service.*;
 import spark.Spark;
 
+import java.beans.EventHandler;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -118,6 +122,18 @@ public class RunServerAPI {
         Spark.post("/populate/paises", paisInit()::addAllPaises);
         Spark.post("/populate/tecnicas", tecnicaInit()::addAllTecnicas);
 
+        //Endpoint DeleteAllArtsy
+        Spark.post("/api/cleanartsydata", (request, response) -> {
+            // Extract script name from the JSON request body
+            String scriptName = request.body();
+            // Call a method to execute the script (replace this with your actual script execution logic)
+            executeScript(scriptName);
+            // Send a response (replace this with an appropriate response)
+            return "Script triggered successfully for: " + scriptName ;
+        });
+
+
+    // Method to execute the script (replace this with your actual script execution logic)
 
 
 
@@ -137,6 +153,7 @@ public class RunServerAPI {
 
 
     }
+
 
     //Methods to Initialize All Services
 
@@ -208,6 +225,37 @@ public class RunServerAPI {
         TecnicaRepository tecnicaRepository = new TecnicaRepository(DBConnection.getConnection());
         TecnicaService tecnicaService = new TecnicaService(tecnicaRepository);
         return new TecnicaController(tecnicaService, new Gson());
+    }
+
+    private static void executeScript(String scriptName) {
+        // Add your script execution logic here
+        Connection connection = DBConnection.getConnection();
+        System.out.println("Executing script: " + scriptName);
+
+        // Implement the logic to execute the script in your database
+        try {
+            // Define the SQL statement to call the stored procedure
+            String sql = "{CALL DeleteIsArtsyEntries()}";
+
+            // Prepare the statement
+            try (CallableStatement statement = connection.prepareCall(sql)) {
+                // No parameters to set since the stored procedure doesn't take any
+
+                // Execute the stored procedure
+                statement.execute();
+                System.out.println("Script Executed with Success!");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Handle connection close exceptions appropriately
+            }
+        }
     }
 
     public static void stopServer() {
