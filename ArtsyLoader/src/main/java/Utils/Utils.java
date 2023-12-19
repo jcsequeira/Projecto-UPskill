@@ -17,12 +17,20 @@ import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+/**
+ * The {@code Utils} class provides utility methods for various tasks, including CSV parsing,
+ * data processing, and database operations.
+ */
 
 public class Utils {
-
-
-
-
+    /**
+     * Reads a CSV file containing country data and generates a list of {@code Pais} objects.
+     *
+     * @param csvFilePath           The path to the CSV file.
+     * @param enShortNameColumnIndex The column index for English short names.
+     * @param nationalityColumnIndex The column index for nationality.
+     * @return A list of {@code Pais} objects representing countries.
+     */
     public static List<Pais> paisesListGenerator(String csvFilePath, int enShortNameColumnIndex, int nationalityColumnIndex) {
         List<Pais> paisesList = new ArrayList<>();
         Map<Integer, String> countryMap = new HashMap<>();
@@ -50,9 +58,13 @@ public class Utils {
 
         return paisesList;   }
 
-
-
-
+    /**
+     * Reads a CSV file containing city names and generates a list of {@code Cidade} objects.
+     *
+     * @param csvFilePath The path to the CSV file.
+     * @return A list of {@code Cidade} objects representing cities.
+     * @throws IOException If an I/O error occurs.
+     */
 
     public static List<Cidade> cidadeListGenerator(String csvFilePath) throws IOException {
         try (CSVReader csvReader = new CSVReader(new FileReader(csvFilePath))) {
@@ -62,7 +74,12 @@ public class Utils {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Creates a list of {@code Cidade} objects from an array of city names.
+     *
+     * @param cityNames The array of city names.
+     * @return A list of {@code Cidade} objects representing cities.
+     */
     public static List<Cidade> createCidadeList(String[] cityNames) {
         return IntStream.range(0, cityNames.length)
                 .boxed()
@@ -70,15 +87,12 @@ public class Utils {
                 .collect(Collectors.toList());
     }
 
-
-
-
-    public static long countArtistsWithNullBirthday(List<ArtsyArtist> artists) {
-        return artists.stream()
-                .filter(artist -> artist.getBirthday() == null)
-                .count();
-    }
-
+    /**
+     * Removes nulls and duplicates from the list of {@code Tecnica} objects.
+     *
+     * @param tecnicas The list of {@code Tecnica} objects.
+     * @return A filtered list without nulls and duplicates.
+     */
     public static List<Tecnica> removeNullsAndDuplicatesTecnicas(List<Tecnica> tecnicas) {
         Set<String> uniqueTipos = new HashSet<>();
         return tecnicas.stream()
@@ -88,7 +102,12 @@ public class Utils {
                 })
                 .collect(Collectors.toList());
     }
-
+    /**
+     * Removes nulls and duplicates from the list of {@code Materiais} objects.
+     *
+     * @param materiais The list of {@code Materiais} objects.
+     * @return A filtered list without nulls and duplicates.
+     */
     public static List<Materiais> removeNullsAndDuplicatesMateriais(List<Materiais> materiais) {
         Set<String> uniqueTipos = new HashSet<>();
         return materiais.stream()
@@ -98,7 +117,12 @@ public class Utils {
                 })
                 .collect(Collectors.toList());
     }
-
+    /**
+     * Removes duplicates from the list of {@code ArtsyArtwork} objects based on artwork title.
+     *
+     * @param artsyArtworkList The list of {@code ArtsyArtwork} objects.
+     * @return A filtered list without duplicate artwork titles.
+     */
     public static List<ArtsyArtwork> removeDuplicatesArtworksArtsy (List<ArtsyArtwork> artsyArtworkList) {
         Set<String> uniqueArtworksTitle = new HashSet<>();
         return artsyArtworkList.stream()
@@ -108,13 +132,12 @@ public class Utils {
                 })
                 .collect(Collectors.toList());
     }
-
-    public static List<ArtsyArtist> removeArtistsWithNullBirthdayAndEmptyNationality(List<ArtsyArtist> artists) {
-        return artists.stream()
-                .filter(artist -> artist.getBirthday() != null && !Objects.equals(artist.getNationality(), ""))
-                .collect(Collectors.toList());
-    }
-
+    /**
+     * Retrieves all artist IDs and names from the database.
+     *
+     * @param con The database connection.
+     * @return A map containing artist IDs and names.
+     */
     public static HashMap<Integer, String> getAllIdArtistas(Connection con) {
         HashMap<Integer, String> artistIDs = new HashMap<>();
 
@@ -133,7 +156,12 @@ public class Utils {
         artistIDs.remove(1,"System_Artist_User");
         return artistIDs;
     }
-
+    /**
+     * Retrieves all artwork IDs and titles from the database.
+     *
+     * @param con The database connection.
+     * @return A map containing artwork IDs and titles.
+     */
     public static HashMap<Integer, String> getAllIdObrasArte(Connection con) {
         HashMap<Integer, String> artworkIDs = new HashMap<>();
 
@@ -151,6 +179,14 @@ public class Utils {
         }
         return artworkIDs;
     }
+
+    /**
+     * Updates the artist ID of a specific artwork in the database.
+     *
+     * @param obraArteId The ID of the artwork.
+     * @param artistaId  The ID of the artist.
+     * @param con        The database connection.
+     */
     public static void updateObraArteArtistId(int obraArteId,int artistaId, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "UPDATE Obra_Arte " +
@@ -172,6 +208,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Updates the material ID of a specific artwork in the database.
+     *
+     * @param key  The ID of the artwork.
+     * @param value The ID of the material.
+     * @param con   The database connection.
+     */
     public static void updateObraArteMaterialId(Integer key, Integer value, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "UPDATE explorart.obra_materiais SET id_Material = ? WHERE id_Obra_Arte = ? AND id_Material = 1;")) {
@@ -190,7 +233,12 @@ public class Utils {
             handleSQLException(e);
         }
     }
-
+    /**
+     * Retrieves all material IDs and types from the database.
+     *
+     * @param con The database connection.
+     * @return A map containing material IDs and types.
+     */
     public static HashMap<Integer, String> getAllIdMateriais(Connection con) {
         HashMap<Integer, String> materiaisIDs = new HashMap<>();
 
@@ -209,12 +257,20 @@ public class Utils {
         return materiaisIDs;
     }
 
-
+    /**
+     * Handles SQLExceptions by throwing a custom ServiceException
+     * @param sqlException
+     */
     private static void handleSQLException(SQLException sqlException) {
         throw new ServiceException("Erro ao atualizar: " + sqlException);
     }
 
-
+    /**
+     * Retrieves all technique IDs and types from the database.
+     *
+     * @param con The database connection.
+     * @return A map containing technique IDs and types.
+     */
     public static HashMap<Integer, String> getAllIdTecnicas(Connection con) {
         HashMap<Integer, String> tecnicasIDs = new HashMap<>();
 
@@ -230,9 +286,16 @@ public class Utils {
         } catch (SQLException sqlException) {
             handleSQLException(sqlException);
         }
-        return tecnicasIDs;        
+        return tecnicasIDs;
     }
 
+    /**
+     * Updates the technique ID of a specific artwork in the database.
+     *
+     * @param key  The ID of the artwork.
+     * @param value The ID of the technique.
+     * @param con   The database connection.
+     */
     public static void updateObraArteTecnicaId(Integer key, Integer value, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "UPDATE Obra_Arte " +
@@ -253,7 +316,12 @@ public class Utils {
             handleSQLException(e);
         }
     }
-
+    /**
+     * Retrieves all movement IDs and names from the database.
+     *
+     * @param con The database connection.
+     * @return A map containing movement IDs and names.
+     */
     public static HashMap<Integer, String> getAllIdMovimentos(Connection con) {
         HashMap<Integer, String> MovimentosIDs = new HashMap<>();
 
@@ -272,7 +340,13 @@ public class Utils {
         return MovimentosIDs;
 
     }
-
+    /**
+     * Updates the movement ID of a specific artwork in the database.
+     *
+     * @param key  The ID of the artwork.
+     * @param value The ID of the movement.
+     * @param con   The database connection.
+     */
     public static void updateObraArteMovimentoId(Integer key, Integer value, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "UPDATE explorart.obra_arte " +
@@ -293,7 +367,12 @@ public class Utils {
             handleSQLException(e);
         }
     }
-
+    /**
+     * Retrieves all event IDs and names from the database.
+     *
+     * @param con The database connection.
+     * @return A map containing event IDs and names.
+     */
     public static HashMap<Integer, String> getAllIdEventos(Connection con) {
         HashMap<Integer, String> EventosIDs = new HashMap<>();
 
@@ -311,7 +390,12 @@ public class Utils {
         }
         return EventosIDs;
     }
-
+    /**
+     * Retrieves all gallery IDs and names from the database.
+     *
+     * @param con The database connection.
+     * @return A map containing gallery IDs and names.
+     */
     public static HashMap<Integer, String> getAllIdGalerias(Connection con) {
         HashMap<Integer, String> GaleriasIDs = new HashMap<>();
 
@@ -330,6 +414,13 @@ public class Utils {
         return GaleriasIDs;
     }
 
+    /**
+     * Updates the gallery ID of a specific event in the database.
+     *
+     * @param key  The ID of the event.
+     * @param value The ID of the gallery.
+     * @param con   The database connection.
+     */
     public static void updateEventoGaleriaId(Integer key, Integer value, Connection con) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "UPDATE explorart.evento SET id_Galeria = ? WHERE id_Expo = ?;")) {
