@@ -14,7 +14,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
+/**
+ * A utility class for interacting with the Artsy API.
+ */
 public class ApiServiceArtsy {
 
     private static final OkHttpClient client = new OkHttpClient.Builder()
@@ -27,6 +29,12 @@ public class ApiServiceArtsy {
     private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapterArtsy()).create();
     private static final String HEADER_ACCESS_TOKEN = "X-Access-Token";
 
+    /**
+     * Builds an HTTP request with the Artsy API URL and authentication headers.
+     *
+     * @param apiUrl The Artsy API URL.
+     * @return The configured HTTP request.
+     */
     private static Request buildRequest(String apiUrl) {
         return new Request.Builder()
                 .url(apiUrl)
@@ -34,7 +42,15 @@ public class ApiServiceArtsy {
                 .build();
     }
 
-
+    /**
+     * Retrieves a list of Artsy items (e.g., artists, genes, artworks) from the Artsy API.
+     *
+     * @param <T>      The type of Artsy item.
+     * @param apiUrl   The Artsy API URL.
+     * @param itemType The class type of the Artsy item.
+     * @return A list of Artsy items.
+     * @throws IOException If an error occurs during the HTTP request.
+     */
     public static <T> List<T> getAllArtsyItems(String apiUrl, Class<T> itemType) throws IOException {
         Request request = buildRequest(apiUrl);
         try (Response response = client.newCall(request).execute()) {
@@ -61,6 +77,15 @@ public class ApiServiceArtsy {
         }
     }
 
+    /**
+     * Retrieves a single Artsy item (e.g., artist, gene, artwork) from the Artsy API.
+     *
+     * @param <T>      The type of Artsy item.
+     * @param apiUrl   The Artsy API URL.
+     * @param itemType The class type of the Artsy item.
+     * @return The requested Artsy item.
+     * @throws IOException If an error occurs during the HTTP request.
+     */
     public static <T> T getArtsyItem(String apiUrl, Class<T> itemType) throws IOException {
         Request request = buildRequest(apiUrl);
         try (Response response = client.newCall(request).execute()) {
@@ -91,6 +116,14 @@ public class ApiServiceArtsy {
             }
         }
     }
+
+    /**
+     * Retrieves an Artsy partner by reference from the Artsy API.
+     *
+     * @param apiUrl The Artsy API URL.
+     * @return The requested Artsy partner.
+     * @throws IOException If an error occurs during the HTTP request.
+     */
     public static ArtsyPartner getArtsyPartnerByRef(String apiUrl) throws IOException {
         Request request = buildRequest(apiUrl);
 
