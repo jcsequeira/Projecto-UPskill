@@ -164,6 +164,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 throw new RuntimeException(e);
             }
         });
+        visualizarGaleriasItem.setOnAction(event -> {
+            try {
+                myPresenter.exploreGalleries();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         //TO DO slideshow
 
         //--------------------------------------------------------------------------------------------------------------
@@ -378,10 +385,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                             .findFirst();
 
                     myPresenter.doShowDetails(selectedShow.get());
-
-
-
-
                 }
             });
         }
@@ -389,7 +392,27 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showGalleries(List<Galeria> galerias) {
-        // Lógica para exibir galerias na interface gráfica
+        if (galerias.isEmpty()){
+            showEmptyListMessage("Galerias");
+        }
+        else {
+            listView.getItems().clear();
+            for (Galeria galeria : galerias) {
+                listView.getItems().add(galeria.getNome_Galeria());
+            }
+            // Add an event handler to handle item click
+            listView.setOnMouseClicked(event -> {
+                String selectedGalleryName = listView.getSelectionModel().getSelectedItem();
+                if (selectedGalleryName != null) {
+                    // Find the corresponding Show object
+                    Optional<Galeria> selectedGallery = galerias.stream()
+                            .filter(galeria -> galeria.getNome_Galeria().equals(selectedGalleryName))
+                            .findFirst();
+
+                    myPresenter.doGalleryDetails(selectedGallery.get());
+                }
+            });
+        }
     }
 
     @Override
@@ -464,6 +487,23 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         artworkDetailsStage.show();
 
+    }
+    @Override
+    public void showGalleryDetails(Galeria galeria) {
+        Stage showGalleryDetailsStage = new Stage();
+        showGalleryDetailsStage.setTitle("Detalhes da Galeria");
+
+        Scene scene = new Scene(new GalleryDetailsView(galeria));
+
+        showGalleryDetailsStage.setScene(scene);
+        showGalleryDetailsStage.setResizable(true);
+
+        showGalleryDetailsStage.initOwner(this.getScene().getWindow());
+        showGalleryDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        showGalleryDetailsStage.sizeToScene();
+
+        showGalleryDetailsStage.show();
     }
 
 
@@ -947,6 +987,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         colabUpdateDetailsStage.show();
     }
+
 
 
 

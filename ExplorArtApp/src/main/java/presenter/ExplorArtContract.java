@@ -71,6 +71,8 @@ public interface ExplorArtContract {
         void showUpdateColab(List<Colaborador> colaboradores);
 
         void showUpdateColabDetails(Colaborador colaborador);
+
+        void showGalleryDetails(Galeria galeria);
     }
         interface Presenter {
             void exploreArtists() throws IOException;
@@ -177,6 +179,10 @@ public interface ExplorArtContract {
             void doUpdateColabDetails(Colaborador colaborador);
 
             void modifyColab(int id_colaborador, Colaborador colaborador) throws IOException;
+
+            void exploreGalleries() throws IOException;
+
+            void doGalleryDetails(Galeria galeria);
         }
             interface Model {
                 List<Artista> getArtists() throws IOException;
