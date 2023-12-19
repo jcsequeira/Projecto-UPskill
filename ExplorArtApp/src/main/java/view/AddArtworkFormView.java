@@ -30,10 +30,8 @@ public class AddArtworkFormView extends Parent {
     private ExplorArtModel model;
 
 
-
-
     public AddArtworkFormView(Obra_Arte obraArte) {
-        myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
+        myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -124,7 +122,7 @@ public class AddArtworkFormView extends Parent {
         model = new ExplorArtModel();
         try {
             tecnicaList = model.getTechnics();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException();
         }
 
@@ -141,7 +139,7 @@ public class AddArtworkFormView extends Parent {
         model = new ExplorArtModel();
         try {
             movimentosList = model.getMovement();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException();
         }
 
@@ -158,7 +156,7 @@ public class AddArtworkFormView extends Parent {
         model = new ExplorArtModel();
         try {
             materiaisList = model.getMaterials();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException();
         }
 
@@ -168,7 +166,6 @@ public class AddArtworkFormView extends Parent {
         materiaisComboBox = new ComboBox<>(materiaisObservableList);
         gridPane.add(materialsIdLabel, 0, 12);
         gridPane.add(materiaisComboBox, 1, 12);
-
 
 
         getChildren().add(gridPane);
@@ -187,21 +184,21 @@ public class AddArtworkFormView extends Parent {
                 ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
 
                 if (result == ButtonType.OK) {
-                obraArte.setTitulo(titleField.getText());
-                obraArte.setAno_Criacao(creationYearPicker.getValue());
-                obraArte.setPreco(Float.parseFloat(priceField.getText())); // Converte a String do preço para float
-                obraArte.setAltura(Float.parseFloat(heightField.getText()));
-                obraArte.setLargura(Float.parseFloat(widthField.getText()));
-                obraArte.setProfundidade(Float.parseFloat(depthField.getText()));
-                obraArte.setDiametro(Float.parseFloat(diameterField.getText()));
-                obraArte.setIsActive(yesButton.isSelected()?1:0);
-                obraArte.setId_artista((int) artistaComboBox.getSelectionModel().getSelectedItem().getId_artista());
-                obraArte.setId_Tecnica(tecnicaComboBox.getSelectionModel().getSelectedItem().getId_Tecnica());
-                obraArte.setId_Estilo(movimentoComboBox.getSelectionModel().getSelectedItem().getId_Estilo());
-                obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
-                obraArte.setLink_Imagem(imageLinkField.getText());
+                    obraArte.setTitulo(titleField.getText());
+                    obraArte.setAno_Criacao(creationYearPicker.getValue());
+                    obraArte.setPreco(Float.parseFloat(priceField.getText())); // Converte a String do preço para float
+                    obraArte.setAltura(Float.parseFloat(heightField.getText()));
+                    obraArte.setLargura(Float.parseFloat(widthField.getText()));
+                    obraArte.setProfundidade(Float.parseFloat(depthField.getText()));
+                    obraArte.setDiametro(Float.parseFloat(diameterField.getText()));
+                    obraArte.setIsActive(yesButton.isSelected() ? 1 : 0);
+                    obraArte.setId_artista((int) artistaComboBox.getSelectionModel().getSelectedItem().getId_artista());
+                    obraArte.setId_Tecnica(tecnicaComboBox.getSelectionModel().getSelectedItem().getId_Tecnica());
+                    obraArte.setId_Estilo(movimentoComboBox.getSelectionModel().getSelectedItem().getId_Estilo());
+                    obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
+                    obraArte.setLink_Imagem(imageLinkField.getText());
 
-                myPresenter.addArtwork(obraArte);
+                    myPresenter.addArtwork(obraArte);
 
                     // Se o utilizador confirmar, fecha a janela
                     getScene().getWindow().hide();
@@ -214,7 +211,6 @@ public class AddArtworkFormView extends Parent {
             }
         });
         gridPane.add(submitButton, 0, 13, 2, 1);
-
 
 
     }

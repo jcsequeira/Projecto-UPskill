@@ -27,7 +27,7 @@ public class RemoveArtistaView extends Parent {
     }
 
     private void doLayout(Artista artista) {
-        myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
+        myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         VBox detailsLayout = new VBox(10);
         detailsLayout.setPadding(new Insets(20));
 
@@ -77,8 +77,8 @@ public class RemoveArtistaView extends Parent {
 
 
         // Add labels to the layout
-        detailsLayout.getChildren().addAll(nameLabel, birthDateLabel, deathDateLabel, nationalityLabel, bioLabel,bioTextFlow,
-               removeButton);
+        detailsLayout.getChildren().addAll(nameLabel, birthDateLabel, deathDateLabel, nationalityLabel, bioLabel, bioTextFlow,
+                removeButton);
 
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);

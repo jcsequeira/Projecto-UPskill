@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CidadeRepository {
 
-    private Connection con;
+    private final Connection con;
 
     public CidadeRepository(Connection con) {
         this.con = con;

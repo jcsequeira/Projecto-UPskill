@@ -1,4 +1,3 @@
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controller.*;
@@ -7,18 +6,17 @@ import repository.*;
 import service.*;
 import spark.Spark;
 
-import java.beans.EventHandler;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-
-import static spark.Spark.*;
+import static spark.Spark.exception;
+import static spark.Spark.get;
 
 public class RunServerAPI {
 
-    private static Gson gsonLocalDate = new GsonBuilder().registerTypeAdapter(LocalDate .class, new LocalDateAdapter()).create();
+    private static final Gson gsonLocalDate = new GsonBuilder().registerTypeAdapter(LocalDate .class, new LocalDateAdapter()).create();
 
 
     public static void main(String[] args) {

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MovimentoRepository {
 
-    private Connection con;
+    private final Connection con;
 
     private static final String SELECT_ALL_MOVIMENTOS_QUERY = "SELECT * FROM movimento";
     private static final String SELECT_MOVIMENTO_BY_ID_QUERY = "SELECT * FROM Movimento WHERE Id_Estilo = ?";

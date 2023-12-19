@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 
-
 import java.io.IOException;
 
 public class ImportArtsyView extends Parent {
@@ -60,7 +59,7 @@ public class ImportArtsyView extends Parent {
 
         getChildren().add(gridPane);
 
-        Presenter myPresenter = new Presenter(this,new YourBackgroundModule());
+        Presenter myPresenter = new Presenter(this,new PopulateModel());
 
         startButton.setOnMouseClicked(event -> {
             statusLabel.setText("Importing....Please Wait!");

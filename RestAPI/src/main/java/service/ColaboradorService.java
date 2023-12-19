@@ -7,7 +7,7 @@ import repository.ColaboradorRepository;
 import java.util.List;
 
 public class ColaboradorService {
-    private ColaboradorRepository colaboradorRepository;
+    private final ColaboradorRepository colaboradorRepository;
 
     public ColaboradorService(ColaboradorRepository colaboradorRepository) {
         this.colaboradorRepository = colaboradorRepository;

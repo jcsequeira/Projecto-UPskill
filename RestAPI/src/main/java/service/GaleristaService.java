@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class GaleristaService {
-    private GaleristaRepository galeristaRepository;
+    private final GaleristaRepository galeristaRepository;
 
     private final Connection con = DBConnection.getConnection();
     private final ColaboradorRepository colaboradorRepository = new ColaboradorRepository(con);

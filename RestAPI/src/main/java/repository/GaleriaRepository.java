@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GaleriaRepository {
 
-    private Connection con;
+    private final Connection con;
 
     public GaleriaRepository(Connection con) {
         this.con = con;

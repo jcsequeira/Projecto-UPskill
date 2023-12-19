@@ -53,8 +53,8 @@ public class UpdateGaleriaFormView extends Parent {
         ExplorArtModel modelAux = new ExplorArtModel();
         try {
             cidadesList = modelAux.getCidades();
-        } catch (IOException e){
-            throw  new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
 
         Optional<Cidade> selectedCity = cidadesList.stream()
@@ -92,8 +92,8 @@ public class UpdateGaleriaFormView extends Parent {
         List<Galerista> galeristaList;
         try {
             galeristaList = modelAux.getGallerists();
-        } catch (IOException e){
-            throw  new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
 
         Colaborador colabAux = modelAux.getColaboradorById(galeria.getId_colaborador());
@@ -138,7 +138,7 @@ public class UpdateGaleriaFormView extends Parent {
                     // Se o utilizador confirmar, fecha a janela
                     getScene().getWindow().hide();
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
                 throw new RuntimeException();

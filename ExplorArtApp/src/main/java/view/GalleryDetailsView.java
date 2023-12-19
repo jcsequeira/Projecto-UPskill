@@ -28,7 +28,7 @@ public class GalleryDetailsView extends Parent {
         Label urlLabel = new Label("Website: " + ((galeria.getWebsite() == null || galeria.getWebsite().isEmpty()) ? "N/A" : galeria.getWebsite()));
         Label moradaLabel = new Label("Morada: " + ((galeria.getMorada() == null || galeria.getMorada().isEmpty()) ? "N/A" : galeria.getMorada()));
 
-        Label cidadeLabel = new Label("Cidade: "+ model.getCidadeById(galeria.getId_Cidade()));
+        Label cidadeLabel = new Label("Cidade: " + model.getCidadeById(galeria.getId_Cidade()));
         Label galeristaLabel = new Label("Galerista: " + model.getColaboradorById(galeria.getId_colaborador()));
 
 

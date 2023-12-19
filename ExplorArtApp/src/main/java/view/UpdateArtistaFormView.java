@@ -65,8 +65,8 @@ public class UpdateArtistaFormView extends Parent {
         ExplorArtModel modelAux = new ExplorArtModel();
         try {
             paisList = modelAux.getPaises();
-        } catch (IOException e){
-            throw  new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
         Pais paisAux = new Pais();
         paisAux.setNacionalidade(artista.getNacionalidade());
@@ -102,11 +102,11 @@ public class UpdateArtistaFormView extends Parent {
                     artista.setData_Morte(deathDayPicker.getValue());
                     artista.setNacionalidade(paisComboBox.getSelectionModel().getSelectedItem().getNacionalidade());
 
-                    myPresenter.modifyArtist((int)artista.getId_artista(), artista);
+                    myPresenter.modifyArtist((int) artista.getId_artista(), artista);
                     // Se o utilizador confirmar, fecha a janela
                     getScene().getWindow().hide();
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
                 throw new RuntimeException();

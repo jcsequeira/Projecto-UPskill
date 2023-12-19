@@ -22,7 +22,7 @@ public class RemoveGaleriaView extends Parent {
     }
 
     private void doLayout(Galeria galeria) throws IOException {
-        myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
+        myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         model = new ExplorArtModel();
         VBox detailsLayout = new VBox(10);
         detailsLayout.setPadding(new Insets(20));
@@ -66,8 +66,8 @@ public class RemoveGaleriaView extends Parent {
 
 
         // Add labels to the layout
-        detailsLayout.getChildren().addAll(nameLabel, galeristaLabel, moradaGaleriaLabel, cidadeGaleriaLabel,telefoneLabel,
-                emailLabel, urlLabel ,removeButton);
+        detailsLayout.getChildren().addAll(nameLabel, galeristaLabel, moradaGaleriaLabel, cidadeGaleriaLabel, telefoneLabel,
+                emailLabel, urlLabel, removeButton);
 
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);

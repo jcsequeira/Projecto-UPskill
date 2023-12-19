@@ -30,7 +30,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
         String dateString = jsonReader.nextString();
         if (jsonReader.peek() == JsonToken.NULL) {
             jsonReader.nextNull();
-           return null;
+            return null;
         } else {
             return LocalDate.parse(dateString, formatter);
         }

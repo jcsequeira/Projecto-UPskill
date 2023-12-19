@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class AdministradorService {
-    private AdministradorRepository administradorRepository;
+    private final AdministradorRepository administradorRepository;
     private final Connection con = DBConnection.getConnection();
     private final ColaboradorRepository colaboradorRepository = new ColaboradorRepository(con);
 

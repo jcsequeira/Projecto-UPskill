@@ -20,8 +20,9 @@ public class UpdateColabFormView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ComboBox<Pais> paisComboBox;
     private ObservableList<Pais> paisObservableList;
+
     public UpdateColabFormView(Colaborador colaborador) {
-        this.colaborador=colaborador;
+        this.colaborador = colaborador;
 
         doLayout(colaborador);
     }
@@ -58,8 +59,8 @@ public class UpdateColabFormView extends Parent {
         ExplorArtModel modelAux = new ExplorArtModel();
         try {
             paisList = modelAux.getPaises();
-        } catch (IOException e){
-            throw  new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
         Optional<Pais> selectedCountry = paisList.stream()
                 .filter(pais -> pais.getCodigo_Pais() == colaborador.getCodigo_Pais())
@@ -98,7 +99,7 @@ public class UpdateColabFormView extends Parent {
                     // Se o utilizador confirmar, fecha a janela
                     getScene().getWindow().hide();
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
                 throw new RuntimeException();

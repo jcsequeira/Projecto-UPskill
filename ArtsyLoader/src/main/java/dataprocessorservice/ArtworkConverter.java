@@ -2,7 +2,6 @@ package dataprocessorservice;
 
 
 import artsymodel.ArtsyArtwork;
-
 import model.Obra_Arte;
 
 

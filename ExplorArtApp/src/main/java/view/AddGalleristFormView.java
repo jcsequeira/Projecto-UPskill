@@ -18,6 +18,7 @@ public class AddGalleristFormView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ComboBox<Colaborador> colaboradorComboBox;
     private ObservableList<Colaborador> colaboradorObservableList;
+
     public AddGalleristFormView(Galerista galerista) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
@@ -32,8 +33,8 @@ public class AddGalleristFormView extends Parent {
         ExplorArtModel modelAux = new ExplorArtModel();
         try {
             colaboradorList = modelAux.getColaboradores();
-        } catch (IOException e){
-            throw  new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
         colaboradorObservableList = FXCollections.observableArrayList();
         colaboradorObservableList.clear();
@@ -80,7 +81,7 @@ public class AddGalleristFormView extends Parent {
                     // Se o utilizador confirmar, fecha a janela
                     getScene().getWindow().hide();
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
                 throw new RuntimeException();

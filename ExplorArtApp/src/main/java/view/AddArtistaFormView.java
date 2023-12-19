@@ -57,8 +57,8 @@ public class AddArtistaFormView extends Parent {
         ExplorArtModel modelAux = new ExplorArtModel();
         try {
             paisList = modelAux.getPaises();
-        } catch (IOException e){
-            throw  new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
         paisesObservableList = FXCollections.observableArrayList();
         paisesObservableList.clear();
@@ -71,7 +71,7 @@ public class AddArtistaFormView extends Parent {
 
         // Botão "Adicionar" e respetiva lógica
         Button submitButton = new Button("Adicionar Artista");
-       submitButton.setOnAction(event -> {
+        submitButton.setOnAction(event -> {
             try {
                 // Criar alerta de confirmação
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -93,14 +93,14 @@ public class AddArtistaFormView extends Parent {
                     // Se o utilizador confirmar, fecha a janela
                     getScene().getWindow().hide();
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
                 throw new RuntimeException();
             }
         });
 
-       gridPane.add(submitButton, 0, 5, 2, 1);
+        gridPane.add(submitButton, 0, 5, 2, 1);
     }
 
 }

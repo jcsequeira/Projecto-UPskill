@@ -1,14 +1,13 @@
 package service;
 
 import exceptions.ServiceException;
-import model.Artista;
 import model.Evento;
 import repository.EventoRepository;
 
 import java.util.List;
 
 public class EventoService {
-    private EventoRepository eventoRepository;
+    private final EventoRepository eventoRepository;
 
     public EventoService(EventoRepository eventoRepository) {
         this.eventoRepository = eventoRepository;

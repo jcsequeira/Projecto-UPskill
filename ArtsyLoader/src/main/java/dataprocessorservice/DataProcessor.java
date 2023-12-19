@@ -1,18 +1,9 @@
 package dataprocessorservice;
 
 
-
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
-import model.Cidade;
-import model.Pais;
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.*;
-
-import static Utils.Utils.createCidadeList;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataProcessor {

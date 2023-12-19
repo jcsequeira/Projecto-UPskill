@@ -41,7 +41,7 @@ public class UpdateArtworkFormView extends Parent {
     }
 
     private void doLayout(Obra_Arte obraArte) {
-        myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
+        myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -159,7 +159,7 @@ public class UpdateArtworkFormView extends Parent {
                     obraArte.setId_Material(materiaisComboBox.getSelectionModel().getSelectedItem().getId_Material());
 
                     // Update the artwork using the presenter or model
-                     myPresenter.modifyArtwork(obraArte.getId_Obra_Arte(),obraArte);
+                    myPresenter.modifyArtwork(obraArte.getId_Obra_Arte(), obraArte);
 
                     // Close the window
                     getScene().getWindow().hide();

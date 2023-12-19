@@ -49,7 +49,7 @@ public class ObraArteRepository {
     private static final String DELETE_OBRAARTE_QUERY =
             "DELETE FROM obra_arte WHERE id_obra_arte = ?";
 
-    private Connection con;
+    private final Connection con;
 
     public ObraArteRepository(Connection con) {
         this.con = con;
@@ -231,32 +231,6 @@ public class ObraArteRepository {
         preparedStatement.setInt(12, obraArte.getId_Estilo());
         preparedStatement.setInt(13, obraArte.getIsArtsy());
     }
-
-    /*private void updateObraMateriais(Obra_Arte obraArte) {
-        try {
-            if (obraArte.getId_Obra_Arte() != 0) {
-                if (obraArte.getId_Material() != 0) {
-                    String updateQuery = obraArte.getId_Material() != 0 ?
-                            UPDATE_OBRAMATERIAIS_QUERY :
-                            INSERT_OBRAMATERIAIS_QUERY;
-
-                    try (PreparedStatement preparedStatementObraMateriais = con.prepareStatement(updateQuery)) {
-
-                        preparedStatementObraMateriais.setInt(1, obraArte.getId_Material());
-                        preparedStatementObraMateriais.setInt(2, obraArte.getId_Obra_Arte());
-
-                        int affectedRowsObraMateriais = preparedStatementObraMateriais.executeUpdate();
-
-                        if (affectedRowsObraMateriais == 0) {
-                            throw new SQLException("Updating object Obra Arte failed, no rows affected.");
-                        }
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private void handleSQLException(SQLException e) {
         e.printStackTrace();

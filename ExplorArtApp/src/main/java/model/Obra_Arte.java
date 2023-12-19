@@ -29,7 +29,7 @@ public class Obra_Arte {
         Link_Imagem = link_Imagem;
         Ano_Criacao = ano_Criacao;
         Preco = preco;
-        this.altura=altura;
+        this.altura = altura;
         Largura = largura;
         Profundidade = profundidade;
         Diametro = diametro;

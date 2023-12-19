@@ -42,9 +42,10 @@ public class ArtworkDetailsViewFull extends Parent {
         ImageView imageView;
         Image image = new Image(getClass().getResource("/no_image.png").toExternalForm());
         //Display image
-        try { imageView = new ImageView(new Image(obraArte.getLink_Imagem()));
-        }catch (IllegalArgumentException | NullPointerException e) {
-             imageView = new ImageView(image);
+        try {
+            imageView = new ImageView(new Image(obraArte.getLink_Imagem()));
+        } catch (IllegalArgumentException | NullPointerException e) {
+            imageView = new ImageView(image);
         }
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(Region.USE_COMPUTED_SIZE);
@@ -68,11 +69,9 @@ public class ArtworkDetailsViewFull extends Parent {
         Label materiaisLabel = new Label("Materiais: " + (material != null ? material.getTipo_Material() : "<erro!>"));
 
 
-
-
         // Add labels to the layout
-        detailsLayout.getChildren().addAll(imageView, zoomInLabel, titleLabel, artistaLabel,linkImagemLabel,Ano_CriacaoLabel,
-                precoLabel,alturaLabel,larguraLabel,profundidadeLabel,diametroLabel, tecnicaLabel, movimentoLabel, materiaisLabel);
+        detailsLayout.getChildren().addAll(imageView, zoomInLabel, titleLabel, artistaLabel, linkImagemLabel, Ano_CriacaoLabel,
+                precoLabel, alturaLabel, larguraLabel, profundidadeLabel, diametroLabel, tecnicaLabel, movimentoLabel, materiaisLabel);
 
 
         imageView.setOnMouseClicked(event -> zoomImage(this.obraArte));
@@ -110,7 +109,6 @@ public class ArtworkDetailsViewFull extends Parent {
         // Exibir a janela
         stage.show();
     }
-
 
 
     private String formatDate(LocalDate date) {

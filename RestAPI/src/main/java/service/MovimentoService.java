@@ -1,6 +1,5 @@
 package service;
 
-import model.Artista;
 import model.Movimento;
 import repository.MovimentoRepository;
 
@@ -8,7 +7,7 @@ import java.util.List;
 
 public class MovimentoService {
 
-    private MovimentoRepository movimentoRepository;
+    private final MovimentoRepository movimentoRepository;
 
     public MovimentoService(MovimentoRepository movimentoRepository) {
         this.movimentoRepository = movimentoRepository;

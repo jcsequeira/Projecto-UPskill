@@ -10,7 +10,7 @@ public class DBConnection {
     private static final String USER = "rest_api";
     private static final String PASSWORD = "P@ssw0rd";
 
-    private static Connection connection;
+    private static final Connection connection;
 
     static {
         try {

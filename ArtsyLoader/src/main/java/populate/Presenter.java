@@ -8,9 +8,9 @@ import java.io.IOException;
 public class Presenter {
 
     private ImportArtsyView view;
-    private YourBackgroundModule backgroundModule;
+    private PopulateModel backgroundModule;
 
-    public Presenter(ImportArtsyView view, YourBackgroundModule backgroundModule) {
+    public Presenter(ImportArtsyView view, PopulateModel backgroundModule) {
         this.view = view;
         this.backgroundModule = backgroundModule;
     }

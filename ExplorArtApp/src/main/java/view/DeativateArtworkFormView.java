@@ -24,7 +24,7 @@ public class DeativateArtworkFormView extends Parent {
     }
 
     private void doLayout(Obra_Arte obraArte) {
-        myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
+        myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         GridPane gridPane = new GridPane();
         gridPane.setHgap(20);
         gridPane.setVgap(20);
@@ -36,13 +36,13 @@ public class DeativateArtworkFormView extends Parent {
         titleLabel.setStyle("-fx-font-size: 12pt;");
         titleStatusLabel.setStyle("-fx-font-size: 12pt;");
         gridPane.add(titleLabel, 0, 0);
-        gridPane.add(titleStatusLabel,1,0);
+        gridPane.add(titleStatusLabel, 1, 0);
         Label activeLabel = new Label("Ativo:");
         activeLabel.setStyle("-fx-font-size: 12pt;");
-        gridPane.add(activeLabel, 0,1);
-        Label activeStatusLabel = new Label(obraArte.getIsActive() == 1?" Sim ": " Não");
+        gridPane.add(activeLabel, 0, 1);
+        Label activeStatusLabel = new Label(obraArte.getIsActive() == 1 ? " Sim " : " Não");
         activeStatusLabel.setStyle("-fx-font-size: 12pt;");
-        gridPane.add(activeStatusLabel,1,1);
+        gridPane.add(activeStatusLabel, 1, 1);
         gridPane.setPrefWidth(300);
         getChildren().add(gridPane);
 
@@ -65,7 +65,7 @@ public class DeativateArtworkFormView extends Parent {
                     obraArte.setIsActive(0);
 
                     // Update the artwork using the presenter or model
-                    myPresenter.modifyArtwork(obraArte.getId_Obra_Arte(),obraArte);
+                    myPresenter.modifyArtwork(obraArte.getId_Obra_Arte(), obraArte);
 
                     // Close the window
                     getScene().getWindow().hide();

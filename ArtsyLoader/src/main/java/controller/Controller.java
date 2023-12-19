@@ -6,19 +6,15 @@ import apiserviceartsy.ApiServiceArtsy;
 import artsymodel.*;
 import com.opencsv.exceptions.CsvException;
 import dataprocessorservice.*;
-
 import exceptions.ServiceException;
 import restapiservice.RestApiService;
 
 import java.io.IOException;
 import java.sql.Connection;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import static apiserviceartsy.ApiServiceArtsy.getArtsyItem;
 import static apiserviceartsy.ApiServiceArtsy.getArtsyPartnerByRef;

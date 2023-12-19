@@ -41,7 +41,7 @@ public class ArtistDetailsView extends Parent {
         bioTextFlow.setPrefWidth(400); // Adjust the width as needed
 
         // Add labels to the layout
-        detailsLayout.getChildren().addAll(nameLabel, birthDateLabel, deathDateLabel, nationalityLabel, bioLabel,bioTextFlow);
+        detailsLayout.getChildren().addAll(nameLabel, birthDateLabel, deathDateLabel, nationalityLabel, bioLabel, bioTextFlow);
 
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);

@@ -2,18 +2,15 @@ package controller;
 
 import com.google.gson.Gson;
 import model.Administrador;
-
-
 import service.AdministradorService;
 import spark.Request;
 import spark.Response;
-
 
 import java.util.List;
 
 public class AdministradorController {
     private final AdministradorService administradorService;
-    private Gson gson;
+    private final Gson gson;
 
     public AdministradorController(AdministradorService administradorService, Gson gson) {
         this.administradorService = administradorService;

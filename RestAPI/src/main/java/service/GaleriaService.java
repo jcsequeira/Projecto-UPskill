@@ -1,13 +1,12 @@
 package service;
 
-import model.Artista;
 import model.Galeria;
 import repository.GaleriaRepository;
 
 import java.util.List;
 
 public class GaleriaService {
-    private GaleriaRepository galeriaRepository;
+    private final GaleriaRepository galeriaRepository;
 
     public GaleriaService(GaleriaRepository galeriaRepository) {
         this.galeriaRepository = galeriaRepository;

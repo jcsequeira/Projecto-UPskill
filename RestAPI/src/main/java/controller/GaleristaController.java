@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GaleristaController {
     private final GaleristaService galeristaService;
-    private Gson gson;
+    private final Gson gson;
 
     public GaleristaController(GaleristaService galeristaService, Gson gson) {
         this.galeristaService = galeristaService;

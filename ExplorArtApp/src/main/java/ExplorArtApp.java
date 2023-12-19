@@ -9,14 +9,12 @@ public class ExplorArtApp extends Application {
     public static void main(String[] args) throws InterruptedException {
         RunServerAPI.main(args);
         Thread.sleep(1000);
-        launch (args);
-
-
+        launch(args);
 
 
     }
 
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         ExplorArtView view = new ExplorArtView();
         ExplorArtModel model = new ExplorArtModel();
@@ -28,8 +26,6 @@ public class ExplorArtApp extends Application {
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(event -> RunServerAPI.stopServer());
-
-
 
 
     }

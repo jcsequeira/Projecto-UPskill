@@ -1,13 +1,12 @@
 package service;
 
 import model.Artista;
-import model.Pais;
 import repository.ArtistaRepository;
 
 import java.util.List;
 
 public class ArtistaService {
-    private ArtistaRepository artistaRepository;
+    private final ArtistaRepository artistaRepository;
 
     public ArtistaService(ArtistaRepository artistaRepository) {
         this.artistaRepository = artistaRepository;

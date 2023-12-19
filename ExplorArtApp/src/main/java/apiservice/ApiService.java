@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-
 public class ApiService {
 
     private static final OkHttpClient client = new OkHttpClient();
@@ -44,7 +43,8 @@ public class ApiService {
         Request request = buildRequest(apiUrl);
         try (Response response = client.newCall(request).execute()) {
             assert response.body() != null;
-           return gson.fromJson(response.body().string(),itemType); }
+            return gson.fromJson(response.body().string(), itemType);
+        }
     }
 
     private static void postToRestApi(String apiUrl, String json) throws IOException {
@@ -85,7 +85,7 @@ public class ApiService {
         putToRestApi(apiUrl, json);
     }
 
-   public static void deleteToRestApi(String apiUrl) throws IOException {
+    public static void deleteToRestApi(String apiUrl) throws IOException {
         Request request = new Request.Builder()
                 .url(apiUrl)
                 .delete()
@@ -102,8 +102,6 @@ public class ApiService {
         String json = "{\"script_name\": \"delete Artsy\"}";
         postToRestApi(apiUrl, json);
     }
-
-
 
 
 }

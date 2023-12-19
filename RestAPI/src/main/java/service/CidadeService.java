@@ -1,9 +1,7 @@
 package service;
 
 
-
 import exceptions.ServiceException;
-import model.Artista;
 import model.Cidade;
 import repository.CidadeRepository;
 
@@ -12,7 +10,7 @@ import java.util.List;
 
 public class CidadeService {
 
-    private CidadeRepository cidadeRepository;
+    private final CidadeRepository cidadeRepository;
 
     public CidadeService(CidadeRepository cidadeRepository) {
         this.cidadeRepository = cidadeRepository;

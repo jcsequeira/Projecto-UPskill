@@ -66,8 +66,8 @@ public class UpdateEventoFormView extends Parent {
         ExplorArtModel modelAux = new ExplorArtModel();
         try {
             galleryList = modelAux.getGalleries();
-        } catch (IOException e){
-            throw  new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
         galeriaObservableList = FXCollections.observableArrayList();
         galeriaObservableList.clear();
@@ -104,7 +104,7 @@ public class UpdateEventoFormView extends Parent {
                     // Se o utilizador confirmar, fecha a janela
                     getScene().getWindow().hide();
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
                 throw new RuntimeException();

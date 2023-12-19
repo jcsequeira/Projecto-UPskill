@@ -1,9 +1,7 @@
 package dataprocessorservice;
 
-import artsymodel.ArtsyArtwork;
 import artsymodel.ArtsyPartner;
 import model.Galeria;
-import model.Obra_Arte;
 
 public class PartnerConverter {
     private static final int IS_ARTSY = 1;

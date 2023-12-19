@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class AdministradorRepository {
-    private Connection con;
+    private final Connection con;
 
     private static final String SELECT_ALL_ADMINISTRADOR_QUERY = "SELECT * FROM Administrador";
     private static final String SELECT_ADMINISTRADOR_BY_ID_QUERY = "SELECT * FROM Administrador WHERE id_colaborador = ?";

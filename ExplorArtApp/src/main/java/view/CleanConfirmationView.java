@@ -27,7 +27,6 @@ public class CleanConfirmationView extends BorderPane {
         closeButton.setOnAction(event -> closeWindow());// This will close the AboutView window;
 
 
-
         // Add components to VBox
         contentBox.getChildren().addAll(titleLabel, closeButton);
 

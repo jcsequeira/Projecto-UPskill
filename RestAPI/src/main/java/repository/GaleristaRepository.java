@@ -3,14 +3,13 @@ package repository;
 import model.Galerista;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GaleristaRepository {
 
-    private Connection con;
+    private final Connection con;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public GaleristaRepository(Connection con) {

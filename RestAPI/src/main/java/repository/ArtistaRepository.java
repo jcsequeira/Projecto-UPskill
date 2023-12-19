@@ -2,7 +2,6 @@ package repository;
 
 import model.Artista;
 
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistaRepository {
-    private Connection con;
+    private final Connection con;
 
     public ArtistaRepository(Connection con) {
         this.con = con;

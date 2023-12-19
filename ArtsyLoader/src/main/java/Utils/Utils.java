@@ -1,24 +1,20 @@
 package Utils;
 
 
+import artsymodel.ArtsyArtist;
 import artsymodel.ArtsyArtwork;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-
-
-
+import exceptions.ServiceException;
+import model.Cidade;
+import model.Materiais;
+import model.Pais;
+import model.Tecnica;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
-
-import artsymodel.ArtsyArtist;
-import exceptions.ServiceException;
-import model.*;
-
-
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 

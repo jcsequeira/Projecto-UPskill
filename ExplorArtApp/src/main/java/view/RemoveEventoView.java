@@ -18,12 +18,13 @@ import java.time.format.DateTimeFormatter;
 public class RemoveEventoView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ExplorArtModel model;
+
     public RemoveEventoView(Evento evento) throws IOException {
         doLayout(evento);
     }
 
     private void doLayout(Evento evento) throws IOException {
-        myPresenter = new ExplorArtPresenter(new ExplorArtView(),new ExplorArtModel());
+        myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         model = new ExplorArtModel();
         VBox detailsLayout = new VBox(10);
         detailsLayout.setPadding(new Insets(20));

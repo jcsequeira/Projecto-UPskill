@@ -1,19 +1,18 @@
 package populate;
 
+import Utils.DBConnection;
+import Utils.Utils;
 import artsymodel.*;
-import Utils.*;
-
 import com.opencsv.exceptions.CsvException;
 import exceptions.ServiceException;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.List;
 
 import static controller.Controller.*;
 
-public class YourBackgroundModule {
+public class PopulateModel {
     public double progress;
 
     public void runBackgroundTask() throws InterruptedException, IOException, CsvException {

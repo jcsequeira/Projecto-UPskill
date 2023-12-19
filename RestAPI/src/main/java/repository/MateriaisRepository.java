@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MateriaisRepository {
 
-    private Connection con;
+    private final Connection con;
 
     public MateriaisRepository(Connection con) {
         this.con = con;

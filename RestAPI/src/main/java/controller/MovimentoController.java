@@ -2,7 +2,6 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import model.Artista;
 import model.Movimento;
 import service.MovimentoService;
 import spark.Request;

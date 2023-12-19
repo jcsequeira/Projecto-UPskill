@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PaisService {
 
-    private PaisRepository paisRepository;
+    private final PaisRepository paisRepository;
 
     public PaisService(PaisRepository paisRepository) {
         this.paisRepository = paisRepository;

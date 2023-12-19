@@ -2,18 +2,15 @@ package controller;
 
 import com.google.gson.Gson;
 import model.Colaborador;
-
-
 import service.ColaboradorService;
 import spark.Request;
 import spark.Response;
-
 
 import java.util.List;
 
 public class ColaboradorController {
     private final ColaboradorService colaboradorService;
-    private Gson gson;
+    private final Gson gson;
 
     public ColaboradorController(ColaboradorService colaboradorService, Gson gson) {
         this.colaboradorService = colaboradorService;

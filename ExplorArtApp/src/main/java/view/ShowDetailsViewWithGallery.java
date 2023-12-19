@@ -17,7 +17,7 @@ public class ShowDetailsViewWithGallery extends Parent {
     private Evento evento;
     private Galeria galeria;
 
-    public ShowDetailsViewWithGallery(Evento evento, Galeria galeria)  {
+    public ShowDetailsViewWithGallery(Evento evento, Galeria galeria) {
         this.evento = evento;
         this.galeria = galeria;
 

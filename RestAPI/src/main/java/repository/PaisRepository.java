@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PaisRepository {
 
-    private Connection con;
+    private final Connection con;
 
     public PaisRepository(Connection con) {
         this.con = con;

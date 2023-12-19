@@ -1,6 +1,5 @@
 package service;
 
-import model.Artista;
 import model.Tecnica;
 import repository.TecnicaRepository;
 
@@ -8,7 +7,7 @@ import java.util.List;
 
 public class TecnicaService {
 
-    private TecnicaRepository tecnicaRepository;
+    private final TecnicaRepository tecnicaRepository;
 
     public TecnicaService(TecnicaRepository tecnicaRepository) {
         this.tecnicaRepository = tecnicaRepository;

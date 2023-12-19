@@ -2,7 +2,6 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import model.Artista;
 import model.Obra_Arte;
 import service.ObraArteService;
 import spark.Request;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class ObraArteController {
     private final ObraArteService obraArteService;
-    private Gson gson;
+    private final Gson gson;
 
     public ObraArteController(ObraArteService obraArteService, Gson gson) {
         this.obraArteService = obraArteService;

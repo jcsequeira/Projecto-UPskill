@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TecnicaRepository {
 
-    private Connection con;
+    private final Connection con;
 
     public TecnicaRepository(Connection con) {
         this.con = con;

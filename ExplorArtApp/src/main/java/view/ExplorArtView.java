@@ -25,7 +25,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     private ExplorArtPresenter myPresenter;
 
 
-    public ExplorArtView(){
+    public ExplorArtView() {
         myPresenter = new ExplorArtPresenter(this, new ExplorArtModel());
 
         doLayout();
@@ -33,7 +33,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     private void doLayout() {
         // Set internal margin for the panel
-        setPadding(new Insets(0,30,30, 30));
+        setPadding(new Insets(0, 30, 30, 30));
 
         // Initialization of controls (if needed)
 
@@ -54,10 +54,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         imageView.setFitWidth(200);
         imageView.setFitHeight(100);
         VBox bottom = new VBox();
-        setMargin(bottom, new Insets(10,0,0,0));
+        setMargin(bottom, new Insets(10, 0, 0, 0));
         bottom.setAlignment(Pos.CENTER);
         ProgressBar progressbar = new ProgressBar();
-        progressbar.setPadding(new Insets(10,10,10,10));
+        progressbar.setPadding(new Insets(10, 10, 10, 10));
         progressbar.setProgress(0.5);
         bottom.getChildren().addAll(imageView, progressbar);
         setBottom(bottom);
@@ -75,7 +75,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         MenuItem visualizarEventosItem = new MenuItem("Visualizar Eventos");
         MenuItem visualizarSlideshowItem = new MenuItem("Visualizar Slideshow");
 
-        explorarMenu.getItems().addAll(pesquisarItem, visualizarOAItem, visualizarArtistasItem,visualizarGaleriasItem,
+        explorarMenu.getItems().addAll(pesquisarItem, visualizarOAItem, visualizarArtistasItem, visualizarGaleriasItem,
                 visualizarEventosItem, visualizarSlideshowItem);
 
 
@@ -135,7 +135,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         MenuItem addColaboradorItem = new MenuItem("Adicionar colaborador");
         MenuItem visualizarColaboradoresItem = new MenuItem("Visualizar colaboradores");
         MenuItem modificarColaboradorItem = new MenuItem("Modificar colaborador");
-        adminMenu.getItems().addAll(popularBdItem,limparBdItem, addColaboradorItem, visualizarColaboradoresItem, modificarColaboradorItem);
+        adminMenu.getItems().addAll(popularBdItem, limparBdItem, addColaboradorItem, visualizarColaboradoresItem, modificarColaboradorItem);
 
         //--------------------------------------------------------------------------------------------------------------
         // Events
@@ -223,17 +223,19 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         adicionarEventoItem.setOnAction(event -> {
             myPresenter.doAddShow();
         });
-        modificarEventoItem.setOnAction(event -> {try {
-            myPresenter.doUpdateShow();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        modificarEventoItem.setOnAction(event -> {
+            try {
+                myPresenter.doUpdateShow();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
-        removerEventoItem.setOnAction(event -> {try {
-            myPresenter.doRemoveShow();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        removerEventoItem.setOnAction(event -> {
+            try {
+                myPresenter.doRemoveShow();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
 
@@ -242,11 +244,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         adicionarGaleristaItem.setOnAction(event -> {
             myPresenter.doAddGalerist();
         });
-        modificarGaleristaItem.setOnAction(event -> {try {
-            myPresenter.doUpdateGallerist();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        modificarGaleristaItem.setOnAction(event -> {
+            try {
+                myPresenter.doUpdateGallerist();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         //--------------------------------------------------------------------------------------------------------------
@@ -254,11 +257,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         adicionarGaleriaItem.setOnAction(event -> {
             myPresenter.doAddGaleria();
         });
-        modificarGaleriaItem.setOnAction(event -> {try {
-            myPresenter.doUpdateGallery();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        modificarGaleriaItem.setOnAction(event -> {
+            try {
+                myPresenter.doUpdateGallery();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         removerGaleriaItem.setOnAction(event -> {
             try {
@@ -274,14 +278,14 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             myPresenter.doAddColaborador();
         });
         popularBdItem.setOnAction(event -> {
-           myPresenter.doImportDataFromArtsy();
+            myPresenter.doImportDataFromArtsy();
         });
         visualizarColaboradoresItem.setOnAction(event -> {
-           try {
-            myPresenter.visualizarColaboradores();
-        } catch (IOException e) {
-               throw new RuntimeException(e);
-           }
+            try {
+                myPresenter.visualizarColaboradores();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         modificarColaboradorItem.setOnAction(event -> {
             try {
@@ -291,7 +295,8 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             }
         });
         limparBdItem.setOnAction(event -> {
-            try {doLimparBD();
+            try {
+                doLimparBD();
             } catch (IOException e) {
                 throw new RuntimeException();
             }
@@ -304,7 +309,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         exitItem.setOnAction(event -> exitApplication());
 
         menuBar.getMenus().addAll(explorarMenu, gerirOAMenu, gerirArtistasMenu, gerirEventosMenu,
-                gerirGaleristasMenu, gerirGaleriasMenu, adminMenu,helpMenu);
+                gerirGaleristasMenu, gerirGaleriasMenu, adminMenu, helpMenu);
 
         return menuBar;
     }
@@ -341,13 +346,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showArtworks(List<Obra_Arte> obras) {
-        if (obras.isEmpty()){
+        if (obras.isEmpty()) {
             showEmptyListMessage("Obras de Arte");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Obra_Arte obraArte : obras) {
-                if (obraArte.getIsActive()==1) listView.getItems().add(obraArte.getTitulo());
+                if (obraArte.getIsActive() == 1) listView.getItems().add(obraArte.getTitulo());
             }
             // Add an event handler to handle item click
             listView.setOnMouseClicked(event -> {
@@ -372,10 +376,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showEvents(List<Evento> eventos) {
-        if (eventos.isEmpty()){
+        if (eventos.isEmpty()) {
             showEmptyListMessage("Eventos");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Evento evento : eventos) {
                 listView.getItems().add(evento.getNome());
@@ -397,10 +400,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showGalleries(List<Galeria> galerias) {
-        if (galerias.isEmpty()){
+        if (galerias.isEmpty()) {
             showEmptyListMessage("Galerias");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Galeria galeria : galerias) {
                 listView.getItems().add(galeria.getNome_Galeria());
@@ -453,8 +455,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         showArtistFormStage.show();
     }
+
     @Override
-    public void showShowsDetails(Evento evento, Galeria galeria)  {
+    public void showShowsDetails(Evento evento, Galeria galeria) {
         Stage showDetailsStage = new Stage();
         showDetailsStage.setTitle("Detalhes do Evento");
 
@@ -493,6 +496,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artworkDetailsStage.show();
 
     }
+
     @Override
     public void showGalleryDetails(Galeria galeria) throws IOException {
         Stage showGalleryDetailsStage = new Stage();
@@ -510,7 +514,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         showGalleryDetailsStage.show();
     }
-
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -537,10 +540,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showUpdateArtworks(List<Obra_Arte> obras) {
-        if (obras.isEmpty()){
+        if (obras.isEmpty()) {
             showEmptyListMessage("Obra de Arte");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Obra_Arte obraArte : obras) {
                 listView.getItems().add(obraArte.getTitulo());
@@ -587,10 +589,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showAtivateArtwokrs(List<Obra_Arte> obras) {
-        if (obras.isEmpty()){
+        if (obras.isEmpty()) {
             showEmptyListMessage("Obra de Arte");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Obra_Arte obraArte : obras) {
                 listView.getItems().add(obraArte.getTitulo());
@@ -636,10 +637,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showDeativateArtwokrs(List<Obra_Arte> obras) {
-        if (obras.isEmpty()){
+        if (obras.isEmpty()) {
             showEmptyListMessage("Obra de Arte");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Obra_Arte obraArte : obras) {
                 listView.getItems().add(obraArte.getTitulo());
@@ -685,7 +685,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
 
-
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Artistas *******
     @Override
@@ -711,10 +710,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showUpdateArtist(List<Artista> artistas) {
-        if (artistas.isEmpty()){
+        if (artistas.isEmpty()) {
             showEmptyListMessage("Artista");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Artista artista : artistas) {
                 listView.getItems().add(artista.getNome_artista());
@@ -758,10 +756,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showRemoveArtists(List<Artista> artistas) {
-        if (artistas.isEmpty()){
+        if (artistas.isEmpty()) {
             showEmptyListMessage("Artista");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Artista artista : artistas) {
                 listView.getItems().add(artista.getNome_artista());
@@ -804,11 +801,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
 
-
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Eventos *******
     @Override
-    public void showAddShowForm(Evento evento){
+    public void showAddShowForm(Evento evento) {
         Stage addShowFormStage = new Stage();
         addShowFormStage.setTitle("Novo evento");
 
@@ -830,10 +826,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showUpdateShow(List<Evento> eventos) {
-        if (eventos.isEmpty()){
+        if (eventos.isEmpty()) {
             showEmptyListMessage("Evento");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Evento evento : eventos) {
                 listView.getItems().add(evento.getNome());
@@ -878,10 +873,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showRemoveShows(List<Evento> eventos) {
-        if (eventos.isEmpty()){
+        if (eventos.isEmpty()) {
             showEmptyListMessage("Evento");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Evento evento : eventos) {
                 listView.getItems().add(evento.getNome());
@@ -949,10 +943,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showUpdateGallerist(List<Galerista> galeristas) {
-        if (galeristas.isEmpty()){
+        if (galeristas.isEmpty()) {
             showEmptyListMessage("Galerista");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Galerista galerista : galeristas) {
                 listView.getItems().add(galerista.toString());
@@ -996,7 +989,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
 
-
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Galeria *******
     @Override
@@ -1022,10 +1014,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showUpdateGallery(List<Galeria> galerias) {
-        if (galerias.isEmpty()){
+        if (galerias.isEmpty()) {
             showEmptyListMessage("Galerias");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Galeria galeria : galerias) {
                 listView.getItems().add(galeria.toString());
@@ -1070,10 +1061,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showRemoveGalleries(List<Galeria> galerias) {
-        if (galerias.isEmpty()){
+        if (galerias.isEmpty()) {
             showEmptyListMessage("Galeria");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Galeria galeria : galerias) {
                 listView.getItems().add(galeria.getNome_Galeria());
@@ -1116,7 +1106,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
 
-
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Admin *******
     @Override
@@ -1142,10 +1131,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void visualizarColaboradores(List<Colaborador> colaboradores) {
-        if (colaboradores.isEmpty()){
+        if (colaboradores.isEmpty()) {
             showEmptyListMessage("Colaboradores");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Colaborador colaborador : colaboradores) {
                 listView.getItems().add(colaborador.getNome_Colaborador());
@@ -1191,10 +1179,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     @Override
     public void showUpdateColab(List<Colaborador> colaboradores) {
-        if (colaboradores.isEmpty()){
+        if (colaboradores.isEmpty()) {
             showEmptyListMessage("Colaboradores");
-        }
-        else {
+        } else {
             listView.getItems().clear();
             for (Colaborador colaborador : colaboradores) {
                 listView.getItems().add(colaborador.toString());
@@ -1234,35 +1221,33 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     public void doLimparBD() throws IOException {
-            // Criar alerta de confirmação
-            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setTitle("Limpar Artsy Data");
-            confirmationAlert.setHeaderText("Tem a certeza que deseja apagar todos os dados provenientes da Artsy API?");
-            confirmationAlert.setContentText("Ao confirmar, serão eliminados os seguintes Items: Obras de Arte, Artistas, Eventos e Galerias da Base de Dados.");
+        // Criar alerta de confirmação
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Limpar Artsy Data");
+        confirmationAlert.setHeaderText("Tem a certeza que deseja apagar todos os dados provenientes da Artsy API?");
+        confirmationAlert.setContentText("Ao confirmar, serão eliminados os seguintes Items: Obras de Arte, Artistas, Eventos e Galerias da Base de Dados.");
 
-            // Obter o resultado da confirmação
-            ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+        // Obter o resultado da confirmação
+        ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
 
-            if (result == ButtonType.OK) {
-                myPresenter.deleteArtsyData();
-                // Se o utilizador confirmar, fecha a janela
+        if (result == ButtonType.OK) {
+            myPresenter.deleteArtsyData();
+            // Se o utilizador confirmar, fecha a janela
 
 
-                Stage bdCleanConfirmation = new Stage();
-                bdCleanConfirmation.setTitle("Limpeza Efetuada");
-                Scene scene = new Scene(new CleanConfirmationView(), 400, 300);
-                bdCleanConfirmation.setScene(scene);
-                bdCleanConfirmation.setResizable(false);
+            Stage bdCleanConfirmation = new Stage();
+            bdCleanConfirmation.setTitle("Limpeza Efetuada");
+            Scene scene = new Scene(new CleanConfirmationView(), 400, 300);
+            bdCleanConfirmation.setScene(scene);
+            bdCleanConfirmation.setResizable(false);
 
-                bdCleanConfirmation.initOwner(this.getScene().getWindow());
-                bdCleanConfirmation.initModality(Modality.APPLICATION_MODAL);
+            bdCleanConfirmation.initOwner(this.getScene().getWindow());
+            bdCleanConfirmation.initModality(Modality.APPLICATION_MODAL);
 
-                bdCleanConfirmation.show();
+            bdCleanConfirmation.show();
 
-            }
+        }
     }
-
-
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -1292,7 +1277,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         });
     }
 
-    public void showAbout(){
+    public void showAbout() {
         Stage bdCleanConfirmation = new Stage();
         bdCleanConfirmation.setTitle("Sobre ExplorArt");
         Scene scene = new Scene(new AboutView(), 400, 300);
@@ -1304,7 +1289,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         bdCleanConfirmation.show();
     }
-
 
 
     @Override

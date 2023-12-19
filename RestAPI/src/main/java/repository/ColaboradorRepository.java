@@ -2,15 +2,13 @@ package repository;
 
 import model.Colaborador;
 
-
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ColaboradorRepository {
 
-    private Connection con;
+    private final Connection con;
 
     public ColaboradorRepository(Connection con) {
         this.con = con;

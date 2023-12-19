@@ -1,20 +1,13 @@
 package controller;
 
 import com.google.gson.Gson;
-
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import controller.adapters.LocalDateAdapter;
-import model.Artista;
 import model.Evento;
 import service.EventoService;
-
 import spark.Request;
 import spark.Response;
 
-
 import java.lang.reflect.Type;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +15,7 @@ import java.util.List;
 public class EventoController {
 
     private final EventoService eventoService;
-    private Gson gson;
+    private final Gson gson;
 
     public EventoController(EventoService eventoService, Gson gson) {
         this.eventoService = eventoService;

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class EventoRepository {
 
-    private Connection con;
+    private final Connection con;
 
     public EventoRepository(Connection con) {
         this.con = con;
