@@ -193,4 +193,9 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     public void deleteArtsyData() throws IOException {
         ApiService.triggerDeleteAllArtsyInRestApi("http://localhost:4567/api/cleanartsydata");
     }
+
+    @Override
+    public void modifyColab(int colabId, Colaborador colaborador) throws IOException {
+        ApiService.putToRestApi("http://localhost:4567/api/colaboradores/" + colabId, colaborador);
+    }
 }

@@ -202,7 +202,22 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     }
 
+    @Override
+    public void doUpdateColab() throws IOException {
+        List<Colaborador> colaboradores = model.getColaboradores();
 
+        view.showUpdateColab(colaboradores);
+    }
+
+    @Override
+    public void doUpdateColabDetails(Colaborador colaborador) {
+        view.showUpdateColabDetails(colaborador);
+    }
+
+    @Override
+    public void modifyColab(int colabId, Colaborador colaborador) throws IOException {
+        model.modifyColab(colabId, colaborador);
+    }
 
 
     @Override

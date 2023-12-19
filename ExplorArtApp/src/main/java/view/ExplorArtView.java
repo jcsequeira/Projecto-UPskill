@@ -243,6 +243,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                throw new RuntimeException(e);
            }
         });
+        modificarColaboradorItem.setOnAction(event -> {
+            try {
+                myPresenter.doUpdateColab();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         limparBdItem.setOnAction(event -> {
             try {
                 // Criar alerta de confirmação
@@ -822,7 +829,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         galleryUpdateDetailsStage.show();
     }
 
- 
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -896,6 +902,50 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         showColaboradorFormStage.sizeToScene();
 
         showColaboradorFormStage.show();
+    }
+
+    @Override
+    public void showUpdateColab(List<Colaborador> colaboradores) {
+        if (colaboradores.isEmpty()){
+            showEmptyListMessage("Colaboradores");
+        }
+        else {
+            listView.getItems().clear();
+            for (Colaborador colaborador : colaboradores) {
+                listView.getItems().add(colaborador.toString());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedShowName = listView.getSelectionModel().getSelectedItem();
+                if (selectedShowName != null) {
+                    // Find the corresponding Show object
+                    Optional<Colaborador> selectedcolaborador = colaboradores.stream()
+                            .filter(colaborador -> colaborador.toString().equals(selectedShowName))
+                            .findFirst();
+
+                    myPresenter.doUpdateColabDetails(selectedcolaborador.get());
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showUpdateColabDetails(Colaborador colaborador) {
+        Stage colabUpdateDetailsStage = new Stage();
+        colabUpdateDetailsStage.setTitle("Detalhes do colaborador");
+
+
+        Scene sceneColabUpdate = new Scene(new UpdateColabFormView(colaborador));
+
+        colabUpdateDetailsStage.setScene(sceneColabUpdate);
+        colabUpdateDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        colabUpdateDetailsStage.initOwner(this.getScene().getWindow());
+        colabUpdateDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        colabUpdateDetailsStage.sizeToScene();
+
+        colabUpdateDetailsStage.show();
     }
 
 

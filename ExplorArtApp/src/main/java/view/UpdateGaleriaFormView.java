@@ -115,7 +115,7 @@ public class UpdateGaleriaFormView extends Parent {
                 // Criar alerta de confirmação
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmationAlert.setTitle("Modificar galeria");
-                confirmationAlert.setHeaderText("Tem a certeza que deseja guardas as alterações efetuadas na galeria?");
+                confirmationAlert.setHeaderText("Tem a certeza que deseja guardar as alterações efetuadas na galeria?");
                 confirmationAlert.setContentText("Ao confirmar, a galeria será atualizada na Base de Dados.");
 
                 // Obter o resultado da confirmação
