@@ -2,64 +2,68 @@ package artsymodel;
 
 import java.time.LocalDate;
 
+/**
+ * Represents an artist in the Artsy system.
+ */
 public class ArtsyArtist {
+
     private String name;
     private String biography;
     private LocalDate birthday;
     private LocalDate deathday;
     private String nationality;
 
-    public ArtsyArtist(String name, String biography, LocalDate birthday, LocalDate deathday, String nationality) {
-        this.name = name;
-        this.biography = biography;
-        this.birthday = birthday;
-        this.deathday = deathday;
-        this.nationality = nationality;
-    }
-
-    public ArtsyArtist() {
-    }
-
+    /**
+     * Gets the name of the artist.
+     *
+     * @return The name of the artist.
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Gets the biography of the artist.
+     *
+     * @return The biography of the artist.
+     */
     public String getBiography() {
         return biography;
     }
 
-    public void setBiography(String biography) {
-        this.biography = biography;
-    }
-
+    /**
+     * Gets the birthday of the artist.
+     *
+     * @return The birthday of the artist.
+     */
     public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
+    /**
+     * Gets the death day of the artist.
+     *
+     * @return The death day of the artist.
+     */
     public LocalDate getDeathday() {
         return deathday;
     }
 
-    public void setDeathday(LocalDate deathday) {
-        this.deathday = deathday;
-    }
-
+    /**
+     * Gets the nationality of the artist.
+     *
+     * @return The nationality of the artist.
+     */
     public String getNationality() {
         return nationality;
     }
 
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
+    /**
+     * Returns a string representation of the artist.
+     * Must not be deleted, used in hashmaps and matching algoritms
+     * to find the specific artwork.
+     * @return A string representation of the artist.
+     */
     @Override
     public String toString() {
         return name;
