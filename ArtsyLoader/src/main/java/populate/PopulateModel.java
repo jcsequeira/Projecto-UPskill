@@ -11,10 +11,23 @@ import java.util.HashMap;
 import java.util.List;
 
 import static controller.Controller.*;
-
+/**
+ * The PopulateModel class represents the background task logic for populating the database with data from Artsy.
+ * It includes methods to perform various steps of the data population process, such as fetching data from Artsy,
+ * matching and processing the data, and updating the database. The class also manages the progress of the background task.
+ */
 public class PopulateModel {
+    /** The current progress of the background task, ranging from 0.0 to 1.0. */
     public double progress;
-
+    /**
+     * Runs the background task to populate the database with data from Artsy. The task includes multiple steps,
+     * such as populating cities, countries, movements, artworks, materials, techniques, artists, genres, galleries,
+     * shows, and updating artwork-related IDs in the database.
+     *
+     * @throws InterruptedException If the background task is interrupted.
+     * @throws IOException          If an I/O error occurs during the background task.
+     * @throws CsvException         If an exception related to CSV processing occurs.
+     */
     public void runBackgroundTask() throws InterruptedException, IOException, CsvException {
         populateCidades();
         updateProgress(0.15);
@@ -94,11 +107,20 @@ public class PopulateModel {
             throw new ServiceException("Erro: " +e);
         }
     }
-
+    /**
+     * Sets the progress value for the background task.
+     *
+     * @param progress The progress value, ranging from 0.0 to 1.0.
+     */
     public void setProgress(double progress) {
         this.progress = progress;
     }
-
+    /**
+     * Updates the progress of the background task, clamping the value between 0.0 and 1.0.
+     * If the progress is very close to 1.0, it is set to exactly 1.0.
+     *
+     * @param v The progress value to be updated.
+     */
     public void updateProgress(double v) {
         // Clamp the progress value between 0.0 and 1.0
         double clampedProgress = Math.max(0.0, Math.min(v, 1.0));
@@ -111,7 +133,11 @@ public class PopulateModel {
         setProgress(clampedProgress);
     }
 
-
+    /**
+     * Retrieves the current progress of the background task.
+     *
+     * @return The current progress value, ranging from 0.0 to 1.0.
+     */
     public double getProgress() {
         return progress;
     }
