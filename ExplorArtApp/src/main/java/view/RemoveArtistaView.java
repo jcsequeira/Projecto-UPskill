@@ -2,39 +2,58 @@ package view;
 
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import model.Artista;
-import model.ExplorArtModel;
+
 import presenter.ExplorArtPresenter;
 
-public class RemoveArtistaView extends Parent {
-    private Artista artista;
-    private ExplorArtPresenter explorArtPresenter;
-    public RemoveArtistaView(Artista artista) {
-        this.artista = artista;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+public class RemoveArtistaView extends Parent {
+
+    public RemoveArtistaView(Artista artista) {
         doLayout(artista);
     }
 
     private void doLayout(Artista artista) {
-        explorArtPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(10));
+        VBox detailsLayout = new VBox(10);
+        detailsLayout.setPadding(new Insets(20));
 
-        // Título
-        Label nameLabel = new Label("Nome:" + artista.getNome_artista());
-        gridPane.add(nameLabel, 0, 0);
-        gridPane.add(nameField, 1, 0);
+        // Display details using labels
+        Label nameLabel = new Label("Nome: " + artista.getNome_artista());
+        Label birthDateLabel = new Label("Data de Nascimento: " + formatDate(artista.getData_Nascimento()));
+        Label deathDateLabel = new Label("Data de Morte: " + formatDate(artista.getData_Morte()));
+        Label nationalityLabel = new Label("Nacionalidade: " + artista.getNacionalidade());
+        Label bioLabel = new Label("Biografia: ");
 
-        // Data de Nascimento
-        Label birthDayLabel = new Label("Data de nascimento:");
-        DatePicker birthDayPicker = new DatePicker();
-        gridPane.add(birthDayLabel, 0, 1);
-        gridPane.add(birthDayPicker, 1, 1);
+        // Create a TextFlow for the biography
+        TextFlow bioTextFlow = new TextFlow();
+        Text bioText = new Text(artista.getBiografia());
+        bioText.setTextAlignment(TextAlignment.JUSTIFY);
+        bioTextFlow.getChildren().add(bioText);
+
+        // Set preferred width for proper text wrapping
+        bioTextFlow.setPrefWidth(400); // Adjust the width as needed
+
+        // Add labels to the layout
+        detailsLayout.getChildren().addAll(nameLabel, birthDateLabel, deathDateLabel, nationalityLabel, bioLabel,bioTextFlow);
+
+        // Set the layout as the root of the scene
+        getChildren().add(detailsLayout);
+    }
+
+    private String formatDate(LocalDate date) {
+        // Format the date using a DateTimeFormatter
+        if (date != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            return date.format(formatter);
+        } else {
+            return "N/A";
+        }
     }
 }
