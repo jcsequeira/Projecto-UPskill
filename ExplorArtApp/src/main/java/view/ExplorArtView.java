@@ -217,6 +217,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             throw new RuntimeException(e);
         }
         });
+        removerEventoItem.setOnAction(event -> {try {
+            myPresenter.doRemoveShow();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        });
+
 
         //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Galeristas
@@ -265,35 +272,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             }
         });
         limparBdItem.setOnAction(event -> {
-            try {
-                // Criar alerta de confirmação
-                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmationAlert.setTitle("Limpar Artsy Data");
-                confirmationAlert.setHeaderText("Tem a certeza que deseja apagar todos os dados provenientes da Artsy API?");
-                confirmationAlert.setContentText("Ao confirmar, serão eliminados os seguintes Items: Obras de Arte, Artistas, Eventos e Galerias da Base de Dados.");
-
-                // Obter o resultado da confirmação
-                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
-
-                if (result == ButtonType.OK) {
-                    myPresenter.deleteArtsyData();
-                    // Se o utilizador confirmar, fecha a janela
-
-
-                    Stage bdCleanConfirmation = new Stage();
-                    bdCleanConfirmation.setTitle("Limpeza Efetuada");
-                    Scene scene = new Scene(new CleanConfirmationView(), 400, 300);
-                    bdCleanConfirmation.setScene(scene);
-                    bdCleanConfirmation.setResizable(false);
-
-                    bdCleanConfirmation.initOwner(this.getScene().getWindow());
-                    bdCleanConfirmation.initModality(Modality.APPLICATION_MODAL);
-
-                    bdCleanConfirmation.show();
-                    
-                }
-            } catch (NumberFormatException e){
-                System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
+            try {doLimparBD();
             } catch (IOException e) {
                 throw new RuntimeException();
             }
@@ -710,6 +689,53 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artistaRemoveStage.show();
     }
 
+    @Override
+    public void showRemoveShows(List<Evento> eventos) {
+        if (eventos.isEmpty()){
+            showEmptyListMessage("Evento");
+        }
+        else {
+            listView.getItems().clear();
+            for (Evento evento : eventos) {
+                listView.getItems().add(evento.getNome());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedEventoName = listView.getSelectionModel().getSelectedItem();
+                if (selectedEventoName != null) {
+                    // Find the corresponding Show object
+                    Optional<Evento> selectedEvento = eventos.stream()
+                            .filter(evento -> evento.getNome().equals(selectedEventoName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doRemoveShowWindow(selectedEvento.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showRemoveShowWindow(Evento evento) {
+        Stage eventoRemoveStage = new Stage();
+        eventoRemoveStage.setTitle("Remover evento da Base de Dados");
+
+        Scene sceneArtistaRemove = new Scene(new RemoveEventoView(evento));
+
+        eventoRemoveStage.setScene(sceneArtistaRemove);
+        eventoRemoveStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        eventoRemoveStage.initOwner(this.getScene().getWindow());
+        eventoRemoveStage.initModality(Modality.APPLICATION_MODAL);
+
+        eventoRemoveStage.sizeToScene();
+
+        eventoRemoveStage.show();
+    }
+
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Eventos *******
     @Override
@@ -1043,6 +1069,35 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         colabUpdateDetailsStage.sizeToScene();
 
         colabUpdateDetailsStage.show();
+    }
+
+    public void doLimparBD() throws IOException {
+            // Criar alerta de confirmação
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Limpar Artsy Data");
+            confirmationAlert.setHeaderText("Tem a certeza que deseja apagar todos os dados provenientes da Artsy API?");
+            confirmationAlert.setContentText("Ao confirmar, serão eliminados os seguintes Items: Obras de Arte, Artistas, Eventos e Galerias da Base de Dados.");
+
+            // Obter o resultado da confirmação
+            ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+
+            if (result == ButtonType.OK) {
+                myPresenter.deleteArtsyData();
+                // Se o utilizador confirmar, fecha a janela
+
+
+                Stage bdCleanConfirmation = new Stage();
+                bdCleanConfirmation.setTitle("Limpeza Efetuada");
+                Scene scene = new Scene(new CleanConfirmationView(), 400, 300);
+                bdCleanConfirmation.setScene(scene);
+                bdCleanConfirmation.setResizable(false);
+
+                bdCleanConfirmation.initOwner(this.getScene().getWindow());
+                bdCleanConfirmation.initModality(Modality.APPLICATION_MODAL);
+
+                bdCleanConfirmation.show();
+
+            }
     }
 
 

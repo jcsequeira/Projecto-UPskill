@@ -77,6 +77,10 @@ public interface ExplorArtContract {
         void showRemoveArtists(List<Artista> artistas);
 
         void showRemoveArtistWindow(Artista artista);
+
+        void showRemoveShows(List<Evento> eventos);
+
+        void showRemoveShowWindow(Evento evento);
     }
         interface Presenter {
             void exploreArtists() throws IOException;
@@ -191,6 +195,10 @@ public interface ExplorArtContract {
 
             void doRemoveArtistWindow(Artista artista) throws IOException;
             void doGalleryDetails(Galeria galeria) throws IOException;
+
+            void doRemoveShow() throws IOException;
+
+            void doRemoveShowWindow(Evento evento) throws IOException;
         }
             interface Model {
                 List<Artista> getArtists() throws IOException;
