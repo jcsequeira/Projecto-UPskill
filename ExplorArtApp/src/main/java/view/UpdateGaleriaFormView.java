@@ -12,6 +12,7 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UpdateGaleriaFormView extends Parent {
     private Galeria galeria;
@@ -57,11 +58,15 @@ public class UpdateGaleriaFormView extends Parent {
             throw  new RuntimeException();
         }
 
+        Optional<Cidade> selectedCity = cidadesList.stream()
+                .filter(cidade -> cidade.getId_Cidade() == galeria.getId_Cidade())
+                .findFirst();
+
         cidadeObservableList = FXCollections.observableArrayList();
         cidadeObservableList.clear();
         cidadeObservableList.addAll(cidadesList);
         cidadeComboBox = new ComboBox<>(cidadeObservableList);
-        cidadeComboBox.getSelectionModel().select(galeria.getId_Cidade());
+        cidadeComboBox.getSelectionModel().select(selectedCity.get());
         gridPane.add(cidadeGaleriaLabel, 0, 2);
         gridPane.add(cidadeComboBox, 1, 2);
 
