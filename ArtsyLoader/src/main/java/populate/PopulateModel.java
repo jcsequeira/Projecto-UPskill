@@ -69,7 +69,7 @@ public class PopulateModel {
         populateGalerias();
         updateProgress(0.75);
 
-        List<ArtsyShow> artsyShowsList = LoadArtsyShowsList();
+        List<ArtsyShow> artsyShowsList = loadArtsyShowsList();
         updateProgress(0.80);
         Thread.sleep(2000);
 
