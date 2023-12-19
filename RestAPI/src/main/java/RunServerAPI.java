@@ -18,8 +18,10 @@ public class RunServerAPI {
 
     private static final Gson gsonLocalDate = new GsonBuilder().registerTypeAdapter(LocalDate .class, new LocalDateAdapter()).create();
 
-
-    public static void main(String[] args) {
+    public interface ServerReadyCallback {
+        void onServerReady();
+    }
+    public static void main(String[] args, ServerReadyCallback callback) {
         //Test EndPoint
         get("/hello", (req, res) -> "Hello World");
 
@@ -149,7 +151,7 @@ public class RunServerAPI {
              response.body("Erro: "+e.getMessage());
         });
 
-
+        callback.onServerReady();
     }
 
 

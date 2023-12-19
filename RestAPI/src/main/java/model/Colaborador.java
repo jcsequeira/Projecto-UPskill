@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Represents a collaborator in the system.
+ */
 public class Colaborador {
 
     private int id_colaborador;
@@ -8,6 +11,15 @@ public class Colaborador {
     private String Telefone;
     private int Codigo_Pais;
 
+    /**
+     * Constructs a collaborator with the specified details.
+     *
+     * @param id_colaborador   The ID of the collaborator.
+     * @param nome_Colaborador The name of the collaborator.
+     * @param email            The email of the collaborator.
+     * @param telefone         The phone number of the collaborator.
+     * @param codigo_Pais      The country code of the collaborator.
+     */
     public Colaborador(int id_colaborador, String nome_Colaborador, String email, String telefone, int codigo_Pais) {
         this.id_colaborador = id_colaborador;
         Nome_Colaborador = nome_Colaborador;
@@ -16,48 +28,99 @@ public class Colaborador {
         Codigo_Pais = codigo_Pais;
     }
 
+    /**
+     * Constructs an empty collaborator.
+     */
     public Colaborador() {
     }
 
+    /**
+     * Gets the ID of the collaborator.
+     *
+     * @return The ID of the collaborator.
+     */
     public int getId_colaborador() {
         return id_colaborador;
     }
 
+    /**
+     * Sets the ID of the collaborator.
+     *
+     * @param id_colaborador The ID of the collaborator to set.
+     */
     public void setId_colaborador(int id_colaborador) {
         this.id_colaborador = id_colaborador;
     }
 
+    /**
+     * Gets the name of the collaborator.
+     *
+     * @return The name of the collaborator.
+     */
     public String getNome_Colaborador() {
         return Nome_Colaborador;
     }
 
+    /**
+     * Sets the name of the collaborator.
+     *
+     * @param nome_Colaborador The name of the collaborator to set.
+     */
     public void setNome_Colaborador(String nome_Colaborador) {
         Nome_Colaborador = nome_Colaborador;
     }
 
+    /**
+     * Gets the email of the collaborator.
+     *
+     * @return The email of the collaborator.
+     */
     public String getEmail() {
         return Email;
     }
 
+    /**
+     * Sets the email of the collaborator.
+     *
+     * @param email The email of the collaborator to set.
+     */
     public void setEmail(String email) {
         Email = email;
     }
 
+    /**
+     * Gets the phone number of the collaborator.
+     *
+     * @return The phone number of the collaborator.
+     */
     public String getTelefone() {
         return Telefone;
     }
 
+    /**
+     * Sets the phone number of the collaborator.
+     *
+     * @param telefone The phone number of the collaborator to set.
+     */
     public void setTelefone(String telefone) {
         Telefone = telefone;
     }
 
+    /**
+     * Gets the country code of the collaborator.
+     *
+     * @return The country code of the collaborator.
+     */
     public int getCodigo_Pais() {
         return Codigo_Pais;
     }
 
+    /**
+     * Sets the country code of the collaborator.
+     *
+     * @param codigo_Pais The country code of the collaborator to set.
+     */
     public void setCodigo_Pais(int codigo_Pais) {
         Codigo_Pais = codigo_Pais;
     }
 }
-
-

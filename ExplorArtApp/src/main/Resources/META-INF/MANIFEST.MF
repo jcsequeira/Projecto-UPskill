@@ -1,3 +1,17 @@
 Manifest-Version: 1.0
 Main-Class: ExplorArtApp
+Class-Path: mysql-connector-j-8.0.33.jar gson-2.10.1.jar jetty-http-9.4.
+ 48.v20220622.jar jetty-util-ajax-9.4.48.v20220622.jar jetty-client-9.4.
+ 48.v20220622.jar annotations-13.0.jar websocket-api-9.4.48.v20220622.ja
+ r commons-collections4-4.4.jar websocket-client-9.4.48.v20220622.jar ok
+ http-4.9.1.jar jetty-servlet-9.4.48.v20220622.jar spark-core-2.9.4.jar 
+ javax.servlet-api-3.1.0.jar websocket-common-9.4.48.v20220622.jar jetty
+ -xml-9.4.48.v20220622.jar opencsv-5.9.jar kotlin-stdlib-common-1.4.0.ja
+ r websocket-server-9.4.48.v20220622.jar slf4j-simple-2.0.9.jar protobuf
+ -java-3.21.9.jar jetty-io-9.4.48.v20220622.jar jetty-util-9.4.48.v20220
+ 622.jar commons-text-1.11.0.jar commons-beanutils-1.9.4.jar websocket-s
+ ervlet-9.4.48.v20220622.jar jetty-webapp-9.4.48.v20220622.jar slf4j-api
+ -2.0.9.jar kotlin-stdlib-1.4.10.jar jetty-server-9.4.48.v20220622.jar o
+ kio-2.8.0.jar jetty-security-9.4.48.v20220622.jar commons-lang3-3.13.0.
+ jar commons-logging-1.2.jar commons-collections-3.2.2.jar
 
