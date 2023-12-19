@@ -1,13 +1,9 @@
-import apiservice.ApiService;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.*;
+import model.ExplorArtModel;
 import presenter.ExplorArtPresenter;
 import view.ExplorArtView;
-
-import java.time.LocalDate;
-import java.util.List;
 
 public class ExplorArtApp extends Application {
     public static void main(String[] args) throws InterruptedException {

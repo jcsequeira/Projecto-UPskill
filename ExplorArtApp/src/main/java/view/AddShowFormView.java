@@ -9,7 +9,6 @@ import javafx.scene.layout.GridPane;
 import model.Evento;
 import model.ExplorArtModel;
 import model.Galeria;
-import model.Pais;
 import presenter.ExplorArtPresenter;
 
 import java.io.IOException;

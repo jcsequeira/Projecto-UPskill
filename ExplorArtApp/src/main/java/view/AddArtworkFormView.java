@@ -6,14 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-
 import model.*;
-import presenter.ExplorArtContract;
 import presenter.ExplorArtPresenter;
-
 
 import java.io.IOException;
 import java.util.List;

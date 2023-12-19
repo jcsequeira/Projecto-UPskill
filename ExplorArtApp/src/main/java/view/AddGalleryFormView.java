@@ -6,7 +6,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import model.*;
+import model.Cidade;
+import model.ExplorArtModel;
+import model.Galeria;
+import model.Galerista;
 import presenter.ExplorArtPresenter;
 
 import java.io.IOException;

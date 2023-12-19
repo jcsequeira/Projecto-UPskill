@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import model.Colaborador;
 import model.ExplorArtModel;
-import model.Galeria;
 import model.Galerista;
 import presenter.ExplorArtPresenter;
 
