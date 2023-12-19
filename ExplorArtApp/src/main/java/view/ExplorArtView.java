@@ -192,7 +192,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 throw new RuntimeException(e);
             }
         });
-
         desativarOAItem.setOnAction(event -> {
             try {
                 myPresenter.doDeativateArtwork();
@@ -200,6 +199,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 throw new RuntimeException(e);
             }
         });
+
         //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Artistas
         adicionarArtistaItem.setOnAction(event -> {
@@ -261,6 +261,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        });
+        removerGaleriaItem.setOnAction(event -> {
+            try {
+                myPresenter.doRemoveGallery();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         //--------------------------------------------------------------------------------------------------------------
@@ -684,6 +691,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
 
+
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Artistas *******
     @Override
@@ -801,53 +809,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artistaRemoveStage.show();
     }
 
-    @Override
-    public void showRemoveShows(List<Evento> eventos) {
-        if (eventos.isEmpty()){
-            showEmptyListMessage("Evento");
-        }
-        else {
-            listView.getItems().clear();
-            for (Evento evento : eventos) {
-                listView.getItems().add(evento.getNome());
-            }
-            listView.setOnMouseClicked(event -> {
-                String selectedEventoName = listView.getSelectionModel().getSelectedItem();
-                if (selectedEventoName != null) {
-                    // Find the corresponding Show object
-                    Optional<Evento> selectedEvento = eventos.stream()
-                            .filter(evento -> evento.getNome().equals(selectedEventoName))
-                            .findFirst();
-
-                    try {
-                        myPresenter.doRemoveShowWindow(selectedEvento.get());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-        }
-    }
-
-    @Override
-    public void showRemoveShowWindow(Evento evento) {
-        Stage eventoRemoveStage = new Stage();
-        eventoRemoveStage.setTitle("Remover evento da Base de Dados");
-
-        Scene sceneArtistaRemove = new Scene(new RemoveEventoView(evento));
-
-        eventoRemoveStage.setScene(sceneArtistaRemove);
-        eventoRemoveStage.setResizable(true);
-
-        // Set the owner and modality to make it a modal dialog
-        eventoRemoveStage.initOwner(this.getScene().getWindow());
-        eventoRemoveStage.initModality(Modality.APPLICATION_MODAL);
-
-        eventoRemoveStage.sizeToScene();
-
-        eventoRemoveStage.show();
-    }
-
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -919,6 +880,100 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         eventoUpdateDetailsStage.sizeToScene();
 
         eventoUpdateDetailsStage.show();
+    }
+
+    @Override
+    public void showRemoveShows(List<Evento> eventos) {
+        if (eventos.isEmpty()){
+            showEmptyListMessage("Evento");
+        }
+        else {
+            listView.getItems().clear();
+            for (Evento evento : eventos) {
+                listView.getItems().add(evento.getNome());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedEventoName = listView.getSelectionModel().getSelectedItem();
+                if (selectedEventoName != null) {
+                    // Find the corresponding Show object
+                    Optional<Evento> selectedEvento = eventos.stream()
+                            .filter(evento -> evento.getNome().equals(selectedEventoName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doRemoveShowWindow(selectedEvento.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showRemoveShowWindow(Evento evento) throws IOException {
+        Stage eventoRemoveStage = new Stage();
+        eventoRemoveStage.setTitle("Remover evento da Base de Dados");
+
+        Scene sceneEventoRemove = new Scene(new RemoveEventoView(evento));
+
+        eventoRemoveStage.setScene(sceneEventoRemove);
+        eventoRemoveStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        eventoRemoveStage.initOwner(this.getScene().getWindow());
+        eventoRemoveStage.initModality(Modality.APPLICATION_MODAL);
+
+        eventoRemoveStage.sizeToScene();
+
+        eventoRemoveStage.show();
+    }
+
+    @Override
+    public void showRemoveGalleries(List<Galeria> galerias) {
+        if (galerias.isEmpty()){
+            showEmptyListMessage("Galeria");
+        }
+        else {
+            listView.getItems().clear();
+            for (Galeria galeria : galerias) {
+                listView.getItems().add(galeria.getNome_Galeria());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedGaleriaName = listView.getSelectionModel().getSelectedItem();
+                if (selectedGaleriaName != null) {
+                    // Find the corresponding Show object
+                    Optional<Galeria> selectedGaleria = galerias.stream()
+                            .filter(galeria -> galeria.getNome_Galeria().equals(selectedGaleriaName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doRemoveGalleryWindow(selectedGaleria.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showRemoveGalleryWindow(Galeria galeria) throws IOException {
+        Stage galeriaRemoveStage = new Stage();
+        galeriaRemoveStage.setTitle("Remover galeria da Base de Dados");
+
+        Scene sceneGaleriaRemove = new Scene(new RemoveGaleriaView(galeria));
+
+        galeriaRemoveStage.setScene(sceneGaleriaRemove);
+        galeriaRemoveStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        galeriaRemoveStage.initOwner(this.getScene().getWindow());
+        galeriaRemoveStage.initModality(Modality.APPLICATION_MODAL);
+
+        galeriaRemoveStage.sizeToScene();
+
+        galeriaRemoveStage.show();
     }
 
 
