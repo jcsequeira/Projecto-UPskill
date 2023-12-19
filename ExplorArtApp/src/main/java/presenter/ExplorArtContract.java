@@ -6,92 +6,83 @@ import model.*;
 import java.io.IOException;
 import java.util.List;
 
-
-// Interfaces (no pacote presenter)
 public interface ExplorArtContract {
 
+    // Contratos da View
     interface View {
 
-
-        void showArtists(List<Artista> artistas);
-
-        void showArtistDetails(Artista artista);
-
+        //--------------------------------------------------------------------------------------------------------------
+        //****** Menu Explorar ******
         void showArtworks(List<Obra_Arte> obras);
-
+        void showArtists(List<Artista> artistas);
         void showEvents(List<Evento> eventos);
-
         void showGalleries(List<Galeria> galerias);
-
-        void showGallerists(List<Galerista> galeristas);
-
+        void showArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
+        void showArtistDetails(Artista artista);
         void showShowsDetails(Evento evento, Galeria galeria);
 
-        void showArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
 
+        //--------------------------------------------------------------------------------------------------------------
+        //****** Menu Gerir OA ******
         void showAddArtworkForm(Obra_Arte obraArte);
-
-        void showAddArtistForm(Artista artista);
-
-        void showAddShowForm(Evento evento);
-
-        void showAddGalleristForm(Galerista galerista);
-
-        void showAddColaboradorForm(Colaborador colaborador);
-
-        void showAddGalleryForm(Galeria galeria);
-
         void showUpdateArtworks(List<Obra_Arte> obras);
-
         void showUpdateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
-
-        void showUpdateArtist(List<Artista> artistas);
-
-        void showUpdateArtistDetails(Artista artista);
-
-
-
-
-        void showUpdateShow(List<Evento> eventos);
-
-        void showUpdateShowDetails(Evento evento, Galeria galeria);
-
-        void showUpdateGallerist(List<Galerista> gallerists);
-
-        void showUpdateGalleristDetails(Galerista galerista);
-
-        void visualizarColaboradores(List<Colaborador> colaboradores);
-
-        void showColaboradorDetails(Colaborador colaborador) throws IOException;
-
-        void showUpdateGallery(List<Galeria> galerias);
-
-        void showUpdateGalleryDetails(Galeria galeria) throws IOException;
-
-        void showUpdateColab(List<Colaborador> colaboradores);
-
-        void showUpdateColabDetails(Colaborador colaborador);
-
-        void showGalleryDetails(Galeria galeria) throws IOException;
-
-        void showRemoveArtists(List<Artista> artistas);
-
-        void showRemoveArtistWindow(Artista artista);
-
-        void showRemoveShows(List<Evento> eventos);
-
-        void showRemoveShowWindow(Evento evento) throws IOException;
-
         void showAtivateArtwokrs(List<Obra_Arte> obras);
         void showAtivateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
         void showDeativateArtwokrs(List<Obra_Arte> obras);
         void showDeativateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
 
-        void showRemoveGalleries(List<Galeria> galerias);
 
+        //--------------------------------------------------------------------------------------------------------------
+        //****** Menu Gerir Artistas ******
+        void showAddArtistForm(Artista artista);
+        void showUpdateArtist(List<Artista> artistas);
+        void showUpdateArtistDetails(Artista artista);
+        void showRemoveArtists(List<Artista> artistas);
+        void showRemoveArtistWindow(Artista artista);
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //****** Menu Gerir Eventos ******
+        void showAddShowForm(Evento evento);
+        void showUpdateShow(List<Evento> eventos);
+        void showUpdateShowDetails(Evento evento, Galeria galeria);
+        void showRemoveShows(List<Evento> eventos);
+        void showRemoveShowWindow(Evento evento) throws IOException;
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //****** Menu Galeristas ******
+        void showAddGalleristForm(Galerista galerista);
+        void showUpdateGallerist(List<Galerista> gallerists);
+        void showUpdateGalleristDetails(Galerista galerista);
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //****** Menu Galerias ******
+        void showAddGalleryForm(Galeria galeria);
+        void showUpdateGallery(List<Galeria> galerias);
+        void showUpdateGalleryDetails(Galeria galeria) throws IOException;
+        void showGalleryDetails(Galeria galeria) throws IOException;
+        void showRemoveGalleries(List<Galeria> galerias);
         void showRemoveGalleryWindow(Galeria galeria) throws IOException;
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //****** Menu Admin ******
+        void showAddColaboradorForm(Colaborador colaborador);
+        void visualizarColaboradores(List<Colaborador> colaboradores);
+        void showColaboradorDetails(Colaborador colaborador) throws IOException;
+        void showUpdateColab(List<Colaborador> colaboradores);
+        void showUpdateColabDetails(Colaborador colaborador);
+
     }
+
+    //------------------------------------------------------------------------------------------------------------------
+    // ****** Contratos do Presenter ******
         interface Presenter {
+
+
             void exploreArtists() throws IOException;
 
             void addArtist(Artista artista) throws IOException;
@@ -218,6 +209,8 @@ public interface ExplorArtContract {
 
             void doRemoveGallery() throws IOException;
         }
+
+
             interface Model {
                 List<Artista> getArtists() throws IOException;
 

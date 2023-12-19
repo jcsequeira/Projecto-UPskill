@@ -1,6 +1,5 @@
 package view;
 
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -13,9 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
-import presenter.*;
-
-
+import presenter.ExplorArtContract;
+import presenter.ExplorArtPresenter;
 
 import java.io.IOException;
 import java.util.List;
@@ -111,10 +109,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         Menu gerirGaleristasMenu = new Menu("Gerir Galeristas");
         MenuItem adicionarGaleristaItem = new MenuItem("Adicionar Galerista");
         MenuItem modificarGaleristaItem = new MenuItem("Modificar Galerista");
-        MenuItem removerGaleristaItem = new MenuItem("Remover Galerista");
+        //MenuItem removerGaleristaItem = new MenuItem("Remover Galerista");
         MenuItem visualizarGaleristasItem = new MenuItem("Visualizar Galeristas");
 
-        gerirGaleristasMenu.getItems().addAll(adicionarGaleristaItem, modificarGaleristaItem, removerGaleristaItem, visualizarGaleristasItem);
+        gerirGaleristasMenu.getItems().addAll(adicionarGaleristaItem, modificarGaleristaItem, visualizarGaleristasItem);
 
         //Menu Galerias
         Menu gerirGaleriasMenu = new Menu("Gerir Galerias");
@@ -426,17 +424,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
-    @Override
-    public void showGallerists(List<Galerista> galeristas) {
-        // Lógica para exibir galeristas na interface gráfica
-    }
-
     private void showEmptyListMessage(String entityType) {
         BorderPane emptyPane = new BorderPane();
         Label messageLabel = new Label("A lista de " + entityType + " está vazia.");
         emptyPane.setCenter(messageLabel);
         setCenter(emptyPane);
     }
+
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Mostrar Detalhes - Menu Explorar *******
@@ -929,53 +923,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         eventoRemoveStage.show();
     }
 
-    @Override
-    public void showRemoveGalleries(List<Galeria> galerias) {
-        if (galerias.isEmpty()){
-            showEmptyListMessage("Galeria");
-        }
-        else {
-            listView.getItems().clear();
-            for (Galeria galeria : galerias) {
-                listView.getItems().add(galeria.getNome_Galeria());
-            }
-            listView.setOnMouseClicked(event -> {
-                String selectedGaleriaName = listView.getSelectionModel().getSelectedItem();
-                if (selectedGaleriaName != null) {
-                    // Find the corresponding Show object
-                    Optional<Galeria> selectedGaleria = galerias.stream()
-                            .filter(galeria -> galeria.getNome_Galeria().equals(selectedGaleriaName))
-                            .findFirst();
-
-                    try {
-                        myPresenter.doRemoveGalleryWindow(selectedGaleria.get());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-        }
-    }
-
-    @Override
-    public void showRemoveGalleryWindow(Galeria galeria) throws IOException {
-        Stage galeriaRemoveStage = new Stage();
-        galeriaRemoveStage.setTitle("Remover galeria da Base de Dados");
-
-        Scene sceneGaleriaRemove = new Scene(new RemoveGaleriaView(galeria));
-
-        galeriaRemoveStage.setScene(sceneGaleriaRemove);
-        galeriaRemoveStage.setResizable(true);
-
-        // Set the owner and modality to make it a modal dialog
-        galeriaRemoveStage.initOwner(this.getScene().getWindow());
-        galeriaRemoveStage.initModality(Modality.APPLICATION_MODAL);
-
-        galeriaRemoveStage.sizeToScene();
-
-        galeriaRemoveStage.show();
-    }
-
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Galerista *******
@@ -1121,6 +1068,53 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         galleryUpdateDetailsStage.show();
     }
 
+    @Override
+    public void showRemoveGalleries(List<Galeria> galerias) {
+        if (galerias.isEmpty()){
+            showEmptyListMessage("Galeria");
+        }
+        else {
+            listView.getItems().clear();
+            for (Galeria galeria : galerias) {
+                listView.getItems().add(galeria.getNome_Galeria());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedGaleriaName = listView.getSelectionModel().getSelectedItem();
+                if (selectedGaleriaName != null) {
+                    // Find the corresponding Show object
+                    Optional<Galeria> selectedGaleria = galerias.stream()
+                            .filter(galeria -> galeria.getNome_Galeria().equals(selectedGaleriaName))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doRemoveGalleryWindow(selectedGaleria.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showRemoveGalleryWindow(Galeria galeria) throws IOException {
+        Stage galeriaRemoveStage = new Stage();
+        galeriaRemoveStage.setTitle("Remover galeria da Base de Dados");
+
+        Scene sceneGaleriaRemove = new Scene(new RemoveGaleriaView(galeria));
+
+        galeriaRemoveStage.setScene(sceneGaleriaRemove);
+        galeriaRemoveStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        galeriaRemoveStage.initOwner(this.getScene().getWindow());
+        galeriaRemoveStage.initModality(Modality.APPLICATION_MODAL);
+
+        galeriaRemoveStage.sizeToScene();
+
+        galeriaRemoveStage.show();
+    }
+
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -1176,7 +1170,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
             });
         }
     }
-
 
     @Override
     public void showColaboradorDetails(Colaborador colaborador) throws IOException {
