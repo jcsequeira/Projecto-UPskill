@@ -185,7 +185,10 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     public List<Cidade> getCidades() throws IOException {
         return ApiService.getAllItems("http://localhost:4567/api/cidades", Cidade.class);
     }
-
+    @Override
+    public Cidade getCidadeById(int id_Cidade) throws IOException {
+        return ApiService.getItem("http://localhost:4567/api/cidades/" + id_Cidade, Cidade.class);
+    }
 
 
 

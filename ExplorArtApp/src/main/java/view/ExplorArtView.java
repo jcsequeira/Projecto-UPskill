@@ -409,7 +409,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                             .filter(galeria -> galeria.getNome_Galeria().equals(selectedGalleryName))
                             .findFirst();
 
-                    myPresenter.doGalleryDetails(selectedGallery.get());
+                    try {
+                        myPresenter.doGalleryDetails(selectedGallery.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
         }
@@ -489,7 +493,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     }
     @Override
-    public void showGalleryDetails(Galeria galeria) {
+    public void showGalleryDetails(Galeria galeria) throws IOException {
         Stage showGalleryDetailsStage = new Stage();
         showGalleryDetailsStage.setTitle("Detalhes da Galeria");
 

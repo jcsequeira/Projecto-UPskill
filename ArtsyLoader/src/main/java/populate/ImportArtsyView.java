@@ -18,6 +18,10 @@ public class ImportArtsyView extends Parent {
     Label progressLabel;
     private ProgressBar progressBar;
 
+
+    /**
+     * invoca o metodo initUI para carregar GUI/layout
+     */
     public ImportArtsyView() {
 
         initUI();

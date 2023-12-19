@@ -226,7 +226,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     @Override
-    public void doGalleryDetails(Galeria galeria) {
+    public void doGalleryDetails(Galeria galeria) throws IOException {
         view.showGalleryDetails(galeria);
     }
 
