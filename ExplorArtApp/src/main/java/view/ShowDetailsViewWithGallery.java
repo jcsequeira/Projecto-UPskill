@@ -1,3 +1,7 @@
+/**
+ * The ShowDetailsViewWithGallery class represents a view for displaying details of an event along with associated gallery information.
+ * It displays details such as event name, start and end dates, gallery name, and event description.
+ */
 package view;
 
 import javafx.geometry.Insets;
@@ -17,6 +21,12 @@ public class ShowDetailsViewWithGallery extends Parent {
     private Evento evento;
     private Galeria galeria;
 
+    /**
+     * Constructs an instance of ShowDetailsViewWithGallery with the specified event and gallery.
+     *
+     * @param evento  The event for which details are displayed.
+     * @param galeria The associated gallery.
+     */
     public ShowDetailsViewWithGallery(Evento evento, Galeria galeria) {
         this.evento = evento;
         this.galeria = galeria;
@@ -24,6 +34,11 @@ public class ShowDetailsViewWithGallery extends Parent {
         doLayout(evento);
     }
 
+    /**
+     * Configures the layout to display details of the specified event along with associated gallery information.
+     *
+     * @param evento The event for which details are displayed.
+     */
     private void doLayout(Evento evento) {
         // Create a VBox to hold the details
         VBox detailsLayout = new VBox(10);
@@ -42,7 +57,6 @@ public class ShowDetailsViewWithGallery extends Parent {
         // Add bioText to the label
         descriptionLabelText.setGraphic(descriptionText);
 
-
         // Add labels to the layout
         detailsLayout.getChildren().addAll(nameLabel, startDateLabel, endDateLabel, galleryLabel,
                 descriptionLabel, descriptionLabelText);
@@ -51,9 +65,13 @@ public class ShowDetailsViewWithGallery extends Parent {
         getChildren().add(detailsLayout);
     }
 
-
+    /**
+     * Formats the given date using a DateTimeFormatter.
+     *
+     * @param date The date to be formatted.
+     * @return A formatted date string or "N/A" if the date is null.
+     */
     private String formatDate(LocalDate date) {
-        // Format the date using a DateTimeFormatter
         if (date != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             return date.format(formatter);

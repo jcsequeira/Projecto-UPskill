@@ -14,11 +14,21 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The AddColaboradorFormView class represents the view for adding a new collaborator in the ExplorArtApp.
+ * It extends Parent and provides a form for users to input collaborator details.
+ *
+ */
 public class AddColaboradorFormView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ComboBox<Pais> paisComboBox;
     private ObservableList<Pais> paisObservableList;
 
+    /**
+     * Constructs an instance of {@code AddColaboradorFormView}.
+     *
+     * @param colaborador The collaborator object to which the entered details will be associated.
+     */
     public AddColaboradorFormView(Colaborador colaborador) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
@@ -52,7 +62,7 @@ public class AddColaboradorFormView extends Parent {
         try {
             paisList = modelAux.getPaises();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         paisObservableList = FXCollections.observableArrayList();
         paisObservableList.clear();
@@ -89,7 +99,7 @@ public class AddColaboradorFormView extends Parent {
             } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
         });
 

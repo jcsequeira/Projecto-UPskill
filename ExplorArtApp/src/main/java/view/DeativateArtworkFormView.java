@@ -13,16 +13,29 @@ import presenter.ExplorArtPresenter;
 
 import java.io.IOException;
 
+/**
+ * The DeactivateArtworkFormView class represents a view for deactivating (disabling) an artwork.
+ * It provides a confirmation message and allows the user to deactivate the artwork, making it not visible in the Explore menu.
+ */
 public class DeativateArtworkFormView extends Parent {
     private Obra_Arte obraArte;
     private ExplorArtPresenter myPresenter;
 
-
+    /**
+     * Constructs an instance of DeactivateArtworkFormView with the specified artwork.
+     *
+     * @param obraArte The artwork to be deactivated.
+     */
     public DeativateArtworkFormView(Obra_Arte obraArte) {
         this.obraArte = obraArte;
         doLayout(obraArte);
     }
 
+    /**
+     * Configures the layout for deactivating the artwork.
+     *
+     * @param obraArte The artwork to be deactivated.
+     */
     private void doLayout(Obra_Arte obraArte) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         GridPane gridPane = new GridPane();

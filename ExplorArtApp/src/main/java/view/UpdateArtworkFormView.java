@@ -1,3 +1,8 @@
+/**
+ * The UpdateArtworkFormView class represents a view for updating artwork information.
+ * It allows modifying the artwork's title, image link, creation year, price, dimensions,
+ * and associated artist, technique, movement, and materials.
+ */
 package view;
 
 import javafx.collections.FXCollections;
@@ -30,6 +35,15 @@ public class UpdateArtworkFormView extends Parent {
     private ComboBox<Materiais> materiaisComboBox;
     private ObservableList<Materiais> materiaisObservableList;
 
+    /**
+     * Constructs an instance of UpdateArtworkFormView with the specified artwork details.
+     *
+     * @param obraArte  The artwork for which information is being updated.
+     * @param artista   The associated artist.
+     * @param tecnica   The associated technique.
+     * @param movimento The associated movement.
+     * @param material  The associated material.
+     */
     public UpdateArtworkFormView(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
         this.obraArte = obraArte;
         this.artista = artista;
@@ -40,6 +54,11 @@ public class UpdateArtworkFormView extends Parent {
         doLayout(obraArte);
     }
 
+    /**
+     * Configures the layout for updating artwork information.
+     *
+     * @param obraArte The artwork for which information is being updated.
+     */
     private void doLayout(Obra_Arte obraArte) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         GridPane gridPane = new GridPane();
@@ -89,16 +108,15 @@ public class UpdateArtworkFormView extends Parent {
         gridPane.add(profundidadeLabel, 0, 6);
         gridPane.add(profundidadeField, 1, 6);
 
-        // diametro
+        // Diâmetro
         Label diametroLabel = new Label("Diâmetro:");
         TextField diametroField = new TextField(String.valueOf(obraArte.getDiametro()));
         gridPane.add(diametroLabel, 0, 7);
         gridPane.add(diametroField, 1, 7);
 
-        // zoom in
+        // Zoom in
         Label zoomInLabel = new Label("(Clique na imagem para ampliar)");
         gridPane.add(zoomInLabel, 0, 8, 2, 1);
-
 
         // ID do Artista
         Label artistIdLabel = new Label("Artista:");
@@ -164,7 +182,6 @@ public class UpdateArtworkFormView extends Parent {
                     // Close the window
                     getScene().getWindow().hide();
                 }
-
             } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {

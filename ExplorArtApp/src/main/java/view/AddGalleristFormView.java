@@ -14,11 +14,21 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The AddGalleristFormView class represents the view for adding a new gallerist in the ExplorArtApp.
+ * It extends Parent and provides a form for users to input gallerist details.
+ *
+ */
 public class AddGalleristFormView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ComboBox<Colaborador> colaboradorComboBox;
     private ObservableList<Colaborador> colaboradorObservableList;
 
+    /**
+     * Constructs an instance of AddGalleristFormView.
+     *
+     * @param galerista The gallerist object to which the entered details will be associated.
+     */
     public AddGalleristFormView(Galerista galerista) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
@@ -34,7 +44,7 @@ public class AddGalleristFormView extends Parent {
         try {
             colaboradorList = modelAux.getColaboradores();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         colaboradorObservableList = FXCollections.observableArrayList();
         colaboradorObservableList.clear();
@@ -55,9 +65,7 @@ public class AddGalleristFormView extends Parent {
         gridPane.add(passwordLabel, 0, 2);
         gridPane.add(passwordField, 1, 2);
 
-
         getChildren().add(gridPane);
-
 
         // Botão "Adicionar" e respetiva lógica
         Button submitButton = new Button("Adicionar galerista");
@@ -84,7 +92,7 @@ public class AddGalleristFormView extends Parent {
             } catch (NumberFormatException e) {
                 System.err.println("Erro ao converter valores. Certifique-se de que os campos numéricos estão preenchidos corretamente.");
             } catch (IOException e) {
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
         });
 

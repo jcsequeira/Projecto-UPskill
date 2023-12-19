@@ -1,6 +1,5 @@
 package view;
 
-
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -11,21 +10,32 @@ import javafx.scene.layout.GridPane;
 import model.ExplorArtModel;
 import model.Obra_Arte;
 import presenter.ExplorArtPresenter;
-
 import java.io.IOException;
 
-
+/**
+ * The ActivateArtworkFormView class represents a view for activating an artwork.
+ * It allows the user to confirm the activation of the artwork through a confirmation alert.
+ */
 public class AtivateArtworkFormView extends Parent {
     private Obra_Arte obraArte;
     private ExplorArtPresenter myPresenter;
 
-
+    /**
+     * Constructs an instance of ActivateArtworkFormView with the specified artwork.
+     *
+     * @param obraArte The artwork to be activated.
+     */
     public AtivateArtworkFormView(Obra_Arte obraArte) {
         this.obraArte = obraArte;
 
         doLayout(obraArte);
     }
 
+    /**
+     * Configures the layout to display details about the artwork and the activation button.
+     *
+     * @param obraArte The artwork whose details will be displayed.
+     */
     private void doLayout(Obra_Arte obraArte) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         GridPane gridPane = new GridPane();

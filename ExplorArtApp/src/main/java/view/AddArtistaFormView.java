@@ -14,11 +14,21 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The AddArtistaFormView class represents the view for adding a new artist in the ExplorArtApp.
+ * It extends Parent and provides a form for users to input artist details.
+ */
 public class AddArtistaFormView extends Parent {
+
     private ExplorArtPresenter myPresenter;
     private ComboBox<Pais> paisesComboBox;
     private ObservableList<Pais> paisesObservableList;
 
+    /**
+     * Constructs an instance of AddArtistaFormView.
+     *
+     * @param artista The artist object to which the entered details will be associated.
+     */
     public AddArtistaFormView(Artista artista) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
@@ -102,5 +112,4 @@ public class AddArtistaFormView extends Parent {
 
         gridPane.add(submitButton, 0, 5, 2, 1);
     }
-
 }

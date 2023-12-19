@@ -1,3 +1,7 @@
+/**
+ * The UpdateArtistaFormView class represents a view for updating artist information.
+ * It allows modifying the artist's name, birth date, biography, death date, and nationality.
+ */
 package view;
 
 import javafx.collections.FXCollections;
@@ -22,12 +26,21 @@ public class UpdateArtistaFormView extends Parent {
     private ComboBox<Pais> paisComboBox;
     private ObservableList<Pais> paisObservableList;
 
+    /**
+     * Constructs an instance of UpdateArtistaFormView with the specified artist.
+     *
+     * @param artista The artist for which information is being updated.
+     */
     public UpdateArtistaFormView(Artista artista) {
         this.artista = artista;
-
         doLayout(artista);
     }
 
+    /**
+     * Configures the layout for updating artist information.
+     *
+     * @param artista The artist for which information is being updated.
+     */
     private void doLayout(Artista artista) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         GridPane gridPane = new GridPane();
@@ -78,7 +91,6 @@ public class UpdateArtistaFormView extends Parent {
         paisComboBox.getSelectionModel().select(paisAux);
         gridPane.add(nacionalityLabel, 0, 4);
         gridPane.add(paisComboBox, 1, 4);
-
 
         getChildren().add(gridPane);
 

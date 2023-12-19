@@ -1,3 +1,7 @@
+/**
+ * The ArtistDetailsView class represents a view for displaying details about an artist.
+ * It includes information such as the artist's name, birth and death dates, nationality, and biography.
+ */
 package view;
 
 import javafx.geometry.Insets;
@@ -15,10 +19,20 @@ import java.time.format.DateTimeFormatter;
 
 public class ArtistDetailsView extends Parent {
 
+    /**
+     * Constructs an instance of ArtistDetailsView with the specified artist details.
+     *
+     * @param artista The artist whose details will be displayed.
+     */
     public ArtistDetailsView(Artista artista) {
         doLayout(artista);
     }
 
+    /**
+     * Configures the layout to display details about the artist.
+     *
+     * @param artista The artist whose details will be displayed.
+     */
     private void doLayout(Artista artista) {
         // Create a VBox to hold the details
         VBox detailsLayout = new VBox(10);
@@ -45,9 +59,14 @@ public class ArtistDetailsView extends Parent {
 
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);
-
     }
 
+    /**
+     * Formats the given LocalDate using a specific pattern.
+     *
+     * @param date The date to be formatted.
+     * @return A formatted string representation of the date.
+     */
     private String formatDate(LocalDate date) {
         // Format the date using a DateTimeFormatter
         if (date != null) {

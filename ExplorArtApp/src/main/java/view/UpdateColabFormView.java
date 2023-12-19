@@ -1,3 +1,7 @@
+/**
+ * The UpdateColabFormView class represents a view for updating collaborator information.
+ * It allows modifying the collaborator's name, email, phone number, and nationality.
+ */
 package view;
 
 import javafx.collections.FXCollections;
@@ -21,12 +25,22 @@ public class UpdateColabFormView extends Parent {
     private ComboBox<Pais> paisComboBox;
     private ObservableList<Pais> paisObservableList;
 
+    /**
+     * Constructs an instance of UpdateColabFormView with the specified collaborator details.
+     *
+     * @param colaborador The collaborator for which information is being updated.
+     */
     public UpdateColabFormView(Colaborador colaborador) {
         this.colaborador = colaborador;
 
         doLayout(colaborador);
     }
 
+    /**
+     * Configures the layout for updating collaborator information.
+     *
+     * @param colaborador The collaborator for which information is being updated.
+     */
     private void doLayout(Colaborador colaborador) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
@@ -35,25 +49,25 @@ public class UpdateColabFormView extends Parent {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
 
-        // Nome do Evento
+        // Nome do Colaborador
         Label nomeLabel = new Label("Nome do colaborador:");
         TextField nomeField = new TextField(colaborador.getNome_Colaborador());
         gridPane.add(nomeLabel, 0, 0);
         gridPane.add(nomeField, 1, 0);
 
-        // email do colaborador
+        // Email do Colaborador
         Label emailLabel = new Label("Email:");
         TextField emailField = new TextField(colaborador.getEmail());
         gridPane.add(emailLabel, 0, 1);
         gridPane.add(emailField, 1, 1);
 
-        // Telefone do colaborador
+        // Telefone do Colaborador
         Label telefoneLabel = new Label("Telefone:");
         TextField telefoneField = new TextField(colaborador.getTelefone());
         gridPane.add(telefoneLabel, 0, 2);
         gridPane.add(telefoneField, 1, 2);
 
-        // País
+        // Nacionalidade
         Label paisLabel = new Label("Naturalidade:");
         List<Pais> paisList;
         ExplorArtModel modelAux = new ExplorArtModel();
@@ -76,7 +90,7 @@ public class UpdateColabFormView extends Parent {
 
         getChildren().add(gridPane);
 
-        // Botão "Adicionar" e respetiva lógica
+        // Botão "Modificar" e respetiva lógica
         Button submitButton = new Button("Modificar colaborador");
         submitButton.setOnAction(event -> {
             try {
@@ -109,6 +123,3 @@ public class UpdateColabFormView extends Parent {
         gridPane.add(submitButton, 0, 5, 2, 1);
     }
 }
-
-
-

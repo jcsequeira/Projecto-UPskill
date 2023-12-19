@@ -1,3 +1,8 @@
+/**
+ * The ArtworkDetailsViewFull class represents a detailed view for displaying information about an artwork.
+ * It includes details such as the title, image, creation year, price, dimensions, artist, technique, movement,
+ * materials, and provides the ability to zoom in on the artwork's image.
+ */
 package view;
 
 import javafx.geometry.Insets;
@@ -24,6 +29,15 @@ public class ArtworkDetailsViewFull extends Parent {
     private Movimento movimento;
     private Materiais material;
 
+    /**
+     * Constructs an instance of ArtworkDetailsViewFull with the specified artwork details.
+     *
+     * @param obraArte  The artwork to be displayed.
+     * @param artista   The artist associated with the artwork.
+     * @param tecnica   The technique used for the artwork.
+     * @param movimento The art movement associated with the artwork.
+     * @param material  The materials used for the artwork.
+     */
     public ArtworkDetailsViewFull(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
         this.obraArte = obraArte;
         this.artista = artista;
@@ -34,6 +48,11 @@ public class ArtworkDetailsViewFull extends Parent {
         doLayout(obraArte);
     }
 
+    /**
+     * Configures the layout to display details about the artwork.
+     *
+     * @param obraArte The artwork whose details will be displayed.
+     */
     private void doLayout(Obra_Arte obraArte) {
         // Create a VBox to hold the details
         VBox detailsLayout = new VBox(10);
@@ -41,7 +60,8 @@ public class ArtworkDetailsViewFull extends Parent {
 
         ImageView imageView;
         Image image = new Image(getClass().getResource("/no_image.png").toExternalForm());
-        //Display image
+
+        // Display image
         try {
             imageView = new ImageView(new Image(obraArte.getLink_Imagem()));
         } catch (IllegalArgumentException | NullPointerException e) {
@@ -50,7 +70,6 @@ public class ArtworkDetailsViewFull extends Parent {
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(Region.USE_COMPUTED_SIZE);
         imageView.setFitHeight(Region.USE_COMPUTED_SIZE);
-
 
         // Display details using labels
         Label titleLabel = new Label("Título: " + obraArte.getTitulo());
@@ -68,49 +87,57 @@ public class ArtworkDetailsViewFull extends Parent {
         Label movimentoLabel = new Label("Movimento: " + (movimento != null ? movimento.getNome_Movimento() : "<erro!>"));
         Label materiaisLabel = new Label("Materiais: " + (material != null ? material.getTipo_Material() : "<erro!>"));
 
-
         // Add labels to the layout
         detailsLayout.getChildren().addAll(imageView, zoomInLabel, titleLabel, artistaLabel, linkImagemLabel, Ano_CriacaoLabel,
                 precoLabel, alturaLabel, larguraLabel, profundidadeLabel, diametroLabel, tecnicaLabel, movimentoLabel, materiaisLabel);
 
-
+        // Zoom in on the image when clicked
         imageView.setOnMouseClicked(event -> zoomImage(this.obraArte));
 
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);
     }
 
-    // Zoom Image method
+    /**
+     * Zooms in on the image of the artwork, displaying it in a separate window.
+     *
+     * @param obraArte The artwork to zoom in on.
+     */
     private void zoomImage(Obra_Arte obraArte) {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Zoom in");
 
-        // Adicionar imagem da obra em tamanho grande
+        // Add the artwork image in a larger size
         Image image = new Image(obraArte.getLink_Imagem());
         ImageView imageView = new ImageView(image);
 
-        // Definir tamanho real da imagem
+        // Set the actual size of the image
         double realWidth = image.getWidth();
         double realHeight = image.getHeight();
 
-        // Multiplicar largura e altura por 3
+        // Multiply width and height by 3
         imageView.setFitWidth(realWidth * 3);
         imageView.setFitHeight(realHeight * 3);
 
-        // Configurar layout
-        BorderPane imagemPane = new BorderPane();
-        imagemPane.setCenter(imageView);
+        // Configure layout
+        BorderPane imagePane = new BorderPane();
+        imagePane.setCenter(imageView);
 
-        // Configurar a cena
-        Scene scene = new Scene(imagemPane, imageView.getFitWidth(), imageView.getFitHeight());
+        // Configure the scene
+        Scene scene = new Scene(imagePane, imageView.getFitWidth(), imageView.getFitHeight());
         stage.setScene(scene);
 
-        // Exibir a janela
+        // Show the window
         stage.show();
     }
 
-
+    /**
+     * Formats the given LocalDate using a specific pattern.
+     *
+     * @param date The date to be formatted.
+     * @return A formatted string representation of the date.
+     */
     private String formatDate(LocalDate date) {
         // Format the date using a DateTimeFormatter
         if (date != null) {

@@ -1,3 +1,7 @@
+/**
+ * The RemoveArtistaView class represents a view for removing an artist.
+ * It displays details of the artist and provides a button to remove the artist from the database.
+ */
 package view;
 
 import javafx.geometry.Insets;
@@ -22,10 +26,20 @@ public class RemoveArtistaView extends Parent {
 
     private ExplorArtPresenter myPresenter;
 
+    /**
+     * Constructs an instance of RemoveArtistaView with the specified artist.
+     *
+     * @param artista The artist to be removed.
+     */
     public RemoveArtistaView(Artista artista) {
         doLayout(artista);
     }
 
+    /**
+     * Configures the layout to display details of the specified artist and a button to remove the artist.
+     *
+     * @param artista The artist for which details are displayed.
+     */
     private void doLayout(Artista artista) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         VBox detailsLayout = new VBox(10);
@@ -46,7 +60,6 @@ public class RemoveArtistaView extends Parent {
 
         // Set preferred width for proper text wrapping
         bioTextFlow.setPrefWidth(400); // Adjust the width as needed
-
 
         // Botão "Remover" e respetiva lógica
         Button removeButton = new Button("Remover artista");
@@ -75,8 +88,7 @@ public class RemoveArtistaView extends Parent {
             }
         });
 
-
-        // Add labels to the layout
+        // Add labels and button to the layout
         detailsLayout.getChildren().addAll(nameLabel, birthDateLabel, deathDateLabel, nationalityLabel, bioLabel, bioTextFlow,
                 removeButton);
 
@@ -84,8 +96,13 @@ public class RemoveArtistaView extends Parent {
         getChildren().add(detailsLayout);
     }
 
+    /**
+     * Formats the date using a DateTimeFormatter.
+     *
+     * @param date The date to be formatted.
+     * @return The formatted date as a string.
+     */
     private String formatDate(LocalDate date) {
-        // Format the date using a DateTimeFormatter
         if (date != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             return date.format(formatter);

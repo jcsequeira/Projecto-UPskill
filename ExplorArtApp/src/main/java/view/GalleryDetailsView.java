@@ -1,3 +1,7 @@
+/**
+ * The GalleryDetailsView class represents a view for displaying details of a gallery.
+ * It provides information such as gallery name, address, contact details, and associated personnel.
+ */
 package view;
 
 import javafx.geometry.Insets;
@@ -10,10 +14,23 @@ import model.Galeria;
 import java.io.IOException;
 
 public class GalleryDetailsView extends Parent {
+
+    /**
+     * Constructs an instance of GalleryDetailsView with the specified gallery.
+     *
+     * @param galeria The gallery for which details are displayed.
+     * @throws IOException If an error occurs while retrieving information from the model.
+     */
     public GalleryDetailsView(Galeria galeria) throws IOException {
         doLayout(galeria);
     }
 
+    /**
+     * Configures the layout to display details of the specified gallery.
+     *
+     * @param galeria The gallery for which details are displayed.
+     * @throws IOException If an error occurs while retrieving information from the model.
+     */
     private void doLayout(Galeria galeria) throws IOException {
         ExplorArtModel model = new ExplorArtModel();
 
@@ -30,7 +47,6 @@ public class GalleryDetailsView extends Parent {
 
         Label cidadeLabel = new Label("Cidade: " + model.getCidadeById(galeria.getId_Cidade()));
         Label galeristaLabel = new Label("Galerista: " + model.getColaboradorById(galeria.getId_colaborador()));
-
 
         detailsLayout.getChildren().addAll(nomeLabel, galeristaLabel, moradaLabel, cidadeLabel,
                 emailLabel, telefoneLabel, urlLabel);

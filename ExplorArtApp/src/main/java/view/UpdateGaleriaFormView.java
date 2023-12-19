@@ -13,7 +13,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The UpdateGaleriaFormView class represents a view for updating gallery information.
+ * It extends the Parent class.
+ *
+ */
 public class UpdateGaleriaFormView extends Parent {
+
     private Galeria galeria;
     private ExplorArtPresenter myPresenter;
     private ObservableList<Cidade> cidadeObservableList;
@@ -21,9 +27,14 @@ public class UpdateGaleriaFormView extends Parent {
     private ObservableList<Galerista> galeristaObservableList;
     private ComboBox<Galerista> galeristaComboBox;
 
+    /**
+     * Constructs a new UpdateGaleriaFormView instance for the specified gallery.
+     *
+     * @param galeria The gallery to be updated.
+     * @throws IOException If an I/O error occurs.
+     */
     public UpdateGaleriaFormView(Galeria galeria) throws IOException {
         this.galeria = galeria;
-
         doLayout(galeria);
     }
 
@@ -146,6 +157,5 @@ public class UpdateGaleriaFormView extends Parent {
         });
 
         gridPane.add(submitButton, 0, 7, 2, 1);
-
     }
 }

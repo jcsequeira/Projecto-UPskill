@@ -1,3 +1,7 @@
+/**
+ * The RemoveEventoView class represents a view for removing an event.
+ * It displays details of the event and provides a button to remove the event from the database.
+ */
 package view;
 
 import javafx.geometry.Insets;
@@ -19,10 +23,22 @@ public class RemoveEventoView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ExplorArtModel model;
 
+    /**
+     * Constructs an instance of RemoveEventoView with the specified event.
+     *
+     * @param evento The event to be removed.
+     * @throws IOException If an I/O error occurs.
+     */
     public RemoveEventoView(Evento evento) throws IOException {
         doLayout(evento);
     }
 
+    /**
+     * Configures the layout to display details of the specified event and a button to remove the event.
+     *
+     * @param evento The event for which details are displayed.
+     * @throws IOException If an I/O error occurs.
+     */
     private void doLayout(Evento evento) throws IOException {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
         model = new ExplorArtModel();
@@ -34,7 +50,6 @@ public class RemoveEventoView extends Parent {
         Label startDateLabel = new Label("Data de inicio: " + formatDate(evento.getData_inicio()));
         Label endDateLabel = new Label("Data de fim: " + formatDate(evento.getData_Fim()));
         Label galleryLabel = new Label("Galeria: " + model.getGalleryById(evento.getId_Galeria()));
-
 
         // Botão "Remover" e respetiva lógica
         Button removeButton = new Button("Remover evento");
@@ -63,17 +78,20 @@ public class RemoveEventoView extends Parent {
             }
         });
 
-
-        // Add labels to the layout
-        detailsLayout.getChildren().addAll(nameLabel, startDateLabel, endDateLabel, galleryLabel,
-                removeButton);
+        // Add labels and button to the layout
+        detailsLayout.getChildren().addAll(nameLabel, startDateLabel, endDateLabel, galleryLabel, removeButton);
 
         // Set the layout as the root of the scene
         getChildren().add(detailsLayout);
     }
 
+    /**
+     * Formats the date using a DateTimeFormatter.
+     *
+     * @param date The date to be formatted.
+     * @return The formatted date as a string.
+     */
     private String formatDate(LocalDate date) {
-        // Format the date using a DateTimeFormatter
         if (date != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             return date.format(formatter);

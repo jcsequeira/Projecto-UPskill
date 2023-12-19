@@ -1,3 +1,7 @@
+/**
+ * The UpdateEventoFormView class represents a view for updating event information.
+ * It allows modifying the event's name, start date, end date, description, and associated gallery.
+ */
 package view;
 
 import javafx.collections.FXCollections;
@@ -21,6 +25,12 @@ public class UpdateEventoFormView extends Parent {
     private ComboBox<Galeria> galeriaComboBox;
     private ObservableList<Galeria> galeriaObservableList;
 
+    /**
+     * Constructs an instance of UpdateEventoFormView with the specified event and gallery details.
+     *
+     * @param evento  The event for which information is being updated.
+     * @param galeria The gallery associated with the event.
+     */
     public UpdateEventoFormView(Evento evento, Galeria galeria) {
         this.evento = evento;
         this.galeria = galeria;
@@ -28,6 +38,11 @@ public class UpdateEventoFormView extends Parent {
         doLayout(evento);
     }
 
+    /**
+     * Configures the layout for updating event information.
+     *
+     * @param evento The event for which information is being updated.
+     */
     private void doLayout(Evento evento) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
@@ -42,8 +57,8 @@ public class UpdateEventoFormView extends Parent {
         gridPane.add(nomeLabel, 0, 0);
         gridPane.add(nomeField, 1, 0);
 
-        // Data de inicio
-        Label startDayLabel = new Label("Data de inicio:");
+        // Data de início
+        Label startDayLabel = new Label("Data de início:");
         DatePicker startDayPicker = new DatePicker();
         gridPane.add(startDayLabel, 0, 1);
         gridPane.add(startDayPicker, 1, 1);
@@ -79,8 +94,7 @@ public class UpdateEventoFormView extends Parent {
 
         getChildren().add(gridPane);
 
-
-        // Botão "Adicionar" e respetiva lógica
+        // Botão "Modificar" e respetiva lógica
         Button submitButton = new Button("Modificar Evento");
         submitButton.setOnAction(event -> {
             try {
@@ -114,4 +128,3 @@ public class UpdateEventoFormView extends Parent {
         gridPane.add(submitButton, 0, 5, 2, 1);
     }
 }
-

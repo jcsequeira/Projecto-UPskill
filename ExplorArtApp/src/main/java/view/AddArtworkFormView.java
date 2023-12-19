@@ -1,6 +1,5 @@
 package view;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -14,7 +13,10 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 
-
+/**
+ * The AddArtworkFormView class represents the view for adding a new artwork in the ExplorArtApp.
+ * It extends Parent and provides a form for users to input artwork details.
+ */
 public class AddArtworkFormView extends Parent {
 
     private ExplorArtPresenter myPresenter;
@@ -29,7 +31,11 @@ public class AddArtworkFormView extends Parent {
 
     private ExplorArtModel model;
 
-
+    /**
+     * Constructs an instance of AddArtworkFormView.
+     *
+     * @param obraArte The artwork object to which the entered details will be associated.
+     */
     public AddArtworkFormView(Obra_Arte obraArte) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 
@@ -68,25 +74,25 @@ public class AddArtworkFormView extends Parent {
         gridPane.add(heightLabel, 0, 4);
         gridPane.add(heightField, 1, 4);
 
-// Largura
+        // Largura
         Label widthLabel = new Label("Largura:");
         TextField widthField = new TextField();
         gridPane.add(widthLabel, 0, 5);
         gridPane.add(widthField, 1, 5);
 
-// Profundidade
+        // Profundidade
         Label depthLabel = new Label("Profundidade:");
         TextField depthField = new TextField();
         gridPane.add(depthLabel, 0, 6);
         gridPane.add(depthField, 1, 6);
 
-// Diâmetro
+        // Diâmetro
         Label diameterLabel = new Label("Diâmetro:");
         TextField diameterField = new TextField();
         gridPane.add(diameterLabel, 0, 7);
         gridPane.add(diameterField, 1, 7);
 
-// Ativo
+        // Ativo
         Label activeLabel = new Label("Ativo:");
         ToggleGroup activeToggleGroup = new ToggleGroup();
 
@@ -100,12 +106,12 @@ public class AddArtworkFormView extends Parent {
         gridPane.add(activeLabel, 0, 8);
         gridPane.add(activeBox, 1, 8);
 
-// ID do Artista
+        // ID do Artista
         Label artistIdLabel = new Label("Artista:");
         List<Artista> artistaList = null;
-        ExplorArtModel modelaux = new ExplorArtModel();
+        ExplorArtModel modelAux = new ExplorArtModel();
         try {
-            artistaList = modelaux.getArtists();
+            artistaList = modelAux.getArtists();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -116,14 +122,14 @@ public class AddArtworkFormView extends Parent {
         gridPane.add(artistIdLabel, 0, 9);
         gridPane.add(artistaComboBox, 1, 9);
 
-// ID da Técnica
+        // ID da Técnica
         Label techniqueIdLabel = new Label("Técnica:");
         List<Tecnica> tecnicaList = null;
         model = new ExplorArtModel();
         try {
             tecnicaList = model.getTechnics();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         tecnicaObservableList = FXCollections.observableArrayList();
@@ -133,14 +139,14 @@ public class AddArtworkFormView extends Parent {
         gridPane.add(techniqueIdLabel, 0, 10);
         gridPane.add(tecnicaComboBox, 1, 10);
 
-// ID do Estilo
+        // ID do Estilo
         Label styleIdLabel = new Label("Estilo:");
         List<Movimento> movimentosList = null;
         model = new ExplorArtModel();
         try {
             movimentosList = model.getMovement();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         movimentoObservableList = FXCollections.observableArrayList();
@@ -157,7 +163,7 @@ public class AddArtworkFormView extends Parent {
         try {
             materiaisList = model.getMaterials();
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         materiaisObservableList = FXCollections.observableArrayList();
@@ -166,7 +172,6 @@ public class AddArtworkFormView extends Parent {
         materiaisComboBox = new ComboBox<>(materiaisObservableList);
         gridPane.add(materialsIdLabel, 0, 12);
         gridPane.add(materiaisComboBox, 1, 12);
-
 
         getChildren().add(gridPane);
 
@@ -211,9 +216,5 @@ public class AddArtworkFormView extends Parent {
             }
         });
         gridPane.add(submitButton, 0, 13, 2, 1);
-
-
     }
-
-
 }

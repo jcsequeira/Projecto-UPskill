@@ -11,10 +11,14 @@ import model.ExplorArtModel;
 import model.Galeria;
 import model.Galerista;
 import presenter.ExplorArtPresenter;
-
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The AddGalleryFormView class represents the view for adding a new gallery.
+ * It includes form elements for capturing information about the gallery and its associated details.
+ * Upon submitting the form, the data is processed and added to the database through the presenter.
+ */
 public class AddGalleryFormView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ComboBox<Cidade> cidadeComboBox;
@@ -22,7 +26,11 @@ public class AddGalleryFormView extends Parent {
     private ComboBox<Galerista> galeristaComboBox;
     private ObservableList<Galerista> galeristaObservableList;
 
-
+    /**
+     * Constructs an instance of AddGalleryFormView with the specified gallery.
+     *
+     * @param galeria The gallery to be edited or added.
+     */
     public AddGalleryFormView(Galeria galeria) {
         myPresenter = new ExplorArtPresenter(new ExplorArtView(), new ExplorArtModel());
 

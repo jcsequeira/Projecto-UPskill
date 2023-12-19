@@ -13,10 +13,23 @@ import presenter.ExplorArtPresenter;
 
 import java.io.IOException;
 
+/**
+ * The RemoveGaleriaView class represents a view for displaying details about a gallery and providing the option
+ * to remove it. It extends the {@link javafx.scene.Parent} class.
+ *
+ *
+ */
 public class RemoveGaleriaView extends Parent {
+
     private ExplorArtPresenter myPresenter;
     private ExplorArtModel model;
 
+    /**
+     * Constructs a new RemoveGaleriaView instance for the specified gallery.
+     *
+     * @param galeria The gallery to be displayed and removed.
+     * @throws IOException If an I/O error occurs.
+     */
     public RemoveGaleriaView(Galeria galeria) throws IOException {
         doLayout(galeria);
     }
@@ -36,24 +49,23 @@ public class RemoveGaleriaView extends Parent {
         Label emailLabel = new Label("Email: " + galeria.getEmail());
         Label urlLabel = new Label("Website: " + galeria.getWebsite());
 
-
-        // Botão "Remover" e respetiva lógica
+        // Button "Remover" and its logic
         Button removeButton = new Button("Remover galeria");
         removeButton.setOnAction(event -> {
             try {
-                // Criar alerta de confirmação
+                // Create a confirmation alert
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmationAlert.setTitle("Remover galeria");
                 confirmationAlert.setHeaderText("Tem a certeza que deseja remover a galeria da Base de Dados?");
-                confirmationAlert.setContentText("Ao confirmar, a galeria será removido permanentemente da Base de Dados.");
+                confirmationAlert.setContentText("Ao confirmar, a galeria será removida permanentemente da Base de Dados.");
 
-                // Obter o resultado da confirmação
+                // Obtain the confirmation result
                 ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
 
                 if (result == ButtonType.OK) {
                     myPresenter.removeGallery(galeria.getId_Galeria());
 
-                    // Se o utilizador confirmar, fecha a janela
+                    // If the user confirms, close the window
                     getScene().getWindow().hide();
                 }
 
@@ -63,7 +75,6 @@ public class RemoveGaleriaView extends Parent {
                 throw new RuntimeException(e);
             }
         });
-
 
         // Add labels to the layout
         detailsLayout.getChildren().addAll(nameLabel, galeristaLabel, moradaGaleriaLabel, cidadeGaleriaLabel, telefoneLabel,

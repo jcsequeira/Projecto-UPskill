@@ -10,13 +10,24 @@ import presenter.ExplorArtPresenter;
 
 import java.io.IOException;
 
+/**
+ * The UpdateGaleristaFormView class represents a view for updating gallery owner information.
+ * It extends the Parent class.
+ *
+
+ */
 public class UpdateGaleristaFormView extends Parent {
+
     private Galerista galerista;
     private ExplorArtPresenter myPresenter;
 
+    /**
+     * Constructs a new UpdateGaleristaFormView instance for the specified gallery owner.
+     *
+     * @param galerista The gallery owner to be updated.
+     */
     public UpdateGaleristaFormView(Galerista galerista) {
         this.galerista = galerista;
-
         doLayout(galerista);
     }
 
@@ -40,9 +51,7 @@ public class UpdateGaleristaFormView extends Parent {
         gridPane.add(passwordLabel, 0, 2);
         gridPane.add(passwordField, 1, 2);
 
-
         getChildren().add(gridPane);
-
 
         // Botão "Adicionar" e respetiva lógica
         Button submitButton = new Button("Adicionar galerista");
@@ -75,4 +84,3 @@ public class UpdateGaleristaFormView extends Parent {
         gridPane.add(submitButton, 0, 3, 2, 1);
     }
 }
-
