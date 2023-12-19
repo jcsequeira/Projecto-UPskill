@@ -1,17 +1,14 @@
 package view;
 
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import model.Colaborador;
 import model.ExplorArtModel;
 import model.Galerista;
 import presenter.ExplorArtPresenter;
 
 import java.io.IOException;
-import java.util.List;
 
 public class UpdateGaleristaFormView extends Parent {
     private Galerista galerista;

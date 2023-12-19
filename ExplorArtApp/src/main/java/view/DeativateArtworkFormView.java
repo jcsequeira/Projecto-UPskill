@@ -7,7 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import model.*;
+import model.ExplorArtModel;
+import model.Obra_Arte;
 import presenter.ExplorArtPresenter;
 
 import java.io.IOException;

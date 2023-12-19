@@ -6,7 +6,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import model.Cidade;
 import model.Colaborador;
 import model.ExplorArtModel;
 import model.Pais;

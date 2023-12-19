@@ -2,8 +2,6 @@ package model;
 
 
 import apiservice.ApiService;
-
-
 import presenter.ExplorArtContract;
 
 import java.io.IOException;

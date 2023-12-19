@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.Evento;
-import model.ExplorArtModel;
 import model.Galeria;
 
 import java.time.LocalDate;

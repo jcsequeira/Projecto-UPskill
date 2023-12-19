@@ -4,8 +4,8 @@ package presenter;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import populate.*;
 import model.*;
+import populate.ImportArtsyView;
 
 import java.io.IOException;
 import java.util.List;
