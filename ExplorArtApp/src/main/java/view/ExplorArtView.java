@@ -192,6 +192,14 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 throw new RuntimeException(e);
             }
         });
+
+        desativarOAItem.setOnAction(event -> {
+            try {
+                myPresenter.doDeativateArtwork();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Artistas
         adicionarArtistaItem.setOnAction(event -> {
@@ -607,24 +615,73 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
     public void showAtivateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
-        Stage artworkUpdateDetailsStage = new Stage();
-        artworkUpdateDetailsStage.setTitle("Ativar Obra de Arte");
+        Stage artworkAtivateDetailsStage = new Stage();
+        artworkAtivateDetailsStage.setTitle("Ativar Obra de Arte");
 
 
-        Scene sceneArtworkUpdate = new Scene(new AtivateArtworkFormView(obraArte, artista, tecnica, movimento, material));
+        Scene sceneArtworkAtivate = new Scene(new AtivateArtworkFormView(obraArte, artista, tecnica, movimento, material));
 
-        artworkUpdateDetailsStage.setScene(sceneArtworkUpdate);
-        artworkUpdateDetailsStage.setResizable(true);
+        artworkAtivateDetailsStage.setScene(sceneArtworkAtivate);
+        artworkAtivateDetailsStage.setResizable(true);
 
         // Set the owner and modality to make it a modal dialog
-        artworkUpdateDetailsStage.initOwner(this.getScene().getWindow());
-        artworkUpdateDetailsStage.initModality(Modality.APPLICATION_MODAL);
+        artworkAtivateDetailsStage.initOwner(this.getScene().getWindow());
+        artworkAtivateDetailsStage.initModality(Modality.APPLICATION_MODAL);
 
-        artworkUpdateDetailsStage.sizeToScene();
+        artworkAtivateDetailsStage.sizeToScene();
 
-        artworkUpdateDetailsStage.show();
+        artworkAtivateDetailsStage.show();
     }
 
+    @Override
+    public void showDeativateArtwokrs(List<Obra_Arte> obras) {
+        if (obras.isEmpty()){
+            showEmptyListMessage("Obra de Arte");
+        }
+        else {
+            listView.getItems().clear();
+            for (Obra_Arte obraArte : obras) {
+                listView.getItems().add(obraArte.getTitulo());
+            }
+            // Add an event handler to handle item click
+            listView.setOnMouseClicked(event -> {
+                String selectedArtworkTitle = listView.getSelectionModel().getSelectedItem();
+                if (selectedArtworkTitle != null) {
+                    // Find the corresponding Show object
+                    Optional<Obra_Arte> selectedArtwork = obras.stream()
+                            .filter(obraArte -> obraArte.getTitulo().equals(selectedArtworkTitle))
+                            .findFirst();
+
+                    try {
+                        myPresenter.doDeativateArtworkDetails(selectedArtwork.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showDeativateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
+        Stage artworkDeativateDetailsStage = new Stage();
+        artworkDeativateDetailsStage.setTitle("Desativar Obra de Arte");
+
+
+        Scene sceneArtworkDeativate = new Scene(new DeativateArtworkFormView(obraArte, artista, tecnica, movimento, material));
+
+        artworkDeativateDetailsStage.setScene(sceneArtworkDeativate);
+        artworkDeativateDetailsStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        artworkDeativateDetailsStage.initOwner(this.getScene().getWindow());
+        artworkDeativateDetailsStage.initModality(Modality.APPLICATION_MODAL);
+
+        artworkDeativateDetailsStage.sizeToScene();
+
+        artworkDeativateDetailsStage.show();
+    }
 
 
     //------------------------------------------------------------------------------------------------------------------

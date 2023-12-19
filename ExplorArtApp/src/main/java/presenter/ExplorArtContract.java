@@ -83,8 +83,9 @@ public interface ExplorArtContract {
         void showRemoveShowWindow(Evento evento);
 
         void showAtivateArtwokrs(List<Obra_Arte> obras);
-
         void showAtivateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
+        void showDeativateArtwokrs(List<Obra_Arte> obras);
+        void showDeativateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
     }
         interface Presenter {
             void exploreArtists() throws IOException;
@@ -100,9 +101,12 @@ public interface ExplorArtContract {
 
             void addArtwork(Obra_Arte obraArte) throws IOException;
 
+            void doDeativateArtwork() throws IOException;
+
             void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
 
             void deativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
+
 
             void modifyArtwork(int artworkId, Obra_Arte obraArte) throws IOException;
 
@@ -203,6 +207,10 @@ public interface ExplorArtContract {
             void doRemoveShow() throws IOException;
 
             void doRemoveShowWindow(Evento evento) throws IOException;
+
+            void doAtivateArtwork() throws IOException;
+
+            void doDeativateArtworkDetails(Obra_Arte obraArte) throws IOException;
         }
             interface Model {
                 List<Artista> getArtists() throws IOException;

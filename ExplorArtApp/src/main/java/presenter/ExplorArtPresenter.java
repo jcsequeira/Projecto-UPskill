@@ -55,11 +55,20 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     public void addArtwork(Obra_Arte obraArte) throws IOException {
         model.addArtwork(obraArte);
     }
+
+    @Override
     public void doAtivateArtwork() throws IOException {
         List<Obra_Arte> obras = model.getArtworks();
         view.showAtivateArtwokrs(obras);
     }
 
+
+
+    @Override
+    public void doDeativateArtwork() throws IOException {
+        List<Obra_Arte> obras = model.getArtworks();
+        view.showDeativateArtwokrs(obras);
+    }
 
 
     @Override
@@ -71,6 +80,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     public void deativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
         model.deativateArtwork(artworkId, obraArte);
     }
+
 
     @Override
     public void modifyArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
@@ -245,6 +255,8 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
         view.showRemoveShowWindow(evento);
     }
 
+
+
     @Override
     public void doRemoveArtist() throws IOException {
         List<Artista> artistas = model.getArtists();
@@ -314,6 +326,36 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
         // Display the artwork details along with additional information
         view.showAtivateArtworkDetails(obraArte, artista, tecnica, movimento, material);
+    }
+
+    @Override
+    public void doDeativateArtworkDetails(Obra_Arte obraArte) throws IOException {
+        ExplorArtModel model = new ExplorArtModel();
+
+        int idArtista = obraArte.getId_artista();
+        int idTecnica = obraArte.getId_Tecnica();
+        int idMovimento = obraArte.getId_Estilo();
+        int idMaterial = obraArte.getId_Material();
+
+        Artista artista = null;
+        Tecnica tecnica = null;
+        Movimento movimento = null;
+        Materiais material = null;
+
+        // Retrieve artist information
+        artista = model.getArtistById(idArtista);
+
+        // Retrieve technique information
+        tecnica = model.getTechniqueById(idTecnica);
+
+        // Retrieve movement information
+        movimento = model.getMovementById(idMovimento);
+
+        // Retrieve material information
+        material = model.getMaterialById(idMaterial);
+
+        // Display the artwork details along with additional information
+        view.showDeativateArtworkDetails(obraArte, artista, tecnica, movimento, material);
     }
 
     @Override
