@@ -1,25 +1,18 @@
 package artsymodel;
 
+/**
+ * Represents a gene in the Artsy platform.
+ */
 public class ArtsyGene {
+
     private String name;
 
-    public ArtsyGene(String name) {
-        this.name = name;
-    }
-
-    public ArtsyGene() {
-    }
-
+    /**
+     * Gets the name of the gene.
+     *
+     * @return the name of the gene.
+     */
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
         return name;
     }
 }
