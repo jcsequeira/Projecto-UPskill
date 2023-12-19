@@ -626,7 +626,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artworkAtivateDetailsStage.setTitle("Ativar Obra de Arte");
 
 
-        Scene sceneArtworkAtivate = new Scene(new AtivateArtworkFormView(obraArte, artista, tecnica, movimento, material));
+        Scene sceneArtworkAtivate = new Scene(new AtivateArtworkFormView(obraArte));
 
         artworkAtivateDetailsStage.setScene(sceneArtworkAtivate);
         artworkAtivateDetailsStage.setResizable(true);
@@ -676,7 +676,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artworkDeativateDetailsStage.setTitle("Desativar Obra de Arte");
 
 
-        Scene sceneArtworkDeativate = new Scene(new DeativateArtworkFormView(obraArte, artista, tecnica, movimento, material));
+        Scene sceneArtworkDeativate = new Scene(new DeativateArtworkFormView(obraArte));
 
         artworkDeativateDetailsStage.setScene(sceneArtworkDeativate);
         artworkDeativateDetailsStage.setResizable(true);
