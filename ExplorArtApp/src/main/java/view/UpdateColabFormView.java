@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import model.Cidade;
 import model.Colaborador;
 import model.ExplorArtModel;
 import model.Pais;
@@ -13,6 +14,7 @@ import presenter.ExplorArtPresenter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class UpdateColabFormView extends Parent {
     private Colaborador colaborador;
@@ -60,11 +62,15 @@ public class UpdateColabFormView extends Parent {
         } catch (IOException e){
             throw  new RuntimeException();
         }
+        Optional<Pais> selectedCountry = paisList.stream()
+                .filter(pais -> pais.getCodigo_Pais() == colaborador.getCodigo_Pais())
+                .findFirst();
+
         paisObservableList = FXCollections.observableArrayList();
         paisObservableList.clear();
         paisObservableList.addAll(paisList);
         paisComboBox = new ComboBox<>(paisObservableList);
-        paisComboBox.getSelectionModel().select(colaborador.getCodigo_Pais());
+        paisComboBox.getSelectionModel().select(selectedCountry.get());
         gridPane.add(paisLabel, 0, 3);
         gridPane.add(paisComboBox, 1, 3);
 
