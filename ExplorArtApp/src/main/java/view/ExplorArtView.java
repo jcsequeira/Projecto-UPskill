@@ -549,7 +549,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         else {
             listView.getItems().clear();
             for (Obra_Arte obraArte : obras) {
-                if (obraArte.getIsActive()==1) listView.getItems().add(obraArte.getTitulo());
+                listView.getItems().add(obraArte.getTitulo());
             }
             // Add an event handler to handle item click
             listView.setOnMouseClicked(event -> {
