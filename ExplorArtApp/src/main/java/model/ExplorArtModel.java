@@ -40,15 +40,6 @@ public class ExplorArtModel implements ExplorArtContract.Model {
         ApiService.postToRestApi("http://localhost:4567/api/obrasarte", obraArte);
     }
 
-    @Override
-    public void ativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
-        ApiService.putToRestApi("http://localhost:4567/api/obrasarte/" + artworkId, obraArte);
-    }
-
-    @Override
-    public void deativateArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
-        ApiService.putToRestApi("http://localhost:4567/api/obrasarte/" + artworkId, obraArte);
-    }
 
     @Override
     public void modifyArtwork(int artworkId, Obra_Arte obraArte) throws IOException {
@@ -70,10 +61,6 @@ public class ExplorArtModel implements ExplorArtContract.Model {
         ApiService.putToRestApi("http://localhost:4567/api/eventos/" + showId, evento);
     }
 
-    @Override
-    public void removeShow(int showId) throws IOException {
-        ApiService.deleteToRestApi("http://localhost:4567/api/eventos/" + showId);
-    }
 
     @Override
     public List<Galeria> getGalleries() throws IOException {
@@ -93,11 +80,6 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     @Override
     public void modifyGallerist(int galleristId, Galerista galerista) throws IOException {
         ApiService.putToRestApi("http://localhost:4567/api/galeristas/" + galleristId, galerista);
-    }
-
-    @Override
-    public void removeGallerist(int galleristId) throws IOException {
-        ApiService.deleteToRestApi("http://localhost:4567/api/galeristas/" + galleristId);
     }
 
     @Override
