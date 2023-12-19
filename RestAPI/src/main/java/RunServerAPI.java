@@ -247,15 +247,10 @@ public class RunServerAPI {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace(); // Handle connection close exceptions appropriately
-            }
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
         }
+
     }
 
     public static void stopServer() {

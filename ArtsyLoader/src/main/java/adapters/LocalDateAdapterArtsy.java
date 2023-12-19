@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-public class LocalDateAdapter extends TypeAdapter<LocalDate> {
+public class LocalDateAdapterArtsy extends TypeAdapter<LocalDate> {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

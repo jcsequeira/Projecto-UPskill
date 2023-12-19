@@ -1,6 +1,6 @@
 package restapiservice;
 
-import adapters.LocalDateAdapter;
+import adapters.LocalDateAdapterArtsy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.*;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RestApiService {
     private static final OkHttpClient client = new OkHttpClient();
-    private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+    private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapterArtsy()).create();
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json");
 
     public static <T> void postToRestApi(String apiUrl, List<T> dataList) throws IOException {

@@ -187,24 +187,6 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     }
 
 
-    public void importDataFromArtsy()  {
-        // Your background task logic
-        // Update the 'progress' variable as the task progresses
-        //PopulateRun.doPopulate(this);
-        setProgress(0.5);
-    }
-
-    public void setProgress(double progress) {
-        this.progress = progress;
-    }
-
-    public void updateProgress(double progress) {
-        setProgress(progress);
-    }
-
-    public double getProgress() {
-        return progress;
-    }
 
 
     @Override

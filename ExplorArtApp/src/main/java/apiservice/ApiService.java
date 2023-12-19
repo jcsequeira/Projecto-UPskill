@@ -4,6 +4,7 @@ package apiservice;
 
 import adapters.LocalDateAdapter;
 
+
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.*;

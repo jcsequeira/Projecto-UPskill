@@ -2,7 +2,6 @@ package presenter;
 
 
 import model.*;
-import view.ImportArtsyView;
 
 import java.io.IOException;
 import java.util.List;
@@ -50,7 +49,7 @@ public interface ExplorArtContract {
 
         void showUpdateArtistDetails(Artista artista);
 
-        void showImportDataFromArtsyView();
+
 
 
         void showUpdateShow(List<Evento> eventos);
@@ -116,7 +115,7 @@ public interface ExplorArtContract {
             //Admin
             void addColaborador(Colaborador colaborador) throws IOException;
 
-            void importDataFromArtsy(ImportArtsyView importArtsyView);
+
 
             void deleteArtsyData() throws IOException;
 
@@ -248,15 +247,11 @@ public interface ExplorArtContract {
 
                 List<Cidade> getCidades() throws IOException;
 
-                void importDataFromArtsy();
+
 
                 void deleteArtsyData() throws IOException;
 
-                double getProgress();
 
-                void setProgress(double progress);
-
-                void updateProgress(double progress);
             }
 
         }

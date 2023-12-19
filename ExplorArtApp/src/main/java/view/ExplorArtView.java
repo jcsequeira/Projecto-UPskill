@@ -847,27 +847,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
         addColaboradorFormStage.show();
     }
-    @Override
-    public void showImportDataFromArtsyView() {
-        Stage importDataFromArtsyStage = new Stage();
-        importDataFromArtsyStage.setTitle("Importação de Dados");
 
-        ImportArtsyView importArtsyView = new ImportArtsyView(myPresenter);
-        myPresenter.importDataFromArtsy(importArtsyView);
-
-        Scene sceneImportDataFromArtsy = new Scene(importArtsyView);
-
-        importDataFromArtsyStage.setScene(sceneImportDataFromArtsy);
-        importDataFromArtsyStage.setResizable(true);
-
-        // Set the owner and modality to make it a modal dialog
-        importDataFromArtsyStage.initOwner(this.getScene().getWindow());
-        importDataFromArtsyStage.initModality(Modality.APPLICATION_MODAL);
-
-        importDataFromArtsyStage.sizeToScene();
-
-        importDataFromArtsyStage.show();
-    }
     @Override
     public void visualizarColaboradores(List<Colaborador> colaboradores) {
         if (colaboradores.isEmpty()){

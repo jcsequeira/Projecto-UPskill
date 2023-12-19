@@ -2,9 +2,10 @@ package presenter;
 
 // Presenter (no pacote presenter)
 
-
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import populate.*;
 import model.*;
-import view.ImportArtsyView;
 
 import java.io.IOException;
 import java.util.List;
@@ -136,7 +137,8 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
     @Override
     public void doImportDataFromArtsy() {
-        view.showImportDataFromArtsyView();
+        showImportDataFromArtsyView();
+
     }
 
     @Override
@@ -284,31 +286,7 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
 
-    public void importDataFromArtsy(ImportArtsyView importArtsyView) {
 
-            // Start the background task in the model or background module
-
-
-            // Periodically update the progress bar in the view
-            new Thread(() -> {
-                while (model.getProgress() < 1.0) {
-                    double progress = model.getProgress();
-                    importArtsyView.updateProgressBar(progress);
-
-                    try {
-                        // Add a delay if needed
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                // Task is complete, perform any additional actions if needed
-            }).start();
-        }
-    public void importDataFromArtsyStart() {
-        model.importDataFromArtsy();
-    }
 
     @Override
     public void deleteArtsyData() throws IOException {
@@ -365,6 +343,24 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
 
         // Display the artwork details along with additional information
         view.showArtworkDetails(obraArte, artista, tecnica, movimento, material);
+    }
+    public  void showImportDataFromArtsyView() {
+        Stage importDataFromArtsyStage = new Stage();
+        importDataFromArtsyStage.setTitle("Importação de Dados");
+
+
+        ImportArtsyView importArtsyView = new ImportArtsyView();
+
+        Scene sceneImportDataFromArtsy = new Scene(importArtsyView);
+
+        importDataFromArtsyStage.setScene(sceneImportDataFromArtsy);
+        importDataFromArtsyStage.setResizable(true);
+
+
+
+        importDataFromArtsyStage.sizeToScene();
+
+        importDataFromArtsyStage.show();
     }
 
 
