@@ -3,7 +3,6 @@ package service;
 import model.Obra_Arte;
 import repository.ObraArteRepository;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class ObraArteService {
