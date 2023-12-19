@@ -31,6 +31,7 @@ public class GalleryDetailsView extends Parent {
         Label cidadeLabel = new Label("Cidade: "+ model.getCidadeById(galeria.getId_Cidade()));
         Label galeristaLabel = new Label("Galerista: " + model.getColaboradorById(galeria.getId_colaborador()));
 
+
         detailsLayout.getChildren().addAll(nomeLabel, galeristaLabel, moradaLabel, cidadeLabel,
                 emailLabel, telefoneLabel, urlLabel);
 
