@@ -198,6 +198,13 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                 throw new RuntimeException(e);
             }
         });
+        removerArtistaItem.setOnAction(event -> {
+            try {
+                myPresenter.doRemoveArtist();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         //--------------------------------------------------------------------------------------------------------------
         //Events menu Gerir Eventos
@@ -511,6 +518,7 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
     }
 
 
+
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Obra Arte *******
     @Override
@@ -655,7 +663,52 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artistaUpdateDetailsStage.show();
     }
 
+    @Override
+    public void showRemoveArtists(List<Artista> artistas) {
+        if (artistas.isEmpty()){
+            showEmptyListMessage("Artista");
+        }
+        else {
+            listView.getItems().clear();
+            for (Artista artista : artistas) {
+                listView.getItems().add(artista.getNome_artista());
+            }
+            listView.setOnMouseClicked(event -> {
+                String selectedArtistName = listView.getSelectionModel().getSelectedItem();
+                if (selectedArtistName != null) {
+                    // Find the corresponding Show object
+                    Optional<Artista> selectedArtista = artistas.stream()
+                            .filter(artista -> artista.getNome_artista().equals(selectedArtistName))
+                            .findFirst();
 
+                    try {
+                        myPresenter.doRemoveArtistWindow(selectedArtista.get());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showRemoveArtistWindow(Artista artista) {
+        Stage artistaRemoveStage = new Stage();
+        artistaRemoveStage.setTitle("Remover artista da Base de Dados");
+
+        Scene sceneArtistaRemove = new Scene(new RemoveArtistaView(artista));
+
+        artistaRemoveStage.setScene(sceneArtistaRemove);
+        artistaRemoveStage.setResizable(true);
+
+        // Set the owner and modality to make it a modal dialog
+        artistaRemoveStage.initOwner(this.getScene().getWindow());
+        artistaRemoveStage.initModality(Modality.APPLICATION_MODAL);
+
+        artistaRemoveStage.sizeToScene();
+
+        artistaRemoveStage.show();
+    }
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Eventos *******

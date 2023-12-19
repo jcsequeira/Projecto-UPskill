@@ -230,6 +230,17 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
         view.showGalleryDetails(galeria);
     }
 
+    @Override
+    public void doRemoveArtist() throws IOException {
+        List<Artista> artistas = model.getArtists();
+        view.showRemoveArtists(artistas);
+    }
+
+    @Override
+    public void doRemoveArtistWindow(Artista artista) throws IOException {
+        view.showRemoveArtistWindow(artista);
+    }
+
 
     @Override
     public void doUpdateArtworkDetails(Obra_Arte obraArte) throws IOException {
