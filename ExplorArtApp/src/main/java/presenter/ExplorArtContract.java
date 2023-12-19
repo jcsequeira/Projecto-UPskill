@@ -81,6 +81,10 @@ public interface ExplorArtContract {
         void showRemoveShows(List<Evento> eventos);
 
         void showRemoveShowWindow(Evento evento);
+
+        void showAtivateArtwokrs(List<Obra_Arte> obras);
+
+        void showAtivateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material);
     }
         interface Presenter {
             void exploreArtists() throws IOException;
