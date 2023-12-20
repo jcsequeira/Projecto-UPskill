@@ -125,7 +125,7 @@ public class MateriaisController {
             Materiais updatedMaterial = gson.fromJson(request.body(), Materiais.class);
 
             // Call the service to update the movimento
-            Materiais result = materiaisService.upddateMaterial(materialId, updatedMaterial);
+            Materiais result = materiaisService.updateMaterial(materialId, updatedMaterial);
 
             if (result != null) {
                 // Convert the updated Material object to JSON and return it
