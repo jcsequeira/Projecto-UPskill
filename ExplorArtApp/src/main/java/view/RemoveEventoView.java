@@ -1,7 +1,3 @@
-/**
- * The RemoveEventoView class represents a view for removing an event.
- * It displays details of the event and provides a button to remove the event from the database.
- */
 package view;
 
 import javafx.geometry.Insets;
@@ -19,6 +15,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The RemoveEventoView class represents a view for removing an event.
+ * It displays details of the event and provides a button to remove the event from the database.
+ */
 public class RemoveEventoView extends Parent {
     private ExplorArtPresenter myPresenter;
     private ExplorArtModel model;

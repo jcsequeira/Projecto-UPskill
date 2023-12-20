@@ -1,7 +1,3 @@
-/**
- * The GalleryDetailsView class represents a view for displaying details of a gallery.
- * It provides information such as gallery name, address, contact details, and associated personnel.
- */
 package view;
 
 import javafx.geometry.Insets;
@@ -13,6 +9,10 @@ import model.Galeria;
 
 import java.io.IOException;
 
+/**
+ * The GalleryDetailsView class represents a view for displaying details of a gallery.
+ * It provides information such as gallery name, address, contact details, and associated personnel.
+ */
 public class GalleryDetailsView extends Parent {
 
     /**

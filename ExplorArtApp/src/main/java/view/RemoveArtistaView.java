@@ -1,7 +1,3 @@
-/**
- * The RemoveArtistaView class represents a view for removing an artist.
- * It displays details of the artist and provides a button to remove the artist from the database.
- */
 package view;
 
 import javafx.geometry.Insets;
@@ -22,6 +18,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The RemoveArtistaView class represents a view for removing an artist.
+ * It displays details of the artist and provides a button to remove the artist from the database.
+ */
 public class RemoveArtistaView extends Parent {
 
     private ExplorArtPresenter myPresenter;

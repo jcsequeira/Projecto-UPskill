@@ -1,7 +1,3 @@
-/**
- * The UpdateEventoFormView class represents a view for updating event information.
- * It allows modifying the event's name, start date, end date, description, and associated gallery.
- */
 package view;
 
 import javafx.collections.FXCollections;
@@ -18,6 +14,10 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The UpdateEventoFormView class represents a view for updating event information.
+ * It allows modifying the event's name, start date, end date, description, and associated gallery.
+ */
 public class UpdateEventoFormView extends Parent {
     private final Evento evento;
     private final Galeria galeria;

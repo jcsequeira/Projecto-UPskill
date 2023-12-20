@@ -1,7 +1,3 @@
-/**
- * The ArtistDetailsView class represents a view for displaying details about an artist.
- * It includes information such as the artist's name, birth and death dates, nationality, and biography.
- */
 package view;
 
 import javafx.geometry.Insets;
@@ -17,6 +13,10 @@ import model.Artista;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The ArtistDetailsView class represents a view for displaying details about an artist.
+ * It includes information such as the artist's name, birth and death dates, nationality, and biography.
+ */
 public class ArtistDetailsView extends Parent {
 
     /**

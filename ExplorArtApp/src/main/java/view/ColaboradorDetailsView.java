@@ -1,7 +1,3 @@
-/**
- * The ColaboradorDetailsView class represents a view for displaying details of a collaborator.
- * It includes information such as the collaborator's name, email, phone number, and nationality.
- */
 package view;
 
 import javafx.geometry.Insets;
@@ -14,6 +10,10 @@ import model.Pais;
 
 import java.io.IOException;
 
+/**
+ * The ColaboradorDetailsView class represents a view for displaying details of a collaborator.
+ * It includes information such as the collaborator's name, email, phone number, and nationality.
+ */
 public class ColaboradorDetailsView extends Parent {
 
     /**

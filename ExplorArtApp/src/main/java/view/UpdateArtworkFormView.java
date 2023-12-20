@@ -1,8 +1,3 @@
-/**
- * The UpdateArtworkFormView class represents a view for updating artwork information.
- * It allows modifying the artwork's title, image link, creation year, price, dimensions,
- * and associated artist, technique, movement, and materials.
- */
 package view;
 
 import javafx.collections.FXCollections;
@@ -17,6 +12,11 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The UpdateArtworkFormView class represents a view for updating artwork information.
+ * It allows modifying the artwork's title, image link, creation year, price, dimensions,
+ * and associated artist, technique, movement, and materials.
+ */
 public class UpdateArtworkFormView extends Parent {
 
     private final Obra_Arte obraArte;

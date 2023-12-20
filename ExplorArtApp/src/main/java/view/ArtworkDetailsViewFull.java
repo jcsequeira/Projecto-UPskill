@@ -1,8 +1,3 @@
-/**
- * The ArtworkDetailsViewFull class represents a detailed view for displaying information about an artwork.
- * It includes details such as the title, image, creation year, price, dimensions, artist, technique, movement,
- * materials, and provides the ability to zoom in on the artwork's image.
- */
 package view;
 
 import javafx.geometry.Insets;
@@ -21,6 +16,11 @@ import model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The ArtworkDetailsViewFull class represents a detailed view for displaying information about an artwork.
+ * It includes details such as the title, image, creation year, price, dimensions, artist, technique, movement,
+ * materials, and provides the ability to zoom in on the artwork's image.
+ */
 public class ArtworkDetailsViewFull extends Parent {
 
     private final Obra_Arte obraArte;

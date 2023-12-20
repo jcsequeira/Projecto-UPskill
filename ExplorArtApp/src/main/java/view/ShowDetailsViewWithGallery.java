@@ -1,7 +1,3 @@
-/**
- * The ShowDetailsViewWithGallery class represents a view for displaying details of an event along with associated gallery information.
- * It displays details such as event name, start and end dates, gallery name, and event description.
- */
 package view;
 
 import javafx.geometry.Insets;
@@ -16,6 +12,10 @@ import model.Galeria;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The ShowDetailsViewWithGallery class represents a view for displaying details of an event along with associated gallery information.
+ * It displays details such as event name, start and end dates, gallery name, and event description.
+ */
 public class ShowDetailsViewWithGallery extends Parent {
 
     private final Evento evento;

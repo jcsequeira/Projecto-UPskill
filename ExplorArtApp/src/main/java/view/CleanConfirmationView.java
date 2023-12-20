@@ -1,7 +1,3 @@
-/**
- * The CleanConfirmationView class represents a view for displaying a confirmation message after successfully
- * cleaning the data from the Artsy API.
- */
 package view;
 
 import javafx.geometry.Pos;
@@ -11,6 +7,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * The CleanConfirmationView class represents a view for displaying a confirmation message after successfully
+ * cleaning the data from the Artsy API.
+ */
 public class CleanConfirmationView extends BorderPane {
 
     /**

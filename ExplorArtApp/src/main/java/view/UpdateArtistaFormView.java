@@ -1,7 +1,3 @@
-/**
- * The UpdateArtistaFormView class represents a view for updating artist information.
- * It allows modifying the artist's name, birth date, biography, death date, and nationality.
- */
 package view;
 
 import javafx.collections.FXCollections;
@@ -18,6 +14,10 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The UpdateArtistaFormView class represents a view for updating artist information.
+ * It allows modifying the artist's name, birth date, biography, death date, and nationality.
+ */
 public class UpdateArtistaFormView extends Parent {
     private final Artista artista;
     private Pais nacionalidade;

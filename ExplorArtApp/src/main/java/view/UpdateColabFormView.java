@@ -1,7 +1,3 @@
-/**
- * The UpdateColabFormView class represents a view for updating collaborator information.
- * It allows modifying the collaborator's name, email, phone number, and nationality.
- */
 package view;
 
 import javafx.collections.FXCollections;
@@ -19,6 +15,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The UpdateColabFormView class represents a view for updating collaborator information.
+ * It allows modifying the collaborator's name, email, phone number, and nationality.
+ */
 public class UpdateColabFormView extends Parent {
     private final Colaborador colaborador;
     private ExplorArtPresenter myPresenter;

@@ -1,8 +1,3 @@
-/**
- * The AddShowFormView class represents the view for adding a new event (show).
- * It includes form elements for capturing information about the event and its associated details.
- * Upon submitting the form, the data is processed and added to the database through the presenter.
- */
 package view;
 
 import javafx.collections.FXCollections;
@@ -19,6 +14,11 @@ import presenter.ExplorArtPresenter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The AddShowFormView class represents the view for adding a new event (show).
+ * It includes form elements for capturing information about the event and its associated details.
+ * Upon submitting the form, the data is processed and added to the database through the presenter.
+ */
 public class AddShowFormView extends Parent {
     private final ExplorArtPresenter myPresenter;
     private final ComboBox<Galeria> galeriaComboBox;
