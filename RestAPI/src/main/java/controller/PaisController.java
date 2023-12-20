@@ -11,17 +11,31 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The PaisController class handles HTTP requests related to the Pais resource.
+ */
 public class PaisController {
-
     private final PaisService paisService;
     private Gson gson;
 
+    /**
+     * Constructs a new PaisController with the specified services.
+     *
+     * @param paisService The service for managing Pais data.
+     * @param gson        The Gson library for JSON serialization and deserialization.
+     */
     public PaisController(PaisService paisService, Gson gson) {
         this.paisService = paisService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Pais resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Pais resources.
+     */
     public String getAllPais (Request request, Response response){
         List<Pais> paisList = paisService.getAllPais();
         gson = new Gson();
@@ -31,6 +45,13 @@ public class PaisController {
         return gson.toJson(paisList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Pais resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Pais resource if found; otherwise, an error message.
+     */
     public  String getPaisById(Request request, Response response) {
         try {
             // Extract the pais ID from the request parameters
@@ -60,9 +81,15 @@ public class PaisController {
             response.status(500);
             return "Error retrieving pais";
         }
-
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Pais resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Pais resource.
+     */
     public  String addPais(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -82,6 +109,13 @@ public class PaisController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Pais resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Pais resource.
+     */
     public String updatePais(Request request, Response response) {
         try {
             // Extract the pais ID from the request parameters
@@ -116,6 +150,13 @@ public class PaisController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Pais resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Pais resource.
+     */
     public String deletePais(Request request, Response response) {
         try {
             // Extract the pais ID from the request parameters
@@ -139,6 +180,13 @@ public class PaisController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add multiple Pais resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the creation of multiple Pais resources.
+     */
     public  String addAllPaises(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto

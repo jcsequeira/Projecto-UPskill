@@ -11,15 +11,31 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The TecnicaController class handles HTTP requests related to the Tecnica resource.
+ */
 public class TecnicaController {
     private final TecnicaService tecnicaService;
     private Gson gson;
 
+    /**
+     * Constructs a new TecnicaController with the specified services.
+     *
+     * @param tecnicaService The service for managing Tecnica data.
+     * @param gson           The Gson library for JSON serialization and deserialization.
+     */
     public TecnicaController(TecnicaService tecnicaService, Gson gson) {
         this.tecnicaService = tecnicaService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Tecnica resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Tecnica resources.
+     */
     public String getAllTecnicas(Request request, Response response) {
         List<Tecnica> tecnicasList = tecnicaService.getAllTecnicas();
         gson = new Gson();
@@ -29,6 +45,13 @@ public class TecnicaController {
         return gson.toJson(tecnicasList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Tecnica resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Tecnica resource if found; otherwise, an error message.
+     */
     public String getTecnicaById(Request request, Response response) {
         try {
             // Extract the tecnica ID from the request parameters
@@ -60,6 +83,13 @@ public class TecnicaController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Tecnica resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Tecnica resource.
+     */
     public String addTecnica(Request request, Response response) {
         try {
             // Deserialization of the JSON to an object
@@ -81,6 +111,13 @@ public class TecnicaController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Tecnica resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Tecnica resource.
+     */
     public String updateTecnica(Request request, Response response) {
         try {
             // Extract the tecnica ID from the request parameters
@@ -115,6 +152,13 @@ public class TecnicaController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Tecnica resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Tecnica resource.
+     */
     public String deleteTecnica(Request request, Response response) {
         try {
             // Extract the tecnica ID from the request parameters
@@ -140,6 +184,13 @@ public class TecnicaController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add multiple Tecnica resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the creation of multiple Tecnica resources.
+     */
     public  String addAllTecnicas(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto

@@ -8,15 +8,31 @@ import spark.Response;
 
 import java.util.List;
 
+/**
+ * The GaleristaController class handles HTTP requests related to the Galerista resource.
+ */
 public class GaleristaController {
     private final GaleristaService galeristaService;
     private final Gson gson;
 
+    /**
+     * Constructs a new GaleristaController with the specified services.
+     *
+     * @param galeristaService The service for managing Galerista data.
+     * @param gson             The Gson library for JSON serialization and deserialization.
+     */
     public GaleristaController(GaleristaService galeristaService, Gson gson) {
         this.galeristaService = galeristaService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Galerista resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Galerista resources.
+     */
     public String getAllGaleristas(Request request, Response response) {
         List<Galerista> galeristasList = galeristaService.getAllGaleristas();
         response.status(200);
@@ -25,6 +41,13 @@ public class GaleristaController {
         return gson.toJson(galeristasList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Galerista resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Galerista resource if found; otherwise, an error message.
+     */
     public String getGaleristaById(Request request, Response response) {
         try {
             // Extract the galerista ID from the request parameters
@@ -57,6 +80,13 @@ public class GaleristaController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Galerista resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Galerista resource.
+     */
     public String addGalerista(Request request, Response response) {
         try {
             // Deserialization of JSON to an object
@@ -76,6 +106,13 @@ public class GaleristaController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Galerista resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Galerista resource.
+     */
     public String updateGalerista(Request request, Response response) {
         try {
             // Extract the galerista ID from the request parameters
@@ -110,6 +147,13 @@ public class GaleristaController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Galerista resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Galerista resource.
+     */
     public String deleteGalerista(Request request, Response response) {
         try {
             // Extract the galerista ID from the request parameters

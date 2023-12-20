@@ -8,15 +8,31 @@ import spark.Response;
 
 import java.util.List;
 
+/**
+ * The ColaboradorController class handles HTTP requests related to the Colaborador resource.
+ */
 public class ColaboradorController {
     private final ColaboradorService colaboradorService;
     private final Gson gson;
 
+    /**
+     * Constructs a new ColaboradorController with the specified services.
+     *
+     * @param colaboradorService The service for managing Colaborador data.
+     * @param gson              The Gson library for JSON serialization and deserialization.
+     */
     public ColaboradorController(ColaboradorService colaboradorService, Gson gson) {
         this.colaboradorService = colaboradorService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Colaborador resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Colaborador resources.
+     */
     public String getAllColaboradores (Request request, Response response){
         List<Colaborador> colaboradorList = colaboradorService.getAllColaboradores();
         response.status(200);
@@ -25,6 +41,13 @@ public class ColaboradorController {
         return gson.toJson(colaboradorList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Colaborador resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Colaborador resource if found; otherwise, an error message.
+     */
     public  String getColaboradorById(Request request, Response response) {
         try {
             // Extract the obraArte ID from the request parameters
@@ -56,6 +79,13 @@ public class ColaboradorController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Colaborador resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Colaborador resource.
+     */
     public  String addColaborador(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -76,6 +106,13 @@ public class ColaboradorController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Colaborador resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Colaborador resource.
+     */
     public String updateColaborador (Request request, Response response) {
         try {
             // Extract the obra arte ID from the request parameters
@@ -110,6 +147,13 @@ public class ColaboradorController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Colaborador resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Colaborador resource.
+     */
     public String deleteColaborador(Request request, Response response) {
         try {
             // Extract the Colaborador ID from the request parameters

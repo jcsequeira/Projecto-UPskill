@@ -11,17 +11,32 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The EventoController class handles HTTP requests related to the Evento resource.
+ */
 public class EventoController {
 
     private final EventoService eventoService;
     private final Gson gson;
 
+    /**
+     * Constructs a new EventoController with the specified services.
+     *
+     * @param eventoService The service for managing Evento data.
+     * @param gson          The Gson library for JSON serialization and deserialization.
+     */
     public EventoController(EventoService eventoService, Gson gson) {
         this.eventoService = eventoService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Evento resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Evento resources.
+     */
     public String getAllEvento (Request request, Response response){
         List<Evento> eventoList = eventoService.getAllEvento();
 
@@ -31,6 +46,13 @@ public class EventoController {
         return gson.toJson(eventoList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Evento resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Evento resource if found; otherwise, an error message.
+     */
     public  String getEventoById(Request request, Response response) {
         try {
             // Extract the evento ID from the request parameters
@@ -60,9 +82,15 @@ public class EventoController {
             response.status(500);
             return "Error retrieving evento";
         }
-
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Evento resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Evento resource.
+     */
     public  String addEvento(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -82,6 +110,13 @@ public class EventoController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Evento resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Evento resource.
+     */
     public String updateEvento(Request request, Response response) {
         try {
             // Extract the evento ID from the request parameters
@@ -116,6 +151,13 @@ public class EventoController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Evento resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Evento resource.
+     */
     public String deleteEvento(Request request, Response response) {
         try {
             // Extract the evento ID from the request parameters
@@ -139,6 +181,13 @@ public class EventoController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add multiple Evento resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the creation of multiple Evento resources.
+     */
     public  String addAllEventos(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -158,6 +207,4 @@ public class EventoController {
             return "Error Adding Resources.";
         }
     }
-
-
 }

@@ -11,17 +11,31 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The MateriaisController class handles HTTP requests related to the Materiais resource.
+ */
 public class MateriaisController {
-    
     private final MateriaisService materiaisService;
-    
     private Gson gson;
 
+    /**
+     * Constructs a new MateriaisController with the specified services.
+     *
+     * @param materiaisService The service for managing Materiais data.
+     * @param gson             The Gson library for JSON serialization and deserialization.
+     */
     public MateriaisController(MateriaisService materiaisService, Gson gson) {
         this.materiaisService = materiaisService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Materiais resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Materiais resources.
+     */
     public String getAllMateriais (Request request, Response response){
         List<Materiais> materiaisList = materiaisService.getAllMateriais();
         gson = new Gson();
@@ -31,6 +45,13 @@ public class MateriaisController {
         return gson.toJson(materiaisList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Materiais resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Materiais resource if found; otherwise, an error message.
+     */
     public  String getMaterialById(Request request, Response response) {
         try {
             // Extract the material ID from the request parameters
@@ -62,6 +83,13 @@ public class MateriaisController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Materiais resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Materiais resource.
+     */
     public  String addMaterial(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -81,6 +109,13 @@ public class MateriaisController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Materiais resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Materiais resource.
+     */
     public String updateMaterial(Request request, Response response) {
         try {
             // Extract the Material ID from the request parameters
@@ -115,6 +150,13 @@ public class MateriaisController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Materiais resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Materiais resource.
+     */
     public String deleteMaterial(Request request, Response response) {
         try {
             // Extract the Material ID from the request parameters
@@ -138,6 +180,13 @@ public class MateriaisController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add multiple Materiais resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the creation of multiple Materiais resources.
+     */
     public  String addAllMateriais(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto

@@ -9,10 +9,20 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Gson TypeAdapter for serializing and deserializing {@link LocalDate} objects.
+ */
 public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Writes a {@link LocalDate} object to JSON as a formatted string.
+     *
+     * @param jsonWriter The JSON writer.
+     * @param date       The {@link LocalDate} object to write.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
     public void write(JsonWriter jsonWriter, LocalDate date) throws IOException {
         // Write LocalDate as a formatted string
@@ -23,6 +33,13 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
         }
     }
 
+    /**
+     * Reads a {@link LocalDate} object from a JSON string.
+     *
+     * @param jsonReader The JSON reader.
+     * @return The deserialized {@link LocalDate} object.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
     public LocalDate read(JsonReader jsonReader) throws IOException {
         // Read LocalDate from the JSON string

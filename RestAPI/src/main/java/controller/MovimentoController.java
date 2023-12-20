@@ -11,15 +11,31 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The MovimentoController class handles HTTP requests related to the Movimento resource.
+ */
 public class MovimentoController {
     private final MovimentoService movimentoService;
     private Gson gson;
 
+    /**
+     * Constructs a new MovimentoController with the specified services.
+     *
+     * @param movimentoService The service for managing Movimento data.
+     * @param gson             The Gson library for JSON serialization and deserialization.
+     */
     public MovimentoController(MovimentoService movimentoService, Gson gson) {
         this.movimentoService = movimentoService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Movimento resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Movimento resources.
+     */
     public String getAllMovimentos (Request request, Response response){
         List<Movimento> movimentosList = movimentoService.getAllMovimentos();
         gson = new Gson();
@@ -29,6 +45,13 @@ public class MovimentoController {
         return gson.toJson(movimentosList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Movimento resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Movimento resource if found; otherwise, an error message.
+     */
     public  String getMovimentoById(Request request, Response response) {
         try {
             // Extract the movimento ID from the request parameters
@@ -60,6 +83,13 @@ public class MovimentoController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Movimento resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Movimento resource.
+     */
     public  String addMovimento(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -79,6 +109,13 @@ public class MovimentoController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Movimento resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Movimento resource.
+     */
     public String updateMovimento(Request request, Response response) {
         try {
             // Extract the movimento ID from the request parameters
@@ -113,6 +150,13 @@ public class MovimentoController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Movimento resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Movimento resource.
+     */
     public String deleteMovimento(Request request, Response response) {
         try {
             // Extract the movimento ID from the request parameters
@@ -136,6 +180,13 @@ public class MovimentoController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add multiple Movimento resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the creation of multiple Movimento resources.
+     */
     public  String addAllMovimentos(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto

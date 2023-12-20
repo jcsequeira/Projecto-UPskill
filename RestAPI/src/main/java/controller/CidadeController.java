@@ -11,17 +11,32 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The CidadeController class handles HTTP requests related to the Cidade resource.
+ */
 public class CidadeController {
 
     private final CidadeService cidadeService;
     private Gson gson;
 
+    /**
+     * Constructs a new CidadeController with the specified services.
+     *
+     * @param cidadeService The service for managing Cidade data.
+     * @param gson          The Gson library for JSON serialization and deserialization.
+     */
     public CidadeController(CidadeService cidadeService, Gson gson) {
         this.cidadeService = cidadeService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Cidade resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Cidade resources.
+     */
     public String getAllCidade (Request request, Response response){
         List<Cidade> cidadeList = cidadeService.getAllCidade();
         gson = new Gson();
@@ -31,6 +46,13 @@ public class CidadeController {
         return gson.toJson(cidadeList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Cidade resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Cidade resource if found; otherwise, an error message.
+     */
     public  String getCidadeById(Request request, Response response) {
         try {
             // Extract the cidade ID from the request parameters
@@ -63,6 +85,13 @@ public class CidadeController {
 
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Cidade resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Cidade resource.
+     */
     public  String addCidade(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -82,6 +111,13 @@ public class CidadeController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Cidade resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Cidade resource.
+     */
     public String updateCidade(Request request, Response response) {
         try {
             // Extract the cidade ID from the request parameters
@@ -116,6 +152,13 @@ public class CidadeController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Cidade resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Cidade resource.
+     */
     public String deleteCidade(Request request, Response response) {
         try {
             // Extract the cidade ID from the request parameters
@@ -139,6 +182,13 @@ public class CidadeController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add a list of Cidade resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the creation of Cidade resources.
+     */
     public  String addAllCidades (Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -158,6 +208,4 @@ public class CidadeController {
             return "Error Adding Resources.";
         }
     }
-
-
 }

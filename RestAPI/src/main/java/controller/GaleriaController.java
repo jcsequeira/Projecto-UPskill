@@ -11,17 +11,31 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The GaleriaController class handles HTTP requests related to the Galeria resource.
+ */
 public class GaleriaController {
-
     private final GaleriaService galeriaService;
     private Gson gson;
 
+    /**
+     * Constructs a new GaleriaController with the specified services.
+     *
+     * @param galeriaService The service for managing Galeria data.
+     * @param gson           The Gson library for JSON serialization and deserialization.
+     */
     public GaleriaController(GaleriaService galeriaService, Gson gson) {
         this.galeriaService = galeriaService;
         this.gson = gson;
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve all Galeria resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the list of Galeria resources.
+     */
     public String getAllGaleria (Request request, Response response){
         List<Galeria> galeriaList = galeriaService.getAllGaleria();
         gson = new Gson();
@@ -31,6 +45,13 @@ public class GaleriaController {
         return gson.toJson(galeriaList);
     }
 
+    /**
+     * Handles the HTTP GET request to retrieve a specific Galeria resource by ID.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A JSON representation of the Galeria resource if found; otherwise, an error message.
+     */
     public  String getGaleriaById(Request request, Response response) {
         try {
             // Extract the galeria ID from the request parameters
@@ -60,9 +81,15 @@ public class GaleriaController {
             response.status(500);
             return "Error retrieving galeria";
         }
-
     }
 
+    /**
+     * Handles the HTTP POST request to add a new Galeria resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the added Galeria resource.
+     */
     public  String addGaleria(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
@@ -82,6 +109,13 @@ public class GaleriaController {
         }
     }
 
+    /**
+     * Handles the HTTP PUT request to update an existing Galeria resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message with the JSON representation of the updated Galeria resource.
+     */
     public String updateGaleria(Request request, Response response) {
         try {
             // Extract the galeria ID from the request parameters
@@ -116,6 +150,13 @@ public class GaleriaController {
         }
     }
 
+    /**
+     * Handles the HTTP DELETE request to delete an existing Galeria resource.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the deletion of the Galeria resource.
+     */
     public String deleteGaleria(Request request, Response response) {
         try {
             // Extract the galeria ID from the request parameters
@@ -139,6 +180,13 @@ public class GaleriaController {
         }
     }
 
+    /**
+     * Handles the HTTP POST request to add multiple Galeria resources.
+     *
+     * @param request  The HTTP request.
+     * @param response The HTTP response.
+     * @return A success message indicating the creation of multiple Galeria resources.
+     */
     public  String addAllGalerias(Request request, Response response) {
         try {
             // DesSerialização do Json para um objecto
