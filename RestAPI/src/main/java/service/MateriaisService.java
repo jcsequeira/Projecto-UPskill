@@ -1,3 +1,10 @@
+
+package service;
+
+import model.Materiais;
+import repository.MateriaisRepository;
+
+import java.util.List;
 /**
  * The {@code MateriaisService} class provides methods to perform CRUD operations on {@code Materiais} entities.
  * It interacts with the {@code MateriaisRepository} for database operations.
@@ -18,13 +25,6 @@
  * @see Materiais
  * @see MateriaisRepository
  */
-package service;
-
-import model.Materiais;
-import repository.MateriaisRepository;
-
-import java.util.List;
-
 public class MateriaisService {
 
     private final MateriaisRepository materiaisRepository;

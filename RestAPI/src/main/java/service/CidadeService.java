@@ -1,3 +1,11 @@
+
+package service;
+
+import exceptions.ServiceException;
+import model.Cidade;
+import repository.CidadeRepository;
+
+import java.util.List;
 /**
  * The {@code CidadeService} class provides methods to perform CRUD operations on {@code Cidade} entities.
  * It interacts with the {@code CidadeRepository} for database operations.
@@ -22,14 +30,6 @@
  * @see CidadeRepository
  * @see ServiceException
  */
-package service;
-
-import exceptions.ServiceException;
-import model.Cidade;
-import repository.CidadeRepository;
-
-import java.util.List;
-
 public class CidadeService {
 
     private final CidadeRepository cidadeRepository;

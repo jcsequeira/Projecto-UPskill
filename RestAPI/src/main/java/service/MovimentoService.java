@@ -1,3 +1,10 @@
+
+package service;
+
+import model.Movimento;
+import repository.MovimentoRepository;
+
+import java.util.List;
 /**
  * The {@code MovimentoService} class provides methods to perform CRUD operations on {@code Movimento} entities.
  * It interacts with the {@code MovimentoRepository} for database operations.
@@ -18,13 +25,6 @@
  * @see Movimento
  * @see MovimentoRepository
  */
-package service;
-
-import model.Movimento;
-import repository.MovimentoRepository;
-
-import java.util.List;
-
 public class MovimentoService {
 
     private final MovimentoRepository movimentoRepository;

@@ -1,3 +1,10 @@
+
+package service;
+
+import model.Artista;
+import repository.ArtistaRepository;
+
+import java.util.List;
 /**
  * The {@code ArtistaService} class provides methods to perform CRUD operations on {@code Artista} entities.
  * It interacts with the {@code ArtistaRepository} for database operations.
@@ -18,13 +25,6 @@
  * @see Artista
  * @see ArtistaRepository
  */
-package service;
-
-import model.Artista;
-import repository.ArtistaRepository;
-
-import java.util.List;
-
 public class ArtistaService {
     private final ArtistaRepository artistaRepository;
 

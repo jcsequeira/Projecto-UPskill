@@ -1,3 +1,14 @@
+
+package service;
+
+import exceptions.ServiceException;
+import model.Galerista;
+import repository.ColaboradorRepository;
+import repository.DBConnection;
+import repository.GaleristaRepository;
+
+import java.sql.Connection;
+import java.util.List;
 /**
  * The {@code GaleristaService} class provides methods to perform CRUD operations on {@code Galerista} entities.
  * It interacts with the {@code GaleristaRepository} for database operations and enforces validation rules.
@@ -23,17 +34,6 @@
  * @see DBConnection
  * @see ServiceException
  */
-package service;
-
-import exceptions.ServiceException;
-import model.Galerista;
-import repository.ColaboradorRepository;
-import repository.DBConnection;
-import repository.GaleristaRepository;
-
-import java.sql.Connection;
-import java.util.List;
-
 public class GaleristaService {
     private final GaleristaRepository galeristaRepository;
 

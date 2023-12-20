@@ -1,3 +1,10 @@
+
+package service;
+
+import model.Galeria;
+import repository.GaleriaRepository;
+
+import java.util.List;
 /**
  * The {@code GaleriaService} class provides methods to perform CRUD operations on {@code Galeria} entities.
  * It interacts with the {@code GaleriaRepository} for database operations.
@@ -18,13 +25,6 @@
  * @see Galeria
  * @see GaleriaRepository
  */
-package service;
-
-import model.Galeria;
-import repository.GaleriaRepository;
-
-import java.util.List;
-
 public class GaleriaService {
     private final GaleriaRepository galeriaRepository;
 

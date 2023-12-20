@@ -1,3 +1,10 @@
+
+package service;
+
+import model.Pais;
+import repository.PaisRepository;
+
+import java.util.List;
 /**
  * The {@code PaisService} class provides methods to perform CRUD operations on {@code Pais} entities.
  * It interacts with the {@code PaisRepository} for database operations.
@@ -18,13 +25,6 @@
  * @see Pais
  * @see PaisRepository
  */
-package service;
-
-import model.Pais;
-import repository.PaisRepository;
-
-import java.util.List;
-
 public class PaisService {
 
     private final PaisRepository paisRepository;
