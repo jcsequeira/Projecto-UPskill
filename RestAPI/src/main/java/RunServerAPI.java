@@ -14,13 +14,32 @@ import java.time.LocalDate;
 import static spark.Spark.exception;
 import static spark.Spark.get;
 
+/**
+ * Main class to run the SparkJava API server for CRUD operations on various entities.
+ */
 public class RunServerAPI {
 
+    /**
+     * Gson instance with a custom adapter for handling LocalDate serialization/deserialization.
+     */
     private static final Gson gsonLocalDate = new GsonBuilder().registerTypeAdapter(LocalDate .class, new LocalDateAdapter()).create();
 
+    /**
+     * Callback interface for server readiness notification.
+     */
     public interface ServerReadyCallback {
+        /**
+         * Method called when the server is ready.
+         */
         void onServerReady();
     }
+
+    /**
+     * Main method to configure SparkJava routes and start the server.
+     *
+     * @param args      Command line arguments.
+     * @param callback  Callback to be invoked when the server is ready.
+     */
     public static void main(String[] args, ServerReadyCallback callback) {
         //Test EndPoint
         get("/hello", (req, res) -> "Hello World");
@@ -132,13 +151,6 @@ public class RunServerAPI {
             return "Script triggered successfully for: " + scriptName ;
         });
 
-
-    // Method to execute the script (replace this with your actual script execution logic)
-
-
-
-        //TRATAMENTO DE EXCEPÇOES para melhorar!
-
         exception(NumberFormatException.class, (e, request, response) -> {
             // logger.error("{} : Got an exception for request : {}  ", e.getLocalizedMessage(), request.url());
             response.status(500);
@@ -157,76 +169,148 @@ public class RunServerAPI {
 
     //Methods to Initialize All Services
 
+    /**
+     * Initializes and returns ArtistaController with the provided Gson instance.
+     *
+     * @param gson  Gson instance.
+     * @return      Initialized ArtistaController.
+     */
     public static ArtistaController artistaInit(Gson gson) {
         ArtistaRepository artistRepository = new ArtistaRepository(DBConnection.getConnection());
         ArtistaService artistaService = new ArtistaService(artistRepository);
         return new ArtistaController(artistaService, gson);}
 
+    /**
+     * Initializes and returns PaisController with default Gson instance.
+     *
+     * @return Initialized PaisController.
+     */
     public static PaisController paisInit() {
         PaisRepository paisRepository = new PaisRepository(DBConnection.getConnection());
         PaisService paisService = new PaisService(paisRepository);
         Gson gson = new Gson();
-        return new PaisController(paisService, gson);}
+        return new PaisController(paisService, gson);
+    }
 
+    /**
+     * Initializes and returns ObraArteController with the provided Gson instance.
+     *
+     * @param gson Gson instance.
+     * @return Initialized ObraArteController.
+     */
     public static ObraArteController obraArteInit(Gson gson) {
         ObraArteRepository obraArteRepository = new ObraArteRepository(DBConnection.getConnection());
         ObraArteService obraArteService = new ObraArteService(obraArteRepository);
-        return new ObraArteController(obraArteService, gson);}
+        return new ObraArteController(obraArteService, gson);
+    }
 
+    /**
+     * Initializes and returns GaleriaController with default Gson instance.
+     *
+     * @return Initialized GaleriaController.
+     */
     public static GaleriaController galeriaInit() {
         GaleriaRepository galeriaRepository = new GaleriaRepository(DBConnection.getConnection());
         GaleriaService galeriaService = new GaleriaService(galeriaRepository);
         Gson gson = new Gson();
-        return new GaleriaController(galeriaService, gson);}
+        return new GaleriaController(galeriaService, gson);
+    }
 
+    /**
+     * Initializes and returns EventoController with the provided Gson instance.
+     *
+     * @param gson Gson instance.
+     * @return Initialized EventoController.
+     */
     public static EventoController eventoInit(Gson gson) {
         EventoRepository eventoRepository = new EventoRepository(DBConnection.getConnection());
         EventoService eventoService = new EventoService(eventoRepository);
-        return new EventoController(eventoService, gson);}
-
-    public static CidadeController cidadeInit() {
-    CidadeRepository cidadeRepository = new CidadeRepository(DBConnection.getConnection());
-    CidadeService cidadeService = new CidadeService(cidadeRepository);
-    return new CidadeController(cidadeService, new Gson());
+        return new EventoController(eventoService, gson);
     }
 
+    /**
+     * Initializes and returns CidadeController with default Gson instance.
+     *
+     * @return Initialized CidadeController.
+     */
+    public static CidadeController cidadeInit() {
+        CidadeRepository cidadeRepository = new CidadeRepository(DBConnection.getConnection());
+        CidadeService cidadeService = new CidadeService(cidadeRepository);
+        return new CidadeController(cidadeService, new Gson());
+    }
+
+    /**
+     * Initializes and returns MovimentoController with default Gson instance.
+     *
+     * @return Initialized MovimentoController.
+     */
     public static MovimentoController movimentoInit() {
         MovimentoRepository movimentoRepository = new MovimentoRepository(DBConnection.getConnection());
         MovimentoService movimentoService = new MovimentoService(movimentoRepository);
         return new MovimentoController(movimentoService, new Gson());
     }
 
+    /**
+     * Initializes and returns MateriaisController with default Gson instance.
+     *
+     * @return Initialized MateriaisController.
+     */
     public static MateriaisController materiaisInit() {
         MateriaisRepository materiaisRepository = new MateriaisRepository(DBConnection.getConnection());
         MateriaisService materiaisService = new MateriaisService(materiaisRepository);
         return new MateriaisController(materiaisService, new Gson());
     }
 
-
+    /**
+     * Initializes and returns ColaboradorController with default Gson instance.
+     *
+     * @return Initialized ColaboradorController.
+     */
     public static ColaboradorController colaboradorInit() {
         ColaboradorRepository colaboradorRepository = new ColaboradorRepository(DBConnection.getConnection());
         ColaboradorService colaboradorService = new ColaboradorService(colaboradorRepository);
         return new ColaboradorController(colaboradorService, new Gson());
     }
 
+    /**
+     * Initializes and returns AdministradorController with default Gson instance.
+     *
+     * @return Initialized AdministradorController.
+     */
     public static AdministradorController administradorInit() {
         AdministradorRepository administradorRepository = new AdministradorRepository(DBConnection.getConnection());
         AdministradorService administradorService = new AdministradorService(administradorRepository);
         return new AdministradorController(administradorService, new Gson());
     }
 
+    /**
+     * Initializes and returns GaleristaController with the provided Gson instance.
+     *
+     * @param gson Gson instance.
+     * @return Initialized GaleristaController.
+     */
     public static GaleristaController galeristaInit(Gson gson) {
         GaleristaRepository galeristaRepository = new GaleristaRepository(DBConnection.getConnection());
         GaleristaService galeristaService = new GaleristaService(galeristaRepository);
         return new GaleristaController(galeristaService, gson);
     }
 
+    /**
+     * Initializes and returns TecnicaController with default Gson instance.
+     *
+     * @return Initialized TecnicaController.
+     */
     public static TecnicaController tecnicaInit() {
         TecnicaRepository tecnicaRepository = new TecnicaRepository(DBConnection.getConnection());
         TecnicaService tecnicaService = new TecnicaService(tecnicaRepository);
         return new TecnicaController(tecnicaService, new Gson());
     }
 
+    /**
+     * Executes a database script with the provided script name.
+     *
+     * @param scriptName Name of the script to be executed.
+     */
     private static void executeScript(String scriptName) {
         // Add your script execution logic here
         Connection connection = DBConnection.getConnection();
@@ -250,13 +334,12 @@ public class RunServerAPI {
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
-
     }
 
+    /**
+     * Stops the Spark server.
+     */
     public static void stopServer() {
         Spark.stop();
     }
-
-
-
 }
