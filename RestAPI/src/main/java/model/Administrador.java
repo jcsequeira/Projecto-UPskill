@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Represents an administrator in the system.
+ * The `Administrador` class represents an administrator entity with a password and associated collaborator ID.
  */
 public class Administrador {
 
@@ -9,10 +9,10 @@ public class Administrador {
     private int id_colaborador;
 
     /**
-     * Constructs an administrator with the specified password and collaborator ID.
+     * Constructs a new `Administrador` with the specified password and collaborator ID.
      *
-     * @param password         The password of the administrator.
-     * @param id_colaborador   The ID of the collaborator associated with the administrator.
+     * @param password         The password for the administrator.
+     * @param id_colaborador   The ID of the associated collaborator.
      */
     public Administrador(String password, int id_colaborador) {
         this.password = password;
@@ -20,7 +20,7 @@ public class Administrador {
     }
 
     /**
-     * Constructs an empty administrator.
+     * Constructs a new default `Administrador`.
      */
     public Administrador() {
     }
@@ -28,7 +28,7 @@ public class Administrador {
     /**
      * Gets the password of the administrator.
      *
-     * @return The password of the administrator.
+     * @return The password.
      */
     public String getPassword() {
         return password;
@@ -37,25 +37,25 @@ public class Administrador {
     /**
      * Sets the password of the administrator.
      *
-     * @param password The password to set.
+     * @param password The new password.
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * Gets the ID of the collaborator associated with the administrator.
+     * Gets the ID of the associated collaborator.
      *
-     * @return The ID of the collaborator.
+     * @return The collaborator ID.
      */
     public int getId_colaborador() {
         return id_colaborador;
     }
 
     /**
-     * Sets the ID of the collaborator associated with the administrator.
+     * Sets the ID of the associated collaborator.
      *
-     * @param id_colaborador The ID of the collaborator to set.
+     * @param id_colaborador The new collaborator ID.
      */
     public void setId_colaborador(int id_colaborador) {
         this.id_colaborador = id_colaborador;
