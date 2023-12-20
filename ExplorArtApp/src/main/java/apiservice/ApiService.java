@@ -95,6 +95,7 @@ public class ApiService {
         try (Response response = client.newCall(request).execute()) {
             // Get the response code (optional)
             int responseCode = response.code();
+            System.out.println(responseCode);
         }
     }
 
@@ -127,6 +128,7 @@ public class ApiService {
         try (Response response = client.newCall(request).execute()) {
             // Get the response code (optional)
             int responseCode = response.code();
+            System.out.println(responseCode);
         }
     }
 
@@ -157,6 +159,7 @@ public class ApiService {
         try (Response response = client.newCall(request).execute()) {
             // Get the response code (optional)
             int responseCode = response.code();
+            System.out.println(responseCode);
         }
     }
 
