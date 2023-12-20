@@ -1,3 +1,11 @@
+
+package service;
+
+import exceptions.ServiceException;
+import model.Evento;
+import repository.EventoRepository;
+
+import java.util.List;
 /**
  * The {@code EventoService} class provides methods to perform CRUD operations on {@code Evento} entities.
  * It interacts with the {@code EventoRepository} for database operations.
@@ -22,14 +30,6 @@
  * @see EventoRepository
  * @see ServiceException
  */
-package service;
-
-import exceptions.ServiceException;
-import model.Evento;
-import repository.EventoRepository;
-
-import java.util.List;
-
 public class EventoService {
     private final EventoRepository eventoRepository;
 

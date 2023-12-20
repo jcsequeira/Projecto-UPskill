@@ -1,3 +1,11 @@
+
+package service;
+
+import exceptions.ServiceException;
+import model.Colaborador;
+import repository.ColaboradorRepository;
+
+import java.util.List;
 /**
  * The {@code ColaboradorService} class provides methods to perform CRUD operations on {@code Colaborador} entities.
  * It interacts with the {@code ColaboradorRepository} for database operations and enforces validation rules.
@@ -21,14 +29,6 @@
  * @see ColaboradorRepository
  * @see ServiceException
  */
-package service;
-
-import exceptions.ServiceException;
-import model.Colaborador;
-import repository.ColaboradorRepository;
-
-import java.util.List;
-
 public class ColaboradorService {
     private final ColaboradorRepository colaboradorRepository;
 

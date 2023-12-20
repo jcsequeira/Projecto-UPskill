@@ -1,3 +1,10 @@
+
+package service;
+
+import model.Tecnica;
+import repository.TecnicaRepository;
+
+import java.util.List;
 /**
  * The {@code TecnicaService} class provides methods to perform CRUD operations on {@code Tecnica} entities.
  * It interacts with the {@code TecnicaRepository} for database operations.
@@ -18,13 +25,6 @@
  * @see Tecnica
  * @see TecnicaRepository
  */
-package service;
-
-import model.Tecnica;
-import repository.TecnicaRepository;
-
-import java.util.List;
-
 public class TecnicaService {
 
     private final TecnicaRepository tecnicaRepository;

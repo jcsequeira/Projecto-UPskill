@@ -1,3 +1,14 @@
+
+package service;
+
+import exceptions.ServiceException;
+import model.Administrador;
+import repository.AdministradorRepository;
+import repository.ColaboradorRepository;
+import repository.DBConnection;
+
+import java.sql.Connection;
+import java.util.List;
 /**
  * The {@code AdministradorService} class provides methods to perform CRUD operations on {@code Administrador} entities.
  * It interacts with the {@code AdministradorRepository} for database operations and enforces validation rules.
@@ -23,17 +34,6 @@
  * @see DBConnection
  * @see ServiceException
  */
-package service;
-
-import exceptions.ServiceException;
-import model.Administrador;
-import repository.AdministradorRepository;
-import repository.ColaboradorRepository;
-import repository.DBConnection;
-
-import java.sql.Connection;
-import java.util.List;
-
 public class AdministradorService {
     private final AdministradorRepository administradorRepository;
     private final Connection con = DBConnection.getConnection();
