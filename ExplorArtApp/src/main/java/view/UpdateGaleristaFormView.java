@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class UpdateGaleristaFormView extends Parent {
 
-    private Galerista galerista;
+    private final Galerista galerista;
     private ExplorArtPresenter myPresenter;
 
     /**

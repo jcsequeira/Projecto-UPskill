@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class AddArtistaFormView extends Parent {
 
-    private ExplorArtPresenter myPresenter;
-    private ComboBox<Pais> paisesComboBox;
-    private ObservableList<Pais> paisesObservableList;
+    private final ExplorArtPresenter myPresenter;
+    private final ComboBox<Pais> paisesComboBox;
+    private final ObservableList<Pais> paisesObservableList;
 
     /**
      * Constructs an instance of AddArtistaFormView.

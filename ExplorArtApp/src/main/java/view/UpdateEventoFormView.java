@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class UpdateEventoFormView extends Parent {
-    private Evento evento;
-    private Galeria galeria;
+    private final Evento evento;
+    private final Galeria galeria;
     private ExplorArtPresenter myPresenter;
     private ComboBox<Galeria> galeriaComboBox;
     private ObservableList<Galeria> galeriaObservableList;

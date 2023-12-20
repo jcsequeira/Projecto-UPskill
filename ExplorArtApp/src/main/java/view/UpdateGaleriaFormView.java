@@ -20,7 +20,7 @@ import java.util.Optional;
  */
 public class UpdateGaleriaFormView extends Parent {
 
-    private Galeria galeria;
+    private final Galeria galeria;
     private ExplorArtPresenter myPresenter;
     private ObservableList<Cidade> cidadeObservableList;
     private ComboBox<Cidade> cidadeComboBox;

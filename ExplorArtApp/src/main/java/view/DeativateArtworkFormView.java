@@ -18,7 +18,7 @@ import java.io.IOException;
  * It provides a confirmation message and allows the user to deactivate the artwork, making it not visible in the Explore menu.
  */
 public class DeativateArtworkFormView extends Parent {
-    private Obra_Arte obraArte;
+    private final Obra_Arte obraArte;
     private ExplorArtPresenter myPresenter;
 
     /**
