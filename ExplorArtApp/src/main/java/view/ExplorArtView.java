@@ -19,23 +19,37 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * The ExplorArtView class represents the main view of the ExplorArt application.
+ * It extends BorderPane and implements the ExplorArtContract.View interface.
+ * This class is responsible for displaying the user interface, including menus, lists, and images.
+ *
+ */
+
 public class ExplorArtView extends BorderPane implements ExplorArtContract.View {
     private ListView<String> listView;
 
     private ExplorArtPresenter myPresenter;
 
 
+    /**
+     * Constructs an instance of ExplorArtView.
+     * Initializes the presenter and calls the doLayout method to set up the user interface.
+     */
     public ExplorArtView() {
         myPresenter = new ExplorArtPresenter(this, new ExplorArtModel());
 
         doLayout();
     }
 
+    /**
+     * Sets up the user interface components and their layout.
+     * Creates and initializes controls, menus, and layout elements.
+     */
     private void doLayout() {
         // Set internal margin for the panel
         setPadding(new Insets(0, 30, 30, 30));
-
-        // Initialization of controls (if needed)
 
 
         // Layout Top
@@ -63,6 +77,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         setBottom(bottom);
     }
 
+    /**
+     * Creates and configures the menu bar with various menus and menu items.
+     *
+     * @return The configured MenuBar.
+     */
     private MenuBar doMenuLayout() {
         MenuBar menuBar = new MenuBar();
 
@@ -138,6 +157,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         adminMenu.getItems().addAll(popularBdItem, limparBdItem, addColaboradorItem, visualizarColaboradoresItem, modificarColaboradorItem);
 
         //--------------------------------------------------------------------------------------------------------------
+
+
+        /**
+         * Configures and sets up event handlers for various menu items in the ExplorArtView class.
+         * Handles actions related to exploring, managing artworks, artists, events, galleries, and administrative tasks.
+         */
         // Events
         //Events menu Exlporar
         visualizarOAItem.setOnAction(event -> {
@@ -317,6 +342,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Mostrar Listas - Menu Explorar *******
+
+    /**
+     * Displays a list of artists in the application.
+     *
+     * @param artistas The list of artists to be displayed.
+     */
     @Override
     public void showArtists(List<Artista> artistas) {
         if (artistas.isEmpty()) {
@@ -344,6 +375,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays a list of artworks in the application.
+     *
+     * @param obras The list of artworks to be displayed.
+     */
     @Override
     public void showArtworks(List<Obra_Arte> obras) {
         if (obras.isEmpty()) {
@@ -361,7 +397,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Obra_Arte> selectedArtwork = obras.stream()
                             .filter(obraArte -> obraArte.getTitulo().equals(selectedArtworkTitle))
                             .findFirst();
-
                     try {
                         myPresenter.doArtworkDetails(selectedArtwork.get());
                     } catch (IOException e) {
@@ -374,6 +409,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     }
 
+    /**
+     * Displays a list of events in the application.
+     *
+     * @param eventos The list of events to be displayed.
+     */
     @Override
     public void showEvents(List<Evento> eventos) {
         if (eventos.isEmpty()) {
@@ -398,6 +438,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays a list of galleries in the application.
+     *
+     * @param galerias The list of galleries to be displayed.
+     */
     @Override
     public void showGalleries(List<Galeria> galerias) {
         if (galerias.isEmpty()) {
@@ -415,7 +460,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Galeria> selectedGallery = galerias.stream()
                             .filter(galeria -> galeria.getNome_Galeria().equals(selectedGalleryName))
                             .findFirst();
-
                     try {
                         myPresenter.doGalleryDetails(selectedGallery.get());
                     } catch (IOException e) {
@@ -426,6 +470,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays a message indicating that the list of a specific entity type is empty.
+     *
+     * @param entityType The type of entity for which the list is empty (e.g., "Artistas").
+     */
     private void showEmptyListMessage(String entityType) {
         BorderPane emptyPane = new BorderPane();
         Label messageLabel = new Label("A lista de " + entityType + " está vazia.");
@@ -436,6 +485,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Mostrar Detalhes - Menu Explorar *******
+
+    /**
+     * Displays details about a specific artist in a new stage.
+     *
+     * @param artista The artist for which details will be displayed.
+     */
     public void showArtistDetails(Artista artista) {
         Stage showArtistFormStage = new Stage();
         showArtistFormStage.setTitle("Detalhes do Artista");
@@ -456,6 +511,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         showArtistFormStage.show();
     }
 
+    /**
+     * Displays details about a specific event and gallery in a new stage.
+     *
+     * @param evento  The event for which details will be displayed.
+     * @param galeria The gallery associated with the event.
+     */
     @Override
     public void showShowsDetails(Evento evento, Galeria galeria) {
         Stage showDetailsStage = new Stage();
@@ -475,12 +536,19 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         showDetailsStage.show();
     }
 
+    /**
+     * Displays details about a specific artwork in a new stage.
+     *
+     * @param obraArte The artwork for which details will be displayed.
+     * @param artista  The artist associated with the artwork.
+     * @param tecnica  The technique used in the artwork.
+     * @param movimento The artistic movement of the artwork.
+     * @param material The materials used in the artwork.
+     */
     @Override
     public void showArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
-
         Stage artworkDetailsStage = new Stage();
         artworkDetailsStage.setTitle("Detalhes da Obra de Arte");
-
 
         Scene scene = new Scene(new ArtworkDetailsViewFull(obraArte, artista, tecnica, movimento, material));
 
@@ -494,9 +562,14 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artworkDetailsStage.sizeToScene();
 
         artworkDetailsStage.show();
-
     }
 
+    /**
+     * Displays details about a specific gallery in a new stage.
+     *
+     * @param galeria The gallery for which details will be displayed.
+     * @throws IOException If there is an issue loading the gallery details.
+     */
     @Override
     public void showGalleryDetails(Galeria galeria) throws IOException {
         Stage showGalleryDetailsStage = new Stage();
@@ -518,6 +591,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Obra Arte *******
+
+    /**
+     * Displays the form to add a new artwork in a new stage.
+     *
+     * @param obraArte The artwork for which the form will be displayed.
+     */
     @Override
     public void showAddArtworkForm(Obra_Arte obraArte) {
         Stage addArtworkFormStage = new Stage();
@@ -538,6 +617,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addArtworkFormStage.show();
     }
 
+    /**
+     * Displays a list of artworks for update and handles the selected artwork for updating.
+     *
+     * @param obras The list of artworks available for update.
+     */
     @Override
     public void showUpdateArtworks(List<Obra_Arte> obras) {
         if (obras.isEmpty()) {
@@ -555,7 +639,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Obra_Arte> selectedArtwork = obras.stream()
                             .filter(obraArte -> obraArte.getTitulo().equals(selectedArtworkTitle))
                             .findFirst();
-
                     try {
                         myPresenter.doUpdateArtworkDetails(selectedArtwork.get());
                     } catch (IOException e) {
@@ -567,11 +650,19 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays details about a specific artwork for updating in a new stage.
+     *
+     * @param obraArte The artwork for which details will be displayed for updating.
+     * @param artista  The artist associated with the artwork.
+     * @param tecnica  The technique used in the artwork.
+     * @param movimento The artistic movement of the artwork.
+     * @param material The materials used in the artwork.
+     */
     @Override
     public void showUpdateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
         Stage artworkUpdateDetailsStage = new Stage();
         artworkUpdateDetailsStage.setTitle("Detalhes da Obra de Arte");
-
 
         Scene sceneArtworkUpdate = new Scene(new UpdateArtworkFormView(obraArte, artista, tecnica, movimento, material));
 
@@ -587,6 +678,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artworkUpdateDetailsStage.show();
     }
 
+    /**
+     * Displays a list of artworks for activation and handles the selected artwork for activation.
+     *
+     * @param obras The list of artworks available for activation.
+     */
     @Override
     public void showAtivateArtwokrs(List<Obra_Arte> obras) {
         if (obras.isEmpty()) {
@@ -604,7 +700,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Obra_Arte> selectedArtwork = obras.stream()
                             .filter(obraArte -> obraArte.getTitulo().equals(selectedArtworkTitle))
                             .findFirst();
-
                     try {
                         myPresenter.doAtivateArtworkDetails(selectedArtwork.get());
                     } catch (IOException e) {
@@ -616,10 +711,18 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays details about a specific artwork for activation in a new stage.
+     *
+     * @param obraArte The artwork for which details will be displayed for activation.
+     * @param artista  The artist associated with the artwork.
+     * @param tecnica  The technique used in the artwork.
+     * @param movimento The artistic movement of the artwork.
+     * @param material The materials used in the artwork.
+     */
     public void showAtivateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
         Stage artworkAtivateDetailsStage = new Stage();
         artworkAtivateDetailsStage.setTitle("Ativar Obra de Arte");
-
 
         Scene sceneArtworkAtivate = new Scene(new AtivateArtworkFormView(obraArte));
 
@@ -635,6 +738,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artworkAtivateDetailsStage.show();
     }
 
+    /**
+     * Displays a list of artworks for deactivation and handles the selected artwork for deactivation.
+     *
+     * @param obras The list of artworks available for deactivation.
+     */
     @Override
     public void showDeativateArtwokrs(List<Obra_Arte> obras) {
         if (obras.isEmpty()) {
@@ -652,7 +760,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Obra_Arte> selectedArtwork = obras.stream()
                             .filter(obraArte -> obraArte.getTitulo().equals(selectedArtworkTitle))
                             .findFirst();
-
                     try {
                         myPresenter.doDeativateArtworkDetails(selectedArtwork.get());
                     } catch (IOException e) {
@@ -664,11 +771,19 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays details about a specific artwork for deactivation in a new stage.
+     *
+     * @param obraArte The artwork for which details will be displayed for deactivation.
+     * @param artista  The artist associated with the artwork.
+     * @param tecnica  The technique used in the artwork.
+     * @param movimento The artistic movement of the artwork.
+     * @param material The materials used in the artwork.
+     */
     @Override
     public void showDeativateArtworkDetails(Obra_Arte obraArte, Artista artista, Tecnica tecnica, Movimento movimento, Materiais material) {
         Stage artworkDeativateDetailsStage = new Stage();
         artworkDeativateDetailsStage.setTitle("Desativar Obra de Arte");
-
 
         Scene sceneArtworkDeativate = new Scene(new DeativateArtworkFormView(obraArte));
 
@@ -687,11 +802,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Artistas *******
+
+    /**
+     * Displays the form to add a new artist in a new stage.
+     *
+     * @param artista The artist for which the form will be displayed.
+     */
     @Override
     public void showAddArtistForm(Artista artista) {
         Stage addArtistFormStage = new Stage();
         addArtistFormStage.setTitle("Novo artista");
-
 
         // Create a new view or dialog to display the details of the Artist
         Scene scene = new Scene(new AddArtistaFormView(artista));
@@ -708,6 +828,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addArtistFormStage.show();
     }
 
+    /**
+     * Displays a list of artists for update and handles the selected artist for updating.
+     *
+     * @param artistas The list of artists available for update.
+     */
     @Override
     public void showUpdateArtist(List<Artista> artistas) {
         if (artistas.isEmpty()) {
@@ -724,7 +849,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Artista> selectedArtista = artistas.stream()
                             .filter(artista -> artista.getNome_artista().equals(selectedArtistName))
                             .findFirst();
-
                     try {
                         myPresenter.doUpdateArtistDetails(selectedArtista.get());
                     } catch (IOException e) {
@@ -735,6 +859,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays details about a specific artist for updating in a new stage.
+     *
+     * @param artista The artist for which details will be displayed for updating.
+     */
     @Override
     public void showUpdateArtistDetails(Artista artista) {
         Stage artistaUpdateDetailsStage = new Stage();
@@ -754,6 +883,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         artistaUpdateDetailsStage.show();
     }
 
+    /**
+     * Displays a list of artists for removal and handles the selected artist for removal.
+     *
+     * @param artistas The list of artists available for removal.
+     */
     @Override
     public void showRemoveArtists(List<Artista> artistas) {
         if (artistas.isEmpty()) {
@@ -770,7 +904,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Artista> selectedArtista = artistas.stream()
                             .filter(artista -> artista.getNome_artista().equals(selectedArtistName))
                             .findFirst();
-
                     try {
                         myPresenter.doRemoveArtistWindow(selectedArtista.get());
                     } catch (IOException e) {
@@ -781,6 +914,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays a confirmation window for removing a specific artist from the database.
+     *
+     * @param artista The artist for which the removal confirmation window will be displayed.
+     */
     @Override
     public void showRemoveArtistWindow(Artista artista) {
         Stage artistaRemoveStage = new Stage();
@@ -803,11 +941,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Eventos *******
+
+    /**
+     * Displays the form to add a new show in a new stage.
+     *
+     * @param evento The event for which the form will be displayed.
+     */
     @Override
     public void showAddShowForm(Evento evento) {
         Stage addShowFormStage = new Stage();
         addShowFormStage.setTitle("Novo evento");
-
 
         // Create a new view or dialog to display the details of the Artist
         Scene scene = new Scene(new AddShowFormView(evento));
@@ -824,6 +967,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addShowFormStage.show();
     }
 
+    /**
+     * Displays a list of shows for update and handles the selected show for updating.
+     *
+     * @param eventos The list of shows available for update.
+     */
     @Override
     public void showUpdateShow(List<Evento> eventos) {
         if (eventos.isEmpty()) {
@@ -840,7 +988,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Evento> selectedEvento = eventos.stream()
                             .filter(evento -> evento.getNome().equals(selectedShowName))
                             .findFirst();
-
                     try {
                         myPresenter.doUpdateShowDetails(selectedEvento.get());
                     } catch (IOException e) {
@@ -851,11 +998,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays details about a specific show for updating in a new stage.
+     *
+     * @param evento The event for which details will be displayed for updating.
+     * @param galeria The gallery associated with the event.
+     */
     @Override
     public void showUpdateShowDetails(Evento evento, Galeria galeria) {
         Stage eventoUpdateDetailsStage = new Stage();
         eventoUpdateDetailsStage.setTitle("Detalhes do evento");
-
 
         Scene sceneEventoUpdate = new Scene(new UpdateEventoFormView(evento, galeria));
 
@@ -871,6 +1023,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         eventoUpdateDetailsStage.show();
     }
 
+    /**
+     * Displays a list of shows for removal and handles the selected show for removal.
+     *
+     * @param eventos The list of shows available for removal.
+     */
     @Override
     public void showRemoveShows(List<Evento> eventos) {
         if (eventos.isEmpty()) {
@@ -887,7 +1044,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Evento> selectedEvento = eventos.stream()
                             .filter(evento -> evento.getNome().equals(selectedEventoName))
                             .findFirst();
-
                     try {
                         myPresenter.doRemoveShowWindow(selectedEvento.get());
                     } catch (IOException e) {
@@ -898,6 +1054,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays a confirmation window for removing a specific show from the database.
+     *
+     * @param evento The event for which the removal confirmation window will be displayed.
+     * @throws IOException If an error occurs while displaying the removal window.
+     */
     @Override
     public void showRemoveShowWindow(Evento evento) throws IOException {
         Stage eventoRemoveStage = new Stage();
@@ -920,11 +1082,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Galerista *******
+
+    /**
+     * Displays the form to add a new gallerist in a new stage.
+     *
+     * @param galerista The gallerist for which the form will be displayed.
+     */
     @Override
     public void showAddGalleristForm(Galerista galerista) {
         Stage addGalleristFormStage = new Stage();
         addGalleristFormStage.setTitle("Novo galerista");
-
 
         // Create a new view or dialog to display the details of the Artist
         Scene scene = new Scene(new AddGalleristFormView(galerista));
@@ -941,6 +1108,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addGalleristFormStage.show();
     }
 
+    /**
+     * Displays a list of gallerists for update and handles the selected gallerist for updating.
+     *
+     * @param galeristas The list of gallerists available for update.
+     */
     @Override
     public void showUpdateGallerist(List<Galerista> galeristas) {
         if (galeristas.isEmpty()) {
@@ -957,7 +1129,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Galerista> selectedGalerista = galeristas.stream()
                             .filter(galerista -> galerista.toString().equals(selectedShowName))
                             .findFirst();
-
                     try {
                         myPresenter.doUpdateGalleristDetails(selectedGalerista.get());
                     } catch (IOException e) {
@@ -968,11 +1139,15 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays details about a specific gallerist for updating in a new stage.
+     *
+     * @param galerista The gallerist for which details will be displayed for updating.
+     */
     @Override
     public void showUpdateGalleristDetails(Galerista galerista) {
         Stage galeristaUpdateDetailsStage = new Stage();
         galeristaUpdateDetailsStage.setTitle("Detalhes do galerista");
-
 
         Scene sceneGaleristaUpdate = new Scene(new UpdateGaleristaFormView(galerista));
 
@@ -991,11 +1166,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Gerir Galeria *******
+
+    /**
+     * Displays the form to add a new gallery in a new stage.
+     *
+     * @param galeria The gallery for which the form will be displayed.
+     */
     @Override
     public void showAddGalleryForm(Galeria galeria) {
         Stage addGalleryFormStage = new Stage();
         addGalleryFormStage.setTitle("Nova galeria");
-
 
         // Create a new view or dialog to display the details of the Artist
         Scene scene = new Scene(new AddGalleryFormView(galeria));
@@ -1012,6 +1192,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addGalleryFormStage.show();
     }
 
+    /**
+     * Displays a list of galleries for update and handles the selected gallery for updating.
+     *
+     * @param galerias The list of galleries available for update.
+     */
     @Override
     public void showUpdateGallery(List<Galeria> galerias) {
         if (galerias.isEmpty()) {
@@ -1028,7 +1213,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Galeria> selectedGaleria = galerias.stream()
                             .filter(galeria -> galeria.toString().equals(selectedShowName))
                             .findFirst();
-
                     try {
                         myPresenter.doUpdateGalleryDetails(selectedGaleria.get());
                     } catch (IOException e) {
@@ -1039,11 +1223,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays details about a specific gallery for updating in a new stage.
+     *
+     * @param galeria The gallery for which details will be displayed for updating.
+     * @throws IOException If an error occurs while displaying the details.
+     */
     @Override
     public void showUpdateGalleryDetails(Galeria galeria) throws IOException {
         Stage galleryUpdateDetailsStage = new Stage();
         galleryUpdateDetailsStage.setTitle("Detalhes da galeria");
-
 
         Scene sceneGalleryUpdate = new Scene(new UpdateGaleriaFormView(galeria));
 
@@ -1059,6 +1248,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         galleryUpdateDetailsStage.show();
     }
 
+    /**
+     * Displays a list of galleries for removal and handles the selected gallery for removal.
+     *
+     * @param galerias The list of galleries available for removal.
+     */
     @Override
     public void showRemoveGalleries(List<Galeria> galerias) {
         if (galerias.isEmpty()) {
@@ -1075,7 +1269,6 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     Optional<Galeria> selectedGaleria = galerias.stream()
                             .filter(galeria -> galeria.getNome_Galeria().equals(selectedGaleriaName))
                             .findFirst();
-
                     try {
                         myPresenter.doRemoveGalleryWindow(selectedGaleria.get());
                     } catch (IOException e) {
@@ -1086,6 +1279,12 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays a confirmation window for removing a specific gallery from the database.
+     *
+     * @param galeria The gallery for which the removal confirmation window will be displayed.
+     * @throws IOException If an error occurs while displaying the removal window.
+     */
     @Override
     public void showRemoveGalleryWindow(Galeria galeria) throws IOException {
         Stage galeriaRemoveStage = new Stage();
@@ -1108,11 +1307,16 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Admin *******
+
+    /**
+     * Displays the form to add a new collaborator in a new stage.
+     *
+     * @param colaborador The collaborator for which the form will be displayed.
+     */
     @Override
     public void showAddColaboradorForm(Colaborador colaborador) {
         Stage addColaboradorFormStage = new Stage();
         addColaboradorFormStage.setTitle("Novo colaborador");
-
 
         // Create a new view or dialog to display the details of the Artist
         Scene scene = new Scene(new AddColaboradorFormView(colaborador));
@@ -1129,6 +1333,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         addColaboradorFormStage.show();
     }
 
+    /**
+     * Displays a list of collaborators for viewing and handles the selected collaborator for details.
+     *
+     * @param colaboradores The list of collaborators available for viewing.
+     */
     @Override
     public void visualizarColaboradores(List<Colaborador> colaboradores) {
         if (colaboradores.isEmpty()) {
@@ -1152,13 +1361,17 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
-
                 }
             });
         }
     }
 
+    /**
+     * Displays details about a specific collaborator in a new stage.
+     *
+     * @param colaborador The collaborator for which details will be displayed.
+     * @throws IOException If an error occurs while displaying the details window.
+     */
     @Override
     public void showColaboradorDetails(Colaborador colaborador) throws IOException {
         Stage showColaboradorFormStage = new Stage();
@@ -1177,6 +1390,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         showColaboradorFormStage.show();
     }
 
+    /**
+     * Displays a list of collaborators for update and handles the selected collaborator for updating.
+     *
+     * @param colaboradores The list of collaborators available for update.
+     */
     @Override
     public void showUpdateColab(List<Colaborador> colaboradores) {
         if (colaboradores.isEmpty()) {
@@ -1200,6 +1418,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         }
     }
 
+    /**
+     * Displays details about a specific collaborator for updating in a new stage.
+     *
+     * @param colaborador The collaborator for which details will be displayed for updating.
+     */
     @Override
     public void showUpdateColabDetails(Colaborador colaborador) {
         Stage colabUpdateDetailsStage = new Stage();
@@ -1220,6 +1443,11 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         colabUpdateDetailsStage.show();
     }
 
+    /**
+     * Initiates the process of cleaning the database and displays a confirmation dialog.
+     *
+     * @throws IOException If an error occurs while displaying the confirmation window.
+     */
     public void doLimparBD() throws IOException {
         // Criar alerta de confirmação
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -1252,6 +1480,10 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
 
     //------------------------------------------------------------------------------------------------------------------
     //******* Menu Ajuda *******
+
+    /**
+     * Exits the application after displaying a confirmation dialog.
+     */
     public void exitApplication() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sair da ExplorArt");
@@ -1277,6 +1509,9 @@ public class ExplorArtView extends BorderPane implements ExplorArtContract.View 
         });
     }
 
+    /**
+     * Displays information about the ExplorArt application in a new stage.
+     */
     public void showAbout() {
         Stage bdCleanConfirmation = new Stage();
         bdCleanConfirmation.setTitle("Sobre ExplorArt");
