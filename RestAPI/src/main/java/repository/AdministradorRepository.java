@@ -165,7 +165,7 @@ public class AdministradorRepository {
      * @throws SQLException If an SQL exception occurs during mapping.
      */
     private Administrador mapResultSetToAdministrador(ResultSet resultSet) throws SQLException {
-        Administrador administrador = new Administrador();
+        Administrador administrador = new Administrador(resultSet.getString("password"),resultSet.getInt("id_colaborador"));
         administrador.setPassword(resultSet.getString("password"));
         administrador.setId_colaborador(resultSet.getInt("id_colaborador"));
         return administrador;
