@@ -6,10 +6,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repository class for handling database operations related to {@link Tecnica} entities.
+ */
 public class TecnicaRepository {
 
     private final Connection con;
 
+    /**
+     * Constructs a new {@code TecnicaRepository} with the given database connection.
+     *
+     * @param con The database connection.
+     */
     public TecnicaRepository(Connection con) {
         this.con = con;
     }
@@ -20,6 +28,11 @@ public class TecnicaRepository {
     private static final String UPDATE_TECNICA_QUERY = "UPDATE Tecnica SET Tipo_Tecnica = ? WHERE id_Tecnica = ?";
     private static final String DELETE_TECNICA_QUERY = "DELETE FROM Tecnica WHERE id_Tecnica = ?";
 
+    /**
+     * Retrieves a list of all {@link Tecnica} entities from the database.
+     *
+     * @return A list of {@link Tecnica} entities.
+     */
     public List<Tecnica> getAllTecnicas() {
         List<Tecnica> tecnicasList = new ArrayList<>();
 
@@ -38,6 +51,12 @@ public class TecnicaRepository {
         return tecnicasList;
     }
 
+    /**
+     * Retrieves a {@link Tecnica} entity by its ID from the database.
+     *
+     * @param tecnicaId The ID of the {@link Tecnica} entity to retrieve.
+     * @return The {@link Tecnica} entity, or {@code null} if not found.
+     */
     public Tecnica getTecnicaById(int tecnicaId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_TECNICA_BY_ID_QUERY)) {
             preparedStatement.setInt(1, tecnicaId);
@@ -54,6 +73,12 @@ public class TecnicaRepository {
         return null;
     }
 
+    /**
+     * Adds a new {@link Tecnica} entity to the database.
+     *
+     * @param tecnica The {@link Tecnica} entity to add.
+     * @return The added {@link Tecnica} entity with updated ID.
+     */
     public Tecnica addTecnica(Tecnica tecnica) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 INSERT_TECNICA_QUERY, Statement.RETURN_GENERATED_KEYS)) {
@@ -81,6 +106,13 @@ public class TecnicaRepository {
         }
     }
 
+    /**
+     * Updates an existing {@link Tecnica} entity in the database.
+     *
+     * @param id      The ID of the {@link Tecnica} entity to update.
+     * @param tecnica The updated {@link Tecnica} entity.
+     * @return The updated {@link Tecnica} entity, or {@code null} if not found.
+     */
     public Tecnica updateTecnica(int id, Tecnica tecnica) {
         try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_TECNICA_QUERY)) {
 
@@ -99,6 +131,12 @@ public class TecnicaRepository {
         return null;
     }
 
+    /**
+     * Deletes a {@link Tecnica} entity from the database.
+     *
+     * @param tecnicaId The ID of the {@link Tecnica} entity to delete.
+     * @return A message indicating the result of the delete operation.
+     */
     public String deleteTecnica(int tecnicaId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_TECNICA_QUERY)) {
             preparedStatement.setInt(1, tecnicaId);
@@ -116,6 +154,13 @@ public class TecnicaRepository {
         }
     }
 
+    /**
+     * Maps the result set to a {@link Tecnica} entity.
+     *
+     * @param resultSet The result set containing data from the database.
+     * @return The mapped {@link Tecnica} entity.
+     * @throws SQLException If a SQL exception occurs.
+     */
     private Tecnica mapResultSetToTecnica(ResultSet resultSet) throws SQLException {
         Tecnica tecnica = new Tecnica();
         tecnica.setId_Tecnica(resultSet.getInt("id_Tecnica"));
@@ -123,6 +168,11 @@ public class TecnicaRepository {
         return tecnica;
     }
 
+    /**
+     * Handles a SQLException by printing the stack trace.
+     *
+     * @param e The SQLException to handle.
+     */
     private void handleSQLException(SQLException e) {
         e.printStackTrace();
     }

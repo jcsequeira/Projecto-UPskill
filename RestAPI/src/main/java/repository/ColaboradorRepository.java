@@ -6,10 +6,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code ColaboradorRepository} class provides data access methods for the {@code Colaborador} entity.
+ */
 public class ColaboradorRepository {
 
     private final Connection con;
 
+    /**
+     * Constructs a {@code ColaboradorRepository} with the specified database connection.
+     *
+     * @param con The database connection.
+     */
     public ColaboradorRepository(Connection con) {
         this.con = con;
     }
@@ -20,6 +28,13 @@ public class ColaboradorRepository {
     private static final String UPDATE_COLABORADOR_QUERY = "UPDATE Colaborador SET Nome_Colaborador = ?, Email = ?, Telefone = ?, Codigo_Pais = ? WHERE id_colaborador = ?";
     private static final String DELETE_COLABORADOR_QUERY = "DELETE FROM Colaborador WHERE id_colaborador = ?";
 
+    /**
+     * Checks if a Colaborador entity with the specified ID exists in the database.
+     *
+     * @param idColaborador The ID of the Colaborador entity.
+     * @return {@code true} if the Colaborador entity exists; otherwise, {@code false}.
+     * @throws SQLException If an SQL exception occurs during the database query.
+     */
     public boolean existsColaborador(int idColaborador) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 "SELECT COUNT(*) FROM Colaborador WHERE id_colaborador = ?")) {
@@ -38,6 +53,11 @@ public class ColaboradorRepository {
         return false;
     }
 
+    /**
+     * Retrieves a list of all Colaborador entities from the database.
+     *
+     * @return A list of all Colaborador entities.
+     */
     public List<Colaborador> getAllColaboradores() {
         List<Colaborador> colaboradorList = new ArrayList<>();
 
@@ -55,6 +75,12 @@ public class ColaboradorRepository {
         return colaboradorList;
     }
 
+    /**
+     * Retrieves a Colaborador entity by its ID from the database.
+     *
+     * @param colaboradorId The ID of the Colaborador entity to retrieve.
+     * @return The Colaborador entity with the specified ID, or {@code null} if not found.
+     */
     public Colaborador getColaboradorById(int colaboradorId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_COLABORADOR_BY_ID_QUERY)) {
 
@@ -71,6 +97,12 @@ public class ColaboradorRepository {
         return null;
     }
 
+    /**
+     * Adds a new Colaborador entity to the database.
+     *
+     * @param colaborador The Colaborador entity to add.
+     * @return The added Colaborador entity, or {@code null} if the operation fails.
+     */
     public Colaborador addColaborador(Colaborador colaborador) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 INSERT_COLABORADOR_QUERY, Statement.RETURN_GENERATED_KEYS)) {
@@ -92,6 +124,13 @@ public class ColaboradorRepository {
         }
     }
 
+    /**
+     * Updates an existing Colaborador entity in the database.
+     *
+     * @param colaboradorId The ID of the Colaborador entity to update.
+     * @param colaborador   The updated Colaborador entity.
+     * @return The updated Colaborador entity, or {@code null} if the operation fails.
+     */
     public Colaborador updateColaborador(int colaboradorId, Colaborador colaborador) {
         try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_COLABORADOR_QUERY)) {
 
@@ -111,6 +150,13 @@ public class ColaboradorRepository {
         }
     }
 
+    /**
+     * Deletes a Colaborador entity from the database.
+     *
+     * @param colaboradorId The ID of the Colaborador entity to delete.
+     * @return A status message indicating the result of the deletion operation.
+     * @throws SQLException If an SQL exception occurs during the deletion operation.
+     */
     public String deleteColaborador(int colaboradorId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_COLABORADOR_QUERY)) {
             preparedStatement.setInt(1, colaboradorId);
@@ -133,6 +179,13 @@ public class ColaboradorRepository {
         e.printStackTrace(); // Log or handle the exception appropriately
     }
 
+    /**
+     * Maps a ResultSet to a Colaborador entity.
+     *
+     * @param resultSet The ResultSet containing the Colaborador data.
+     * @return A Colaborador entity mapped from the ResultSet.
+     * @throws SQLException If an SQL exception occurs during ResultSet processing.
+     */
     private Colaborador mapResultSetToColaborador(ResultSet resultSet) throws SQLException {
         Colaborador colaborador = new Colaborador();
         colaborador.setId_colaborador(resultSet.getInt("id_colaborador"));
@@ -143,6 +196,13 @@ public class ColaboradorRepository {
         return colaborador;
     }
 
+    /**
+     * Sets the values of a Colaborador entity in a PreparedStatement for database operations.
+     *
+     * @param preparedStatement The PreparedStatement to set values for.
+     * @param colaborador       The Colaborador entity whose values are to be set.
+     * @throws SQLException If an SQL exception occurs during PreparedStatement setting.
+     */
     private void setColaboradorPreparedStatementValues(PreparedStatement preparedStatement, Colaborador colaborador) throws SQLException {
         preparedStatement.setString(1, colaborador.getNome_Colaborador());
         preparedStatement.setString(2, colaborador.getEmail());
@@ -150,6 +210,13 @@ public class ColaboradorRepository {
         preparedStatement.setInt(4, colaborador.getCodigo_Pais());
     }
 
+    /**
+     * Sets the generated ID from the database into the Colaborador entity.
+     *
+     * @param preparedStatement The PreparedStatement used for the database operation.
+     * @param colaborador       The Colaborador entity to set the generated ID for.
+     * @throws SQLException If an SQL exception occurs during ResultSet processing.
+     */
     private void setGeneratedId(PreparedStatement preparedStatement, Colaborador colaborador) throws SQLException {
         try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
             if (generatedKeys.next()) {
@@ -160,4 +227,3 @@ public class ColaboradorRepository {
         }
     }
 }
-

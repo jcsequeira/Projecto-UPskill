@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repository class for handling database operations related to {@link Obra_Arte} entities.
+ */
 public class ObraArteRepository {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -51,10 +54,20 @@ public class ObraArteRepository {
 
     private final Connection con;
 
+    /**
+     * Constructs a new {@code ObraArteRepository} with the given database connection.
+     *
+     * @param con The database connection.
+     */
     public ObraArteRepository(Connection con) {
         this.con = con;
     }
 
+    /**
+     * Retrieves a list of all {@link Obra_Arte} entities from the database.
+     *
+     * @return A list of {@link Obra_Arte} entities.
+     */
     public List<Obra_Arte> getAllObraArte() {
         List<Obra_Arte> obraArteList = new ArrayList<>();
 
@@ -72,6 +85,12 @@ public class ObraArteRepository {
         return obraArteList;
     }
 
+    /**
+     * Retrieves a {@link Obra_Arte} entity by its ID from the database.
+     *
+     * @param obraArteId The ID of the {@link Obra_Arte} entity to retrieve.
+     * @return The {@link Obra_Arte} entity, or {@code null} if not found.
+     */
     public Obra_Arte getObraArteById(int obraArteId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_OBRAARTE_BY_ID_QUERY)) {
             preparedStatement.setInt(1, obraArteId);
@@ -87,6 +106,12 @@ public class ObraArteRepository {
         return null;
     }
 
+    /**
+     * Adds a new {@link Obra_Arte} entity to the database.
+     *
+     * @param obraArte The {@link Obra_Arte} entity to add.
+     * @return The added {@link Obra_Arte} entity with updated ID.
+     */
     public Obra_Arte addObraArte(Obra_Arte obraArte) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 INSERT_OBRAARTE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
@@ -134,6 +159,13 @@ public class ObraArteRepository {
         }
     }
 
+    /**
+     * Updates an existing {@link Obra_Arte} entity in the database.
+     *
+     * @param obraArteID The ID of the {@link Obra_Arte} entity to update.
+     * @param obraArte   The updated {@link Obra_Arte} entity.
+     * @return The updated {@link Obra_Arte} entity.
+     */
     public Obra_Arte updateObraArte(int obraArteID, Obra_Arte obraArte) {
         try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_OBRAARTE_QUERY)) {
 
@@ -174,6 +206,12 @@ public class ObraArteRepository {
         }
     }
 
+    /**
+     * Deletes a {@link Obra_Arte} entity from the database.
+     *
+     * @param obraArteId The ID of the {@link Obra_Arte} entity to delete.
+     * @return A message indicating the success or failure of the deletion.
+     */
     public String deleteObraArte(int obraArteId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_OBRAARTE_QUERY)) {
             preparedStatement.setInt(1, obraArteId);
@@ -191,6 +229,13 @@ public class ObraArteRepository {
         }
     }
 
+    /**
+     * Maps the result set to a {@link Obra_Arte} entity.
+     *
+     * @param resultSet The result set containing data from the database.
+     * @return The mapped {@link Obra_Arte} entity.
+     * @throws SQLException If a SQL exception occurs.
+     */
     private Obra_Arte mapResultSetToObraArte(ResultSet resultSet) throws SQLException {
         Obra_Arte obraArte = new Obra_Arte();
         obraArte.setId_Obra_Arte(resultSet.getInt("id_Obra_Arte"));
@@ -211,10 +256,23 @@ public class ObraArteRepository {
         return obraArte;
     }
 
+    /**
+     * Maps a date string to a {@link LocalDate} object using the specified date formatter.
+     *
+     * @param dateString The date string to map.
+     * @return The mapped {@link LocalDate} object.
+     */
     private LocalDate mapToLocalDate(String dateString) {
         return dateString != null ? LocalDate.parse(dateString, formatter) : null;
     }
 
+    /**
+     * Sets the parameters of a prepared statement with the values of a {@link Obra_Arte} entity.
+     *
+     * @param preparedStatement The prepared statement to set the parameters for.
+     * @param obraArte          The {@link Obra_Arte} entity containing the values.
+     * @throws SQLException If a SQL exception occurs.
+     */
     private void setObraArteParameters(PreparedStatement preparedStatement, Obra_Arte obraArte)
             throws SQLException {
         preparedStatement.setString(1, obraArte.getTitulo());
@@ -232,6 +290,11 @@ public class ObraArteRepository {
         preparedStatement.setInt(13, obraArte.getIsArtsy());
     }
 
+    /**
+     * Handles a SQLException by printing the stack trace.
+     *
+     * @param e The SQLException to handle.
+     */
     private void handleSQLException(SQLException e) {
         e.printStackTrace();
     }

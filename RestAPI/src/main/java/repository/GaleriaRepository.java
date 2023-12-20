@@ -5,21 +5,55 @@ import model.Galeria;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Repository class for managing Galeria entities in the database.
+ */
 public class GaleriaRepository {
 
+    /**
+     * The database connection.
+     */
     private final Connection con;
 
+    /**
+     * SQL query to select all Galeria records.
+     */
+    private static final String SELECT_ALL_GALERIA_QUERY = "SELECT * FROM Galeria";
+
+    /**
+     * SQL query to select a Galeria by its ID.
+     */
+    private static final String SELECT_GALERIA_BY_ID_QUERY = "SELECT * FROM Galeria WHERE id_Galeria = ?";
+
+    /**
+     * SQL query to insert a new Galeria record.
+     */
+    private static final String INSERT_GALERIA_QUERY = "INSERT INTO Galeria (Nome_Galeria, Morada, Website, Email, Telefone, id_Cidade, id_colaborador, IsArtsy) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    /**
+     * SQL query to update an existing Galeria record.
+     */
+    private static final String UPDATE_GALERIA_QUERY = "UPDATE Galeria SET Nome_Galeria = ?, Morada = ?, Website = ?, Email = ?, Telefone = ?, id_Cidade = ?, id_colaborador = ?, IsArtsy = ? WHERE id_Galeria = ?";
+
+    /**
+     * SQL query to delete a Galeria by its ID.
+     */
+    private static final String DELETE_GALERIA_QUERY = "DELETE FROM Galeria WHERE id_Galeria = ?";
+
+    /**
+     * Constructs a new GaleriaRepository with the given database connection.
+     *
+     * @param con The database connection.
+     */
     public GaleriaRepository(Connection con) {
         this.con = con;
     }
 
-    private static final String SELECT_ALL_GALERIA_QUERY = "SELECT * FROM Galeria";
-    private static final String SELECT_GALERIA_BY_ID_QUERY = "SELECT * FROM Galeria WHERE id_Galeria = ?";
-    private static final String INSERT_GALERIA_QUERY = "INSERT INTO Galeria (Nome_Galeria, Morada, Website, Email, Telefone, id_Cidade, id_colaborador, IsArtsy) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_GALERIA_QUERY = "UPDATE Galeria SET Nome_Galeria = ?, Morada = ?, Website = ?, Email = ?, Telefone = ?, id_Cidade = ?, id_colaborador = ?, IsArtsy = ? WHERE id_Galeria = ?";
-    private static final String DELETE_GALERIA_QUERY = "DELETE FROM Galeria WHERE id_Galeria = ?";
-
+    /**
+     * Retrieves a list of all Galeria records from the database.
+     *
+     * @return A list of Galeria objects.
+     */
     public List<Galeria> getAllGaleria() {
         List<Galeria> galeriaList = new ArrayList<>();
 
@@ -37,6 +71,12 @@ public class GaleriaRepository {
         return galeriaList;
     }
 
+    /**
+     * Retrieves a Galeria by its ID from the database.
+     *
+     * @param galeriaId The ID of the Galeria to retrieve.
+     * @return The Galeria object, or null if not found.
+     */
     public Galeria getGaleriaById(int galeriaId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_GALERIA_BY_ID_QUERY)) {
 
@@ -54,6 +94,12 @@ public class GaleriaRepository {
         return null;
     }
 
+    /**
+     * Adds a new Galeria record to the database.
+     *
+     * @param galeria The Galeria object to add.
+     * @return The added Galeria object with its ID set, or null if the addition failed.
+     */
     public Galeria addGaleria(Galeria galeria) {
         try (PreparedStatement preparedStatement = con.prepareStatement(
                 INSERT_GALERIA_QUERY, Statement.RETURN_GENERATED_KEYS)) {
@@ -75,6 +121,13 @@ public class GaleriaRepository {
         }
     }
 
+    /**
+     * Updates an existing Galeria record in the database.
+     *
+     * @param id      The ID of the Galeria to update.
+     * @param galeria The Galeria object with updated values.
+     * @return The updated Galeria object, or null if the update failed.
+     */
     public Galeria updateGaleria(int id, Galeria galeria) {
         try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_GALERIA_QUERY)) {
 
@@ -93,6 +146,12 @@ public class GaleriaRepository {
         return null;
     }
 
+    /**
+     * Deletes a Galeria record from the database.
+     *
+     * @param galeriaId The ID of the Galeria to delete.
+     * @return A status message indicating the success or failure of the deletion.
+     */
     public String deleteGaleria(int galeriaId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_GALERIA_QUERY)) {
             preparedStatement.setInt(1, galeriaId);
@@ -111,10 +170,22 @@ public class GaleriaRepository {
         }
     }
 
+    /**
+     * Helper method to handle SQLException.
+     *
+     * @param e The SQLException.
+     */
     private void handleSQLException(SQLException e) {
         e.printStackTrace(); // Log or handle the exception appropriately
     }
 
+    /**
+     * Helper method to map a ResultSet to a Galeria object.
+     *
+     * @param resultSet The ResultSet containing Galeria data.
+     * @return The mapped Galeria object.
+     * @throws SQLException If an SQL exception occurs.
+     */
     private Galeria mapResultSetToGaleria(ResultSet resultSet) throws SQLException {
         Galeria galeria = new Galeria();
         galeria.setId_Galeria(resultSet.getInt("id_Galeria"));
@@ -129,6 +200,13 @@ public class GaleriaRepository {
         return galeria;
     }
 
+    /**
+     * Helper method to set PreparedStatement values for a Galeria.
+     *
+     * @param preparedStatement The PreparedStatement to set values for.
+     * @param galeria           The Galeria object containing values.
+     * @throws SQLException If an SQL exception occurs.
+     */
     private void setGaleriaPreparedStatementValues(PreparedStatement preparedStatement, Galeria galeria) throws SQLException {
         preparedStatement.setString(1, galeria.getNome_Galeria());
         preparedStatement.setString(2, galeria.getMorada());
@@ -140,6 +218,13 @@ public class GaleriaRepository {
         preparedStatement.setInt(8, galeria.getIsArtsy());
     }
 
+    /**
+     * Helper method to set the generated ID for a Galeria.
+     *
+     * @param preparedStatement The PreparedStatement with generated keys.
+     * @param galeria           The Galeria object to set the ID for.
+     * @throws SQLException If an SQL exception occurs.
+     */
     private void setGeneratedId(PreparedStatement preparedStatement, Galeria galeria) throws SQLException {
         try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
             if (generatedKeys.next()) {

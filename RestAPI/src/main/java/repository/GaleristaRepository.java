@@ -6,22 +6,60 @@ import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Repository class for managing Galerista entities in the database.
+ */
 public class GaleristaRepository {
 
+    /**
+     * The database connection.
+     */
     private final Connection con;
+
+    /**
+     * The date formatter for converting LocalDate to String.
+     */
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * SQL query to select all Galerista records.
+     */
+    private static final String SELECT_ALL_GALERISTA_QUERY = "SELECT * FROM galerista";
+
+    /**
+     * SQL query to select a Galerista by its ID.
+     */
+    private static final String SELECT_GALERISTA_BY_ID_QUERY = "SELECT * FROM galerista WHERE id_colaborador = ?";
+
+    /**
+     * SQL query to insert a new Galerista record.
+     */
+    private static final String INSERT_GALERISTA_QUERY = "INSERT INTO galerista (Data_Inicio_Atividade, password, id_colaborador) VALUES (?, ?, ?)";
+
+    /**
+     * SQL query to update an existing Galerista record.
+     */
+    private static final String UPDATE_GALERISTA_QUERY = "UPDATE galerista SET Data_Inicio_Atividade = ?, password = ? WHERE id_colaborador = ?";
+
+    /**
+     * SQL query to delete a Galerista by its ID.
+     */
+    private static final String DELETE_GALERISTA_QUERY = "DELETE FROM galerista WHERE id_colaborador = ?";
+
+    /**
+     * Constructs a new GaleristaRepository with the given database connection.
+     *
+     * @param con The database connection.
+     */
     public GaleristaRepository(Connection con) {
         this.con = con;
     }
 
-    private static final String SELECT_ALL_GALERISTA_QUERY = "SELECT * FROM galerista";
-    private static final String SELECT_GALERISTA_BY_ID_QUERY = "SELECT * FROM galerista WHERE id_colaborador = ?";
-    private static final String INSERT_GALERISTA_QUERY = "INSERT INTO galerista (Data_Inicio_Atividade, password, id_colaborador) VALUES (?, ?, ?)";
-    private static final String UPDATE_GALERISTA_QUERY = "UPDATE galerista SET Data_Inicio_Atividade = ?, password = ? WHERE id_colaborador = ?";
-    private static final String DELETE_GALERISTA_QUERY = "DELETE FROM galerista WHERE id_colaborador = ?";
-
+    /**
+     * Retrieves a list of all Galerista records from the database.
+     *
+     * @return A list of Galerista objects.
+     */
     public List<Galerista> getAllGaleristas() {
         List<Galerista> galeristasList = new ArrayList<>();
 
@@ -40,6 +78,12 @@ public class GaleristaRepository {
         return galeristasList;
     }
 
+    /**
+     * Retrieves a Galerista by its ID from the database.
+     *
+     * @param galeristaId The ID of the Galerista to retrieve.
+     * @return The Galerista object, or null if not found.
+     */
     public Galerista getGaleristaById(int galeristaId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(SELECT_GALERISTA_BY_ID_QUERY)) {
 
@@ -57,6 +101,12 @@ public class GaleristaRepository {
         return null;
     }
 
+    /**
+     * Adds a new Galerista record to the database.
+     *
+     * @param newGalerista The Galerista object to add.
+     * @return The added Galerista object, or null if the addition failed.
+     */
     public Galerista addGalerista(Galerista newGalerista) {
         try (PreparedStatement preparedStatement = con.prepareStatement(INSERT_GALERISTA_QUERY)) {
 
@@ -75,6 +125,13 @@ public class GaleristaRepository {
         }
     }
 
+    /**
+     * Updates an existing Galerista record in the database.
+     *
+     * @param id              The ID of the Galerista to update.
+     * @param updatedGalerista The Galerista object with updated values.
+     * @return The updated Galerista object, or null if the update failed.
+     */
     public Galerista updateGalerista(int id, Galerista updatedGalerista) {
         try (PreparedStatement preparedStatement = con.prepareStatement(UPDATE_GALERISTA_QUERY)) {
 
@@ -93,6 +150,12 @@ public class GaleristaRepository {
         return null;
     }
 
+    /**
+     * Deletes a Galerista record from the database.
+     *
+     * @param galeristaId The ID of the Galerista to delete.
+     * @return A status message indicating the success or failure of the deletion.
+     */
     public String deleteGalerista(int galeristaId) {
         try (PreparedStatement preparedStatement = con.prepareStatement(DELETE_GALERISTA_QUERY)) {
 
@@ -112,10 +175,22 @@ public class GaleristaRepository {
         }
     }
 
+    /**
+     * Helper method to handle SQLException.
+     *
+     * @param e The SQLException to handle.
+     */
     private void handleSQLException(SQLException e) {
         e.printStackTrace(); // Log or handle the exception appropriately
     }
 
+    /**
+     * Helper method to map a ResultSet to a Galerista object.
+     *
+     * @param resultSet The ResultSet containing Galerista data.
+     * @return The mapped Galerista object.
+     * @throws SQLException If an SQL exception occurs.
+     */
     private Galerista mapResultSetToGalerista(ResultSet resultSet) throws SQLException {
         Galerista galerista = new Galerista();
         if (resultSet.getDate("Data_Inicio_Atividade") != null) {
@@ -128,6 +203,13 @@ public class GaleristaRepository {
         return galerista;
     }
 
+    /**
+     * Helper method to set PreparedStatement values for a Galerista.
+     *
+     * @param preparedStatement The PreparedStatement to set values for.
+     * @param galerista         The Galerista object containing values.
+     * @throws SQLException If an SQL exception occurs.
+     */
     private void setGaleristaPreparedStatementValues(PreparedStatement preparedStatement, Galerista galerista) throws SQLException {
         if (galerista.getData_Inicio_Atividade() != null) {
             preparedStatement.setString(1, galerista.getData_Inicio_Atividade().format(formatter));
