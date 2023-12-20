@@ -20,11 +20,11 @@ import java.util.List;
  * Upon submitting the form, the data is processed and added to the database through the presenter.
  */
 public class AddGalleryFormView extends Parent {
-    private ExplorArtPresenter myPresenter;
-    private ComboBox<Cidade> cidadeComboBox;
-    private ObservableList<Cidade> cidadeObservableList;
-    private ComboBox<Galerista> galeristaComboBox;
-    private ObservableList<Galerista> galeristaObservableList;
+    private final ExplorArtPresenter myPresenter;
+    private final ComboBox<Cidade> cidadeComboBox;
+    private final ObservableList<Cidade> cidadeObservableList;
+    private final ComboBox<Galerista> galeristaComboBox;
+    private final ObservableList<Galerista> galeristaObservableList;
 
     /**
      * Constructs an instance of AddGalleryFormView with the specified gallery.

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class UpdateArtistaFormView extends Parent {
-    private Artista artista;
+    private final Artista artista;
     private Pais nacionalidade;
 
     private ExplorArtPresenter myPresenter;

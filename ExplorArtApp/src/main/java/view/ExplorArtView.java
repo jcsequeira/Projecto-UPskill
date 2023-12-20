@@ -30,7 +30,7 @@ import java.util.Optional;
 public class ExplorArtView extends BorderPane implements ExplorArtContract.View {
     private ListView<String> listView;
 
-    private ExplorArtPresenter myPresenter;
+    private final ExplorArtPresenter myPresenter;
 
 
     /**

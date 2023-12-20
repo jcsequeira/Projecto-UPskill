@@ -18,8 +18,8 @@ import java.time.format.DateTimeFormatter;
 
 public class ShowDetailsViewWithGallery extends Parent {
 
-    private Evento evento;
-    private Galeria galeria;
+    private final Evento evento;
+    private final Galeria galeria;
 
     /**
      * Constructs an instance of ShowDetailsViewWithGallery with the specified event and gallery.

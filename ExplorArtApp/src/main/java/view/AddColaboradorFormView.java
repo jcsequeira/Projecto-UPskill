@@ -20,9 +20,9 @@ import java.util.List;
  *
  */
 public class AddColaboradorFormView extends Parent {
-    private ExplorArtPresenter myPresenter;
-    private ComboBox<Pais> paisComboBox;
-    private ObservableList<Pais> paisObservableList;
+    private final ExplorArtPresenter myPresenter;
+    private final ComboBox<Pais> paisComboBox;
+    private final ObservableList<Pais> paisObservableList;
 
     /**
      * Constructs an instance of {@code AddColaboradorFormView}.

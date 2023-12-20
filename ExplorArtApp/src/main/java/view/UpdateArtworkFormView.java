@@ -19,11 +19,11 @@ import java.util.List;
 
 public class UpdateArtworkFormView extends Parent {
 
-    private Obra_Arte obraArte;
-    private Artista artista;
-    private Tecnica tecnica;
-    private Movimento movimento;
-    private Materiais material;
+    private final Obra_Arte obraArte;
+    private final Artista artista;
+    private final Tecnica tecnica;
+    private final Movimento movimento;
+    private final Materiais material;
 
     private ExplorArtPresenter myPresenter;
     private ComboBox<Artista> artistaComboBox;

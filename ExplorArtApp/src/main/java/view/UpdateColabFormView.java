@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UpdateColabFormView extends Parent {
-    private Colaborador colaborador;
+    private final Colaborador colaborador;
     private ExplorArtPresenter myPresenter;
     private ComboBox<Pais> paisComboBox;
     private ObservableList<Pais> paisObservableList;

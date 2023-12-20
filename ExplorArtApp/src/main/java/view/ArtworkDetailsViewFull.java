@@ -23,11 +23,11 @@ import java.time.format.DateTimeFormatter;
 
 public class ArtworkDetailsViewFull extends Parent {
 
-    private Obra_Arte obraArte;
-    private Artista artista;
-    private Tecnica tecnica;
-    private Movimento movimento;
-    private Materiais material;
+    private final Obra_Arte obraArte;
+    private final Artista artista;
+    private final Tecnica tecnica;
+    private final Movimento movimento;
+    private final Materiais material;
 
     /**
      * Constructs an instance of ArtworkDetailsViewFull with the specified artwork details.

@@ -17,7 +17,7 @@ import java.io.IOException;
  * It allows the user to confirm the activation of the artwork through a confirmation alert.
  */
 public class AtivateArtworkFormView extends Parent {
-    private Obra_Arte obraArte;
+    private final Obra_Arte obraArte;
     private ExplorArtPresenter myPresenter;
 
     /**

@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class AddShowFormView extends Parent {
-    private ExplorArtPresenter myPresenter;
-    private ComboBox<Galeria> galeriaComboBox;
-    private ObservableList<Galeria> galeriaObservableList;
+    private final ExplorArtPresenter myPresenter;
+    private final ComboBox<Galeria> galeriaComboBox;
+    private final ObservableList<Galeria> galeriaObservableList;
 
     /**
      * Constructs an instance of AddShowFormView with the specified event.

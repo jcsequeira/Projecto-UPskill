@@ -19,15 +19,15 @@ import java.util.List;
  */
 public class AddArtworkFormView extends Parent {
 
-    private ExplorArtPresenter myPresenter;
-    private ComboBox<Artista> artistaComboBox;
-    private ObservableList<Artista> artistaObservableList;
-    private ComboBox<Tecnica> tecnicaComboBox;
-    private ObservableList<Tecnica> tecnicaObservableList;
-    private ComboBox<Movimento> movimentoComboBox;
-    private ObservableList<Movimento> movimentoObservableList;
-    private ComboBox<Materiais> materiaisComboBox;
-    private ObservableList<Materiais> materiaisObservableList;
+    private final ExplorArtPresenter myPresenter;
+    private final ComboBox<Artista> artistaComboBox;
+    private final ObservableList<Artista> artistaObservableList;
+    private final ComboBox<Tecnica> tecnicaComboBox;
+    private final ObservableList<Tecnica> tecnicaObservableList;
+    private final ComboBox<Movimento> movimentoComboBox;
+    private final ObservableList<Movimento> movimentoObservableList;
+    private final ComboBox<Materiais> materiaisComboBox;
+    private final ObservableList<Materiais> materiaisObservableList;
 
     private ExplorArtModel model;
 
