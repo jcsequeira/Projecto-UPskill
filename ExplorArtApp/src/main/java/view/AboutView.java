@@ -28,12 +28,27 @@ public class AboutView extends BorderPane {
         contentBox.setSpacing(10);
 
         // About program info
-        Label titleLabel = new Label("ExplorArtApp (Admin Version)");
-        Label descriptionLabel = new Label("This is an Art Explorer app built with JavaFX.\nBuilt in December 2023.");
+        Label titleLabel = new Label("Welcome to ExplorArtApp!");
+        titleLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-alignment: center;");
+        titleLabel.setAlignment(Pos.CENTER);
+
+        Label descriptionLabel = new Label("Explore the world of art with our JavaFX-based app,\n" +
+                "crafted with passion.\n" +
+                "Launched in December 2023.");
+        descriptionLabel.setStyle("-fx-font-size: 14; -fx-alignment: center;");
+        descriptionLabel.setAlignment(Pos.CENTER);
+
         Label versionLabel = new Label("Version: 1.0");
-        Label authorLabel = new Label("Creators: João Sequeira & Luís Rossa");
+        versionLabel.setStyle("-fx-font-size: 14; -fx-alignment: center;");
+        versionLabel.setAlignment(Pos.CENTER);
+
+        Label authorLabel = new Label("Developed by João Sequeira & Luís Rossa");
+        authorLabel.setStyle("-fx-font-size: 14; -fx-alignment: center;");
+        authorLabel.setAlignment(Pos.CENTER);
+
         Button closeButton = new Button("Close");
-        closeButton.setOnAction(event -> closeWindow()); // This will close the AboutView window;
+        closeButton.setOnAction(event -> closeWindow());
+        closeButton.setStyle("-fx-font-size: 14;");
 
         // Add components to VBox
         contentBox.getChildren().addAll(titleLabel, descriptionLabel, versionLabel, authorLabel, closeButton);
