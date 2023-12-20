@@ -500,6 +500,12 @@ public interface ExplorArtContract {
          * @throws IOException If an I/O error occurs during the display.
          */
         void doRemoveShowWindow(Evento evento) throws IOException;
+        /**
+         * Removes a show associated with the specified exhibition ID.
+         *
+         * @param idExpo The ID of the exhibition from which to remove the show.
+         */
+        void removeShow(int idExpo) throws IOException;
 
         //--------------------------------------------------------------------------------------------------------------
         //****** Menu Galeristas ******
@@ -645,6 +651,8 @@ public interface ExplorArtContract {
          * @throws IOException If an I/O error occurs during the import process.
          */
         void doImportDataFromArtsy();
+
+
     }
 
 
@@ -812,6 +820,12 @@ public interface ExplorArtContract {
          * @throws IOException If an I/O error occurs during the modification.
          */
         void modifyShow(int showId, Evento evento) throws IOException;
+        /**
+         * Removes a show associated with the specified exhibition ID.
+         *
+         * @param idExpo The ID of the exhibition from which to remove the show.
+         */
+        void removeShow(int idExpo) throws IOException;
 
         //--------------------------------------------------------------------------------------------------------------
         // ****** Técnicas ******
@@ -944,6 +958,8 @@ public interface ExplorArtContract {
          * @throws IOException If an I/O error occurs during the deletion process.
          */
         void deleteArtsyData() throws IOException;
+
+
     }
 
 }

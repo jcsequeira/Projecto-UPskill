@@ -436,6 +436,15 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     }
 
     /**
+     * Removes a show associated with the specified exhibition ID.
+     *
+     * @param idExpo The ID of the exhibition from which to remove the show.
+     */
+    @Override
+    public void removeShow(int idExpo) throws IOException {
+        model.removeShow(idExpo);
+    }
+    /**
      * Initiates the process of removing shows by fetching the existing shows from the model
      * and displaying them in the view for selection.
      *
@@ -457,6 +466,8 @@ public class ExplorArtPresenter implements ExplorArtContract.Presenter {
     public void doRemoveShowWindow(Evento evento) throws IOException {
         view.showRemoveShowWindow(evento);
     }
+
+
 
 
     //------------------------------------------------------------------------------------------------------------------

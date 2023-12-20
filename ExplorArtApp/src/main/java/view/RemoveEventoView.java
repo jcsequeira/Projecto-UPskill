@@ -65,7 +65,7 @@ public class RemoveEventoView extends Parent {
                 ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
 
                 if (result == ButtonType.OK) {
-                    myPresenter.removeArtist(evento.getId_Expo());
+                    myPresenter.removeShow(evento.getId_Expo());
 
                     // Se o utilizador confirmar, fecha a janela
                     getScene().getWindow().hide();

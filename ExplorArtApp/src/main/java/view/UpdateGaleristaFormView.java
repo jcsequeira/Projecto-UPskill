@@ -54,7 +54,7 @@ public class UpdateGaleristaFormView extends Parent {
         getChildren().add(gridPane);
 
         // Botão "Adicionar" e respetiva lógica
-        Button submitButton = new Button("Adicionar galerista");
+        Button submitButton = new Button("Modificar galerista");
         submitButton.setOnAction(event -> {
             try {
                 // Criar alerta de confirmação

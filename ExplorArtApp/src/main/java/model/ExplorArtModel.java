@@ -124,6 +124,16 @@ public class ExplorArtModel implements ExplorArtContract.Model {
     public void modifyShow(int showId, Evento evento) throws IOException {
         ApiService.putToRestApi("http://localhost:4567/api/eventos/" + showId, evento);
     }
+    /**
+     * Removes a show associated with the specified exhibition ID by making a DELETE request to a REST API endpoint.
+     *
+     * @param idExpo The ID of the exhibition from which to remove the show.
+     * @throws IOException If an I/O error occurs while making the DELETE request.
+     */
+    @Override
+    public void removeShow(int idExpo) throws IOException {
+        ApiService.deleteToRestApi("http://localhost:4567/api/eventos/" + idExpo);
+    }
 
     /**
      * Retrieves a list of galleries from the API.
