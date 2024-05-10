@@ -54,7 +54,7 @@ git clone https://github.com/jcsequeira/Projecto-UPskill.git
 
 - Start MySQL Workbench and login into your local MySQL server, that you set up on MySQL installation.
 - Copy the content on "[create.sql](https://github.com/jcsequeira/Projecto-UPskill/blob/master/create.sql)" and paste it on your Workbench script.
-- Run that script and that should be it.
+- Run the script and that should be it.
 
 
 <h3>Starting</h3>
