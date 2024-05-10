@@ -15,14 +15,15 @@
 <h2 id="intro">Intro</h2>
 
 This is a final course project, so is not optimized, what was asked:
-Create a JavaFX Desktop App for a Gallerys to keep track of their Artwork, Shows, and maybe some extra funciolities.
+Create a JavaFX Desktop App for a Gallerys to keep track of their Artwork, Shows, and maybe some extra funciolities.<br>
 Warning: The full App is the Portuguese Language, but maybe one day will be updated to English.
 <br>
 <h3>Our Approach Designing this project:</h3>
-We decided
-ArtsyLoader: preenche a base de dados, TBD
-ExplorArt: App principal dos galeristas
-RestAPI: API que efetua as operaçoes CRUD na BD
+<h4>We decided to divide the App in 3 mini apps:</h4>
+
+- ArtsyLoader: preenche a base de dados, TBD
+- ExplorArt: Main JavaFX Desktop App
+- RestAPI: A Rest API made with SparkJava Framework that will do ALL CRUD operations on the MySQL local database
 
 
 
