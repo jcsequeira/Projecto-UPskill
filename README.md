@@ -56,22 +56,22 @@ After installing Git, open Windows PowerShell, cmd, or GitBash, navigate to the 
 git clone https://github.com/jcsequeira/Projecto-UPskill.git
 ```
 
-<h3>Setting up the MySQL Database</h2>
+<h3>Setting up the MySQL Database</h3>
 
-- Start MySQL Workbench and login into your local MySQL server, that you set up on MySQL installation.
-- Copy the content on "[create.sql](https://github.com/jcsequeira/Projecto-UPskill/blob/master/create.sql)" and paste it on your Workbench script.
-- Run the script and that should be it.
-
+- Start MySQL Workbench and log into your local MySQL server, which you set up during MySQL installation.
+- Copy the content of "[create.sql](https://github.com/jcsequeira/Projecto-UPskill/blob/master/create.sql)" and paste it into your Workbench script.
+- Run the script, and that should be it.
 
 <h3>Starting</h3>
 
 How to start the App:
 
-- Open the project in IntelliJ, select the Liberica JDK 17.0.11 and reload maven pom.
+- Open the project in IntelliJ, select the Liberica JDK 17.0.11, and reload the Maven pom.
 - Run ExplorArtApp/src/main/java/ExplorArtApp.java.
-- On first, run db is empty, you can create your own data using the app or import from ArtsyAPI.
-- To Import data from Artsy API, Menu Admin->Importar Dados da Arsty API.
-- To delete All Data Imported from Artsy API, Menu Admin->Limpar Dados da Arsty API.
+- Initially, when you run the app, the database is empty. You can create your data using the app or import from the ArtsyAPI.
+- To import data from the Artsy API, go to Menu Admin->Importar Dados da Arsty API.
+- To delete all data imported from the Artsy API, go to Menu Admin->Limpar Dados da Arsty API.
+
 
 <br>
 <h2 id="artsy">📍 Artsy API</h2>
