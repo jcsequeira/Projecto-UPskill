@@ -143,11 +143,8 @@ public class RunServerAPI {
 
         //Endpoint DeleteAllArtsy
         Spark.post("/api/cleanartsydata", (request, response) -> {
-            // Extract script name from the JSON request body
             String scriptName = request.body();
-            // Call a method to execute the script (replace this with your actual script execution logic)
             executeScript(scriptName);
-            // Send a response (replace this with an appropriate response)
             return "Script triggered successfully for: " + scriptName ;
         });
 
