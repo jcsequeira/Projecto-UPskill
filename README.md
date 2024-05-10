@@ -35,16 +35,16 @@ stuff
 
 <h3>Install:</h3>
 
-- [Github](https://github.com/)
-- [IntelliJ Ideia Community](https://github.com/)
-- [Java 17 liberica](https://github.com)
-- [MySQL Server](https://github.com/)
-- [MySQL Workbench](https://github.com)
+- [Github](https://github.com/git-guides/install-git)
+- [IntelliJ Ideia Community](https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows&code=IIC)
+- [Java 17 liberica](https://bell-sw.com/pages/downloads/#jdk-17-lts)
+- [MySQL Server](https://dev.mysql.com/downloads/installer/)
+- [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
   
   
 <h3>Cloning</h3>
 
-How to clone this project
+After git installed, open windows powershell, cmd or GitBash, go to the desired directory by using "cd" command and type:
 
 ```bash
 git clone https://github.com/jcsequeira/Projecto-UPskill.git
@@ -60,7 +60,7 @@ git clone https://github.com/jcsequeira/Projecto-UPskill.git
 
 How to start the App:
 
-- Open the project in IntelliJ and reload maven pom.
+- Open the project in IntelliJ, select the Liberica JDK 17.0.11 and reload maven pom.
 - Run ExplorArtApp/src/main/java/ExplorArtApp.java.
 - On first, run db is empty, you can create your own data using the app or import from ArtsyAPI.
 - To Import data from Artsy API, Menu Admin->Importar Dados da Arsty API.
