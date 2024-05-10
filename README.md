@@ -14,7 +14,16 @@
 
 <h2 id="intro">Intro</h2>
 
-stuff
+This is a final course project, so is not optimized, what was asked:
+Create a JavaFX Desktop App for a Gallerys to keep track of their Artwork, Shows, and maybe some extra funciolities.
+Warning: The full App is the Portuguese Language, but maybe one day will be updated to English.
+<br>
+<h3>Our Approach Designing this project:</h3>
+We decided
+ArtsyLoader: preenche a base de dados, TBD
+ExplorArt: App principal dos galeristas
+RestAPI: API que efetua as operaçoes CRUD na BD
+
 
 
 <h2 id="technologies">💻 Technologies</h2>
@@ -71,7 +80,7 @@ How to start the App:
 <h2 id="artsy">📍 Artsy API</h2>
 
 [Artsy API](https://developers.artsy.net/v2/) is an API to obtain data from the [https://www.artsy.net/](https://www.artsy.net/) website that has real world data, about Artworks, Artists, Gallerys, Events, Auctions and so on.
-In this project, artsy data was used to populate the App database for testing purposes.
+In this project, Artsy data was used to populate the App database, for testing purposes.
 
 
 
