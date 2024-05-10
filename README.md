@@ -1,21 +1,29 @@
 <h1 align="center" style="font-weight: bold;">Project-UPskill 💻</h1>
 
 <p align="center">
+ <a href="#intro">Intro</a> • 
  <a href="#tech">Technologies</a> • 
  <a href="#started">Getting Started</a> • 
-  <a href="#artsy">Artsy API</a> •
+ <a href="#artsy">Artsy API</a> •
  <a href="#colab">Collaborators</a> •
 </p>
 
 <p align="center">
-    <b>Simple description of what your project do or how to use it.</b>
+    <b>UPSikll 2023 - JAVA course final project: A Desktop JavaFX App Designed for Art Gallerys, with a Rest API implementation and a local MySQL database, also populated with real world data from the https://developers.artsy.net </b>
 </p>
+
+<h2 id="intro">Intro</h2>
+
+stuff
+
 
 <h2 id="technologies">💻 Technologies</h2>
 
-- Java
-- JavaFX
-- MySQL
+- Java for Backend
+- JavaFX for Frontend
+- MySQL for DB
+- Rest API for CRUD operations on the DB
+- SparkJava framework for the API
 
 <h2 id="started">🚀 Getting started</h2>
 
@@ -34,7 +42,7 @@ Install:
   
 <h3>Cloning</h3>
 
-How to clone your project
+How to clone this project
 
 ```bash
 git clone https://github.com/jcsequeira/Projecto-UPskill.git
@@ -67,7 +75,7 @@ About Artsy API
 
 <h2 id="colab">🤝 Collaborators</h2>
 
-Special thank you for all people that contributed for this project.
+Special thank you to my colleague and friend who co-lab in this project.
 
 <table>
   <tr>
