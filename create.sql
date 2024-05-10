@@ -1,6 +1,6 @@
 
 
-DROP USER 'rest_api'@'localhost';
+DROP USER if exists 'rest_api'@'localhost';
 DROP DATABASE IF EXISTS explorart;
 
 -- Create Database
