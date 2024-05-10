@@ -1,4 +1,4 @@
-<h1 align="center" style="font-weight: bold;">Project-UPskill 💻</h1>
+<h1 align="center" style="font-weight: bold;">Project-UPSkill 💻</h1>
 
 <p align="center">
  <a href="#intro">Intro</a> • 
@@ -8,7 +8,7 @@
  <a href="#colab">Collaborators</a> •
 </p>
 
-<p align="center">
+<p align="left">
     <b>UPSikll 2023 - JAVA course final project: A Desktop JavaFX App Designed for Art Gallerys, with a Rest API implementation and a local MySQL database, also populated with real world data from the https://developers.artsy.net </b>
 </p>
 
@@ -30,7 +30,10 @@ stuff
 
 <h3>Prerequisites</h3>
 
-Install:
+<h4>Follow the instructions below or watch de full video tutorial here: <br> 
+ https://www.youtube.com/watch?v=Gui7ZIIuG9I</h4>
+
+<h3>Install:</h3>
 
 - [Github](https://github.com/)
 - [IntelliJ Ideia Community](https://github.com/)
@@ -38,7 +41,6 @@ Install:
 - [MySQL Server](https://github.com/)
 - [MySQL Workbench](https://github.com)
   
-  video
   
 <h3>Cloning</h3>
 
@@ -47,12 +49,11 @@ How to clone this project
 ```bash
 git clone https://github.com/jcsequeira/Projecto-UPskill.git
 ```
--video
 
 <h3>Setting up the MySQL Database</h2>
 
-- "abrir mysql, entrar na bd, correr o create.sql
-- -"por video"
+- Start MySQL Workbench and logi
+
 
 
 <h3>Starting</h3>
@@ -61,12 +62,11 @@ How to start the App:
 
 - Open the project in IntelliJ and reload maven pom.
 - Run ExplorArtApp/src/main/java/ExplorArtApp.java.
-- On first run db is empty, you can create your own data using the app or import from ArtsyAPI.
+- On first, run db is empty, you can create your own data using the app or import from ArtsyAPI.
 - To Import data from Artsy API, Menu Admin->Importar Dados da Arsty API.
 - To delete All Data Imported from Artsy API, Menu Admin->Limpar Dados da Arsty API.
 
-  video
-
+<br>
 <h2 id="artsy">📍 Artsy API</h2>
 
 About Artsy API
