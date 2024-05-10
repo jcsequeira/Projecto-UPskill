@@ -70,7 +70,8 @@ How to start the App:
 <br>
 <h2 id="artsy">📍 Artsy API</h2>
 
-About Artsy API
+[Artsy API](https://developers.artsy.net/v2/) is an API to obtain data from the [https://www.artsy.net/](https://www.artsy.net/) website that has real world data, about Artworks, Artists, Gallerys, Events, Auctions and so on.
+In this project, artsy data was used to populate the App database for testing purposes.
 
 
 
