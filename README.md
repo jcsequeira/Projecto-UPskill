@@ -16,14 +16,16 @@
 
 This is a final course project, so is not optimized, what was asked:
 Create a JavaFX Desktop App for a Gallerys to keep track of their Artwork, Shows, and maybe some extra funciolities.<br>
-Warning: The full App is the Portuguese Language, but maybe one day will be updated to English.
+Warning: The full App is the Portuguese Language, but maybe one day will be updated to English, or a implemented Java Internationalization (*.properties) for practice.
 <br>
 <h3>Our Approach Designing this project:</h3>
-<h4>We decided to divide the App in 3 mini apps:</h4>
+<h4>We decided to divide the App in 3 mini-apps:</h4>
 
-- ArtsyLoader: preenche a base de dados, TBD
-- ExplorArt: Main JavaFX Desktop App
-- RestAPI: A Rest API made with SparkJava Framework that will do ALL CRUD operations on the MySQL local database
+
+- **ExplorArt**: Main JavaFX Desktop App, the frontend, it will start the RestAPI server on start up and wait until its ready and only they initialize the GUI, will also stop the server on exit.
+- **RestAPI**: A Rest API made with SparkJava Framework that will do ALL CRUD operations on the MySQL local database, no JPA/Hibernate or any ORM framework was used, only java sql, jbdc and Gson libarys.
+- **ArtsyLoader**: The most insterting work of this project, this app will make GET requests to the Artsy API online, with a lot of elements in one JSON, perform a Data Object Conversion, along with other necessary operations and POST requests on our RestAPI.<br>
+ It makes use of streams, generics, collections framework, threads and parsing to perform the necessary algoritms. 
 
 
 
